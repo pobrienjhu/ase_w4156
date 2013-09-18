@@ -1,0 +1,156 @@
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/C:/Users/NBKAW8L/.ivy2/cache/ch.qos.logback/logback-classic/jars/logback-classic-1.0.13.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/C:/Users/NBKAW8L/.ivy2/cache/org.slf4j/slf4j-jdk14/jars/slf4j-jdk14-1.6.4.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+14:30:10,294 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Could NOT find resource [logback.groovy]
+14:30:10,294 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Could NOT find resource [logback-test.xml]
+14:30:10,295 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Found resource [logback.xml] at [file:/C:/Dev/workspaces/java/algorithms/ASE%20-%20AuctionHouse%20-%201/bin/logback.xml]
+14:30:10,393 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - About to instantiate appender of type [ch.qos.logback.core.ConsoleAppender]
+14:30:10,396 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - Naming appender as [STDOUT]
+14:30:10,419 |-INFO in ch.qos.logback.core.joran.action.NestedComplexPropertyIA - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+14:30:10,462 |-INFO in ch.qos.logback.classic.joran.action.RootLoggerAction - Setting level of ROOT logger to INFO
+14:30:10,462 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [STDOUT] to Logger[ROOT]
+14:30:10,463 |-INFO in ch.qos.logback.classic.joran.action.ConfigurationAction - End of configuration.
+14:30:10,464 |-INFO in ch.qos.logback.classic.joran.JoranConfigurator@63709dc6 - Registering current configuration as safe fallback point
+SLF4J: Actual binding is of type [ch.qos.logback.classic.util.ContextSelectorStaticBinder]
+14:30:10.474 [main] WARN  jacorb.config - no properties found for configuration jacorb
+14:30:10.483 [main] INFO  jacorb.orb.singleton - created ORBSingleton
+14:30:10.483 [main] WARN  jacorb.orb.singleton - OMG.ORB classloader does not match JacORB ORBSingleton classloader. This may cause problems; see the ProgrammingGuide for further details
+14:30:10.484 [main] WARN  jacorb.config - no properties found for configuration jacorb
+14:30:10.485 [main] INFO  jacorb.orb.singleton - created ORBSingleton
+14:30:10.485 [main] WARN  jacorb.orb.singleton - OMG.ORB classloader does not match JacORB ORBSingleton classloader. This may cause problems; see the ProgrammingGuide for further details
+14:30:10.503 [main] INFO  jacorb.orb.interceptors - InterceptorManager started with 1 Server Interceptors, 1 Client Interceptors and 0 IOR Interceptors
+14:30:10.518 [main] WARN  jacorb.codeset - Warning - unknown codeset (Cp1252) - defaulting to ISO-8859-1
+14:30:10.636 [main] INFO  jacorb.poa - oid: 00 03 42 1B 41 3D 43 38 30 2D 24 3D 07 1F 1F 2A 46 24 28 1F ..B.A=C80-$=...*F$(.object is activated
+14:30:10.636 [main] INFO  jacorb.poa - Using server ID (7634734057) for transient POA
+14:30:10.644 [main] INFO  jacorb.orb.giop - ClientConnectionManager: created new ClientGIOPConnection to 171.141.203.120:52083 (2d3584f9)
+14:30:10.658 [main] INFO  jacorb.orb.iiop - Connected to 171.141.203.120:52083 from local port 52085
+14:30:10.694 [ServerSocketListener] INFO  jacorb.orb.iiop - Opened new server-side TCP/IP transport to 171.141.203.120:52086
+Regestration complete! id 0 assigned!
+Welcome to the Auction House!
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+1
+Nothing for Sale yet!
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+1
+Current active auctions:
+	Auction |4| for item |Item 3| condition: |New| current price: |75.0|
+	Auction |5| for item |Item 3| condition: |New| current price: |89.0|
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+2
+
+Enter the id of the auction you wish to bid on:
+4
+Enter the price you wish to bid:
+76
+Bid of 76.0 accepted for auction 4
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+1
+Current active auctions:
+	Auction |1| for item |Item 1| condition: |New| current price: |105.0|
+	Auction |2| for item |Item 2| condition: |Used| current price: |99.0|
+	Auction |4| for item |Item 3| condition: |New| current price: |77.0|
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+2
+
+Enter the id of the auction you wish to bid on:
+2
+Enter the price you wish to bid:
+108
+Bid of 108.0 accepted for auction 2
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+1
+Current active auctions:
+	Auction |1| for item |Item 1| condition: |New| current price: |105.0|
+	Auction |2| for item |Item 2| condition: |Used| current price: |108.0|
+	Auction |3| for item |Item 2| condition: |New| current price: |150.0|
+	Auction |4| for item |Item 3| condition: |New| current price: |77.0|
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+1
+Current active auctions:
+	Auction |1| for item |Item 1| condition: |New| current price: |105.0|
+	Auction |2| for item |Item 2| condition: |Used| current price: |108.0|
+	Auction |3| for item |Item 2| condition: |New| current price: |175.0|
+	Auction |4| for item |Item 3| condition: |New| current price: |77.0|
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+2
+
+Enter the id of the auction you wish to bid on:
+1
+Enter the price you wish to bid:
+106
+Bid of 106.0 accepted for auction 1
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+1
+Current active auctions:
+	Auction |1| for item |Item 1| condition: |New| current price: |106.0|
+	Auction |2| for item |Item 2| condition: |Used| current price: |108.0|
+	Auction |3| for item |Item 2| condition: |New| current price: |175.0|
+	Auction |4| for item |Item 3| condition: |New| current price: |77.0|
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+2
+
+Enter the id of the auction you wish to bid on:
+4
+Enter the price you wish to bid:
+79
+Bid of 79.0 accepted for auction 4
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+You have won auction 2 for price 108.0
+1
+Current active auctions:
+	Auction |1| for item |Item 1| condition: |New| current price: |106.0|
+	Auction |3| for item |Item 2| condition: |New| current price: |175.0|
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+You have won auction 1 for price 106.0
+1
+Current active auctions:
+	Auction |3| for item |Item 2| condition: |New| current price: |175.0|
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+1
+Current active auctions:
+	Auction |3| for item |Item 2| condition: |New| current price: |175.0|
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+14:39:25.251 [ClientMessageReceptor0] INFO  jacorb.orb.iiop - Client-side TCP transport to 171.141.203.120:52083 closed.
+14:39:25.251 [ServerMessageReceptor0] INFO  jacorb.orb.iiop - Closed server-side transport to 171.141.203.120:52086

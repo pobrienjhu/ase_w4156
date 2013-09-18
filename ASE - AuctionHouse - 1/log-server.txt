@@ -1,0 +1,107 @@
+Sep 06, 2013 2:30:04 PM org.springframework.context.support.AbstractApplicationContext prepareRefresh
+INFO: Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@711dc088: startup date [Fri Sep 06 14:30:04 EDT 2013]; root of context hierarchy
+Sep 06, 2013 2:30:05 PM org.springframework.beans.factory.xml.XmlBeanDefinitionReader loadBeanDefinitions
+INFO: Loading XML bean definitions from class path resource [config/spring-config.xml]
+Sep 06, 2013 2:30:05 PM org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons
+INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@554cf7d6: defining beans [AuctionHouseDataSource,AuctionHouse,AuctionHouseTimer,AuctionHouseAuctionCapture]; root of factory hierarchy
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/C:/Users/NBKAW8L/.ivy2/cache/ch.qos.logback/logback-classic/jars/logback-classic-1.0.13.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/C:/Users/NBKAW8L/.ivy2/cache/org.slf4j/slf4j-jdk14/jars/slf4j-jdk14-1.6.4.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+14:30:05,140 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Could NOT find resource [logback.groovy]
+14:30:05,140 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Could NOT find resource [logback-test.xml]
+14:30:05,140 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Found resource [logback.xml] at [file:/C:/Dev/workspaces/java/algorithms/ASE%20-%20AuctionHouse%20-%201/bin/logback.xml]
+14:30:05,203 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - About to instantiate appender of type [ch.qos.logback.core.ConsoleAppender]
+14:30:05,207 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - Naming appender as [STDOUT]
+14:30:05,222 |-INFO in ch.qos.logback.core.joran.action.NestedComplexPropertyIA - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+14:30:05,253 |-INFO in ch.qos.logback.classic.joran.action.RootLoggerAction - Setting level of ROOT logger to INFO
+14:30:05,253 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [STDOUT] to Logger[ROOT]
+14:30:05,254 |-INFO in ch.qos.logback.classic.joran.action.ConfigurationAction - End of configuration.
+14:30:05,255 |-INFO in ch.qos.logback.classic.joran.JoranConfigurator@46d74af3 - Registering current configuration as safe fallback point
+SLF4J: Actual binding is of type [ch.qos.logback.classic.util.ContextSelectorStaticBinder]
+14:30:05.296 [Thread-1] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - AuctionHouse Server started ... 
+14:30:05.297 [main] INFO  e.c.a.a.c.a.i.AuctionHouseQuartzTimer - Staring Auction House Timer ...
+14:30:05.337 [main] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+14:30:05.339 [main] INFO  org.quartz.simpl.SimpleThreadPool - Job execution threads will use class loader of thread: main
+14:30:05.351 [main] INFO  o.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+14:30:05.354 [main] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.0.2 created.
+14:30:05.355 [main] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+14:30:05.355 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.0.2) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+14:30:05.355 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'DefaultQuartzScheduler' initialized from default resource file in Quartz package: 'quartz.properties'
+14:30:05.355 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.0.2
+14:30:05.356 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started.
+14:30:05.369 [main] INFO  e.c.a.a.c.a.i.AuctionHouseJSONAuctionCapture - Successfully loaded item file |/resources/Items.json|
+14:30:05.369 [main] INFO  e.c.a.a.c.a.i.AuctionHouseJSONAuctionCapture - Successfully loaded auction file |/resources/Auctions.json|
+14:30:05.369 [main] INFO  e.c.a.a.c.a.i.AuctionHouseJSONAuctionCapture - Loading Auction Items...
+14:30:05.501 [main] WARN  e.c.a.a.c.a.i.AuctionHouseJSONAuctionCapture - Invalid item root cause (Unable to add AuctionItem with id |4| and name |Item 4 - Duplicate|. Item id already exists)
+14:30:05.501 [main] INFO  e.c.a.a.c.a.i.AuctionHouseJSONAuctionCapture - Auction Items Loaded...
+14:30:05.501 [main] INFO  e.c.a.a.c.a.i.AuctionHouseJSONAuctionCapture - Loading Auctions...
+14:30:05.538 [main] INFO  e.c.a.a.c.a.i.AuctionHouseQuartzTimer - Scheduled auction 1 start time for Fri Sep 06 14:32:05 EDT 2013
+14:30:05.539 [main] INFO  e.c.a.a.c.a.i.AuctionHouseQuartzTimer - Scheduled auction 1 end time for Fri Sep 06 14:37:05 EDT 2013
+14:30:05.540 [main] INFO  e.c.a.a.c.a.i.AuctionHouseQuartzTimer - Scheduled auction 2 start time for Fri Sep 06 14:32:05 EDT 2013
+14:30:05.540 [main] INFO  e.c.a.a.c.a.i.AuctionHouseQuartzTimer - Scheduled auction 2 end time for Fri Sep 06 14:36:05 EDT 2013
+14:30:05.541 [main] INFO  e.c.a.a.c.a.i.AuctionHouseQuartzTimer - Scheduled auction 3 start time for Fri Sep 06 14:33:05 EDT 2013
+14:30:05.541 [main] INFO  e.c.a.a.c.a.i.AuctionHouseQuartzTimer - Scheduled auction 3 end time for Fri Sep 06 14:39:05 EDT 2013
+14:30:05.542 [main] INFO  e.c.a.a.c.a.i.AuctionHouseQuartzTimer - Scheduled auction 4 start time for Fri Sep 06 14:31:05 EDT 2013
+14:30:05.543 [main] INFO  e.c.a.a.c.a.i.AuctionHouseQuartzTimer - Scheduled auction 4 end time for Fri Sep 06 14:36:05 EDT 2013
+14:30:05.543 [main] INFO  e.c.a.a.c.a.i.AuctionHouseQuartzTimer - Scheduled auction 5 start time for Fri Sep 06 14:31:05 EDT 2013
+14:30:05.544 [main] INFO  e.c.a.a.c.a.i.AuctionHouseQuartzTimer - Scheduled auction 5 end time for Fri Sep 06 14:32:05 EDT 2013
+14:30:05.544 [main] WARN  e.c.a.a.c.a.i.AuctionHouseJSONAuctionCapture - Invalid auction root cause (Unable to retrieve AuctionItem with id |88| does not exists)
+14:30:05.544 [main] INFO  e.c.a.a.c.a.i.AuctionHouseJSONAuctionCapture - Auctions Loaded...
+14:30:05.572 [main] WARN  jacorb.config - no properties found for configuration jacorb
+14:30:05.576 [main] INFO  jacorb.orb.singleton - created ORBSingleton
+14:30:05.576 [main] WARN  jacorb.orb.singleton - OMG.ORB classloader does not match JacORB ORBSingleton classloader. This may cause problems; see the ProgrammingGuide for further details
+14:30:05.577 [main] WARN  jacorb.config - no properties found for configuration jacorb
+14:30:05.577 [main] INFO  jacorb.orb.singleton - created ORBSingleton
+14:30:05.577 [main] WARN  jacorb.orb.singleton - OMG.ORB classloader does not match JacORB ORBSingleton classloader. This may cause problems; see the ProgrammingGuide for further details
+14:30:05.597 [main] INFO  jacorb.orb.interceptors - InterceptorManager started with 1 Server Interceptors, 1 Client Interceptors and 0 IOR Interceptors
+14:30:05.662 [main] INFO  jacorb.poa - oid: 00 03 42 1B 3D 06 30 4C 14 07 10 06 30 46 38 14 14 1B 48 4C ..B.=.0L....0F8...HL1B                                                          .object is activated
+14:30:05.663 [main] INFO  jacorb.poa - Using server ID (4349474076) for transient POA
+14:30:05.671 [main] WARN  jacorb.codeset - Warning - unknown codeset (Cp1252) - defaulting to ISO-8859-1
+14:30:05.709 [main] INFO  jacorb.orb - ORB run
+14:30:10.661 [ServerSocketListener] INFO  jacorb.orb.iiop - Opened new server-side TCP/IP transport to 171.141.203.120:52085
+14:30:10.686 [RequestProcessor-5] INFO  jacorb.orb.giop - ClientConnectionManager: created new ClientGIOPConnection to 171.141.203.120:52084 (7ed655a8)
+14:30:10.692 [RequestProcessor-5] INFO  jacorb.orb.iiop - Connected to 171.141.203.120:52084 from local port 52086
+14:30:18.659 [ServerSocketListener] INFO  jacorb.orb.iiop - Opened new server-side TCP/IP transport to 171.141.203.120:52088
+14:30:18.660 [RequestProcessor-5] INFO  jacorb.orb.giop - ClientConnectionManager: created new ClientGIOPConnection to 171.141.203.120:52087 (74bf1f08)
+14:30:18.662 [RequestProcessor-5] INFO  jacorb.orb.iiop - Connected to 171.141.203.120:52087 from local port 52089
+14:30:26.150 [ServerSocketListener] INFO  jacorb.orb.iiop - Opened new server-side TCP/IP transport to 171.141.203.120:52091
+14:30:26.152 [RequestProcessor-5] INFO  jacorb.orb.giop - ClientConnectionManager: created new ClientGIOPConnection to 171.141.203.120:52090 (3f9eb1da)
+14:30:26.153 [RequestProcessor-5] INFO  jacorb.orb.iiop - Connected to 171.141.203.120:52090 from local port 52092
+14:31:05.511 [DefaultQuartzScheduler_Worker-2] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - start auction |5| @ Fri Sep 06 14:31:05 EDT 2013
+14:31:05.511 [DefaultQuartzScheduler_Worker-1] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - start auction |4| @ Fri Sep 06 14:31:05 EDT 2013
+14:31:19.814 [RequestProcessor-5] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - Recieved Bid AuctionBid [auctionId=5, customerId=2, bidAmount=56.0, bidTime=Fri Sep 06 14:31:19 EDT 2013]
+14:31:19.815 [RequestProcessor-5] ERROR e.c.a.a.c.app.impl.AuctionHouseImpl - Unable to process bid. Root Cause (java.lang.Exception: Bid of 56.0 is less then the current auction price of 78.0)
+14:31:19.815 [RequestProcessor-5] ERROR e.c.a.a.corba.AuctionHouseCorbaImpl - Invalid Bid. Root Cause (Bid of 56.0 is less then the current auction price of 78.0)
+14:31:29.990 [RequestProcessor-5] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - Recieved Bid AuctionBid [auctionId=5, customerId=2, bidAmount=89.0, bidTime=Fri Sep 06 14:31:29 EDT 2013]
+14:31:49.958 [RequestProcessor-5] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - Recieved Bid AuctionBid [auctionId=4, customerId=0, bidAmount=76.0, bidTime=Fri Sep 06 14:31:49 EDT 2013]
+14:32:03.647 [RequestProcessor-5] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - Recieved Bid AuctionBid [auctionId=4, customerId=1, bidAmount=77.0, bidTime=Fri Sep 06 14:32:03 EDT 2013]
+14:32:05.506 [DefaultQuartzScheduler_Worker-3] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - end auction |5| @ Fri Sep 06 14:32:05 EDT 2013
+14:32:05.514 [DefaultQuartzScheduler_Worker-5] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - start auction |1| @ Fri Sep 06 14:32:05 EDT 2013
+14:32:05.514 [DefaultQuartzScheduler_Worker-4] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - start auction |2| @ Fri Sep 06 14:32:05 EDT 2013
+14:32:05.514 [DefaultQuartzScheduler_Worker-3] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - Auction 5 won by customer 2
+14:32:55.759 [RequestProcessor-5] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - Recieved Bid AuctionBid [auctionId=1, customerId=2, bidAmount=105.0, bidTime=Fri Sep 06 14:32:55 EDT 2013]
+14:33:05.507 [DefaultQuartzScheduler_Worker-6] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - start auction |3| @ Fri Sep 06 14:33:05 EDT 2013
+14:33:21.121 [RequestProcessor-5] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - Recieved Bid AuctionBid [auctionId=2, customerId=0, bidAmount=108.0, bidTime=Fri Sep 06 14:33:21 EDT 2013]
+14:33:49.256 [RequestProcessor-5] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - Recieved Bid AuctionBid [auctionId=3, customerId=2, bidAmount=110.0, bidTime=Fri Sep 06 14:33:49 EDT 2013]
+14:33:49.256 [RequestProcessor-5] ERROR e.c.a.a.c.app.impl.AuctionHouseImpl - Unable to process bid. Root Cause (java.lang.Exception: Bid of 110.0 is less then the current auction price of 150.0)
+14:33:49.256 [RequestProcessor-5] ERROR e.c.a.a.corba.AuctionHouseCorbaImpl - Invalid Bid. Root Cause (Bid of 110.0 is less then the current auction price of 150.0)
+14:34:04.081 [RequestProcessor-5] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - Recieved Bid AuctionBid [auctionId=3, customerId=2, bidAmount=175.0, bidTime=Fri Sep 06 14:34:04 EDT 2013]
+14:34:23.306 [RequestProcessor-5] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - Recieved Bid AuctionBid [auctionId=1, customerId=0, bidAmount=106.0, bidTime=Fri Sep 06 14:34:23 EDT 2013]
+14:34:39.969 [RequestProcessor-5] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - Recieved Bid AuctionBid [auctionId=4, customerId=0, bidAmount=79.0, bidTime=Fri Sep 06 14:34:39 EDT 2013]
+14:35:00.018 [RequestProcessor-5] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - Recieved Bid AuctionBid [auctionId=4, customerId=1, bidAmount=81.45, bidTime=Fri Sep 06 14:35:00 EDT 2013]
+14:36:05.506 [DefaultQuartzScheduler_Worker-7] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - end auction |2| @ Fri Sep 06 14:36:05 EDT 2013
+14:36:05.506 [DefaultQuartzScheduler_Worker-8] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - end auction |4| @ Fri Sep 06 14:36:05 EDT 2013
+14:36:05.506 [DefaultQuartzScheduler_Worker-7] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - Auction 2 won by customer 0
+14:36:05.506 [DefaultQuartzScheduler_Worker-8] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - Auction 4 won by customer 1
+14:37:05.508 [DefaultQuartzScheduler_Worker-9] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - end auction |1| @ Fri Sep 06 14:37:05 EDT 2013
+14:37:05.508 [DefaultQuartzScheduler_Worker-9] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - Auction 1 won by customer 0
+14:39:05.507 [DefaultQuartzScheduler_Worker-10] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - end auction |3| @ Fri Sep 06 14:39:05 EDT 2013
+14:39:05.507 [DefaultQuartzScheduler_Worker-10] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - Auction 3 won by customer 2
