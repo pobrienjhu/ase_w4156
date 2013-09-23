@@ -1,0 +1,43 @@
+C:\DevApps\apache-activemq-5.7.0\bin>activemq.bat
+Java Runtime: Sun Microsystems Inc. 1.6.0_45 C:\DevApps\Java\jdk1.6.0_45\jre
+  Heap sizes: current=1004928k  free=994439k  max=1004928k
+    JVM args: -Dcom.sun.management.jmxremote -Xms1G -Xmx1G -Djava.util.logging.config.file=logging.properties -Dactivemq.classpath=C:\DevApps\apache-activemq-5.7.0\bin\..\conf;C:\DevApps\apache-activemq-5.7.0\bin\../conf;C:\DevApps\apache-activemq-5.7.0\bin\../conf; -Dactivemq.home=C:\DevApps\apache-activemq-5.7.0\bin\.. -Dactivemq.base=C:\DevApps\apache-activemq-5.7.0\bin\.. -Dactivemq.conf=C:\DevApps\apache-activemq-5.7.0\bin\..\conf -Dactivemq.data=C:\DevApps\apache-activemq-5.7.0\bin\..\data -Djava.io.tmpdir=C:\DevApps\apache-activemq-5.7.0\bin\..\data\tmp
+Extensions classpath:
+  [C:\DevApps\apache-activemq-5.7.0\bin\..\lib,C:\DevApps\apache-activemq-5.7.0\bin\..\lib\camel,C:\DevApps\apache-activemq-5.7.0\bin\..\lib\optional,C:\DevApps\apache-activemq-5.7.0\bin\..\lib\web,C:\DevApps\apache-activemq-5.7.0\bin\..\lib\extra]
+ACTIVEMQ_HOME: C:\DevApps\apache-activemq-5.7.0\bin\..
+ACTIVEMQ_BASE: C:\DevApps\apache-activemq-5.7.0\bin\..
+ACTIVEMQ_CONF: C:\DevApps\apache-activemq-5.7.0\bin\..\conf
+ACTIVEMQ_DATA: C:\DevApps\apache-activemq-5.7.0\bin\..\data
+Loading message broker from: xbean:activemq.xml
+ INFO | Refreshing org.apache.activemq.xbean.XBeanBrokerFactory$1@44d3db51: startup date [Wed Sep 18 13:20:00 EDT 2013]; root of context hierarchy
+ INFO | PListStore:[C:\DevApps\apache-activemq-5.7.0\bin\..\data\localhost\tmp_storage] started
+ INFO | Using Persistence Adapter: KahaDBPersistenceAdapter[C:\DevApps\apache-activemq-5.7.0\bin\..\data\kahadb]
+ INFO | KahaDB is version 4
+ INFO | Recovering from the journal ...
+ INFO | Recovery replayed 1 operations from the journal in 0.0080 seconds.
+ INFO | Apache ActiveMQ 5.7.0 (localhost, ID:F6C3BE539D0A7-51450-1379524802087-0:1) is starting
+ INFO | Listening for connections at: tcp://F6C3BE539D0A7:61616?maximumConnections=1000&wireformat.maxFrameSize=104857600
+ INFO | Connector openwire Started
+ INFO | Apache ActiveMQ 5.7.0 (localhost, ID:F6C3BE539D0A7-51450-1379524802087-0:1) started
+ INFO | For help or more information please see: http://activemq.apache.org
+ INFO | jetty-7.6.7.v20120910
+ INFO | ActiveMQ WebConsole initialized.
+ INFO | started o.e.j.w.WebAppContext{/admin,file:/C:/DevApps/apache-activemq-5.7.0/webapps/admin/}
+ INFO | Initializing Spring FrameworkServlet 'dispatcher'
+ INFO | ActiveMQ Console at http://0.0.0.0:8161/admin
+ INFO | started o.e.j.w.WebAppContext{/demo,file:/C:/DevApps/apache-activemq-5.7.0/webapps/demo/}
+ INFO | Apache ActiveMQ Web Demo at http://0.0.0.0:8161/demo
+ INFO | started o.e.j.w.WebAppContext{/fileserver,file:/C:/DevApps/apache-activemq-5.7.0/webapps/fileserver/}
+ INFO | RESTful file access application at http://0.0.0.0:8161/fileserver
+ INFO | Started SelectChannelConnector@0.0.0.0:8161
+
+
+
+
+
+
+
+
+
+
+

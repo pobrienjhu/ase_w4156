@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="ejbModule"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.7.0_25">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="con" path="org.apache.ivyde.eclipse.cpcontainer.IVYDE_CONTAINER/?project=ASE+-+AuctionHouse+-+2+-+Client&amp;ivyXmlPath=build%2Fivy.xml&amp;confs=*"/>
+	<classpathentry kind="lib" path="C:/DevApps/jboss-eap-6.1/bin/client/jboss-cli-client.jar"/>
+	<classpathentry kind="lib" path="C:/DevApps/jboss-eap-6.1/bin/client/jboss-client.jar"/>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>

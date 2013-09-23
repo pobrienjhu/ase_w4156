@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="AuctionHouse-EJB">
+        <wb-resource deploy-path="/" source-path="/ejbModule" tag="defaultRootSource"/>
+        <property name="java-output-path" value="/ASE - AuctionHouse - 2/build/classes"/>
+        <property name="ClientProject" value="ASE - AuctionHouse - 2 - Client"/>
+        <property name="ClientJARURI" value="ASE_-_AuctionHouse_-_2_-_Client.jar"/>
+    </wb-module>
+</project-modules>

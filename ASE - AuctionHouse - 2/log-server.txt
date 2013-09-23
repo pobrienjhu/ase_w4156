@@ -1,0 +1,166 @@
+13:20:44,399 INFO  [org.jboss.modules] (main) JBoss Modules version 1.2.0.Final-redhat-1
+13:20:44,554 INFO  [org.jboss.msc] (main) JBoss MSC version 1.0.4.GA-redhat-1
+13:20:44,600 INFO  [org.jboss.as] (MSC service thread 1-6) JBAS015899: JBoss EAP 6.1.0.GA (AS 7.2.0.Final-redhat-8) starting
+13:20:45,234 INFO  [org.jboss.as.server.deployment.scanner] (DeploymentScanner-threads - 1) JBAS015003: Found ASE - AuctionHouse - 2 - EAR.ear in deployment directory. To trigger deployment create a file called ASE - AuctionHouse - 2 - EAR.ear.dodeploy
+13:20:45,249 INFO  [org.xnio] (MSC service thread 1-9) XNIO Version 3.0.7.GA-redhat-1
+13:20:45,251 INFO  [org.jboss.as.server] (Controller Boot Thread) JBAS015888: Creating http management service using socket-binding (management-http)
+13:20:45,254 INFO  [org.xnio.nio] (MSC service thread 1-9) XNIO NIO Implementation Version 3.0.7.GA-redhat-1
+13:20:45,260 INFO  [org.jboss.remoting] (MSC service thread 1-9) JBoss Remoting version 3.2.16.GA-redhat-1
+13:20:45,285 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 29) JBAS010280: Activating Infinispan subsystem.
+13:20:45,289 INFO  [org.jboss.as.naming] (ServerService Thread Pool -- 37) JBAS011800: Activating Naming Subsystem
+13:20:45,291 INFO  [org.jboss.as.security] (ServerService Thread Pool -- 42) JBAS013171: Activating Security Subsystem
+13:20:45,293 INFO  [org.jboss.as.jsf] (ServerService Thread Pool -- 35) JBAS012605: Activated the following JSF Implementations: [main, 1.2]
+13:20:45,293 INFO  [org.jboss.as.webservices] (ServerService Thread Pool -- 46) JBAS015537: Activating WebServices Extension
+13:20:45,317 INFO  [org.jboss.as.security] (MSC service thread 1-12) JBAS013170: Current PicketBox version=4.0.17.Final-redhat-1
+13:20:45,334 INFO  [org.jboss.as.connector.logging] (MSC service thread 1-14) JBAS010408: Starting JCA Subsystem (IronJacamar 1.0.17.Final-redhat-1)
+13:20:45,368 INFO  [org.jboss.as.naming] (MSC service thread 1-14) JBAS011802: Starting Naming Service
+13:20:45,371 INFO  [org.jboss.as.mail.extension] (MSC service thread 1-5) JBAS015400: Bound mail session [java:jboss/mail/Default]
+13:20:45,449 INFO  [org.jboss.as.connector.subsystems.datasources] (ServerService Thread Pool -- 25) JBAS010403: Deploying JDBC-compliant driver class org.h2.Driver (version 1.3)
+13:20:45,468 INFO  [org.jboss.ws.common.management] (MSC service thread 1-13) JBWS022052: Starting JBoss Web Services - Stack CXF Server 4.1.3.Final-redhat-3
+13:20:45,514 INFO  [org.apache.coyote.http11] (MSC service thread 1-2) JBWEB003001: Coyote HTTP/1.1 initializing on : http-localhost/127.0.0.1:8080
+13:20:45,519 INFO  [org.apache.coyote.http11] (MSC service thread 1-2) JBWEB003000: Coyote HTTP/1.1 starting on: http-localhost/127.0.0.1:8080
+13:20:45,600 INFO  [org.jboss.as.server.deployment.scanner] (MSC service thread 1-16) JBAS015012: Started FileSystemDeploymentService for directory C:\DevApps\jboss-eap-6.1\standalone\deployments
+13:20:45,602 INFO  [org.jboss.as.remoting] (MSC service thread 1-2) JBAS017100: Listening on 127.0.0.1:4447
+13:20:45,602 INFO  [org.jboss.as.remoting] (MSC service thread 1-12) JBAS017100: Listening on 127.0.0.1:9999
+13:20:45,603 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-9) JBAS015876: Starting deployment of "ASE - AuctionHouse - 2 - EAR.ear" (runtime-name: "ASE - AuctionHouse - 2 - EAR.ear")
+13:20:45,615 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-2) JBAS010400: Bound data source [java:jboss/datasources/ExampleDS]
+13:20:46,261 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-1) JBAS015876: Starting deployment of "null" (runtime-name: "ASE_-_AuctionHouse_-_2.jar")
+13:20:46,401 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-2) JNDI bindings for session bean named AuctionHouseJSONAuctionCapture in deployment unit subdeployment "ASE_-_AuctionHouse_-_2.jar" of deployment "ASE - AuctionHouse - 2 - EAR.ear" are as follows:
+
+	java:global/ASE - AuctionHouse - 2 - EAR/ASE_-_AuctionHouse_-_2/AuctionHouseJSONAuctionCapture!edu.columbia.ase.auctionhouse.ejb.app.AuctionHouseAuctionCapture
+	java:app/ASE_-_AuctionHouse_-_2/AuctionHouseJSONAuctionCapture!edu.columbia.ase.auctionhouse.ejb.app.AuctionHouseAuctionCapture
+	java:module/AuctionHouseJSONAuctionCapture!edu.columbia.ase.auctionhouse.ejb.app.AuctionHouseAuctionCapture
+	java:global/ASE - AuctionHouse - 2 - EAR/ASE_-_AuctionHouse_-_2/AuctionHouseJSONAuctionCapture
+	java:app/ASE_-_AuctionHouse_-_2/AuctionHouseJSONAuctionCapture
+	java:module/AuctionHouseJSONAuctionCapture
+
+13:20:46,402 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-2) JNDI bindings for session bean named AuctionHouseWinningMQPublisher in deployment unit subdeployment "ASE_-_AuctionHouse_-_2.jar" of deployment "ASE - AuctionHouse - 2 - EAR.ear" are as follows:
+
+	java:global/ASE - AuctionHouse - 2 - EAR/ASE_-_AuctionHouse_-_2/AuctionHouseWinningMQPublisher!edu.columbia.ase.auctionhouse.ejb.app.AuctionHouseWinningPublisher
+	java:app/ASE_-_AuctionHouse_-_2/AuctionHouseWinningMQPublisher!edu.columbia.ase.auctionhouse.ejb.app.AuctionHouseWinningPublisher
+	java:module/AuctionHouseWinningMQPublisher!edu.columbia.ase.auctionhouse.ejb.app.AuctionHouseWinningPublisher
+	java:global/ASE - AuctionHouse - 2 - EAR/ASE_-_AuctionHouse_-_2/AuctionHouseWinningMQPublisher
+	java:app/ASE_-_AuctionHouse_-_2/AuctionHouseWinningMQPublisher
+	java:module/AuctionHouseWinningMQPublisher
+
+13:20:46,402 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-2) JNDI bindings for session bean named AuctionHouseMapDataSource in deployment unit subdeployment "ASE_-_AuctionHouse_-_2.jar" of deployment "ASE - AuctionHouse - 2 - EAR.ear" are as follows:
+
+	java:global/ASE - AuctionHouse - 2 - EAR/ASE_-_AuctionHouse_-_2/AuctionHouseMapDataSource!edu.columbia.ase.auctionhouse.ejb.app.AuctionHouseDataSource
+	java:app/ASE_-_AuctionHouse_-_2/AuctionHouseMapDataSource!edu.columbia.ase.auctionhouse.ejb.app.AuctionHouseDataSource
+	java:module/AuctionHouseMapDataSource!edu.columbia.ase.auctionhouse.ejb.app.AuctionHouseDataSource
+	java:global/ASE - AuctionHouse - 2 - EAR/ASE_-_AuctionHouse_-_2/AuctionHouseMapDataSource
+	java:app/ASE_-_AuctionHouse_-_2/AuctionHouseMapDataSource
+	java:module/AuctionHouseMapDataSource
+
+13:20:46,402 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-2) JNDI bindings for session bean named AuctionHouseEjbTimer in deployment unit subdeployment "ASE_-_AuctionHouse_-_2.jar" of deployment "ASE - AuctionHouse - 2 - EAR.ear" are as follows:
+
+	java:global/ASE - AuctionHouse - 2 - EAR/ASE_-_AuctionHouse_-_2/AuctionHouseEjbTimer!edu.columbia.ase.auctionhouse.ejb.app.AuctionHouseTimer
+	java:app/ASE_-_AuctionHouse_-_2/AuctionHouseEjbTimer!edu.columbia.ase.auctionhouse.ejb.app.AuctionHouseTimer
+	java:module/AuctionHouseEjbTimer!edu.columbia.ase.auctionhouse.ejb.app.AuctionHouseTimer
+	java:global/ASE - AuctionHouse - 2 - EAR/ASE_-_AuctionHouse_-_2/AuctionHouseEjbTimer
+	java:app/ASE_-_AuctionHouse_-_2/AuctionHouseEjbTimer
+	java:module/AuctionHouseEjbTimer
+
+13:20:46,402 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-2) JNDI bindings for session bean named StartAuctionTimerImpl in deployment unit subdeployment "ASE_-_AuctionHouse_-_2.jar" of deployment "ASE - AuctionHouse - 2 - EAR.ear" are as follows:
+
+	java:global/ASE - AuctionHouse - 2 - EAR/ASE_-_AuctionHouse_-_2/StartAuctionTimerImpl!edu.columbia.ase.auctionhouse.ejb.app.timer.StartAuctionTimer
+	java:app/ASE_-_AuctionHouse_-_2/StartAuctionTimerImpl!edu.columbia.ase.auctionhouse.ejb.app.timer.StartAuctionTimer
+	java:module/StartAuctionTimerImpl!edu.columbia.ase.auctionhouse.ejb.app.timer.StartAuctionTimer
+	java:global/ASE - AuctionHouse - 2 - EAR/ASE_-_AuctionHouse_-_2/StartAuctionTimerImpl
+	java:app/ASE_-_AuctionHouse_-_2/StartAuctionTimerImpl
+	java:module/StartAuctionTimerImpl
+
+13:20:46,403 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-2) JNDI bindings for session bean named AuctionHouseImpl in deployment unit subdeployment "ASE_-_AuctionHouse_-_2.jar" of deployment "ASE - AuctionHouse - 2 - EAR.ear" are as follows:
+
+	java:global/ASE - AuctionHouse - 2 - EAR/ASE_-_AuctionHouse_-_2/AuctionHouseImpl!edu.columbia.ase.auctionhouse.ejb.app.AuctionHouseRemote
+	java:app/ASE_-_AuctionHouse_-_2/AuctionHouseImpl!edu.columbia.ase.auctionhouse.ejb.app.AuctionHouseRemote
+	java:module/AuctionHouseImpl!edu.columbia.ase.auctionhouse.ejb.app.AuctionHouseRemote
+	java:jboss/exported/ASE - AuctionHouse - 2 - EAR/ASE_-_AuctionHouse_-_2/AuctionHouseImpl!edu.columbia.ase.auctionhouse.ejb.app.AuctionHouseRemote
+	java:global/ASE - AuctionHouse - 2 - EAR/ASE_-_AuctionHouse_-_2/AuctionHouseImpl!edu.columbia.ase.auctionhouse.ejb.app.AuctionHouseLocal
+	java:app/ASE_-_AuctionHouse_-_2/AuctionHouseImpl!edu.columbia.ase.auctionhouse.ejb.app.AuctionHouseLocal
+	java:module/AuctionHouseImpl!edu.columbia.ase.auctionhouse.ejb.app.AuctionHouseLocal
+
+13:20:46,403 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-2) JNDI bindings for session bean named EndAuctionTimerImpl in deployment unit subdeployment "ASE_-_AuctionHouse_-_2.jar" of deployment "ASE - AuctionHouse - 2 - EAR.ear" are as follows:
+
+	java:global/ASE - AuctionHouse - 2 - EAR/ASE_-_AuctionHouse_-_2/EndAuctionTimerImpl!edu.columbia.ase.auctionhouse.ejb.app.timer.EndAuctionTimer
+	java:app/ASE_-_AuctionHouse_-_2/EndAuctionTimerImpl!edu.columbia.ase.auctionhouse.ejb.app.timer.EndAuctionTimer
+	java:module/EndAuctionTimerImpl!edu.columbia.ase.auctionhouse.ejb.app.timer.EndAuctionTimer
+	java:global/ASE - AuctionHouse - 2 - EAR/ASE_-_AuctionHouse_-_2/EndAuctionTimerImpl
+	java:app/ASE_-_AuctionHouse_-_2/EndAuctionTimerImpl
+	java:module/EndAuctionTimerImpl
+
+13:20:46,577 ERROR [stderr] (ServerService Thread Pool -- 53) SLF4J: The following loggers will not work because they were created
+
+13:20:46,578 ERROR [stderr] (ServerService Thread Pool -- 53) SLF4J: during the default configuration phase of the underlying logging system.
+
+13:20:46,578 ERROR [stderr] (ServerService Thread Pool -- 53) SLF4J: See also http://www.slf4j.org/codes.html#substituteLogger
+
+13:20:46,578 ERROR [stderr] (ServerService Thread Pool -- 53) SLF4J: edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseJSONAuctionCapture
+
+13:20:46,579 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseWinningMQPublisher] (ServerService Thread Pool -- 53) Connecting to the MQ Server!
+13:20:46,664 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseEjbTimer] (ServerService Thread Pool -- 48) Scheduled auction 1 start time for Wed Sep 18 13:22:46 EDT 2013
+13:20:46,665 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseEjbTimer] (ServerService Thread Pool -- 48) Scheduled auction 1 end time for Wed Sep 18 13:27:46 EDT 2013
+13:20:46,665 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseEjbTimer] (ServerService Thread Pool -- 48) Scheduled auction 2 start time for Wed Sep 18 13:22:46 EDT 2013
+13:20:46,666 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseEjbTimer] (ServerService Thread Pool -- 48) Scheduled auction 2 end time for Wed Sep 18 13:26:46 EDT 2013
+13:20:46,666 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseEjbTimer] (ServerService Thread Pool -- 48) Scheduled auction 3 start time for Wed Sep 18 13:23:46 EDT 2013
+13:20:46,667 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseEjbTimer] (ServerService Thread Pool -- 48) Scheduled auction 3 end time for Wed Sep 18 13:29:46 EDT 2013
+13:20:46,667 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseEjbTimer] (ServerService Thread Pool -- 48) Scheduled auction 4 start time for Wed Sep 18 13:21:46 EDT 2013
+13:20:46,668 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseEjbTimer] (ServerService Thread Pool -- 48) Scheduled auction 4 end time for Wed Sep 18 13:26:46 EDT 2013
+13:20:46,668 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseEjbTimer] (ServerService Thread Pool -- 48) Scheduled auction 5 start time for Wed Sep 18 13:21:46 EDT 2013
+13:20:46,669 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseEjbTimer] (ServerService Thread Pool -- 48) Scheduled auction 5 end time for Wed Sep 18 13:22:46 EDT 2013
+13:20:46,817 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseWinningMQPublisher] (ServerService Thread Pool -- 53) Successfully Connected to the MQ Server!
+13:20:46,860 INFO  [org.jboss.as.server] (ServerService Thread Pool -- 26) JBAS018559: Deployed "ASE - AuctionHouse - 2 - EAR.ear" (runtime-name : "ASE - AuctionHouse - 2 - EAR.ear")
+13:20:46,877 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015961: Http management interface listening on http://127.0.0.1:9990/management
+13:20:46,878 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015951: Admin console listening on http://127.0.0.1:9990
+13:20:46,878 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015874: JBoss EAP 6.1.0.GA (AS 7.2.0.Final-redhat-8) started in 2783ms - Started 308 of 368 services (59 services are passive or on-demand)
+13:21:06,023 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 4) getActiveAuctions
+13:21:13,344 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 5) getActiveAuctions
+13:21:46,667 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 6) start auction |5| @ Wed Sep 18 13:21:46 EDT 2013
+13:21:46,673 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 7) start auction |4| @ Wed Sep 18 13:21:46 EDT 2013
+13:21:52,924 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 8) getActiveAuctions
+13:22:04,465 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 9) Recieved Bid AuctionBid [auctionId=5, customerId=2, bidAmount=97.0, bidTime=Wed Sep 18 13:22:04 EDT 2013]
+13:22:06,349 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 10) getActiveAuctions
+13:22:12,333 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 1) getActiveAuctions
+13:22:19,047 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 2) Recieved Bid AuctionBid [auctionId=3, customerId=1, bidAmount=345.0, bidTime=Wed Sep 18 13:22:19 EDT 2013]
+13:22:19,048 ERROR [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 2) Unable to process bid. Auction 3 is not an active auction! 
+13:22:29,749 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 3) Recieved Bid AuctionBid [auctionId=4, customerId=1, bidAmount=65.0, bidTime=Wed Sep 18 13:22:29 EDT 2013]
+13:22:29,750 ERROR [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 3) Unable to process bid. Root Cause (java.lang.Exception: Bid of 65.0 is less then the current auction price of 75.0)
+13:22:36,333 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 4) Recieved Bid AuctionBid [auctionId=4, customerId=1, bidAmount=87.0, bidTime=Wed Sep 18 13:22:36 EDT 2013]
+13:22:37,460 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 5) getActiveAuctions
+13:22:46,010 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 6) getActiveAuctions
+13:22:46,666 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 8) start auction |2| @ Wed Sep 18 13:22:46 EDT 2013
+13:22:46,666 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 7) end auction |5| @ Wed Sep 18 13:22:46 EDT 2013
+13:22:46,666 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 7) Auction 5 won by customer 2
+13:22:46,670 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 9) start auction |1| @ Wed Sep 18 13:22:46 EDT 2013
+13:22:57,133 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 10) getActiveAuctions
+13:23:04,135 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 1) Recieved Bid AuctionBid [auctionId=1, customerId=0, bidAmount=101.0, bidTime=Wed Sep 18 13:23:04 EDT 2013]
+13:23:11,614 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 2) getActiveAuctions
+13:23:16,919 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 3) Recieved Bid AuctionBid [auctionId=1, customerId=1, bidAmount=104.0, bidTime=Wed Sep 18 13:23:16 EDT 2013]
+13:23:24,646 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 4) Recieved Bid AuctionBid [auctionId=2, customerId=1, bidAmount=99.4, bidTime=Wed Sep 18 13:23:24 EDT 2013]
+13:23:27,246 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 5) getActiveAuctions
+13:23:37,094 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 6) getActiveAuctions
+13:23:41,855 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 8) Recieved Bid AuctionBid [auctionId=4, customerId=0, bidAmount=88.0, bidTime=Wed Sep 18 13:23:41 EDT 2013]
+13:23:46,666 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 9) start auction |3| @ Wed Sep 18 13:23:46 EDT 2013
+13:23:53,645 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 7) getActiveAuctions
+13:24:04,271 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 10) Recieved Bid AuctionBid [auctionId=4, customerId=2, bidAmount=89.0, bidTime=Wed Sep 18 13:24:04 EDT 2013]
+13:24:09,493 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 1) getActiveAuctions
+13:24:15,031 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 2) Recieved Bid AuctionBid [auctionId=3, customerId=2, bidAmount=155.0, bidTime=Wed Sep 18 13:24:15 EDT 2013]
+13:24:24,846 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 3) getActiveAuctions
+13:24:57,583 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 4) getActiveAuctions
+13:26:46,702 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 6) end auction |4| @ Wed Sep 18 13:26:46 EDT 2013
+13:26:46,702 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 6) Auction 4 won by customer 2
+13:26:46,710 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 5) end auction |2| @ Wed Sep 18 13:26:46 EDT 2013
+13:26:46,710 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 5) Auction 2 won by customer 1
+13:26:58,698 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 8) getActiveAuctions
+13:27:12,538 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 9) getActiveAuctions
+13:27:24,930 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 7) Recieved Bid AuctionBid [auctionId=1, customerId=2, bidAmount=105.0, bidTime=Wed Sep 18 13:27:24 EDT 2013]
+13:27:26,034 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 10) getActiveAuctions
+13:27:32,082 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 1) getActiveAuctions
+13:27:37,730 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 2) Recieved Bid AuctionBid [auctionId=3, customerId=1, bidAmount=165.0, bidTime=Wed Sep 18 13:27:37 EDT 2013]
+13:27:40,522 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 3) getActiveAuctions
+13:27:46,667 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 4) end auction |1| @ Wed Sep 18 13:27:46 EDT 2013
+13:27:46,667 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 4) Auction 1 won by customer 2
+13:27:52,234 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 6) getActiveAuctions
+13:29:00,427 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 5) getActiveAuctions
+13:29:46,668 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 8) end auction |3| @ Wed Sep 18 13:29:46 EDT 2013
+13:29:46,668 INFO  [edu.columbia.ase.auctionhouse.ejb.app.impl.AuctionHouseImpl] (EJB default - 8) Auction 3 won by customer 1

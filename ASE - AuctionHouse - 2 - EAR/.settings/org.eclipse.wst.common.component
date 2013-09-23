@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="ASE - AuctionHouse - 2 - EAR">
+        <wb-resource deploy-path="/" source-path="/EarContent" tag="defaultRootSource"/>
+        <dependent-module archiveName="ASE_-_AuctionHouse_-_2.jar" deploy-path="/" handle="module:/resource/ASE - AuctionHouse - 2/ASE - AuctionHouse - 2">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ASE_-_AuctionHouse_-_2_-_Client.jar" deploy-path="/" handle="module:/resource/ASE - AuctionHouse - 2 - Client/ASE - AuctionHouse - 2 - Client">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+    </wb-module>
+</project-modules>

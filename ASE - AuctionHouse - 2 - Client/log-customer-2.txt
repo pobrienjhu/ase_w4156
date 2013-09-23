@@ -1,0 +1,127 @@
+Looking up bean |ejb:ASE - AuctionHouse - 2 - EAR/ASE_-_AuctionHouse_-_2//AuctionHouseImpl!edu.columbia.ase.auctionhouse.ejb.app.AuctionHouseRemote|
+log4j:WARN No appenders could be found for logger (org.jboss.logging).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/C:/Dev/workspaces/java/algorithms/ASE%20-%20AuctionHouse%20-%202%20-%20EAR/EarContent/lib/activemq-all-5.7.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/C:/Dev/workspaces/java/algorithms/ASE%20-%20AuctionHouse%20-%202%20-%20EAR/EarContent/lib/logback-classic-1.0.13.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/C:/Users/NBKAW8L/.ivy2/cache/ch.qos.logback/logback-classic/jars/logback-classic-1.0.13.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/C:/Users/NBKAW8L/.ivy2/cache/org.slf4j/slf4j-jdk14/jars/slf4j-jdk14-1.6.4.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+Welcome to the Auction House!
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+1
+Nothing for Sale yet!
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+1
+Current active auctions:
+	Auction |4| for item |Item 3| condition: |New| current price: |75.0|
+	Auction |5| for item |Item 3| condition: |New| current price: |78.0|
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+2
+
+Enter the id of the auction you wish to bid on:
+5
+Enter the price you wish to bid:
+97
+Bid of 97.0 accepted for auction 5
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+1
+Current active auctions:
+	Auction |4| for item |Item 3| condition: |New| current price: |75.0|
+	Auction |5| for item |Item 3| condition: |New| current price: |97.0|
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+You have won auction 5 for price 97.0
+1
+Current active auctions:
+	Auction |1| for item |Item 1| condition: |New| current price: |104.0|
+	Auction |2| for item |Item 2| condition: |Used| current price: |99.4|
+	Auction |3| for item |Item 2| condition: |New| current price: |150.0|
+	Auction |4| for item |Item 3| condition: |New| current price: |88.0|
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+2
+
+Enter the id of the auction you wish to bid on:
+4
+Enter the price you wish to bid:
+89
+Bid of 89.0 accepted for auction 4
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+1
+Current active auctions:
+	Auction |1| for item |Item 1| condition: |New| current price: |104.0|
+	Auction |2| for item |Item 2| condition: |Used| current price: |99.4|
+	Auction |3| for item |Item 2| condition: |New| current price: |150.0|
+	Auction |4| for item |Item 3| condition: |New| current price: |89.0|
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+2
+
+Enter the id of the auction you wish to bid on:
+3
+Enter the price you wish to bid:
+155
+Bid of 155.0 accepted for auction 3
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+You have won auction 4 for price 89.0
+1
+Current active auctions:
+	Auction |1| for item |Item 1| condition: |New| current price: |104.0|
+	Auction |3| for item |Item 2| condition: |New| current price: |155.0|
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+2
+
+Enter the id of the auction you wish to bid on:
+1
+Enter the price you wish to bid:
+105
+Bid of 105.0 accepted for auction 1
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+1
+Current active auctions:
+	Auction |1| for item |Item 1| condition: |New| current price: |105.0|
+	Auction |3| for item |Item 2| condition: |New| current price: |155.0|
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+You have won auction 1 for price 105.0
+1
+Current active auctions:
+	Auction |3| for item |Item 2| condition: |New| current price: |165.0|
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.

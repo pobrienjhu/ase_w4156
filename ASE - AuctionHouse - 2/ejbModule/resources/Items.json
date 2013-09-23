@@ -1,0 +1,19 @@
+{ 
+"AuctionItems": 
+	{ "AuctionItem": {
+		"itemId": "1",
+		"itemName": "Item 1" },
+	 "AuctionItem": {
+		"itemId": "2",
+		"itemName": "Item 2" },
+	 "AuctionItem": {
+		"itemId": "3",
+		"itemName": "Item 3" },
+	"AuctionItem": {
+		"itemId": "4",
+		"itemName": "Item 4" },
+	"AuctionItem": {
+		"itemId": "4",
+		"itemName": "Item 4 - Duplicate"	
+	} } 
+}
