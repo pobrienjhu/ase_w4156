@@ -10,7 +10,7 @@ public class Main {
 	 */
 	public static void main(String[] args) {
         ApplicationContext context = 
-	            new ClassPathXmlApplicationContext("config/spring-config.xml");
+	            new ClassPathXmlApplicationContext("config/example-spring-config.xml");
 	}
 	
 }
