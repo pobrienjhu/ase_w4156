@@ -3,5 +3,10 @@
 
 <beans>
 
+   <bean id="auctionHouseWs" class="edu.columbia.ase.teamproject.example.WSExample" /> 
+
+ 	<bean class="org.springframework.remoting.jaxws.SimpleJaxWsServiceExporter">
+ 		<property name="baseAddress" value="http://localhost:8888/" />
+ 	</bean>
 
 </beans>
