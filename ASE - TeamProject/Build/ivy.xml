@@ -15,8 +15,7 @@
         <!--
         Logging
 			use slf framework with logback as the underlying implementation        
-        -->
-		
+        -->		
 		<dependency org="org.slf4j" name="slf4j-parent" rev="1.7.5" conf="runtime->default"/>
 		<dependency org="ch.qos.logback" name="logback-classic" rev="1.0.13" conf="runtime->default"/>
 	
@@ -31,30 +30,35 @@
 		<dependency org="org.apache.commons" name="commons-lang3" rev="3.1" conf="runtime->default"/>
 		<dependency org="com.google.guava" name="guava" rev="12.0" conf="runtime->default"/>
 		
-		<!--
-		Apache MQ used for asyncronous communication from the server to the clients. (customers)
-		-->
-		<dependency org="org.apache.activemq" name="apache-activemq" rev="5.7.0" />
 		
 		<!--
-		Quartz used for auction starting and ending
+		Quartz used for contest starting and ending
 		-->		
 		<dependency org="org.quartz-scheduler" name="quartz" rev="2.0.2" conf="runtime->default" />	
-		
-		<!--
-		Jacorb dependency for the corba part of this assignment
-		-->
-		<dependency org="org.jacorb" name="jacorb" rev="3.2" conf="runtime->default"/>
-		<dependency org="org.jacorb" name="jacorb-parent" rev="3.2" conf="runtime->default"/>
-		<dependency org="org.jacorb" name="jacorb-services" rev="3.2" conf="runtime->default"/>
-		<dependency org="org.jacorb" name="jacorb-idl-compiler" rev="3.2" conf="runtime->default"/>
+        
+        
+        <!-- 
+        Servlet Dependencies
+        -->
+        <dependency org="javax.servlet" name="javax.servlet-api" rev="3.1.0" />
+        <dependency org="org.springframework" name="spring-webmvc" rev="3.2.4.RELEASE" conf="runtime->default" />
+        
+        
+        <!--
+        Jetty server
+        -->
+        <dependency org="org.eclipse.jetty" name="jetty-webapp" rev="8.1.13.v20130916" conf="runtime->default" />
+        
 		
       	<!--
-        Spring framework for object dependency injection, used to build the core of the auction house 
-        application. 
+        Spring framework for object dependency injection, used to build the core of the application.
         -->	
-		<dependency org="org.springframework" name="spring-core" rev="3.2.3.RELEASE" conf="runtime->default" />	
-		<dependency org="org.springframework" name="spring-context" rev="3.2.3.RELEASE" conf="runtime->default" />	
+		<dependency org="org.springframework" name="spring-core" rev="3.2.4.RELEASE" conf="runtime->default" />	
+		<dependency org="org.springframework" name="spring-context" rev="3.2.4.RELEASE" conf="runtime->default" />	
+		<dependency org="org.springframework" name="spring-orm" rev="3.2.4.RELEASE" conf="runtime->default" />
+        <dependency org="org.springframework" name="spring-aop" rev="3.2.4.RELEASE" conf="runtime->default" />
+        
+		
 		
       	<!--
         xstream for json parsing
