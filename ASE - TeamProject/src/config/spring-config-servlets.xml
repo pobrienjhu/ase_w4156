@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+
+<!-- =============================================================== -->
+<!-- Configure the Jetty Server with Spring                          -->
+<!-- This file is the equivalent of jetty.xml, but written in spring -->
+<!-- XmlBeanFactory format.                                          -->
+<!-- The modules/spring/src/org/mortbay/spring/Main.java may be used -->
+<!-- to run this file - or any other spring infrastructure that      -->
+<!-- accepts uses an XmlBeanFactory                                  -->
+<!-- =============================================================== -->
+
+<beans>
+
+	<bean id="ServletHandler" class="org.eclipse.jetty.servlet.ServletHandler">
+		<property name="servlets">
+			<list>
+				<ref bean="HelloServlet"/>
+			</list>
+		</property>
+		<property name="servletMappings">
+			<list>
+				<ref bean="HelloServletMapping"/>
+			</list>
+		</property>
+	</bean>
+	
+	 <bean id="HelloServlet" class="org.eclipse.jetty.servlet.ServletHolder">
+	   <property name="name" value="Hello"/>
+	   <property name="className" value="edu.columbia.ase.teamproject.servlets.HelloServlet"/>
+	   <property name="initOrder" value="1"/>
+	 </bean>
+	 
+	 
+	 <bean id="HelloServletMapping" class="org.eclipse.jetty.servlet.ServletMapping">
+	   <property name="servletName" value="Hello"/>
+	   <property name="pathSpecs">
+		 <list>
+		   <value>/</value>
+		 </list>
+	   </property>
+	 </bean>							 
+
+
+    
+</beans>
+
+    
+    
