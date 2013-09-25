@@ -1,0 +1,140 @@
+12:28:19,409 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Could NOT find resource [logback.groovy]
+12:28:19,409 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Could NOT find resource [logback-test.xml]
+12:28:19,410 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Found resource [logback.xml] at [file:/C:/Dev/workspaces/java/algorithms/ASE%20-%20AuctionHouse%20-%203%20-%20Client/bin/logback.xml]
+12:28:19,516 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - About to instantiate appender of type [ch.qos.logback.core.ConsoleAppender]
+12:28:19,519 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - Naming appender as [STDOUT]
+12:28:19,537 |-INFO in ch.qos.logback.core.joran.action.NestedComplexPropertyIA - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+12:28:19,575 |-INFO in ch.qos.logback.classic.joran.action.RootLoggerAction - Setting level of ROOT logger to INFO
+12:28:19,576 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [STDOUT] to Logger[ROOT]
+12:28:19,576 |-INFO in ch.qos.logback.classic.joran.action.ConfigurationAction - End of configuration.
+12:28:19,578 |-INFO in ch.qos.logback.classic.joran.JoranConfigurator@186b480a - Registering current configuration as safe fallback point
+12:28:19.621 [main] INFO  o.s.c.s.ClassPathXmlApplicationContext - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@109b415c: startup date [Wed Sep 25 12:28:19 EDT 2013]; root of context hierarchy
+12:28:19.668 [main] INFO  o.s.b.f.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [config/customer-spring-config.xml]
+12:28:19.768 [main] INFO  o.s.b.f.s.DefaultListableBeanFactory - Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@4b640c6b: defining beans [auctionHouseWs,org.springframework.remoting.jaxws.SimpleJaxWsServiceExporter#0]; root of factory hierarchy
+12:28:20.717 [main] INFO  o.a.c.e.dynamic.DynamicClientFactory - Created classes: edu.columbia.ase.auctionhouse.webservice.Auction, edu.columbia.ase.auctionhouse.webservice.AuctionItem, edu.columbia.ase.auctionhouse.webservice.Exception, edu.columbia.ase.auctionhouse.webservice.GetActiveAuctions, edu.columbia.ase.auctionhouse.webservice.GetActiveAuctionsResponse, edu.columbia.ase.auctionhouse.webservice.ObjectFactory, edu.columbia.ase.auctionhouse.webservice.PlaceBid, edu.columbia.ase.auctionhouse.webservice.PlaceBidResponse, edu.columbia.ase.auctionhouse.webservice.RegisterCustomer, edu.columbia.ase.auctionhouse.webservice.RegisterCustomerResponse
+customerIdObj is |1|
+Welcome to the Auction House!
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+1
+Nothing for Sale yet!
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+1
+Current active auctions:
+	Auction |4| for item |3| condition: |New| current price: |77.0|
+	Auction |5| for item |3| condition: |New| current price: |78.0|
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+2
+
+Enter the id of the auction you wish to bid on:
+5
+Enter the price you wish to bid:
+74
+Unable to place bid. Root Cause (Invalid Bid. Root Cause (Bid of 74.0 is less then the current auction price of 78.0))
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+2
+
+Enter the id of the auction you wish to bid on:
+5
+Enter the price you wish to bid:
+89
+Bid of 89.0 accepted for auction 5
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+1
+Current active auctions:
+	Auction |4| for item |3| condition: |New| current price: |77.0|
+	Auction |5| for item |3| condition: |New| current price: |89.0|
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+You have won auction 5 for price 89.0
+1
+Current active auctions:
+	Auction |1| for item |1| condition: |New| current price: |100.0|
+	Auction |2| for item |2| condition: |Used| current price: |99.0|
+	Auction |4| for item |3| condition: |New| current price: |79.0|
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+2
+
+Enter the id of the auction you wish to bid on:
+1
+Enter the price you wish to bid:
+33
+Unable to place bid. Root Cause (Invalid Bid. Root Cause (Bid of 33.0 is less then the current auction price of 100.0))
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+1
+Current active auctions:
+	Auction |1| for item |1| condition: |New| current price: |100.0|
+	Auction |2| for item |2| condition: |Used| current price: |99.0|
+	Auction |4| for item |3| condition: |New| current price: |79.0|
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+2
+
+Enter the id of the auction you wish to bid on:
+1
+Enter the price you wish to bid:
+123
+Bid of 123.0 accepted for auction 1
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+1
+Current active auctions:
+	Auction |1| for item |1| condition: |New| current price: |123.0|
+	Auction |2| for item |2| condition: |Used| current price: |102.0|
+	Auction |3| for item |2| condition: |New| current price: |150.0|
+	Auction |4| for item |3| condition: |New| current price: |81.0|
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+2
+
+Enter the id of the auction you wish to bid on:
+3
+Enter the price you wish to bid:
+151
+Bid of 151.0 accepted for auction 3
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+You have won auction 1 for price 123.0
+1
+Current active auctions:
+	Auction |3| for item |2| condition: |New| current price: |151.0|
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+You have won auction 3 for price 151.0
+1
+Nothing for Sale yet!
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.

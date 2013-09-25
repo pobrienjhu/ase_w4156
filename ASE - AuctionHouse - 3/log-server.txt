@@ -1,0 +1,85 @@
+12:28:01,151 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Could NOT find resource [logback.groovy]
+12:28:01,152 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Could NOT find resource [logback-test.xml]
+12:28:01,152 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Found resource [logback.xml] at [file:/C:/Dev/workspaces/java/algorithms/ASE%20-%20AuctionHouse%20-%203/bin/logback.xml]
+12:28:01,251 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - About to instantiate appender of type [ch.qos.logback.core.ConsoleAppender]
+12:28:01,254 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - Naming appender as [STDOUT]
+12:28:01,273 |-INFO in ch.qos.logback.core.joran.action.NestedComplexPropertyIA - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+12:28:01,309 |-INFO in ch.qos.logback.classic.joran.action.RootLoggerAction - Setting level of ROOT logger to INFO
+12:28:01,309 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [STDOUT] to Logger[ROOT]
+12:28:01,310 |-INFO in ch.qos.logback.classic.joran.action.ConfigurationAction - End of configuration.
+12:28:01,311 |-INFO in ch.qos.logback.classic.joran.JoranConfigurator@186b480a - Registering current configuration as safe fallback point
+12:28:01.352 [main] INFO  o.s.c.s.ClassPathXmlApplicationContext - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@109b415c: startup date [Wed Sep 25 12:28:01 EDT 2013]; root of context hierarchy
+12:28:01.408 [main] INFO  o.s.b.f.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [config/spring-config.xml]
+12:28:01.713 [main] INFO  o.s.b.f.s.DefaultListableBeanFactory - Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@373a05d2: defining beans [AuctionHouseDataSource,AuctionHouse,AuctionHouseTimer,AuctionHouseAuctionCapture,auctionHouseWs,org.springframework.remoting.jaxws.SimpleJaxWsServiceExporter#0]; root of factory hierarchy
+12:28:01.811 [Thread-0] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - AuctionHouse Server started ... 
+12:28:01.815 [main] INFO  e.c.a.a.c.a.i.AuctionHouseQuartzTimer - Staring Auction House Timer ...
+12:28:01.860 [main] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+12:28:01.863 [main] INFO  org.quartz.simpl.SimpleThreadPool - Job execution threads will use class loader of thread: main
+12:28:01.887 [main] INFO  o.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+12:28:01.888 [main] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.0.2 created.
+12:28:01.898 [main] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+12:28:01.899 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.0.2) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+12:28:01.899 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'DefaultQuartzScheduler' initialized from default resource file in Quartz package: 'quartz.properties'
+12:28:01.899 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.0.2
+12:28:01.899 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started.
+12:28:01.952 [main] INFO  e.c.a.a.c.a.i.AuctionHouseJSONAuctionCapture - Successfully loaded item file |/resources/Items.json|
+12:28:01.953 [main] INFO  e.c.a.a.c.a.i.AuctionHouseJSONAuctionCapture - Successfully loaded auction file |/resources/Auctions.json|
+12:28:01.953 [main] INFO  e.c.a.a.c.a.i.AuctionHouseJSONAuctionCapture - Loading Auction Items...
+12:28:02.303 [main] WARN  e.c.a.a.c.a.i.AuctionHouseJSONAuctionCapture - Invalid item root cause (Unable to add AuctionItem with id |4| and name |Item 4 - Duplicate|. Item id already exists)
+12:28:02.303 [main] INFO  e.c.a.a.c.a.i.AuctionHouseJSONAuctionCapture - Auction Items Loaded...
+12:28:02.304 [main] INFO  e.c.a.a.c.a.i.AuctionHouseJSONAuctionCapture - Loading Auctions...
+12:28:02.386 [main] INFO  e.c.a.a.c.a.i.AuctionHouseQuartzTimer - Scheduled auction 1 start time for Wed Sep 25 12:30:02 EDT 2013
+12:28:02.387 [main] INFO  e.c.a.a.c.a.i.AuctionHouseQuartzTimer - Scheduled auction 1 end time for Wed Sep 25 12:35:02 EDT 2013
+12:28:02.387 [main] INFO  e.c.a.a.c.a.i.AuctionHouseQuartzTimer - Scheduled auction 2 start time for Wed Sep 25 12:30:02 EDT 2013
+12:28:02.387 [main] INFO  e.c.a.a.c.a.i.AuctionHouseQuartzTimer - Scheduled auction 2 end time for Wed Sep 25 12:34:02 EDT 2013
+12:28:02.388 [main] INFO  e.c.a.a.c.a.i.AuctionHouseQuartzTimer - Scheduled auction 3 start time for Wed Sep 25 12:31:02 EDT 2013
+12:28:02.388 [main] INFO  e.c.a.a.c.a.i.AuctionHouseQuartzTimer - Scheduled auction 3 end time for Wed Sep 25 12:37:02 EDT 2013
+12:28:02.388 [main] INFO  e.c.a.a.c.a.i.AuctionHouseQuartzTimer - Scheduled auction 4 start time for Wed Sep 25 12:29:02 EDT 2013
+12:28:02.389 [main] INFO  e.c.a.a.c.a.i.AuctionHouseQuartzTimer - Scheduled auction 4 end time for Wed Sep 25 12:34:02 EDT 2013
+12:28:02.389 [main] INFO  e.c.a.a.c.a.i.AuctionHouseQuartzTimer - Scheduled auction 5 start time for Wed Sep 25 12:29:02 EDT 2013
+12:28:02.390 [main] INFO  e.c.a.a.c.a.i.AuctionHouseQuartzTimer - Scheduled auction 5 end time for Wed Sep 25 12:30:02 EDT 2013
+12:28:02.390 [main] WARN  e.c.a.a.c.a.i.AuctionHouseJSONAuctionCapture - Invalid auction root cause (Unable to retrieve AuctionItem with id |88| does not exists)
+12:28:02.390 [main] INFO  e.c.a.a.c.a.i.AuctionHouseJSONAuctionCapture - Auctions Loaded...
+12:28:16.291 [pool-1-thread-1] INFO  e.c.a.a.w.AuctionHouseWebServiceImpl - Registering customer with url |http://localhost:7777/AuctionHouseCustomer?wsdl|
+12:28:21.733 [pool-1-thread-1] INFO  e.c.a.a.w.AuctionHouseWebServiceImpl - Registering customer with url |http://localhost:7778/AuctionHouseCustomer?wsdl|
+12:28:27.757 [pool-1-thread-1] INFO  e.c.a.a.w.AuctionHouseWebServiceImpl - Registering customer with url |http://localhost:7779/AuctionHouseCustomer?wsdl|
+12:29:02.314 [DefaultQuartzScheduler_Worker-2] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - start auction |4| @ Wed Sep 25 12:29:02 EDT 2013
+12:29:02.314 [DefaultQuartzScheduler_Worker-1] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - start auction |5| @ Wed Sep 25 12:29:02 EDT 2013
+12:29:16.310 [pool-1-thread-1] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - Recieved Bid AuctionBid [auctionId=4, customerId=2, bidAmount=77.0, bidTime=Wed Sep 25 12:29:16 EDT 2013]
+12:29:30.310 [pool-1-thread-1] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - Recieved Bid AuctionBid [auctionId=5, customerId=1, bidAmount=74.0, bidTime=Wed Sep 25 12:29:30 EDT 2013]
+12:29:30.310 [pool-1-thread-1] ERROR e.c.a.a.c.app.impl.AuctionHouseImpl - Unable to process bid. Root Cause (java.lang.Exception: Bid of 74.0 is less then the current auction price of 78.0)
+12:29:30.310 [pool-1-thread-1] ERROR e.c.a.a.w.AuctionHouseWebServiceImpl - Invalid Bid. Root Cause (Bid of 74.0 is less then the current auction price of 78.0)
+12:29:37.321 [pool-1-thread-1] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - Recieved Bid AuctionBid [auctionId=5, customerId=1, bidAmount=89.0, bidTime=Wed Sep 25 12:29:37 EDT 2013]
+12:29:51.358 [pool-1-thread-1] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - Recieved Bid AuctionBid [auctionId=4, customerId=0, bidAmount=79.0, bidTime=Wed Sep 25 12:29:51 EDT 2013]
+12:30:02.309 [DefaultQuartzScheduler_Worker-3] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - start auction |2| @ Wed Sep 25 12:30:02 EDT 2013
+12:30:02.309 [DefaultQuartzScheduler_Worker-4] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - end auction |5| @ Wed Sep 25 12:30:02 EDT 2013
+12:30:02.309 [DefaultQuartzScheduler_Worker-5] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - start auction |1| @ Wed Sep 25 12:30:02 EDT 2013
+12:30:02.309 [DefaultQuartzScheduler_Worker-4] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - Auction 5 won by customer 1
+12:30:02.970 [DefaultQuartzScheduler_Worker-4] INFO  o.a.c.e.dynamic.DynamicClientFactory - Created classes: edu.columbia.ase.auctionhouse.customer.AuctionWon, edu.columbia.ase.auctionhouse.customer.AuctionWonResponse, edu.columbia.ase.auctionhouse.customer.GetAuctionHouseWebServiceURL, edu.columbia.ase.auctionhouse.customer.GetAuctionHouseWebServiceURLResponse, edu.columbia.ase.auctionhouse.customer.GetCustomerURL, edu.columbia.ase.auctionhouse.customer.GetCustomerURLResponse, edu.columbia.ase.auctionhouse.customer.ObjectFactory, edu.columbia.ase.auctionhouse.customer.SetAuctionHouseWebServiceURL, edu.columbia.ase.auctionhouse.customer.SetAuctionHouseWebServiceURLResponse, edu.columbia.ase.auctionhouse.customer.SetCustomerURL, edu.columbia.ase.auctionhouse.customer.SetCustomerURLResponse, edu.columbia.ase.auctionhouse.customer.SetId, edu.columbia.ase.auctionhouse.customer.SetIdResponse
+12:30:16.116 [pool-1-thread-1] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - Recieved Bid AuctionBid [auctionId=1, customerId=1, bidAmount=33.0, bidTime=Wed Sep 25 12:30:16 EDT 2013]
+12:30:16.118 [pool-1-thread-1] ERROR e.c.a.a.c.app.impl.AuctionHouseImpl - Unable to process bid. Root Cause (java.lang.Exception: Bid of 33.0 is less then the current auction price of 100.0)
+12:30:16.118 [pool-1-thread-1] ERROR e.c.a.a.w.AuctionHouseWebServiceImpl - Invalid Bid. Root Cause (Bid of 33.0 is less then the current auction price of 100.0)
+12:30:31.922 [pool-1-thread-1] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - Recieved Bid AuctionBid [auctionId=1, customerId=1, bidAmount=123.0, bidTime=Wed Sep 25 12:30:31 EDT 2013]
+12:30:50.242 [pool-1-thread-1] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - Recieved Bid AuctionBid [auctionId=2, customerId=0, bidAmount=102.0, bidTime=Wed Sep 25 12:30:50 EDT 2013]
+12:31:02.309 [DefaultQuartzScheduler_Worker-6] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - start auction |3| @ Wed Sep 25 12:31:02 EDT 2013
+12:31:12.075 [pool-1-thread-1] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - Recieved Bid AuctionBid [auctionId=4, customerId=2, bidAmount=81.0, bidTime=Wed Sep 25 12:31:12 EDT 2013]
+12:31:31.636 [pool-1-thread-1] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - Recieved Bid AuctionBid [auctionId=3, customerId=1, bidAmount=151.0, bidTime=Wed Sep 25 12:31:31 EDT 2013]
+12:34:02.310 [DefaultQuartzScheduler_Worker-7] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - end auction |4| @ Wed Sep 25 12:34:02 EDT 2013
+12:34:02.310 [DefaultQuartzScheduler_Worker-8] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - end auction |2| @ Wed Sep 25 12:34:02 EDT 2013
+12:34:02.310 [DefaultQuartzScheduler_Worker-7] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - Auction 4 won by customer 2
+12:34:02.310 [DefaultQuartzScheduler_Worker-8] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - Auction 2 won by customer 0
+12:34:02.392 [DefaultQuartzScheduler_Worker-7] INFO  o.a.c.e.dynamic.DynamicClientFactory - Created classes: edu.columbia.ase.auctionhouse.customer.AuctionWon, edu.columbia.ase.auctionhouse.customer.AuctionWonResponse, edu.columbia.ase.auctionhouse.customer.GetAuctionHouseWebServiceURL, edu.columbia.ase.auctionhouse.customer.GetAuctionHouseWebServiceURLResponse, edu.columbia.ase.auctionhouse.customer.GetCustomerURL, edu.columbia.ase.auctionhouse.customer.GetCustomerURLResponse, edu.columbia.ase.auctionhouse.customer.ObjectFactory, edu.columbia.ase.auctionhouse.customer.SetAuctionHouseWebServiceURL, edu.columbia.ase.auctionhouse.customer.SetAuctionHouseWebServiceURLResponse, edu.columbia.ase.auctionhouse.customer.SetCustomerURL, edu.columbia.ase.auctionhouse.customer.SetCustomerURLResponse, edu.columbia.ase.auctionhouse.customer.SetId, edu.columbia.ase.auctionhouse.customer.SetIdResponse
+12:34:02.396 [DefaultQuartzScheduler_Worker-8] INFO  o.a.c.e.dynamic.DynamicClientFactory - Created classes: edu.columbia.ase.auctionhouse.customer.AuctionWon, edu.columbia.ase.auctionhouse.customer.AuctionWonResponse, edu.columbia.ase.auctionhouse.customer.GetAuctionHouseWebServiceURL, edu.columbia.ase.auctionhouse.customer.GetAuctionHouseWebServiceURLResponse, edu.columbia.ase.auctionhouse.customer.GetCustomerURL, edu.columbia.ase.auctionhouse.customer.GetCustomerURLResponse, edu.columbia.ase.auctionhouse.customer.ObjectFactory, edu.columbia.ase.auctionhouse.customer.SetAuctionHouseWebServiceURL, edu.columbia.ase.auctionhouse.customer.SetAuctionHouseWebServiceURLResponse, edu.columbia.ase.auctionhouse.customer.SetCustomerURL, edu.columbia.ase.auctionhouse.customer.SetCustomerURLResponse, edu.columbia.ase.auctionhouse.customer.SetId, edu.columbia.ase.auctionhouse.customer.SetIdResponse
+12:35:02.309 [DefaultQuartzScheduler_Worker-9] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - end auction |1| @ Wed Sep 25 12:35:02 EDT 2013
+12:35:02.309 [DefaultQuartzScheduler_Worker-9] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - Auction 1 won by customer 1
+12:35:02.342 [DefaultQuartzScheduler_Worker-9] INFO  o.a.c.e.dynamic.DynamicClientFactory - Created classes: edu.columbia.ase.auctionhouse.customer.AuctionWon, edu.columbia.ase.auctionhouse.customer.AuctionWonResponse, edu.columbia.ase.auctionhouse.customer.GetAuctionHouseWebServiceURL, edu.columbia.ase.auctionhouse.customer.GetAuctionHouseWebServiceURLResponse, edu.columbia.ase.auctionhouse.customer.GetCustomerURL, edu.columbia.ase.auctionhouse.customer.GetCustomerURLResponse, edu.columbia.ase.auctionhouse.customer.ObjectFactory, edu.columbia.ase.auctionhouse.customer.SetAuctionHouseWebServiceURL, edu.columbia.ase.auctionhouse.customer.SetAuctionHouseWebServiceURLResponse, edu.columbia.ase.auctionhouse.customer.SetCustomerURL, edu.columbia.ase.auctionhouse.customer.SetCustomerURLResponse, edu.columbia.ase.auctionhouse.customer.SetId, edu.columbia.ase.auctionhouse.customer.SetIdResponse
+12:37:02.310 [DefaultQuartzScheduler_Worker-10] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - end auction |3| @ Wed Sep 25 12:37:02 EDT 2013
+12:37:02.310 [DefaultQuartzScheduler_Worker-10] INFO  e.c.a.a.c.app.impl.AuctionHouseImpl - Auction 3 won by customer 1
+12:37:02.368 [DefaultQuartzScheduler_Worker-10] INFO  o.a.c.e.dynamic.DynamicClientFactory - Created classes: edu.columbia.ase.auctionhouse.customer.AuctionWon, edu.columbia.ase.auctionhouse.customer.AuctionWonResponse, edu.columbia.ase.auctionhouse.customer.GetAuctionHouseWebServiceURL, edu.columbia.ase.auctionhouse.customer.GetAuctionHouseWebServiceURLResponse, edu.columbia.ase.auctionhouse.customer.GetCustomerURL, edu.columbia.ase.auctionhouse.customer.GetCustomerURLResponse, edu.columbia.ase.auctionhouse.customer.ObjectFactory, edu.columbia.ase.auctionhouse.customer.SetAuctionHouseWebServiceURL, edu.columbia.ase.auctionhouse.customer.SetAuctionHouseWebServiceURLResponse, edu.columbia.ase.auctionhouse.customer.SetCustomerURL, edu.columbia.ase.auctionhouse.customer.SetCustomerURLResponse, edu.columbia.ase.auctionhouse.customer.SetId, edu.columbia.ase.auctionhouse.customer.SetIdResponse

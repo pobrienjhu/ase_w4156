@@ -1,0 +1,75 @@
+12:28:12,493 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Could NOT find resource [logback.groovy]
+12:28:12,493 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Could NOT find resource [logback-test.xml]
+12:28:12,493 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Found resource [logback.xml] at [file:/C:/Dev/workspaces/java/algorithms/ASE%20-%20AuctionHouse%20-%203%20-%20Client/bin/logback.xml]
+12:28:12,599 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - About to instantiate appender of type [ch.qos.logback.core.ConsoleAppender]
+12:28:12,602 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - Naming appender as [STDOUT]
+12:28:12,620 |-INFO in ch.qos.logback.core.joran.action.NestedComplexPropertyIA - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+12:28:12,659 |-INFO in ch.qos.logback.classic.joran.action.RootLoggerAction - Setting level of ROOT logger to INFO
+12:28:12,659 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [STDOUT] to Logger[ROOT]
+12:28:12,659 |-INFO in ch.qos.logback.classic.joran.action.ConfigurationAction - End of configuration.
+12:28:12,661 |-INFO in ch.qos.logback.classic.joran.JoranConfigurator@186b480a - Registering current configuration as safe fallback point
+12:28:12.703 [main] INFO  o.s.c.s.ClassPathXmlApplicationContext - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@109b415c: startup date [Wed Sep 25 12:28:12 EDT 2013]; root of context hierarchy
+12:28:12.748 [main] INFO  o.s.b.f.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [config/customer-spring-config.xml]
+12:28:12.854 [main] INFO  o.s.b.f.s.DefaultListableBeanFactory - Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@4b640c6b: defining beans [auctionHouseWs,org.springframework.remoting.jaxws.SimpleJaxWsServiceExporter#0]; root of factory hierarchy
+12:28:14.864 [main] INFO  o.a.c.e.dynamic.DynamicClientFactory - Created classes: edu.columbia.ase.auctionhouse.webservice.Auction, edu.columbia.ase.auctionhouse.webservice.AuctionItem, edu.columbia.ase.auctionhouse.webservice.Exception, edu.columbia.ase.auctionhouse.webservice.GetActiveAuctions, edu.columbia.ase.auctionhouse.webservice.GetActiveAuctionsResponse, edu.columbia.ase.auctionhouse.webservice.ObjectFactory, edu.columbia.ase.auctionhouse.webservice.PlaceBid, edu.columbia.ase.auctionhouse.webservice.PlaceBidResponse, edu.columbia.ase.auctionhouse.webservice.RegisterCustomer, edu.columbia.ase.auctionhouse.webservice.RegisterCustomerResponse
+customerIdObj is |0|
+Welcome to the Auction House!
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+1
+Nothing for Sale yet!
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+1
+Current active auctions:
+	Auction |4| for item |3| condition: |New| current price: |77.0|
+	Auction |5| for item |3| condition: |New| current price: |89.0|
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+2
+
+Enter the id of the auction you wish to bid on:
+4
+Enter the price you wish to bid:
+79
+Bid of 79.0 accepted for auction 4
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+1
+Current active auctions:
+	Auction |1| for item |1| condition: |New| current price: |123.0|
+	Auction |2| for item |2| condition: |Used| current price: |99.0|
+	Auction |4| for item |3| condition: |New| current price: |79.0|
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+2
+
+Enter the id of the auction you wish to bid on:
+2
+Enter the price you wish to bid:
+102
+Bid of 102.0 accepted for auction 2
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+1
+Current active auctions:
+	Auction |1| for item |1| condition: |New| current price: |123.0|
+	Auction |2| for item |2| condition: |Used| current price: |102.0|
+	Auction |3| for item |2| condition: |New| current price: |151.0|
+	Auction |4| for item |3| condition: |New| current price: |81.0|
+
+Please choose an action:
+	1 - View available auctions.
+	2 - place a bid.
+You have won auction 2 for price 102.0
