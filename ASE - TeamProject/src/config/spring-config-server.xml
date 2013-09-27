@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
 
 <!-- =============================================================== -->
@@ -11,9 +10,21 @@
 <!-- accepts uses an XmlBeanFactory                                  -->
 <!-- =============================================================== -->
 
-<beans>
+<beans 	xmlns="http://www.springframework.org/schema/beans"
+   		xmlns:context="http://www.springframework.org/schema/context" 
+   		xmlns:mvc="http://www.springframework.org/schema/mvc" 
+   		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   		
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans 
+			http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+			http://www.springframework.org/schema/context 
+			http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+			http://www.springframework.org/schema/mvc 
+			http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
 	<bean id="Server" class="org.eclipse.jetty.server.Server" init-method="start" destroy-method="stop">
+  	    
   
 		<property name="threadPool">  
 		  <bean id="ThreadPool" class="org.eclipse.jetty.util.thread.QueuedThreadPool">
@@ -37,18 +48,13 @@
 		  <bean id="handlers" class="org.eclipse.jetty.server.handler.HandlerCollection">
 			<property name="handlers">
 			  <list>
-				 <bean id="contexts" class="org.eclipse.jetty.server.handler.ContextHandlerCollection">
-				   <property name="handlers">
-					 <list>
-					   <bean class="org.eclipse.jetty.servlet.ServletContextHandler">
-						 <property name="contextPath" value="/"/>
-						 <property name="servletHandler"><ref bean="ServletHandler"/></property>
-					   </bean>
-					 </list>
-				   </property>
-				 </bean>
+				 <bean class="org.eclipse.jetty.webapp.WebAppContext" >
+				 	<property name="contextPath" value="/mvc"/>
+				 	<property name="war" value="src/jsp"/>
+				 	<property name="servletHandler"><ref bean="ServletHandler"/></property>
+				 </bean> 
 				 <bean id="defaultHandler" class="org.eclipse.jetty.server.handler.DefaultHandler"/>
-				 <bean id="requestLog" class="org.eclipse.jetty.server.handler.RequestLogHandler"/>
+				 <bean id="requestLog" class="org.eclipse.jetty.server.handler.RequestLogHandler"/>				 		
 			  </list>
 			</property>
 		  </bean>

@@ -30,25 +30,36 @@
 		<dependency org="org.apache.commons" name="commons-lang3" rev="3.1" conf="runtime->default"/>
 		<dependency org="com.google.guava" name="guava" rev="12.0" conf="runtime->default"/>
 		
-		
 		<!--
 		Quartz used for contest starting and ending
 		-->		
 		<dependency org="org.quartz-scheduler" name="quartz" rev="2.0.2" conf="runtime->default" />	
         
-        
         <!-- 
         Servlet Dependencies
         -->
-        <dependency org="javax.servlet" name="javax.servlet-api" rev="3.1.0" />
-        <dependency org="org.springframework" name="spring-webmvc" rev="3.2.4.RELEASE" conf="runtime->default" />
+		<dependency org="javax.servlet" name="javax.servlet-api" rev="3.1.0"  conf="runtime->default" />
+		<dependency org="javax.servlet.jsp" name="javax.servlet.jsp-api" rev="2.3.1"  conf="runtime->default" />
+		<dependency org="javax.servlet.jsp.jstl" name="javax.servlet.jsp.jstl-api" rev="1.2.1"  conf="runtime->default" /> 
         
+        <!-- 
+        HSQL / db related libraries
+        -->
+		<dependency org="org.hsqldb" name="hsqldb" rev="2.3.0"  conf="runtime->default" />        
+        <dependency org="org.hibernate" name="hibernate-entitymanager" rev="4.2.5.Final"  conf="runtime->default" />
+        <dependency org="org.hibernate" name="hibernate-core" rev="4.2.5.Final"  conf="runtime->default" />
         
         <!--
         Jetty server
         -->
         <dependency org="org.eclipse.jetty" name="jetty-webapp" rev="8.1.13.v20130916" conf="runtime->default" />
-        
+        <dependency org="org.eclipse.jetty" name="jetty-jsp" rev="8.1.13.v20130916"  conf="runtime->default" />
+
+        <!--
+        jetty jsp compiler
+        -->
+        <dependency org="org.eclipse.jetty.toolchain" name="jetty-jsp-jdt" rev="2.3.3"  conf="runtime->default" />
+		<dependency org="org.eclipse.jetty.toolchain" name="jetty-jsp-osgi" rev="2.3.3"  conf="runtime->default" />
 		
       	<!--
         Spring framework for object dependency injection, used to build the core of the application.
@@ -57,9 +68,8 @@
 		<dependency org="org.springframework" name="spring-context" rev="3.2.4.RELEASE" conf="runtime->default" />	
 		<dependency org="org.springframework" name="spring-orm" rev="3.2.4.RELEASE" conf="runtime->default" />
         <dependency org="org.springframework" name="spring-aop" rev="3.2.4.RELEASE" conf="runtime->default" />
+        <dependency org="org.springframework" name="spring-webmvc" rev="3.2.4.RELEASE" conf="runtime->default" />
         
-		
-		
       	<!--
         xstream for json parsing
         Jettison driver uses Jettison StAX parser to read and write data in JSON format. 
@@ -68,9 +78,9 @@
 		<dependency org="org.codehaus.jettison" name="jettison" rev="1.3.4" conf="runtime->default" />	
 
 		
-		
 
-		<dependency org="junit" name="junit" rev="4.9" conf="test->default"/>         
+		<dependency org="junit" name="junit" rev="4.9" conf="test->default"/>        
+		<dependency org="org.springframework" name="spring-test" rev="3.2.4.RELEASE" conf="test->default"/>  
           
           
           
