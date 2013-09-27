@@ -24,10 +24,7 @@ public class PersonsController {
 	@Autowired
 	private PersonsDao personsDao;	
 	 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -530706199783596897L;
+
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String printPersons(ModelMap model) {
