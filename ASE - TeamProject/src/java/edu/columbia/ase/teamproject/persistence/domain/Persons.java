@@ -14,7 +14,6 @@ public class Persons {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
-	
 	private String lastName;
 	private String firstName;
 	private String address;
