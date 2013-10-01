@@ -1,0 +1,52 @@
+{ 
+"Auctions": 
+	{ "Auction": {
+	
+		"auctionId": "1",
+		"auctionItemId": "1",
+		"itemCondition": "New",
+		"startPrice": "100.00",		
+		"startOffsetMinutes": "2",
+		"auctionLengthInMinutes": "5" },	
+	"Auction": {
+	
+		"auctionId": "2",
+		"auctionItemId": "2",
+		"itemCondition": "Used",
+		"startPrice": "99.00",
+		"startOffsetMinutes": "2",
+		"auctionLengthInMinutes": "4" },		
+	"Auction": {
+	
+		"auctionId": "3",
+		"auctionItemId": "2",
+		"itemCondition": "New",
+		"startPrice": "150.00",
+		"startOffsetMinutes": "3",
+		"auctionLengthInMinutes": "6"},		
+	"Auction": {
+	
+		"auctionId": "4",
+		"auctionItemId": "3",
+		"itemCondition": "New",
+		"startPrice": "75.00",
+		"startOffsetMinutes": "1",		
+		"auctionLengthInMinutes": "5" },	
+	"Auction": {
+	
+		"auctionId": "5",
+		"auctionItemId": "3",
+		"itemCondition": "New",
+		"startPrice": "78.00",
+		"startOffsetMinutes": "1",		
+		"auctionLengthInMinutes": "1" },
+	"Auction": {
+	
+		"auctionId": "6",
+		"auctionItemId": "88",
+		"itemCondition": "New",
+		"startPrice": "65.00",
+		"startOffsetMinutes": "1",		
+		"auctionLengthInMinutes": "6"				
+	} } 
+}

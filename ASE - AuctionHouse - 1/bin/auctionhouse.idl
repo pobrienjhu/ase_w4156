@@ -1,0 +1,56 @@
+// auctionhouse.idl
+
+module edu
+{
+module columbia 
+{
+module ase
+{
+module auctionhouse
+{
+module corba
+{
+exception InvalidBid{};
+exception InvalidRegistration{};
+
+
+	valuetype Auction 
+	{
+			public long auctionId;
+			public double currentPrice;
+            public string itemDescription;
+            public string itemCondition;
+	};
+
+
+	typedef sequence < Auction > activeAuctionSeq;
+
+
+	interface Customer
+    {
+    	void auctionWon( in Auction auct  );
+    	void setId( in long custId );
+    };
+    
+
+	interface AuctionHouse{
+	
+		activeAuctionSeq getActiveAuctions();
+		
+		void registerCustomer(in Customer cust)
+			raises( InvalidRegistration );
+		
+		void placeBid( in long custId, in long auctionId, in double bidAmount )
+			raises( InvalidBid );
+	
+	};
+	
+
+	
+
+
+};
+};
+};
+};
+};
