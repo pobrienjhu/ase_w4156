@@ -60,7 +60,12 @@
         -->
         <dependency org="org.eclipse.jetty.toolchain" name="jetty-jsp-jdt" rev="2.3.3"  conf="runtime->default" />
 		<dependency org="org.eclipse.jetty.toolchain" name="jetty-jsp-osgi" rev="2.3.3"  conf="runtime->default" />
-		
+		    <!--
+		    Closure templates (for XSS safety).
+		    -->
+		    <dependency org="com.google.template" name="soy" rev="2012-12-21" />
+		    <dependency org="org.hamcrest" name="hamcrest-all" rev="1.3" />
+
       	<!--
         Spring framework for object dependency injection, used to build the core of the application.
         -->	

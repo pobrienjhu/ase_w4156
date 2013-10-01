@@ -19,8 +19,22 @@
     	<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
     	<property name="prefix" value="/" />
     	<property name="suffix" value=".jsp"/>
+    	<property name="order" value="1" />
 	</bean>
 
+	<bean id="closureTemplateConfigurer"
+	    class="com.tomakehurst.springclosuretemplates.web.mvc.ClosureTemplateConfigurer">
+    	<property name="templatesLocation" value="/" />
+	</bean>
+
+	<bean id="closureTemplateJSController" class="com.tomakehurst.springclosuretemplates.web.mvc.ClosureTemplateJavascriptController">
+  </bean>
+
+	<bean id="closureTemplateViewResolver"
+	    class="com.tomakehurst.springclosuretemplates.web.mvc.ClosureTemplateViewResolver">
+	    <property name="cache" value="false" />
+	    <property name="order" value="0" />
+	</bean>
    
    
 </beans>
