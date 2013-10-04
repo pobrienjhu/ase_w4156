@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+   <bean id="AuctionHouseDataSource" class="edu.columbia.ase.auctionhouse.core.app.impl.AuctionHouseMapDataSource">
+   </bean>
+
+   <bean id="AuctionHouse" class="edu.columbia.ase.auctionhouse.core.app.impl.AuctionHouseImpl" 
+   		 init-method="startAuctionHouseServer" >
+       <property name="AuctionHouseDataSource"><ref bean="AuctionHouseDataSource"/></property>
+   </bean>
+
+   <bean id="AuctionHouseTimer" class="edu.columbia.ase.auctionhouse.core.app.impl.AuctionHouseQuartzTimer"
+   		init-method="startAuctionTimer" >
+       <property name="AuctionHouseDataSource"><ref bean="AuctionHouseDataSource"/></property>
+       <property name="AuctionHouse"><ref bean="AuctionHouse"/></property>    
+   </bean>
+
+   <bean id="AuctionHouseAuctionCapture" class="edu.columbia.ase.auctionhouse.core.app.impl.AuctionHouseJSONAuctionCapture"
+   		init-method="loadAuctions">
+       <property name="AuctionHouseDataSource"><ref bean="AuctionHouseDataSource"/></property>
+       <property name="AuctionHouseTimer"><ref bean="AuctionHouseTimer"/></property>    
+       <property name="ItemsFileName" value="/resources/Items.json"/>    
+       <property name="AuctionsFileName" value="/resources/Auctions.json"/>           
+   </bean>
+
+
+</beans>

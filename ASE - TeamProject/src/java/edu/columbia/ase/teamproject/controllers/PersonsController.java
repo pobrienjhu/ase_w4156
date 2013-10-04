@@ -25,7 +25,6 @@ public class PersonsController {
 	private PersonsDao personsDao;	
 	 
 
-
 	@RequestMapping(method = RequestMethod.GET)
 	public String printPersons(ModelMap model) {
 		 log.info("Servlet request recieved");
@@ -34,7 +33,6 @@ public class PersonsController {
 		 
 		 log.info("Found list of persons with size |"+personsList.size()+"|");
 		 
-		 
 	     StringBuilder personsSb = new StringBuilder("");
 	     
 		 for(Persons person: personsList ){
@@ -42,7 +40,6 @@ public class PersonsController {
 		 }
 	     
 	     model.addAttribute("message", personsSb.toString());
-
 
 		 return "PersonsList";
     }
