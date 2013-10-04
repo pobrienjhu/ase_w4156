@@ -4,9 +4,8 @@
 <beans>
 
 	<import resource="classpath:spring-config-servlets.xml" />
+  <import resource="classpath:spring-config-security.xml" />	
 	<import resource="classpath:spring-config-server.xml" />
-
 	<import resource="classpath:spring-config-db.xml" />
 
-	
 </beans>
