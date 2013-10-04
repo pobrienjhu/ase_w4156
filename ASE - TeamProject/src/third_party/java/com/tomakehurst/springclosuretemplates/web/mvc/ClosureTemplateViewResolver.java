@@ -4,6 +4,7 @@ import com.google.template.soy.SoyFileSet;
 import com.google.template.soy.tofu.SoyTofu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.AbstractTemplateViewResolver;
 import org.springframework.web.servlet.view.AbstractUrlBasedView;
 
@@ -11,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ClosureTemplateViewResolver extends AbstractTemplateViewResolver {
 
@@ -79,6 +81,17 @@ public class ClosureTemplateViewResolver extends AbstractTemplateViewResolver {
 
 		return view;
 	}
+
+	// BEGIN W4156 MODIFICATIONS
+	public static final String VIEW_PREFIX = "soy:";
+	@Override
+	protected View loadView(String viewName, Locale locale) throws Exception {
+		if (!viewName.startsWith(VIEW_PREFIX)) {
+			return null;
+		}
+		return buildView(viewName.substring(VIEW_PREFIX.length()));
+	}
+	// END W4156 MODIFICATIONS
 
 	protected List<File> findSoyFiles(File baseDirectory, boolean recursive) {
         List<File> soyFiles = new ArrayList<File>();

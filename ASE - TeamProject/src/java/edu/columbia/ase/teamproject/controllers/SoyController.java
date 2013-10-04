@@ -10,6 +10,6 @@ public class SoyController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String handleRequest() {
-		return "edu.columbia.ase.index";
+		return "soy:edu.columbia.ase.index";
 	}
 }
