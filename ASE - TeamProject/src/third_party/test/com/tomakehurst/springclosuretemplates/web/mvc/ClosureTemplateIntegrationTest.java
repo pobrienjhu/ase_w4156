@@ -58,7 +58,7 @@ public class ClosureTemplateIntegrationTest {
 
 	@Test
 	public void shouldBuildWorkingViewWhenConfiguredCorrectlyWithNoTemplateCaching() throws Exception {
-		View view = noCacheClosureTemplateViewResolver.resolveViewName("com.tomakehurst.helloName", Locale.UK);
+		View view = noCacheClosureTemplateViewResolver.resolveViewName("soy:com.tomakehurst.helloName", Locale.UK);
 		String content = render(view);
 
 		assertThat(content, containsString("Hello Tom"));
@@ -66,7 +66,7 @@ public class ClosureTemplateIntegrationTest {
 
 	@Test
 	public void shouldBuildWorkingViewWhenConfiguredCorrectlyWithTemplateCaching() throws Exception {
-		View view = cachingClosureTemplateViewResolver.resolveViewName("com.tomakehurst.helloName", Locale.UK);
+		View view = cachingClosureTemplateViewResolver.resolveViewName("soy:com.tomakehurst.helloName", Locale.UK);
 
 		String content = render(view);
 		assertThat(content, containsString("Hello Tom"));
@@ -74,7 +74,7 @@ public class ClosureTemplateIntegrationTest {
 
 	@Test
 	public void shouldBuildWorkingSubFolderViewWhenConfiguredAsRecursive() throws Exception {
-		View view = cachingClosureTemplateViewResolver.resolveViewName("com.tomakehurst.subdir.helloName2", Locale.UK);
+		View view = cachingClosureTemplateViewResolver.resolveViewName("soy:com.tomakehurst.subdir.helloName2", Locale.UK);
 
 		String content = render(view);
 		assertThat(content, containsString("Hello Tom"));
@@ -82,7 +82,7 @@ public class ClosureTemplateIntegrationTest {
 
 	@Test(expected=SoyTofuException.class)
 	public void shouldThrowExceptionIfTemplateDoesntExist() throws Exception {
-		View view = cachingClosureTemplateViewResolver.resolveViewName("com.tomakehurst.doesntexist", Locale.UK);
+		View view = cachingClosureTemplateViewResolver.resolveViewName("soy:com.tomakehurst.doesntexist", Locale.UK);
 		view.render(model, request, response);
 	}
 
@@ -91,14 +91,14 @@ public class ClosureTemplateIntegrationTest {
 		String initialTemplate = getTemplateContent("example-one.soy").replace("helloName", "myNameIs");
 		writeNewTemplateFile("tmp-example.soy", initialTemplate);
 
-		View view = noCacheClosureTemplateViewResolver.resolveViewName("com.tomakehurst.myNameIs", Locale.UK);
+		View view = noCacheClosureTemplateViewResolver.resolveViewName("soy:com.tomakehurst.myNameIs", Locale.UK);
 		model.put("name", "Jimmy");
 		String content = render(view);
 		assertThat(content, is("Hello Jimmy!"));
 
 		String newTemplate = initialTemplate.replace("Hello {$name}", "My name is {$name}");
 		writeNewTemplateFile("tmp-example.soy", newTemplate);
-		view = noCacheClosureTemplateViewResolver.resolveViewName("com.tomakehurst.myNameIs", Locale.UK);
+		view = noCacheClosureTemplateViewResolver.resolveViewName("soy:com.tomakehurst.myNameIs", Locale.UK);
 		content = render(view);
 		assertThat(content, is("My name is Jimmy!"));
 	}
@@ -108,7 +108,7 @@ public class ClosureTemplateIntegrationTest {
 		String initialTemplate = getTemplateContent("example-one.soy").replace("helloName", "myNameIs");
 		writeNewTemplateFile("tmp-example-2.soy", initialTemplate);
 
-		View view = cachingClosureTemplateViewResolver.resolveViewName("com.tomakehurst.myNameIs", Locale.UK);
+		View view = cachingClosureTemplateViewResolver.resolveViewName("soy:com.tomakehurst.myNameIs", Locale.UK);
 		model.put("name", "Jimmy");
 		render(view);
 	}
