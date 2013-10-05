@@ -21,29 +21,30 @@
  	<tx:annotation-driven />
 	
 	<!-- configure hibernate session factory -->
- 	<bean id='sessionFactory'
-  		class='org.springframework.orm.hibernate4.LocalSessionFactoryBean'>
-  		<property name='dataSource' ref='dataSource' />
-  		<property name='annotatedClasses' >
+ 	<bean id="sessionFactory"
+  		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+  		<property name="dataSource" ref="dataSource" />
+  		<property name="annotatedClasses" >
    			<list>
     			<value>edu.columbia.ase.teamproject.persistence.domain.Persons</value>
+    			<value>edu.columbia.ase.teamproject.persistence.domain.UserAccount</value>
    			</list>
   		</property>
-  		<property name='hibernateProperties'>
+  		<property name="hibernateProperties">
    			<props>
-    			<prop key='dialect'>org.hibernate.dialect.HSQLDialect</prop>
-    			<prop key='hibernate.show_sql'>true</prop>
-    			<prop key='hibernate.hbm2ddl.auto'>update</prop>
+    			<prop key="dialect">org.hibernate.dialect.HSQLDialect</prop>
+    			<prop key="hibernate.show_sql">true</prop>
+    			<prop key="hibernate.hbm2ddl.auto">update</prop>
    			</props>
   		</property> 
  	</bean>
  	
- 	<bean id='transactionManager'
-      class='org.springframework.orm.hibernate4.HibernateTransactionManager'>
-    	<property name='sessionFactory' ref='sessionFactory' />
+ 	<bean id="transactionManager"
+      class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+    	<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
-	<bean id='personsDao' class='edu.columbia.ase.teamproject.persistence.dao.impl.PersonsDaoImpl' />
-	
-	
+	<bean id="personsDao" class="edu.columbia.ase.teamproject.persistence.dao.impl.PersonsDaoImpl" />
+	<bean id="userAccountDao" class="edu.columbia.ase.teamproject.persistence.dao.impl.UserAccountDaoImpl" />
+
 </beans>

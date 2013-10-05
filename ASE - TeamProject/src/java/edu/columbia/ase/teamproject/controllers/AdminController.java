@@ -12,20 +12,19 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.common.collect.Maps;
 
 @Controller
-@RequestMapping("/app/protected.do")
-public class ProtectedController {
+@RequestMapping("/admin/index.do")
+public class AdminController {
 
 	private static final Logger logger =
-			LoggerFactory.getLogger(ProtectedController.class);
+			LoggerFactory.getLogger(AdminController.class);
 
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(method=RequestMethod.GET)
 	public ModelAndView doGet() {
-		logger.info("GET /protected.do");
+		logger.info("GET /admin/index.do");
 
 		Map<String, String> model = Maps.newHashMap();
-		model.put("title", "Protected Page");
+		model.put("title", "Administration");
 
-		return new ModelAndView("soy:edu.columbia.ase.protected", model);
+		return new ModelAndView("soy:edu.columbia.ase.admin", model);
 	}
-
 }

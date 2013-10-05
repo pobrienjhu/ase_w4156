@@ -24,7 +24,7 @@
 {call .header data="all" /}
 <body>
 <h1>Hello, world!</h1>
-Click <a href="/protected.do">here</a> to go to the secure site.
+Click <a href="/app/protected.do">here</a> to go to the secure site.
 </body>
 </html>
 {/template}
@@ -37,6 +37,19 @@ Click <a href="/protected.do">here</a> to go to the secure site.
 {call .header data="all" /}
 <body>
 <h1>Hello, secure world!</h1>
+Click <a href="/admin/index.do">here</a> to go to the administrator site, or <a href="/index.do">here</a> to go to the anonymous site.
+</body>
+</html>
+{/template}
+
+/**
+  * A template for the admin page.
+  */
+{template .admin}
+<html>
+{call .header data="all" /}
+<body>
+<h1>Hello, administrator!</h1>
 Click <a href="/index.do">here</a> to go to the anonymous site.
 </body>
 </html>
