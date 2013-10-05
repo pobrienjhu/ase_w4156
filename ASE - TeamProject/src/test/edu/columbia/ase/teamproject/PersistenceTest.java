@@ -15,7 +15,7 @@ import edu.columbia.ase.teamproject.persistence.dao.PersonsDao;
 import edu.columbia.ase.teamproject.persistence.dao.impl.PersonsDaoImpl;
 import edu.columbia.ase.teamproject.persistence.domain.Persons;
 
-@ContextConfiguration(locations = "/spring-config-db.xml")
+@ContextConfiguration(locations = "classpath:applicationContext.xml")
 public class PersistenceTest extends AbstractJUnit4SpringContextTests{
 
 	 @Autowired
