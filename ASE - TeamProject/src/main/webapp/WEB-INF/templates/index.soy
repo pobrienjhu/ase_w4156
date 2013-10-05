@@ -1,0 +1,68 @@
+{namespace edu.columbia.ase autoescape="contextual"}
+
+/**
+  * Template for HTML headers.
+  * @param? title the contents for the <title> tag
+  */
+{template .header}
+<head>
+<title>
+{if $title}
+  $title
+{else}
+  Unspecified title
+{/if}
+</title>
+</head>
+{/template}
+
+/**
+  * A hello, world template.
+  */
+{template .index}
+<html>
+{call .header /}
+<body>
+<h1>Hello, world!</h1>
+Click <a href="/protected.do">here</a> to go to the secure site.
+</body>
+</html>
+{/template}
+
+/**
+  * A template for a protected page.
+  */
+{template .protected}
+<html>
+{call .header /}
+<body>
+<h1>Hello, secure world!</h1>
+Click <a href="/index.do">here</a> to go to the anonymous site.
+</body>
+</html>
+{/template}
+
+/**
+  * Login page
+  */
+{template .login}
+<html>
+{call .header /}
+<body>
+<div>
+  <form method="post" action="/j_spring_openid_security_check">
+    <input name="openid_identifier" value="" size="64"
+      placeholder="https://www.google.com/accounts/o8/id" />
+    <input type="submit" value="Login">
+  </form>
+</div>
+<div>
+  <p>Please enter your OpenId provider URL.  Values for common providers:</p>
+  <ul>
+    <li>Google: https://www.google.com/accounts/o8/id</li>
+    <li>Yahoo!: https://me.yahoo.com</li>
+  </ul>
+</div>
+</body>
+</html>
+{/template}

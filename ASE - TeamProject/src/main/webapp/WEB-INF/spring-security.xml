@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+  xmlns:beans="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+  http://www.springframework.org/schema/beans/spring-beans.xsd
+  http://www.springframework.org/schema/security
+  http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+  <http use-expressions="true">
+
+    <intercept-url pattern="/" access="permitAll" />
+    <intercept-url pattern="/index.html" access="permitAll" />
+    <intercept-url pattern="/index.do" access="permitAll" />
+    <intercept-url pattern="/login.do" access="permitAll" />
+
+    <!-- TODO(pames): add catch-all paths for, e.g. /js/, /static/, ... -->
+
+    <intercept-url pattern="/protected.do" access="hasRole('ROLE_USER')" />
+    <!-- catch-all deny access -->
+    <intercept-url pattern="/**" access="denyAll" />
+
+    <!--  declare that we support OpenId as an authentication mechanism  -->
+    <openid-login user-service-ref="openIdUserService"
+        login-page="/login.do">
+    </openid-login>
+
+  </http>
+
+  <beans:bean name="openIdUserService"
+      class="edu.columbia.ase.teamproject.security.OpenIdAuthenticationTokenConsumer" />
+  <beans:bean name="userService"
+      class="edu.columbia.ase.teamproject.security.DummyUserDetailsService" />
+
+  <authentication-manager>
+      <authentication-provider user-service-ref="userService" />
+  </authentication-manager>
+</beans:beans>

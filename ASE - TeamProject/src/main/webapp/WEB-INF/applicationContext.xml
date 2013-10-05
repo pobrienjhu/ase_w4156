@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+  <context:annotation-config />
+  <import resource="classpath:spring-security.xml" />
+  <import resource="classpath:spring-db.xml" />
+
+  <!-- JSP resolver -->
+  <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+      <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+      <property name="prefix" value="/WEB-INF/jsp/" />
+      <property name="suffix" value=".jsp"/>
+      <!--
+        Set order '1' to allow the Closure template resolver a chance to
+        find the view. This resolver will always resolve the view, even if
+        that means a 404 error, so it must go last.
+      -->
+      <property name="order" value="1" />
+  </bean>
+
+  <!--
+    Closure template configuration.  Closure view names, when returned, must
+    be prefixed with 'soy:' or else a JSP is assumed.
+  -->
+  <bean id="closureTemplateConfigurer"
+      class="com.tomakehurst.springclosuretemplates.web.mvc.ClosureTemplateConfigurer">
+      <property name="templatesLocation" value="/WEB-INF/templates/" />
+  </bean>
+
+  <bean id="closureTemplateJSController"
+      class="com.tomakehurst.springclosuretemplates.web.mvc.ClosureTemplateJavascriptController" />
+
+  <bean id="closureTemplateViewResolver"
+      class="com.tomakehurst.springclosuretemplates.web.mvc.ClosureTemplateViewResolver">
+      <property name="cache" value="false" />
+      <property name="order" value="0" />
+  </bean>
+
+</beans>

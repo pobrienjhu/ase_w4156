@@ -1,2 +1,5 @@
-/bin
+.springBeans
 /.classpath
+/.settings
+/bin
+/jsp

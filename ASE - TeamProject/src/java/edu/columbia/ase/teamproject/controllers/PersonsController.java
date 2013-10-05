@@ -14,16 +14,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import edu.columbia.ase.teamproject.persistence.dao.PersonsDao;
 import edu.columbia.ase.teamproject.persistence.domain.Persons;
 
-
 @Controller
-@RequestMapping("persons")
+@RequestMapping("/persons.do")
 public class PersonsController {
 
 	private Logger log = LoggerFactory.getLogger(PersonsController.class);
-	
+
 	@Autowired
 	private PersonsDao personsDao;	
-	 
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String printPersons(ModelMap model) {
@@ -44,21 +42,13 @@ public class PersonsController {
 		 return "PersonsList";
     }
 
-	/**
-	 * @return the personsDao
-	 */
+
 	public PersonsDao getPersonsDao() {
 		return personsDao;
 	}
 
-	/**
-	 * @param personsDao the personsDao to set
-	 */
 	public void setPersonsDao(PersonsDao personsDao) {
 		log.info("setting personDao");
 		this.personsDao = personsDao;
 	}
-	
-	
-	
 }

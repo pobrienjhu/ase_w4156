@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+  id="WebApp_ID" version="3.0">
+
+  <display-name>w4156</display-name>
+
+  <welcome-file-list>
+      <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+
+  <!-- Define the Spring Context Loader Listener... -->
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+
+  <!-- ... and where it should learn about the beans in our application. -->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>/WEB-INF/applicationContext.xml</param-value>
+  </context-param>
+
+  <!-- Define the AuthN/AuthZ Spring Security filter. -->
+  <filter>
+    <filter-name>springSecurityFilterChain</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+  </filter>
+
+  <!-- Ensure the filter applies to every request. -->
+  <filter-mapping>
+    <filter-name>springSecurityFilterChain</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <!-- Define the servlet responsible for routing requests. -->
+  <servlet>
+    <servlet-name>dispatcher</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <!--
+    All controller paths should end in '.do' to be properly routed.  You
+    cannot specify '*' or else infinite redirect loops occur.
+  -->
+  <servlet-mapping>
+    <servlet-name>dispatcher</servlet-name>
+    <url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+</web-app>
