@@ -114,6 +114,9 @@
 			rev="3.2.4.RELEASE" conf="test->default" />
 
 
+    <!-- Unit test dependencies -->
+    <dependency org="org.mockito" name="mockito-all" rev="1.9.5"
+        conf="test->default" />
 
 	</dependencies>
 </ivy-module>

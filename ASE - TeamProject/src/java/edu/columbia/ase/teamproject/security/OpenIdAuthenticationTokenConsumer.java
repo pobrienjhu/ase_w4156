@@ -35,7 +35,7 @@ public class OpenIdAuthenticationTokenConsumer implements
 	@Override
 	public UserDetails loadUserDetails(OpenIDAuthenticationToken token)
 			throws UsernameNotFoundException {
-		Preconditions.checkState(
+		Preconditions.checkArgument(
 				token.getStatus().equals(OpenIDAuthenticationStatus.SUCCESS));
 		UserAccount account = userAccountDao.findAccountByNameAndType(
 				token.getIdentityUrl(), AccountType.OPENID);
