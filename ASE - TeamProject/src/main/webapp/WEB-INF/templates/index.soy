@@ -2,80 +2,233 @@
 
 /**
   * Template for HTML headers.
-  * @param? title the contents for the <title> tag
+  * @param title the contents for the <title> tag
+  * @param? subtitle a sub title to add to the top of a page
   */
 {template .header}
+<html>
 <head>
 <title>
-{if isNonnull($title)}
   {$title}
-{else}
-  Unspecified title
-{/if}
 </title>
+<link rel="stylesheet" type="text/css" href="/static/default.css" />
 </head>
+<body>
+<div class="top"><h1>{$title}
+{if $subtitle}
+  <span>{$subtitle}</span>
+{/if}
+</h1>
+</div>
+{call .menu data="all" /}
 {/template}
 
 /**
-  * A hello, world template.
+  * Template for menu bar.
+  * @param? admin true if the user is an administrator
   */
-{template .index}
-<html>
-{call .header data="all" /}
-<body>
-<h1>Hello, world!</h1>
-Click <a href="/app/protected.do">here</a> to go to the secure site.
+{template .menu}
+<div class="header">
+  <div class="menu">
+    <ul>
+      <li><div><a href="/index.do">Home</a></div></li>
+      <li><div><a href="/index.do">Other unauthenticated functions</a></div></li>
+    </ul>
+    <ul>
+      <li><div><a href="#">Events</a></div></li>
+      <li><div><a href="/app/protected.do">Other authenticated functionality</a></div></li>
+    </ul>
+    {if $admin}
+    <ul>
+      <li><div><a href="/admin/index.do">Administrator panel</a></div></li>
+      <li><div><a href="#">Other admin functionality</a></div></li>
+    </ul>
+    {/if}
+  </div>
+</div>
+{/template}
+
+/**
+  * Template for HTML footers.
+  */
+{template .footer}
+<div class="footer">
+  <div class="copyright">COMS W4156</div>
+</div>
 </body>
 </html>
+{/template}
+
+/**
+  * Template for home page.
+  */
+{template .index}
+{call .header data="all" /}
+<div class="content_left">
+  <div class="date">Large header?</div>
+  <div class="newsitem">
+    <div class="title">Title</div>
+    <div class="body">
+      <p>Lorem ipsum...</p>
+    </div>
+    <div class="clearer"><span></span></div>
+  </div>
+  <div class="newsitem">
+    <div class="title">Title</div>
+    <div class="body">
+      <p>Lorem ipsum...</p>
+    </div>
+    <div class="clearer"><span></span></div>
+  </div>
+</div>
+<div class="content_right">
+  <div class="links">
+    <div class="title">Section 1</div>
+    <a href="#">Foo</a>
+    <div class="line"><span></span></div>
+    <a href="#">Bar</a>
+    <div class="line"><span></span></div>
+    <a href="#">Baz</a>
+    <div class="title">Section 2</div>
+    <a href="#">Foo</a>
+    <div class="line"><span></span></div>
+    <a href="#">Bar</a>
+    <div class="line"><span></span></div>
+    <a href="#">Baz</a>
+    <div class="title">Section 3</div>
+    <a href="#">Foo</a>
+    <div class="line"><span></span></div>
+    <a href="#">Bar</a>
+    <div class="line"><span></span></div>
+    <a href="#">Baz</a>
+  </div>
+</div>
+{call .footer /}
 {/template}
 
 /**
   * A template for a protected page.
   */
 {template .protected}
-<html>
 {call .header data="all" /}
-<body>
-<h1>Hello, secure world!</h1>
-Click <a href="/admin/index.do">here</a> to go to the administrator site, or <a href="/index.do">here</a> to go to the anonymous site.
-</body>
-</html>
+<div class="content_left">
+  <div class="date">Large header?</div>
+  <div class="newsitem">
+    <div class="title">Title</div>
+    <div class="body">
+      <p><a href="/admin/index.do">Find out whether you're an admin!</a></p>
+    </div>
+    <div class="clearer"><span></span></div>
+  </div>
+  <div class="newsitem">
+    <div class="title">Title</div>
+    <div class="body">
+      <p>Lorem ipsum...</p>
+    </div>
+    <div class="clearer"><span></span></div>
+  </div>
+</div>
+<div class="content_right">
+  <div class="links">
+    <div class="title">Section 1</div>
+    <a href="#">Foo</a>
+    <div class="line"><span></span></div>
+    <a href="#">Bar</a>
+    <div class="line"><span></span></div>
+    <a href="#">Baz</a>
+    <div class="title">Section 2</div>
+    <a href="#">Foo</a>
+    <div class="line"><span></span></div>
+    <a href="#">Bar</a>
+    <div class="line"><span></span></div>
+    <a href="#">Baz</a>
+    <div class="title">Section 3</div>
+    <a href="#">Foo</a>
+    <div class="line"><span></span></div>
+    <a href="#">Bar</a>
+    <div class="line"><span></span></div>
+    <a href="#">Baz</a>
+  </div>
+</div>
+{call .footer /}
 {/template}
 
 /**
   * A template for the admin page.
   */
 {template .admin}
-<html>
 {call .header data="all" /}
-<body>
-<h1>Hello, administrator!</h1>
-Click <a href="/index.do">here</a> to go to the anonymous site.
-</body>
-</html>
+<div class="content_left">
+  <div class="date">Large header?</div>
+  <div class="newsitem">
+    <div class="title">Title</div>
+    <div class="body">
+      <p>Lorem ipsum...</p>
+    </div>
+    <div class="clearer"><span></span></div>
+  </div>
+  <div class="newsitem">
+    <div class="title">Title</div>
+    <div class="body">
+      <p>Lorem ipsum...</p>
+    </div>
+    <div class="clearer"><span></span></div>
+  </div>
+</div>
+<div class="content_right">
+  <div class="links">
+    <div class="title">Section 1</div>
+    <a href="#">Foo</a>
+    <div class="line"><span></span></div>
+    <a href="#">Bar</a>
+    <div class="line"><span></span></div>
+    <a href="#">Baz</a>
+    <div class="title">Section 2</div>
+    <a href="#">Foo</a>
+    <div class="line"><span></span></div>
+    <a href="#">Bar</a>
+    <div class="line"><span></span></div>
+    <a href="#">Baz</a>
+    <div class="title">Section 3</div>
+    <a href="#">Foo</a>
+    <div class="line"><span></span></div>
+    <a href="#">Bar</a>
+    <div class="line"><span></span></div>
+    <a href="#">Baz</a>
+  </div>
+</div>
+{call .footer /}
 {/template}
 
 /**
   * Login page
   */
 {template .login}
-<html>
-{call .header /}
-<body>
-<div>
-  <form method="post" action="/j_spring_openid_security_check">
-    <input name="openid_identifier" value="" size="64"
-      placeholder="https://www.google.com/accounts/o8/id" />
-    <input type="submit" value="Login">
-  </form>
+{call .header data="all" /}
+<script src="/static/login.js" defer></script>
+<div class="content_left">
+  <div class="date">Login</div>
+  <div class="newsitem">
+    <div class="title">Select a login provider</div>
+    <div class="body">
+      <form method="post" id="openid_form" action="/j_spring_openid_security_check">
+      <input name="openid_identifier" id="openid_identifier" value="" size="64"
+        placeholder="https://www.google.com/accounts/o8/id" />
+      <input type="submit" value="Login">
+      </form>
+      <p>Please enter your OpenId provider URL, or select from one of the
+         choices on the right hand side.</p>
+      <div class="clearer"><span></span></div>
+    </div>
+  </div>
 </div>
-<div>
-  <p>Please enter your OpenId provider URL.  Values for common providers:</p>
-  <ul>
-    <li>Google: https://www.google.com/accounts/o8/id</li>
-    <li>Yahoo!: https://me.yahoo.com</li>
-  </ul>
+<div class="content_right">
+  <div class="links">
+    <div class="title">OpenId Providers</div>
+    <a href="#" id="openid_google">Google</a>
+    <div class="line"><span></span></div>
+    <a href="#" id="openid_yahoo">Yahoo!</a>
+  </div>
 </div>
-</body>
-</html>
+{call .footer /}
 {/template}

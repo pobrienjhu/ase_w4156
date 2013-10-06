@@ -10,9 +10,11 @@
   <http use-expressions="true">
 
     <intercept-url pattern="/" access="permitAll" />
+    <intercept-url pattern="/favicon.ico" access="permitAll" />
     <intercept-url pattern="/index.html" access="permitAll" />
     <intercept-url pattern="/index.do" access="permitAll" />
     <intercept-url pattern="/login.do" access="permitAll" />
+    <intercept-url pattern="/static/**" access="permitAll" />
 
     <!-- TODO(pames): add catch-all paths for, e.g. /js/, /static/, ... -->
 

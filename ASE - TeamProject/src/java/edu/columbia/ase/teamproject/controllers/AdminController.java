@@ -22,8 +22,9 @@ public class AdminController {
 	public ModelAndView doGet() {
 		logger.info("GET /admin/index.do");
 
-		Map<String, String> model = Maps.newHashMap();
+		Map<String, Object> model = Maps.newHashMap();
 		model.put("title", "Administration");
+		model.put("admin", true);
 
 		return new ModelAndView("soy:edu.columbia.ase.admin", model);
 	}
