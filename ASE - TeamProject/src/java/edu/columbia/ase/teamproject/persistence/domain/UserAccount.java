@@ -68,6 +68,10 @@ public class UserAccount {
 		this.permissions = Lists.newArrayList(permissions.iterator());
 	}
 
+	public long getId() {
+		return id;
+	}
+
 	@Nullable
 	public String getUsername() {
 		return username;
