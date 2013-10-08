@@ -25,7 +25,7 @@
 
 /**
   * Template for menu bar.
-  * @param? admin true if the user is an administrator
+  * @param? _admin true if the user is an administrator
   */
 {template .menu}
 <div class="header">
@@ -38,7 +38,7 @@
       <li><div><a href="#">Events</a></div></li>
       <li><div><a href="/app/protected.do">Other authenticated functionality</a></div></li>
     </ul>
-    {if $admin}
+    {if $_admin}
     <ul>
       <li><div><a href="/admin/index.do">Administrator panel</a></div></li>
       <li><div><a href="#">Other admin functionality</a></div></li>
@@ -202,6 +202,7 @@
 
 /**
   * Login page
+  * @param _csrf a CSRF token.
   */
 {template .login}
 {call .header data="all" /}
@@ -214,6 +215,7 @@
       <form method="post" id="openid_form" action="/j_spring_openid_security_check">
       <input name="openid_identifier" id="openid_identifier" value="" size="64"
         placeholder="https://www.google.com/accounts/o8/id" />
+      <input type="hidden" name="_csrf" value="{$_csrf}" />
       <input type="submit" value="Login">
       </form>
       <p>Please enter your OpenId provider URL, or select from one of the
