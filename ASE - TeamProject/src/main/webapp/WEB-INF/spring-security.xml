@@ -28,7 +28,13 @@
         login-page="/login.do">
     </openid-login>
 
+    <csrf token-repository-ref="csrfTokenService" />
   </http>
+
+  <beans:bean name="csrfTokenService"
+      class="org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository">
+    <beans:property name="sessionAttributeName" value="_csrf" />
+  </beans:bean>
 
   <beans:bean name="openIdUserService"
       class="edu.columbia.ase.teamproject.security.OpenIdAuthenticationTokenConsumer" />

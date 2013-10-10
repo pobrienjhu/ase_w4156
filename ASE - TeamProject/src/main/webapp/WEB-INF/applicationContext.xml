@@ -37,7 +37,7 @@
       class="com.tomakehurst.springclosuretemplates.web.mvc.ClosureTemplateJavascriptController" />
 
   <bean id="closureTemplateViewResolver"
-      class="com.tomakehurst.springclosuretemplates.web.mvc.ClosureTemplateViewResolver">
+      class="edu.columbia.ase.teamproject.view.ClosureViewResolver">
       <property name="cache" value="false" />
       <property name="order" value="0" />
   </bean>
