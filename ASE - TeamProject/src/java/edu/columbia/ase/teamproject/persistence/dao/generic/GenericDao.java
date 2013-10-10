@@ -1,4 +1,4 @@
-package edu.columbia.ase.teamproject.persistence.dao;
+package edu.columbia.ase.teamproject.persistence.dao.generic;
 
 import java.util.List;
 

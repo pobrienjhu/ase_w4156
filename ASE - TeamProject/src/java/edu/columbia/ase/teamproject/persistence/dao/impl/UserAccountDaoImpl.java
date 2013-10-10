@@ -12,10 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.base.Preconditions;
 
-import edu.columbia.ase.teamproject.persistence.dao.HibernateDao;
+import edu.columbia.ase.teamproject.persistence.dao.generic.HibernateDao;
 import edu.columbia.ase.teamproject.persistence.dao.UserAccountDao;
+import edu.columbia.ase.teamproject.persistence.domain.Event;
 import edu.columbia.ase.teamproject.persistence.domain.UserAccount;
-import edu.columbia.ase.teamproject.persistence.domain.UserAccount.AccountType;
+import edu.columbia.ase.teamproject.persistence.domain.enumeration.AccountType;
 
 @Transactional(propagation = Propagation.REQUIRED)
 public class UserAccountDaoImpl extends HibernateDao<UserAccount, Long>
@@ -56,4 +57,13 @@ public class UserAccountDaoImpl extends HibernateDao<UserAccount, Long>
 		Number count = (Number) criteria.uniqueResult(); 
 		return count.longValue();
 	}
+	
+    @SuppressWarnings("unchecked")
+	@Override
+    public List<UserAccount> list() {
+        return currentSession().createCriteria(UserAccount.class)
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+                .list();
+    }
+	
 }

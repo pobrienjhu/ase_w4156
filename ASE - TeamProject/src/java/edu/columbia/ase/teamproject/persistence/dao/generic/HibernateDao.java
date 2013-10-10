@@ -1,15 +1,19 @@
-package edu.columbia.ase.teamproject.persistence.dao;
-
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
+package edu.columbia.ase.teamproject.persistence.dao.generic;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import edu.columbia.ase.teamproject.persistence.dao.util.InputValidatorTruncator;
 
 /**
  * Basic DAO operations dependent with Hibernate's specific classes
@@ -18,8 +22,12 @@ import java.util.List;
 @Transactional(propagation= Propagation.REQUIRED, readOnly=false)
 public class HibernateDao<E, K extends Serializable> implements GenericDao<E, K> {
 
+	private static final Logger logger = LoggerFactory.getLogger(HibernateDao.class);
+	
     private SessionFactory sessionFactory;
     protected Class<? extends E> daoType;
+    
+    protected InputValidatorTruncator inputValidatorTruncator = new InputValidatorTruncator();
 
     @SuppressWarnings("unchecked")
 	public HibernateDao() {
@@ -48,11 +56,13 @@ public class HibernateDao<E, K extends Serializable> implements GenericDao<E, K>
 
     @Override
     public void add(E entity) {
+    	entity = truncateFreeTextFields(entity);
         currentSession().save(entity);
     }
 
     @Override
     public void update(E entity) {
+    	entity = truncateFreeTextFields(entity);
         currentSession().saveOrUpdate(entity);
     }
 
@@ -71,5 +81,21 @@ public class HibernateDao<E, K extends Serializable> implements GenericDao<E, K>
 	@Override
     public List<E> list() {
         return currentSession().createCriteria(daoType).list();
+        //return (List<E>) currentSession().createQuery("select t from " + daoType.getName() + " t").list();// .getResultList();
+
     }
+    
+    private E truncateFreeTextFields(E e) {
+        try {
+            e = inputValidatorTruncator.truncate(e);
+        } catch (Exception ex) {
+            logger.error("Problem truncating entity ["+e+"]",ex);
+        }
+        return e;
+    }
+    
+    public void flush() {
+    	currentSession().flush();
+    }
+    
 }

@@ -17,7 +17,7 @@ import com.google.common.collect.ImmutableList;
 
 import edu.columbia.ase.teamproject.persistence.dao.UserAccountDao;
 import edu.columbia.ase.teamproject.persistence.domain.UserAccount;
-import edu.columbia.ase.teamproject.persistence.domain.UserAccount.AccountType;
+import edu.columbia.ase.teamproject.persistence.domain.enumeration.AccountType;
 
 public class OpenIdAuthenticationTokenConsumer implements
 	AuthenticationUserDetailsService<OpenIDAuthenticationToken> {
@@ -54,7 +54,7 @@ public class OpenIdAuthenticationTokenConsumer implements
 
 			logger.info("Creating new account for " + token.getIdentityUrl());
 			account = new UserAccount(AccountType.OPENID, token.getIdentityUrl(),
-					null, permissionBuilder.build());
+					null, token.getName(), permissionBuilder.build());
 			userAccountDao.add(account);
 		}
 

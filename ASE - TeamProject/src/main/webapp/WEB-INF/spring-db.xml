@@ -26,8 +26,11 @@
   		<property name="dataSource" ref="dataSource" />
   		<property name="annotatedClasses" >
    			<list>
-    			<value>edu.columbia.ase.teamproject.persistence.domain.Persons</value>
     			<value>edu.columbia.ase.teamproject.persistence.domain.UserAccount</value>
+    			<value>edu.columbia.ase.teamproject.persistence.domain.Event</value>
+    			<value>edu.columbia.ase.teamproject.persistence.domain.VoteCategory</value>		
+    			<value>edu.columbia.ase.teamproject.persistence.domain.VoteOption</value>		
+    			<value>edu.columbia.ase.teamproject.persistence.domain.Vote</value>		
    			</list>
   		</property>
   		<property name="hibernateProperties">
@@ -44,7 +47,9 @@
     	<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
-	<bean id="personsDao" class="edu.columbia.ase.teamproject.persistence.dao.impl.PersonsDaoImpl" />
+	<bean id="eventDao" class="edu.columbia.ase.teamproject.persistence.dao.impl.EventDaoImpl" />
 	<bean id="userAccountDao" class="edu.columbia.ase.teamproject.persistence.dao.impl.UserAccountDaoImpl" />
+	<bean id="voteCategoryDao" class="edu.columbia.ase.teamproject.persistence.dao.impl.VoteCategoryDaoImpl" />
+	
 
 </beans>
