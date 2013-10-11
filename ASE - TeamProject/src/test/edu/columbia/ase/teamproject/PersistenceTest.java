@@ -142,6 +142,11 @@ public class PersistenceTest extends AbstractTransactionalJUnit4SpringContextTes
 		  assertNotNull (voteCategoryDao); 
 	 }
 	
+	 /*
+	  * This test now fails because there is no VoteCategory pre-seeded in the
+	  * setUp() method.  Attempts to do so result in the following SQL error:
+	  * java.sql.SQLIntegrityConstraintViolationException: integrity constraint violation: foreign key no parent; [...] table: VOTECATEGORY
+	  */
 	 @Test
 	 public void testVoteCategoryDaoQuery(){
 		// Is personsDao ready for operations	 
