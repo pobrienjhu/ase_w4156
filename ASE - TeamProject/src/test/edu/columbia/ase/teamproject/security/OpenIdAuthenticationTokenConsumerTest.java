@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.BlockJUnit4ClassRunner;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,16 +14,10 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.openid.OpenIDAuthenticationStatus;
 import org.springframework.security.openid.OpenIDAuthenticationToken;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import edu.columbia.ase.teamproject.persistence.dao.UserAccountDao;
 
-// These annotations are not strictly necessary since we aren't using
-// @Autowired, etc. but they serve as a good exameple.
-// TODO(pames): remove them.
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:applicationContext.xml" })
+@RunWith(BlockJUnit4ClassRunner.class)
 public class OpenIdAuthenticationTokenConsumerTest {
 
 	private OpenIdAuthenticationTokenConsumer tokenConsumer;
