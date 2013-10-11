@@ -18,8 +18,9 @@ import javax.persistence.Table;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import com.google.common.base.Joiner;
+
 import edu.columbia.ase.teamproject.persistence.dao.util.ColumnLength;
-import edu.columbia.ase.teamproject.util.ToStringHelper;
 
 @Entity
 @Table(name = "VoteCategory")
@@ -131,7 +132,7 @@ public class VoteCategory {
 				.append("categoryName", categoryName)
 				.append("event", event.getName())
 				.append("description", description)
-				.append("voteOptions", ToStringHelper.toString(voteOptions))
+				.append("voteOptions", Joiner.on("\n").join(voteOptions))
 				.toString();		
 	}	
 	

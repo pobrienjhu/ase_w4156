@@ -25,13 +25,13 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.annotations.Type;
 
+import com.google.common.base.Joiner;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 
 import edu.columbia.ase.teamproject.persistence.dao.util.ColumnLength;
 import edu.columbia.ase.teamproject.persistence.domain.enumeration.AccountType;
 import edu.columbia.ase.teamproject.security.Permission;
-import edu.columbia.ase.teamproject.util.ToStringHelper;
 
 @Entity
 @Table(name = "UserAccount")
@@ -182,8 +182,8 @@ public class UserAccount {
 				.append("username", username)
 				.append("accountType", accountType)
 				.append("permissions", permissions)
-				.append("adminEvents", ToStringHelper.toString(adminEvents) )
-				.append("userEvents", ToStringHelper.toString(userEvents) )
+				.append("adminEvents", Joiner.on("\n").join(adminEvents))
+				.append("userEvents", Joiner.on("\n").join(userEvents))
 				.toString();		
 	}	
 	
