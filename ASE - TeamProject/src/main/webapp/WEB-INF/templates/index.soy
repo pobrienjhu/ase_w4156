@@ -21,6 +21,7 @@
 </h1>
 </div>
 {call .menu data="all" /}
+{call .content_right data="all" /}
 {/template}
 
 /**
@@ -60,6 +61,24 @@
 {/template}
 
 /**
+  * Template for right hand side menu bar.
+  * @param _menu the menu to display.
+  */
+{template .content_right}
+<div class="content_right">
+  <div class="links">
+  {foreach $section in $_menu}
+    <div class="title">{$section.sectionName}</div>
+    {foreach $entry in $section.entries}
+      <a href="{$entry.uri}" id="{$entry.id}">{$entry.text}</a>
+      <div class="line"><span></span></div>
+    {/foreach}
+  {/foreach} 
+  </div>
+</div>
+{/template}
+
+/**
   * Template for home page.
   */
 {template .index}
@@ -79,28 +98,6 @@
       <p>Lorem ipsum...</p>
     </div>
     <div class="clearer"><span></span></div>
-  </div>
-</div>
-<div class="content_right">
-  <div class="links">
-    <div class="title">Section 1</div>
-    <a href="#">Foo</a>
-    <div class="line"><span></span></div>
-    <a href="#">Bar</a>
-    <div class="line"><span></span></div>
-    <a href="#">Baz</a>
-    <div class="title">Section 2</div>
-    <a href="#">Foo</a>
-    <div class="line"><span></span></div>
-    <a href="#">Bar</a>
-    <div class="line"><span></span></div>
-    <a href="#">Baz</a>
-    <div class="title">Section 3</div>
-    <a href="#">Foo</a>
-    <div class="line"><span></span></div>
-    <a href="#">Bar</a>
-    <div class="line"><span></span></div>
-    <a href="#">Baz</a>
   </div>
 </div>
 {call .footer /}
@@ -128,28 +125,6 @@
     <div class="clearer"><span></span></div>
   </div>
 </div>
-<div class="content_right">
-  <div class="links">
-    <div class="title">Section 1</div>
-    <a href="#">Foo</a>
-    <div class="line"><span></span></div>
-    <a href="#">Bar</a>
-    <div class="line"><span></span></div>
-    <a href="#">Baz</a>
-    <div class="title">Section 2</div>
-    <a href="#">Foo</a>
-    <div class="line"><span></span></div>
-    <a href="#">Bar</a>
-    <div class="line"><span></span></div>
-    <a href="#">Baz</a>
-    <div class="title">Section 3</div>
-    <a href="#">Foo</a>
-    <div class="line"><span></span></div>
-    <a href="#">Bar</a>
-    <div class="line"><span></span></div>
-    <a href="#">Baz</a>
-  </div>
-</div>
 {call .footer /}
 {/template}
 
@@ -173,28 +148,6 @@
       <p>Lorem ipsum...</p>
     </div>
     <div class="clearer"><span></span></div>
-  </div>
-</div>
-<div class="content_right">
-  <div class="links">
-    <div class="title">Section 1</div>
-    <a href="#">Foo</a>
-    <div class="line"><span></span></div>
-    <a href="#">Bar</a>
-    <div class="line"><span></span></div>
-    <a href="#">Baz</a>
-    <div class="title">Section 2</div>
-    <a href="#">Foo</a>
-    <div class="line"><span></span></div>
-    <a href="#">Bar</a>
-    <div class="line"><span></span></div>
-    <a href="#">Baz</a>
-    <div class="title">Section 3</div>
-    <a href="#">Foo</a>
-    <div class="line"><span></span></div>
-    <a href="#">Bar</a>
-    <div class="line"><span></span></div>
-    <a href="#">Baz</a>
   </div>
 </div>
 {call .footer /}
@@ -222,14 +175,6 @@
          choices on the right hand side.</p>
       <div class="clearer"><span></span></div>
     </div>
-  </div>
-</div>
-<div class="content_right">
-  <div class="links">
-    <div class="title">OpenId Providers</div>
-    <a href="#" id="openid_google">Google</a>
-    <div class="line"><span></span></div>
-    <a href="#" id="openid_yahoo">Yahoo!</a>
   </div>
 </div>
 {call .footer /}

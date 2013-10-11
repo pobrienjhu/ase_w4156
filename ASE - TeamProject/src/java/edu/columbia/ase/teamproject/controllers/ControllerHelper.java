@@ -1,5 +1,6 @@
 package edu.columbia.ase.teamproject.controllers;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -12,6 +13,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.csrf.CsrfToken;
 
 import com.google.common.collect.Maps;
+
+import edu.columbia.ase.teamproject.view.NavigationMenuSection;
 
 public class ControllerHelper {
 
@@ -37,6 +40,8 @@ public class ControllerHelper {
 			authentication.getAuthorities().contains(ADMIN_AUTHORITY)) {
 			model.put("_admin", true);
 		}
+
+		model.put("_menu", new ArrayList<NavigationMenuSection>());
 
 		return model;
 	}
