@@ -1,4 +1,6 @@
 
+
+
 /*
  * Adds an onClick handler to the provided tag_id that will submit the
  * form_id after setting input_id to the provided OpenId URL. 
@@ -29,9 +31,11 @@ function initOpenId(evt) {
 			'https://me.yahoo.com');
 }
 
-initOpenId();
+
+$( document ).ready(function() { initOpenId();});
 // Register event listener to annotate page when load completes.
 //document.addEventListener('DOMContentLoaded', initOpenId);
+
 
 
 
