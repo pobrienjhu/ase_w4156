@@ -78,14 +78,14 @@ public class UserAccount {
 	private List<Event> userEvents;
 	
 	// A no-arg constructor is required for Hibernate.
-	@SuppressWarnings("unused")
-	private UserAccount() {  
+	private UserAccount() {
 		userEvents = new ArrayList<Event>();
 		adminEvents = new ArrayList<Event>();
 	}
 
 	public UserAccount(AccountType type, String username, String displayName,
 			@Nullable String password, List<Permission> permissions) {
+		this();
 		this.accountType = Preconditions.checkNotNull(type);
 		Preconditions.checkArgument(!username.isEmpty());
 		Preconditions.checkNotNull(permissions);

@@ -4,11 +4,11 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import org.hibernate.SessionFactory;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +44,16 @@ public class PersistenceTest extends AbstractTransactionalJUnit4SpringContextTes
 	 
 	 @Autowired
 	 VoteCategoryDao voteCategoryDao;
+
+	 @Before
+	 public void setUp() {
+		 UserAccount user = new UserAccount(AccountType.LOCAL, "user",
+				 "displayName", "password",
+				 Arrays.asList(new Permission[]{Permission.USER}));
+		 userAccountDao.add(user);
+		 Event event = new Event(user, "Event Name", "Event Description");
+		 eventDao.add(event);
+	 }
 
 	 @Test
 	 public void testHibernateConfiguration() {
