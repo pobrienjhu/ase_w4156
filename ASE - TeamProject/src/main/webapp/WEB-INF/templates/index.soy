@@ -1,24 +1,31 @@
 {namespace edu.columbia.ase autoescape="contextual"}
 
 /**
-  * Template for HTML headers.
+  * Template for HTML headers
   * @param title the contents for the <title> tag
   * @param? subtitle a sub title to add to the top of a page
   */
 {template .header}
 <html>
 <head>
+
 <title>
+
   {$title}
 </title>
 <link rel="stylesheet" type="text/css" href="/static/default.css" />
 </head>
 <body>
-<div class="top"><h1>{$title}
+
+<div class="top">
+<img align=bottom src="static/img/logo6.jpg"/>
+<h1>
+{$title}
 {if $subtitle}
   <span>{$subtitle}</span>
 {/if}
-</h1>
+</h1> 
+
 </div>
 {call .menu data="all" /}
 {call .content_right data="all" /}
@@ -29,6 +36,8 @@
   * @param? _admin true if the user is an administrator
   */
 {template .menu}
+
+
 <div class="header">
   <div class="menu">
     <ul>
