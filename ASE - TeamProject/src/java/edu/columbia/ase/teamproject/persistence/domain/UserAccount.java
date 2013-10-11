@@ -26,6 +26,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.annotations.Type;
 
 import com.google.common.base.Joiner;
+import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 
@@ -186,5 +187,17 @@ public class UserAccount {
 				.append("userEvents", Joiner.on("\n").join(userEvents))
 				.toString();		
 	}	
-	
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof UserAccount) {
+			return ((UserAccount)obj).getId().equals(id);
+		}
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return id.hashCode();
+	}
 }
