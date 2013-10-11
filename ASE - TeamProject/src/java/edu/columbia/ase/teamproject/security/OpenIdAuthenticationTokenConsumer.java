@@ -40,22 +40,26 @@ public class OpenIdAuthenticationTokenConsumer implements
 		UserAccount account = userAccountDao.findAccountByNameAndType(
 				token.getIdentityUrl(), AccountType.OPENID);
 
-		if (account == null) {
-			ImmutableList.Builder<Permission> permissionBuilder =
-					ImmutableList.<Permission>builder();
-			permissionBuilder.add(Permission.USER);
+		synchronized(this) {
+			if (account == null) {
+				ImmutableList.Builder<Permission> permissionBuilder =
+						ImmutableList.<Permission>builder();
+				permissionBuilder.add(Permission.USER);
 
-			// There is a race condition here, in that 2 users registering at
-			// the same time may both become admins if there are no other
-			// users, however the risk is very low.
-			if (userAccountDao.getNumberOfUsers() == 0) {
-				permissionBuilder.add(Permission.ADMIN);
+				// There is a race condition here, in that 2 users registering at
+				// the same time may both become admins if there are no other
+				// users, however the risk is very low.
+				if (userAccountDao.getNumberOfUsers() == 0) {
+					permissionBuilder.add(Permission.ADMIN);
+				}
+
+				logger.info("Creating new account for {0}",
+						token.getIdentityUrl());
+				account = new UserAccount(AccountType.OPENID,
+						token.getIdentityUrl(), null, token.getName(),
+						permissionBuilder.build());
+				userAccountDao.add(account);
 			}
-
-			logger.info("Creating new account for " + token.getIdentityUrl());
-			account = new UserAccount(AccountType.OPENID, token.getIdentityUrl(),
-					null, token.getName(), permissionBuilder.build());
-			userAccountDao.add(account);
 		}
 
 		return new User(account.getUsername(), "[PROTECTED]",
