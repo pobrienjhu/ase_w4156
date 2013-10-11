@@ -29,5 +29,11 @@ function initOpenId(evt) {
 			'https://me.yahoo.com');
 }
 
+initOpenId();
 // Register event listener to annotate page when load completes.
-document.addEventListener('DOMContentLoaded', initOpenId);
+//document.addEventListener('DOMContentLoaded', initOpenId);
+
+
+
+
+
