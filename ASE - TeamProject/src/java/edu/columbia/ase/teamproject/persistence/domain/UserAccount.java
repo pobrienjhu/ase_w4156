@@ -25,17 +25,22 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.annotations.Type;
 
-import edu.columbia.ase.teamproject.util.ToStringHelper;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 
 import edu.columbia.ase.teamproject.persistence.dao.util.ColumnLength;
 import edu.columbia.ase.teamproject.persistence.domain.enumeration.AccountType;
 import edu.columbia.ase.teamproject.security.Permission;
+import edu.columbia.ase.teamproject.util.ToStringHelper;
 
 @Entity
 @Table(name = "UserAccount")
 public class UserAccount {
+
+	// See constraints in schema.sql.
+	public static final int MAX_USERNAME_LENGTH = 256;
+	public static final int MAX_PASSWORD_LENGTH = 256;
+	public static final int MAX_DISPLAY_NAME_LENGTH = 64;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -47,15 +52,15 @@ public class UserAccount {
 	private AccountType accountType;
 
 	@Column(name="username", nullable=false)
-	@ColumnLength(value = 50)
+	@ColumnLength(value = MAX_USERNAME_LENGTH)
 	private String username;
 
 	@Column(name="password")
-	@ColumnLength(value = 25)
+	@ColumnLength(value = MAX_PASSWORD_LENGTH)
 	private String password;
 
 	@Column(name="displayName")
-	@ColumnLength(value = 30)
+	@ColumnLength(value = MAX_DISPLAY_NAME_LENGTH)
 	private String displayName;
 	
 	@ElementCollection(fetch=FetchType.EAGER)
@@ -83,11 +88,19 @@ public class UserAccount {
 		adminEvents = new ArrayList<Event>();
 	}
 
-	public UserAccount(AccountType type, String username, String displayName,
-			@Nullable String password, List<Permission> permissions) {
+	public UserAccount(AccountType type, String username,
+			@Nullable String displayName, @Nullable String password,
+			List<Permission> permissions) {
 		this();
-		this.accountType = Preconditions.checkNotNull(type);
 		Preconditions.checkArgument(!username.isEmpty());
+		Preconditions.checkArgument(username.length() < MAX_USERNAME_LENGTH);
+		Preconditions.checkArgument(displayName == null ||
+				(displayName != null &&
+				displayName.length() < MAX_DISPLAY_NAME_LENGTH));
+		Preconditions.checkArgument(password == null ||
+				(password != null &&
+				password.length() < MAX_PASSWORD_LENGTH));
+		this.accountType = Preconditions.checkNotNull(type);
 		Preconditions.checkNotNull(permissions);
 
 		this.username = username;
@@ -96,9 +109,7 @@ public class UserAccount {
 		// Create a copy of the list so creators can't modify the permissions.
 		this.permissions = Lists.newArrayList(permissions.iterator());
 	}
-	
-	
-	
+
 	/**
 	 * @return the id
 	 */
@@ -114,6 +125,7 @@ public class UserAccount {
 	}
 
 	public void addAdminEvent(Event event){
+		Preconditions.checkNotNull(event);
 		adminEvents.add(event);
 	}
 	
@@ -135,12 +147,10 @@ public class UserAccount {
 		return Lists.newArrayList(permissions.iterator());
 	}
 
+	@Nullable
 	public String getDisplayName() {
 		return displayName;
 	}
-	
-	
-
 
 	/**
 	 * @param username the username to set
@@ -152,14 +162,14 @@ public class UserAccount {
 	/**
 	 * @param password the password to set
 	 */
-	public void setPassword(String password) {
+	public void setPassword(@Nullable String password) {
 		this.password = password;
 	}
 
 	/**
 	 * @param displayName the displayName to set
 	 */
-	public void setDisplayName(String displayName) {
+	public void setDisplayName(@Nullable String displayName) {
 		this.displayName = displayName;
 	}
 

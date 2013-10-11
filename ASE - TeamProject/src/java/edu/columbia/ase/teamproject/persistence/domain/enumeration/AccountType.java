@@ -3,9 +3,11 @@ package edu.columbia.ase.teamproject.persistence.domain.enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
 
 public enum AccountType {
+
 	/**
 	 * User who authenticates using an in-database username/password.
 	 */
@@ -14,13 +16,14 @@ public enum AccountType {
 	 * User who authenticates using OpenId.
 	 */
 	OPENID("OPENID");
-	
-	
+
+	public static final int MAX_ACCOUNT_TYPE_LENGTH = 64;
+
 	private final String accountType;	
 	
 	private static final Map<String, AccountType> stringToEnum;
 	
-	static{
+	static {
 		final Map<String, AccountType> tempMap = 
 				new HashMap<String, AccountType>();
 		for(AccountType accountType: values()){
@@ -30,6 +33,8 @@ public enum AccountType {
 	}
 	
 	private AccountType(String accountType) {
+		Preconditions.checkArgument(
+				accountType.length() < MAX_ACCOUNT_TYPE_LENGTH);
 		this.accountType = accountType;
 	}
 
