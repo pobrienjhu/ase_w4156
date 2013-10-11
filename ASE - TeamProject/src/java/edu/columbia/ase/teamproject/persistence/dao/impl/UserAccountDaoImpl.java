@@ -12,9 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.base.Preconditions;
 
-import edu.columbia.ase.teamproject.persistence.dao.generic.HibernateDao;
 import edu.columbia.ase.teamproject.persistence.dao.UserAccountDao;
-import edu.columbia.ase.teamproject.persistence.domain.Event;
+import edu.columbia.ase.teamproject.persistence.dao.generic.HibernateDao;
 import edu.columbia.ase.teamproject.persistence.domain.UserAccount;
 import edu.columbia.ase.teamproject.persistence.domain.enumeration.AccountType;
 
