@@ -32,12 +32,7 @@ function initOpenId(evt) {
 }
 
 
-$( document ).ready(function() { initOpenId();});
-// Register event listener to annotate page when load completes.
-//document.addEventListener('DOMContentLoaded', initOpenId);
-
-
-
+$(document).ready(function() { initOpenId(); } );
 
 
 
