@@ -47,14 +47,14 @@ div.quote {
 /* Top & Header */
 
 .top img{
-	margin-bottom:-20px;
+	/*margin-bottom:-20px;*/
 }
 .top {
 text-align:center;
 	/*background: url(/static/img/top.gif);*/
 	background-color: Black;
 	color: #FFF;
-	height: 45px;
+	height: 75px;
 	width: 939px;
 }
 
