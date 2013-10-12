@@ -69,7 +69,6 @@ public class Event {
 		this.admin = admin;
 		this.name = name;
 		this.description = description;
-		this.admin.addAdminEvent(this);
 	}
 
 

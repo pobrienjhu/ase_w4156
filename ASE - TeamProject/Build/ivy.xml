@@ -89,6 +89,9 @@
 	    <!-- OpenId4Java -->
 	    <dependency org="org.apache.httpcomponents" name="httpclient" rev="4.3" />
 
+        <!-- Client/Server serialization helper -->
+        <dependency org="com.google.code.gson" name="gson" rev="2.2.4" />
+
 		<!-- Spring framework for object dependency injection, used to build the 
 			core of the application. -->
 		<dependency org="org.springframework" name="spring-core"

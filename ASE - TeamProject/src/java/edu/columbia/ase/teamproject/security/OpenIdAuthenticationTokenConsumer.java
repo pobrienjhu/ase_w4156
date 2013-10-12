@@ -53,7 +53,7 @@ public class OpenIdAuthenticationTokenConsumer implements
 					permissionBuilder.add(Permission.ADMIN);
 				}
 
-				logger.info("Creating new account for {0}",
+				logger.info("Creating new account for " +
 						token.getIdentityUrl());
 				account = new UserAccount(AccountType.OPENID,
 						token.getIdentityUrl(), null, token.getName(),

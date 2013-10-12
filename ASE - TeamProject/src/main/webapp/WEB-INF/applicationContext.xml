@@ -24,6 +24,9 @@
       <property name="order" value="1" />
   </bean>
 
+  <bean id="gsonProvider"
+      class="edu.columbia.ase.teamproject.util.GsonProvider" />
+
   <!--
     Closure template configuration.  Closure view names, when returned, must
     be prefixed with 'soy:' or else a JSP is assumed.
