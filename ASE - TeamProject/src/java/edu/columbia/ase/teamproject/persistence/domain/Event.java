@@ -20,6 +20,8 @@ import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.hibernate.annotations.Type;
+import org.joda.time.LocalDateTime;
 
 import com.google.common.base.Joiner;
 
@@ -38,13 +40,22 @@ public class Event {
     @JoinColumn(name="adminId")
 	private UserAccount admin;
 	
-	@Column(name="name")
+	@Column(name="name", nullable = false)
 	@ColumnLength(value = 50)
 	private String name;
 	
 	@Column(name="description")
 	@ColumnLength(value = 255)
 	private String description;
+	
+	
+	@Column(name="startTime")
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
+	private LocalDateTime startTime;
+	
+	@Column(name="endTime")
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
+	private LocalDateTime endTime;
 	
 	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch=FetchType.LAZY)
 	@JoinTable(name="User_Event",
@@ -140,6 +151,32 @@ public class Event {
 		this.description = description;
 	}
 
+	
+	
+	
+	public LocalDateTime getStartTime() {
+		return startTime;
+	}
+
+
+
+	public void setStartTime(LocalDateTime startTime) {
+		this.startTime = startTime;
+	}
+
+
+
+	public LocalDateTime getEndTime() {
+		return endTime;
+	}
+
+
+
+	public void setEndTime(LocalDateTime endTime) {
+		this.endTime = endTime;
+	}
+
+
 	@Override
 	public String toString() {
 		
@@ -147,7 +184,8 @@ public class Event {
 				.append("id", id)
 				.append("name", name)
 				.append("description", description)
-				.append("admin", admin != null ? admin.getDisplayName() : "")
+				.append("startTime", startTime)
+				.append("endTime", endTime)
 				.append("eventUsers", Joiner.on("\n").join(translateEventUsers(eventUsers)))
 				.append("voteCategories", Joiner.on("\n").join(voteCategories))
 				.toString();		

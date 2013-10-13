@@ -12,6 +12,8 @@ import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.hibernate.annotations.Type;
+import org.joda.time.LocalDateTime;
 
 @Entity
 @Table(name = "Vote")
@@ -22,6 +24,9 @@ public class Vote {
 	@Column(name = "Id", nullable=false)
 	private Long id;
 	
+	@Column(name="voteTime")
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
+	private LocalDateTime voteTime;
 	
 	@ManyToOne(cascade={CascadeType.ALL})
     @JoinColumn(name="voteOptionId")
@@ -31,15 +36,19 @@ public class Vote {
     @JoinColumn(name="userId")
 	private UserAccount userAccount;
 
-	private Vote() {
+	public Vote() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	private Vote(VoteOption voteOption, UserAccount userAccount) {
-		super();
+	public Vote(VoteOption voteOption, UserAccount userAccount) {
+		this(voteOption, userAccount, new LocalDateTime());
+	}
+	
+	public Vote(VoteOption voteOption, UserAccount userAccount, LocalDateTime voteTime) {
+		this();
 		this.voteOption = voteOption;
 		this.userAccount = userAccount;
+		this.voteTime = voteTime;
 	}
 
 	/**
@@ -83,14 +92,23 @@ public class Vote {
 	public void setUserAccount(UserAccount userAccount) {
 		this.userAccount = userAccount;
 	}
+
 	
-	
+	public LocalDateTime getVoteTime() {
+		return voteTime;
+	}
+
+	public void setVoteTime(LocalDateTime voteTime) {
+		this.voteTime = voteTime;
+	}
+
 	@Override
 	public String toString() {
 		
 		return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
 				.append("id", id)
 				.append("voteOption", voteOption)
+				.append("voteTime", voteTime)
 				.append("userAccount", userAccount.getUsername() )
 				.toString();		
 	}

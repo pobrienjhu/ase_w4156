@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,6 +34,10 @@ import edu.columbia.ase.teamproject.security.Permission;
 @Transactional 
 public class PersistenceTest extends AbstractTransactionalJUnit4SpringContextTests{
 
+    static {
+        System.setProperty("dataFile", "test-data.sql");
+    }
+	
 	 @Autowired
 	 private SessionFactory sessionFactory;
 	 
@@ -55,6 +60,11 @@ public class PersistenceTest extends AbstractTransactionalJUnit4SpringContextTes
 		 eventDao.add(event);
 	 }
 
+	 @AfterClass
+	 public void  tearDown(){
+	        System.clearProperty("dataFile");
+	 }
+	 
 	 @Test
 	 public void testHibernateConfiguration() {
 	  // Did Spring container instantiated and prepared sessionFactory
