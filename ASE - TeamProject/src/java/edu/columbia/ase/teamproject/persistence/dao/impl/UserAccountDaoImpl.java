@@ -48,6 +48,26 @@ public class UserAccountDaoImpl extends HibernateDao<UserAccount, Long>
 	}
 
 	@Override
+	public UserAccount findAccountByName(String username) {
+		Preconditions.checkNotNull(username);
+
+		Criteria criteria = currentSession().createCriteria(daoType)
+				.add(Restrictions.eq("username", username));
+
+		@SuppressWarnings("unchecked")
+		List<UserAccount> accounts = (List<UserAccount>) criteria.list();
+
+		if (accounts.isEmpty()) {
+			return null;
+		} else if (accounts.size() == 1) {
+			return accounts.get(0);
+		}
+		logger.warn("findAccountByName({0}) returned {1} results", 
+				username, accounts.size()); 
+		return null;
+	}
+
+	@Override
 	public long getNumberOfUsers() {
 		Criteria criteria = currentSession().createCriteria(daoType)
 				.setProjection(Projections.rowCount());

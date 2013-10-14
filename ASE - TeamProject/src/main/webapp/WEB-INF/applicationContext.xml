@@ -27,6 +27,10 @@
   <bean id="gsonProvider"
       class="edu.columbia.ase.teamproject.util.GsonProvider" />
 
+  <bean id="eventService"
+      class="edu.columbia.ase.teamproject.services.EventService" />
+
+
   <!--
     Closure template configuration.  Closure view names, when returned, must
     be prefixed with 'soy:' or else a JSP is assumed.

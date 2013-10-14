@@ -11,4 +11,6 @@ public interface UserAccountDao extends GenericDao<UserAccount, Long> {
 			AccountType type);
 
 	public long getNumberOfUsers();
+
+	public UserAccount findAccountByName(String username);
 }
