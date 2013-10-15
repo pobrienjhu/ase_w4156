@@ -11,8 +11,8 @@ import com.google.common.collect.ImmutableMap;
  * An enumeration of permission levels that users have.
  */
 public enum Permission {
-	ADMIN("ROLE_ADMIN"),
-	USER("ROLE_USER");
+	ADMIN("ADMIN"),
+	USER("USER");
 
 	private final String permissionName;
 

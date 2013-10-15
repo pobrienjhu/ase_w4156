@@ -1,0 +1,107 @@
+{namespace edu.columbia.ase.event autoescape="contextual"}
+
+/**
+  * Create Event Page
+  * @param _csrf CSRF token 
+  */
+{template .createEvent}
+{call edu.columbia.ase.header data="all" /}
+{literal}
+  <script>
+  $(function() {
+    $( "#begins-datepicker" ).datepicker();
+    $( "#ends-datepicker" ).datepicker();
+    
+  });
+  
+  $(document).ready(function()
+  	{
+  		$("#createEventBtn").click(createEvent);
+  	}
+  );
+  
+  function createEvent()
+  {
+
+	var e = {"id":123,"name":"eventName","description":"eventDescription","eventUsers":[],"voteCategories":[]}
+	console.log("");
+	$.ajax({
+		type: "POST",
+		url: "/app/createEvent.do",
+		dataType: "json",
+		beforeSend: function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN', $("#csrfCE").val());},		
+		data: JSON.stringify(e)
+	})
+	.done(function( msg ) {
+		console.log(msg);
+		alert( "Data Saved: " + msg );
+	});   
+
+  }
+  
+  </script>
+{/literal}  
+
+<div class="content_left">
+  <div class="date">Create New Event </div>
+  <div class="newsitem">
+    <div class="title">Event Information</div>
+    <div class="body">
+    	<div style='padding:10px;padding-left:5px;'>
+			<div style='float:left; width:110px;'>Event Title</div>
+			<div><input type='text'></div>
+			<div style='clear:both'> </div>
+
+			<div style='float:left; width:110px;margin-top:5px;'>Event Description</div>
+			<div style='float:left; margin-top:5px;'>
+				<textarea rows=7 cols=30></textarea>
+			</div>
+			<div style='clear:both'> </div>
+			
+			<div style='float:left; margin-top:5px; width:110px;'>Begins On</div>
+			<div style='margin-top:5px;'>
+			Date &nbsp;
+			<input type="text" id="begins-datepicker" />
+			&nbsp;&nbsp; Time&nbsp;	
+			<select>
+				{for $i in range(24)}
+				<option>{$i}</option>
+				{/for}
+			</select>
+			&nbsp;
+			<select>
+				{for $i in range(60)}
+				<option>{$i}</option>
+				{/for}
+			</select>			
+			</div>
+			<div style='clear:both'> </div>
+
+			<div style='float:left; margin-top:5px; width:110px;'>Ends On</div>
+			<div style='margin-top:5px;'>
+			Date &nbsp;
+			<input type="text" id="ends-datepicker" />
+			&nbsp;&nbsp; Time&nbsp;	
+			<select>
+				{for $i in range(24)}
+				<option>{$i}</option>
+				{/for}
+			</select>
+			&nbsp;
+			<select>
+				{for $i in range(60)}
+				<option>{$i}</option>
+				{/for}
+			</select>			
+			</div>
+			<div style='clear:both'> </div>
+			<input id='csrfCE' type='hidden' value='{$_csrf}'>
+			<input id='createEventBtn' type='button' value='Create' style='margin-top:5px;'><br/><br/>
+			All Fields are Required	
+		</div>
+      <div class="clearer"><span></span></div>
+    </div>
+  </div>
+</div>
+{call edu.columbia.ase.footer /}
+{/template}

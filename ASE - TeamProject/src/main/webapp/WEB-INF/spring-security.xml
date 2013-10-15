@@ -18,8 +18,8 @@
 
     <!-- TODO(pames): add catch-all paths for, e.g. /js/, /static/, ... -->
 
-    <intercept-url pattern="/app/*" access="hasRole('ROLE_USER')" />
-    <intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')" />
+    <intercept-url pattern="/app/*" access="hasAnyRole('ADMIN', 'USER')" />
+    <intercept-url pattern="/admin/*" access="hasRole('ADMIN')" />
     <!-- catch-all deny access -->
     <intercept-url pattern="/**" access="denyAll" />
 
