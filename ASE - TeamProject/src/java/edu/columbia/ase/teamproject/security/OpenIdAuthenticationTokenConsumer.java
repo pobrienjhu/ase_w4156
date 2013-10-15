@@ -67,7 +67,7 @@ public class OpenIdAuthenticationTokenConsumer implements
 					synchronized(lock) {
 						/*
 						 * when we have gotten to this point, 
-						 * we need to recheck that the number of 
+						 * we need to double check that the number of 
 						 * users is still 0. 
 						 * This is because this thread could have been
 						 * waiting for the lock to free up. If that were the 
@@ -88,7 +88,6 @@ public class OpenIdAuthenticationTokenConsumer implements
 						permissionBuilder.build());
 
 				userAccountDao.add(account);
-				logger.info("Tried to add....");
 				
 			}
 		//}
