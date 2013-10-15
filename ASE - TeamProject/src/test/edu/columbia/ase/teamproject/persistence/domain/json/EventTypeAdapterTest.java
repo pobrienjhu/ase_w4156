@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import edu.columbia.ase.teamproject.persistence.domain.Event;
 import edu.columbia.ase.teamproject.persistence.domain.UserAccount;
 import edu.columbia.ase.teamproject.persistence.domain.enumeration.AccountType;
+import edu.columbia.ase.teamproject.persistence.domain.enumeration.EventType;
 import edu.columbia.ase.teamproject.security.Permission;
 import edu.columbia.ase.teamproject.util.GsonProvider;
 
@@ -37,7 +38,7 @@ public class EventTypeAdapterTest {
 		UserAccount admin = new UserAccount(AccountType.OPENID,
 				"http://localhost", "displayName", null,
 				new ArrayList<Permission>());
-		Event event = new Event(admin, "eventName", "eventDescription");
+		Event event = new Event(admin, "eventName", "eventDescription", EventType.PRIVATE);
 		event.setId(123L);
 		String json = gson.toJson(event);
 		Event deserialized = gson.fromJson(json, Event.class);

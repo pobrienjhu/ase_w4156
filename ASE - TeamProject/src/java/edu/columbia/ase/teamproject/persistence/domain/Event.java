@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,6 +28,7 @@ import org.joda.time.LocalDateTime;
 import com.google.common.base.Joiner;
 
 import edu.columbia.ase.teamproject.persistence.dao.util.ColumnLength;
+import edu.columbia.ase.teamproject.persistence.domain.enumeration.EventType;
 
 @Entity
 @Table(name = "Event")
@@ -48,7 +51,6 @@ public class Event {
 	@ColumnLength(value = 255)
 	private String description;
 	
-	
 	@Column(name="startTime")
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
 	private LocalDateTime startTime;
@@ -56,6 +58,10 @@ public class Event {
 	@Column(name="endTime")
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
 	private LocalDateTime endTime;
+	
+	@Column(name="eventType", nullable=false)
+	@Enumerated(EnumType.STRING)
+	private EventType eventType;
 	
 	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch=FetchType.LAZY)
 	@JoinTable(name="User_Event",
@@ -75,11 +81,12 @@ public class Event {
 	
 	
 	
-	public Event(UserAccount admin, String name, String description) {
+	public Event(UserAccount admin, String name, String description, EventType eventType) {
 		this();
 		this.admin = admin;
 		this.name = name;
 		this.description = description;
+		this.eventType = eventType;
 	}
 
 
@@ -94,6 +101,34 @@ public class Event {
 	public void addVoteCategory( VoteCategory category){
 		voteCategories.add(category);
 	}
+
+	
+	
+	public EventType getEventType() {
+		return eventType;
+	}
+
+
+
+	public void setEventType(EventType eventType) {
+		this.eventType = eventType;
+	}
+
+
+
+	public List<VoteCategory> getVoteCategories() {
+		return voteCategories;
+	}
+
+
+
+	public void setVoteCategories(List<VoteCategory> voteCategories) {
+		this.voteCategories = voteCategories;
+	}
+
+
+	
+	
 
 	/**
 	 * @return the id
@@ -186,6 +221,7 @@ public class Event {
 				.append("description", description)
 				.append("startTime", startTime)
 				.append("endTime", endTime)
+				.append("eventType", eventType)
 				.append("eventUsers", Joiner.on("\n").join(translateEventUsers(eventUsers)))
 				.append("voteCategories", Joiner.on("\n").join(voteCategories))
 				.toString();		
