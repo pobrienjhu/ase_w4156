@@ -9,11 +9,16 @@
 <html>
 <head>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<script src="/static/datetimepicker.js"></script>
 <title>
 
   {$title}
 </title>
 <link rel="stylesheet" type="text/css" href="/static/default.css" />
+<link rel="stylesheet" type="text/css" href="/static/datetimepicker.css" />
+<link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+
 </head>
 <body>
 
@@ -46,7 +51,7 @@
     </ul>
     <ul>
       <li><div><a href="#">Events</a></div></li>
-      <li><div><a href="/app/protected.do">Other authenticated functionality</a></div></li>
+      <li><div><a href="/app/createEvent.do">Create Event</a></div></li>
     </ul>
     {if $_admin}
     <ul>

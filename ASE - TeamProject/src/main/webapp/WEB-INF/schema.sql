@@ -34,6 +34,7 @@ name varchar(50) NOT NULL,
 startTime timestamp,
 endTime timestamp,
 description varchar(255) NOT NULL,
+eventType varChar(64) NOT NULL,
 PRIMARY KEY (Id)
 );
 

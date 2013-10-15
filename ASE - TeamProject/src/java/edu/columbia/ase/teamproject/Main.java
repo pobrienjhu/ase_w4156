@@ -4,7 +4,6 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.Configuration;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.eclipse.jetty.webapp.WebXmlConfiguration;
-import org.hsqldb.util.DatabaseManagerSwing;
 
 
 public class Main {

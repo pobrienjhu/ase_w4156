@@ -21,10 +21,10 @@ INSERT INTO Permission values(5, 'ROLE_ADMIN' );
 INSERT INTO Permission values(5, 'ROLE_USER' );
 
 -- Create test events
-INSERT INTO Event values(default, 'Patrick Test Event', current_timestamp, current_timestamp + '8' HOUR, 'Test event for system develpoment' );
-INSERT INTO Event values(default, 'Najjar Test Event', current_timestamp, current_timestamp + '12' HOUR, 'Test event for system develpoment' );
-INSERT INTO Event values(default, 'Phil Test Event', current_timestamp, current_timestamp + '16' HOUR, 'Test event for system develpoment' );
-INSERT INTO Event values(default, 'Reva Test Event', current_timestamp, current_timestamp + '24' HOUR, 'Test event for system develpoment' );
+INSERT INTO Event values(default, 'Patrick Test Event', current_timestamp, current_timestamp + '8' HOUR, 'Test event for system develpoment', 'PRIVATE' );
+INSERT INTO Event values(default, 'Najjar Test Event', current_timestamp, current_timestamp + '12' HOUR, 'Test event for system develpoment', 'PUBLIC' );
+INSERT INTO Event values(default, 'Phil Test Event', current_timestamp, current_timestamp + '16' HOUR, 'Test event for system develpoment', 'PRIVATE' );
+INSERT INTO Event values(default, 'Reva Test Event', current_timestamp, current_timestamp + '24' HOUR, 'Test event for system develpoment', 'PUBLIC' );
 
 -- add every one as voters for testing
 

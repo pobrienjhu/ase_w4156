@@ -26,6 +26,7 @@ import edu.columbia.ase.teamproject.persistence.domain.Event;
 import edu.columbia.ase.teamproject.persistence.domain.UserAccount;
 import edu.columbia.ase.teamproject.persistence.domain.VoteCategory;
 import edu.columbia.ase.teamproject.persistence.domain.enumeration.AccountType;
+import edu.columbia.ase.teamproject.persistence.domain.enumeration.EventType;
 import edu.columbia.ase.teamproject.security.Permission;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -56,12 +57,12 @@ public class PersistenceTest extends AbstractTransactionalJUnit4SpringContextTes
 				 "displayName", "password",
 				 Arrays.asList(new Permission[]{Permission.USER}));
 		 userAccountDao.add(user);
-		 Event event = new Event(user, "Event Name", "Event Description");
+		 Event event = new Event(user, "Event Name", "Event Description", EventType.PUBLIC);
 		 eventDao.add(event);
 	 }
 
 	 @AfterClass
-	 public void  tearDown(){
+	 public static void tearDown(){
 	        System.clearProperty("dataFile");
 	 }
 	 
@@ -137,7 +138,7 @@ public class PersistenceTest extends AbstractTransactionalJUnit4SpringContextTes
 		
 		 System.out.println(admin);
 		 
-		 Event event = new Event(admin, "Write Test Event", "Testing description");
+		 Event event = new Event(admin, "Write Test Event", "Testing description", EventType.PUBLIC);
 		 
 		 System.out.println(event);
 		 

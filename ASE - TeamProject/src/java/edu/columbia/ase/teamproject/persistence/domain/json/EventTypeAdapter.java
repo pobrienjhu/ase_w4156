@@ -18,6 +18,7 @@ import com.google.gson.stream.JsonWriter;
 import edu.columbia.ase.teamproject.persistence.domain.Event;
 import edu.columbia.ase.teamproject.persistence.domain.UserAccount;
 import edu.columbia.ase.teamproject.persistence.domain.VoteCategory;
+import edu.columbia.ase.teamproject.persistence.domain.enumeration.EventType;
 
 public class EventTypeAdapter extends TypeAdapter<Event> {
 
@@ -67,6 +68,8 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 		private List<UserAccount> eventUsers;
 		private boolean voteCategoriesSet;
 		private List<VoteCategory> voteCategories;
+		private EventType eventType = EventType.PUBLIC;  // Default to Public
+		private boolean eventTypeSet;
 
 		public Event build() {
 			Preconditions.checkState(idSet);
@@ -76,11 +79,18 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 			Preconditions.checkState(voteCategoriesSet);
 			// TODO(pames): ensure that the admin information is serialized.
 			logger.warn("Building an event without any admin info");
-			Event event = new Event(null, name, description);
+			Event event = new Event(null, name, description, eventType);
 			event.setId(id);
 			return event;
 		}
 
+		public EventBuilder setEventType(Long id) {
+			Preconditions.checkArgument(!idSet);
+			this.id = Preconditions.checkNotNull(id);
+			this.eventTypeSet = true;
+			return this;
+		}
+		
 		public EventBuilder setId(Long id) {
 			Preconditions.checkArgument(!idSet);
 			this.id = Preconditions.checkNotNull(id);
