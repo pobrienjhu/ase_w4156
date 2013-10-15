@@ -52,7 +52,8 @@ public class UserAccountDaoImpl extends HibernateDao<UserAccount, Long>
 		Preconditions.checkNotNull(username);
 
 		Criteria criteria = currentSession().createCriteria(daoType)
-				.add(Restrictions.eq("username", username));
+				.add(Restrictions.eq("username", username))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 
 		@SuppressWarnings("unchecked")
 		List<UserAccount> accounts = (List<UserAccount>) criteria.list();
@@ -62,8 +63,12 @@ public class UserAccountDaoImpl extends HibernateDao<UserAccount, Long>
 		} else if (accounts.size() == 1) {
 			return accounts.get(0);
 		}
-		logger.warn("findAccountByName({0}) returned {1} results", 
-				username, accounts.size()); 
+		logger.warn("findAccountByName("+username+") returned "+accounts.size()+" results: ");
+		
+		for (UserAccount acc : accounts)
+		{
+			logger.warn("Account ID: " + acc.getId());
+		}
 		return null;
 	}
 

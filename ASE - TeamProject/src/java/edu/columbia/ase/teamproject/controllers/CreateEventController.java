@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
@@ -13,9 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -30,8 +31,10 @@ public final class CreateEventController {
 
 	@Autowired
 	EventService eventService;
-	
-	
+
+	@Autowired
+	GsonProvider gsonProvider;
+
 	private static final Logger logger = LoggerFactory
 			.getLogger(CreateEventController.class);
 
@@ -48,23 +51,33 @@ public final class CreateEventController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView doPost(HttpSession session, HttpServletRequest request) throws IOException {
+	@ResponseBody
+	public String doPost(HttpSession session, HttpServletRequest request, HttpServletResponse response)
+			throws IOException {
+
+		response.setContentType("application/json");
+	    response.setCharacterEncoding("UTF-8");
 		
 		// Deseiralize request
-		String jsonBody = IOUtils.toString( request.getInputStream());
+		String jsonBody = IOUtils.toString(request.getInputStream());
 		logger.info("POST /app/createEvent.do " + jsonBody);
-		Gson gson = new GsonProvider().provideGson();
-		Event event = gson.fromJson(jsonBody, Event.class);
+
+		// Parse request body
+		Event event = gsonProvider.provideGson().fromJson(jsonBody, Event.class);
+
 		
 		// Get current user
-	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	    String username = auth.getName(); //get logged in username
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
+		String username = auth.getName(); // get logged in username
 
-	    eventService.createEvent(username, event.getName(), event.getDescription(), event.getEventType());
-		
-		Map<String, Object> model = ControllerHelper.createBaseModel(session);
-		model.put("title", "Create Event");
-		return new ModelAndView("soy:edu.columbia.ase.event.createEvent", model);
+		Event createdEvent = eventService.createEvent(username,
+				event.getName(), event.getDescription(), event.getEventType());
+
+
+
+		return gsonProvider.provideGson().toJson(createdEvent, Event.class);
+
 
 	}
 

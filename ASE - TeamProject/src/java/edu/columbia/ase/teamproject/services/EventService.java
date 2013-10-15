@@ -21,10 +21,9 @@ import edu.columbia.ase.teamproject.security.OpenIdAuthenticationTokenConsumer;
  * @author aiman
  *
  */
-@Service
 public class EventService {
 	private static final Logger logger =
-			LoggerFactory.getLogger(OpenIdAuthenticationTokenConsumer.class);
+			LoggerFactory.getLogger(EventService.class);
 
 	@Autowired
 	UserAccountDao userDao;
@@ -33,15 +32,24 @@ public class EventService {
 	EventDao eventDao;
 	
 	public Event createEvent(String username, String name, String description, EventType eventType)
+	throws UsernameNotFoundException
 	{
+		
+		logger.info("Creating event " + name);
+		
 		// Validate account
 		UserAccount acc = userDao.findAccountByName(username);
 		
 		if (acc == null)
+		{
+			logger.info("Did not find username: " + username);
 			throw new UsernameNotFoundException("No account with name " + username + " found");
+		}
 		
 		Event event = new Event(acc, name, description, eventType);
 		eventDao.add(event);
+		
+		logger.info("Event " + name + " created");
 		
 		return event;
 	}

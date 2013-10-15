@@ -9,8 +9,8 @@
 {literal}
   <script>
   $(function() {
-    $( "#begins-datepicker" ).datepicker();
-    $( "#ends-datepicker" ).datepicker();
+    $( "#begins-datepicker" ).datetimepicker({timeFormat: "hh:mm tt"});
+    $( "#ends-datepicker" ).datetimepicker({timeFormat: "hh:mm tt"});
     
   });
   
@@ -60,44 +60,18 @@
 			
 			<div style='float:left; margin-top:5px; width:110px;'>Begins On</div>
 			<div style='margin-top:5px;'>
-			Date &nbsp;
 			<input type="text" id="begins-datepicker" />
-			&nbsp;&nbsp; Time&nbsp;	
-			<select>
-				{for $i in range(24)}
-				<option>{$i}</option>
-				{/for}
-			</select>
-			&nbsp;
-			<select>
-				{for $i in range(60)}
-				<option>{$i}</option>
-				{/for}
-			</select>			
 			</div>
 			<div style='clear:both'> </div>
 
 			<div style='float:left; margin-top:5px; width:110px;'>Ends On</div>
 			<div style='margin-top:5px;'>
-			Date &nbsp;
 			<input type="text" id="ends-datepicker" />
-			&nbsp;&nbsp; Time&nbsp;	
-			<select>
-				{for $i in range(24)}
-				<option>{$i}</option>
-				{/for}
-			</select>
-			&nbsp;
-			<select>
-				{for $i in range(60)}
-				<option>{$i}</option>
-				{/for}
-			</select>			
 			</div>
 			<div style='clear:both'> </div>
 			<input id='csrfCE' type='hidden' value='{$_csrf}'>
 			<input id='createEventBtn' type='button' value='Create' style='margin-top:5px;'><br/><br/>
-			All Fields are Required	
+			All fields are required	
 		</div>
       <div class="clearer"><span></span></div>
     </div>
