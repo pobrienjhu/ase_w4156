@@ -14,6 +14,7 @@ import edu.columbia.ase.teamproject.persistence.dao.UserAccountDao;
 import edu.columbia.ase.teamproject.persistence.domain.Event;
 import edu.columbia.ase.teamproject.persistence.domain.UserAccount;
 import edu.columbia.ase.teamproject.persistence.domain.enumeration.AccountType;
+import edu.columbia.ase.teamproject.persistence.domain.enumeration.EventType;
 import edu.columbia.ase.teamproject.security.OpenIdAuthenticationTokenConsumer;
 
 /**
@@ -31,7 +32,7 @@ public class EventService {
 	@Autowired
 	EventDao eventDao;
 	
-	public Event createEvent(String username, String name, String description)
+	public Event createEvent(String username, String name, String description, EventType eventType)
 	{
 		// Validate account
 		UserAccount acc = userDao.findAccountByName(username);
@@ -39,7 +40,7 @@ public class EventService {
 		if (acc == null)
 			throw new UsernameNotFoundException("No account with name " + username + " found");
 		
-		Event event = new Event(acc, name, description);
+		Event event = new Event(acc, name, description, eventType);
 		eventDao.add(event);
 		
 		return event;

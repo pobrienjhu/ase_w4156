@@ -60,7 +60,7 @@ public final class CreateEventController {
 	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	    String username = auth.getName(); //get logged in username
 
-	    eventService.createEvent(username, event.getName(), event.getDescription());
+	    eventService.createEvent(username, event.getName(), event.getDescription(), event.getEventType());
 		
 		Map<String, Object> model = ControllerHelper.createBaseModel(session);
 		model.put("title", "Create Event");

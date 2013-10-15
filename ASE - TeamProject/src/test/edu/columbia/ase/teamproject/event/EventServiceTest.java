@@ -21,6 +21,7 @@ import edu.columbia.ase.teamproject.persistence.dao.UserAccountDao;
 import edu.columbia.ase.teamproject.persistence.domain.Event;
 import edu.columbia.ase.teamproject.persistence.domain.UserAccount;
 import edu.columbia.ase.teamproject.persistence.domain.enumeration.AccountType;
+import edu.columbia.ase.teamproject.persistence.domain.enumeration.EventType;
 import edu.columbia.ase.teamproject.security.Permission;
 import edu.columbia.ase.teamproject.services.EventService;
 
@@ -55,7 +56,7 @@ public class EventServiceTest {
 	 */
 	@Test
 	public void testSuccessfulCreateEvent() {
-		Event e = eventService.createEvent("user", "Event Name", "Event Description");
+		Event e = eventService.createEvent("user", "Event Name", "Event Description", EventType.PRIVATE);
 		assertTrue(eventDao.list().size() == 1);
 		assertTrue(eventDao.find(e.getId()) != null);
 	}
