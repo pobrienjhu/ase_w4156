@@ -191,13 +191,15 @@ public class UserAccount {
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof UserAccount) {
-			return ((UserAccount)obj).getId().equals(id);
+			UserAccount rhs = (UserAccount) obj;
+			return rhs.getAccountType().equals(accountType) &&
+					rhs.getUsername().equals(username);
 		}
 		return false;
 	}
 
 	@Override
 	public int hashCode() {
-		return id.hashCode();
+		return Objects.hashCode(username, accountType);
 	}
 }
