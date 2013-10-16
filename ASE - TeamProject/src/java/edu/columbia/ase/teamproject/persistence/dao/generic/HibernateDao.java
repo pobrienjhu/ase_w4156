@@ -55,17 +55,18 @@ public class HibernateDao<E, K extends Serializable> implements GenericDao<E, K>
     }
 
     @Override
-    public void add(E entity) {
+    public E add(E entity) {
     	entity = truncateFreeTextFields(entity);
     	entity = (E) currentSession().merge(entity);
         currentSession().save(entity);
+        return entity;
     }
 
     @Override
-    public void update(E entity) {
+    public E update(E entity) {
     	entity = truncateFreeTextFields(entity);
-    	entity = (E) currentSession().merge(entity);
-        currentSession().saveOrUpdate(entity);
+    	return (E) currentSession().merge(entity);
+        //currentSession().saveOrUpdate(entity);
     }
 
     @Override

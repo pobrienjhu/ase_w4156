@@ -41,9 +41,8 @@ public class EventService {
 			throw new UsernameNotFoundException("No account with name " + username + " found");
 		
 		Event event = new Event(acc, name, description, eventType);
-		eventDao.add(event);
 		
-		return event;
+		return eventDao.add(event);
 	}
 	
 	
