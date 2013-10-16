@@ -20,13 +20,13 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.annotations.Type;
 
 import com.google.common.base.Joiner;
-import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 
@@ -82,6 +82,10 @@ public class UserAccount {
     	joinColumns={@JoinColumn(name="userId")},
     	inverseJoinColumns={@JoinColumn(name="eventId")})
 	private List<Event> userEvents;
+	
+	
+    @Version
+    private Integer optimisticLockingVersion;
 	
 	// A no-arg constructor is required for Hibernate.
 	private UserAccount() {
@@ -174,6 +178,16 @@ public class UserAccount {
 		this.displayName = displayName;
 	}
 
+	
+	public Integer getOptimisticLockingVersion() {
+		return optimisticLockingVersion;
+	}
+
+
+	public void setOptimisticLockingVersion(Integer version) {
+		this.optimisticLockingVersion = version;
+	}
+	
 	@Override
 	public String toString() {
 		
