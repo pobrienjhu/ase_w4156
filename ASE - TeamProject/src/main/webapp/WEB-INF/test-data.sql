@@ -5,20 +5,20 @@ INSERT INTO UserAccount values (default, 'ra2659@columbia.edu', 'password', 'Rev
 INSERT INTO UserAccount values (default, 'reily@cs.columbia.edu', 'password', 'Riley', 'LOCAL');
 
 -- Patrick
-INSERT INTO Permission values(1, 'ROLE_ADMIN' );
-INSERT INTO Permission values(1, 'ROLE_USER' );
+INSERT INTO Permission values(1, 'ADMIN' );
+INSERT INTO Permission values(1, 'USER' );
 -- Najjar
-INSERT INTO Permission values(2, 'ROLE_ADMIN' );
-INSERT INTO Permission values(2, 'ROLE_USER' );
+INSERT INTO Permission values(2, 'ADMIN' );
+INSERT INTO Permission values(2, 'USER' );
 -- Phil
-INSERT INTO Permission values(3, 'ROLE_ADMIN' );
-INSERT INTO Permission values(3, 'ROLE_USER' );
+INSERT INTO Permission values(3, 'ADMIN' );
+INSERT INTO Permission values(3, 'USER' );
 -- Reva
-INSERT INTO Permission values(4, 'ROLE_ADMIN' );
-INSERT INTO Permission values(4, 'ROLE_USER' );
+INSERT INTO Permission values(4, 'ADMIN' );
+INSERT INTO Permission values(4, 'USER' );
 -- Riley
-INSERT INTO Permission values(5, 'ROLE_ADMIN' );
-INSERT INTO Permission values(5, 'ROLE_USER' );
+INSERT INTO Permission values(5, 'ADMIN' );
+INSERT INTO Permission values(5, 'USER' );
 
 -- Create test events
 INSERT INTO Event values(default, 'Patrick Test Event', current_timestamp, current_timestamp + '8' HOUR, 'Test event for system develpoment', 'PRIVATE' );
