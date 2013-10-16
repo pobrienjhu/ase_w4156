@@ -58,7 +58,7 @@ public class OpenIdAuthenticationTokenConsumerTest {
 		when(mockAccountDao.getNumberOfUsers()).thenReturn(0L);
 		UserDetails details = tokenConsumer.loadUserDetails(mockToken);
 		GrantedAuthority expected =
-				AuthorityUtils.createAuthorityList("ROLE_ADMIN").get(0);
+				AuthorityUtils.createAuthorityList("ADMIN").get(0);
 		Assert.assertTrue(details.getAuthorities().contains(expected));
 	}
 
@@ -70,9 +70,9 @@ public class OpenIdAuthenticationTokenConsumerTest {
 		when(mockAccountDao.getNumberOfUsers()).thenReturn(1L);
 		UserDetails details = tokenConsumer.loadUserDetails(mockToken);
 		GrantedAuthority expected =
-				AuthorityUtils.createAuthorityList("ROLE_USER").get(0);
+				AuthorityUtils.createAuthorityList("USER").get(0);
 		GrantedAuthority unexpected =
-				AuthorityUtils.createAuthorityList("ROLE_ADMIN").get(0);
+				AuthorityUtils.createAuthorityList("ADMIN").get(0);
 
 		Assert.assertTrue(details.getAuthorities().contains(expected));
 		Assert.assertFalse(details.getAuthorities().contains(unexpected));
