@@ -48,6 +48,7 @@ public class OpenIdAuthenticationTokenConsumer implements
 				ImmutableList.Builder<Permission> permissionBuilder =
 						ImmutableList.<Permission>builder();
 				permissionBuilder.add(Permission.USER);
+				permissionBuilder.add(Permission.OPENID);
 
 				/* 
 				 * Double-check idiom for lazy initialization of instance fields
@@ -88,7 +89,6 @@ public class OpenIdAuthenticationTokenConsumer implements
 						permissionBuilder.build());
 
 				userAccountDao.add(account);
-				
 			}
 
 		return new User(account.getUsername(), "[PROTECTED]",

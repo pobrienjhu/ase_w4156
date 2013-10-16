@@ -12,7 +12,12 @@ import com.google.common.collect.ImmutableMap;
  */
 public enum Permission {
 	ADMIN("ADMIN"),
-	USER("USER");
+	USER("USER"),
+	// This is kind of a dirty hack.  We add the appropriate value as a granted
+	// authority during login so we can later look up the correct account
+	// using just the Spring UserDetails object.
+	OPENID("OPENID"),
+	LOCAL("LOCAL");
 
 	private final String permissionName;
 

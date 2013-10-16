@@ -7,6 +7,8 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +18,7 @@ import edu.columbia.ase.teamproject.persistence.dao.UserAccountDao;
 import edu.columbia.ase.teamproject.persistence.dao.generic.HibernateDao;
 import edu.columbia.ase.teamproject.persistence.domain.UserAccount;
 import edu.columbia.ase.teamproject.persistence.domain.enumeration.AccountType;
+import edu.columbia.ase.teamproject.security.Permission;
 
 @Transactional(propagation = Propagation.REQUIRED)
 public class UserAccountDaoImpl extends HibernateDao<UserAccount, Long>
@@ -45,6 +48,23 @@ public class UserAccountDaoImpl extends HibernateDao<UserAccount, Long>
 		logger.warn("findAccountByNameAndType({0}, {1}) returned {2} results", 
 				username, type, accounts.size()); 
 		return null;
+	}
+
+	@Override
+	public UserAccount findAccountByUserDetails(UserDetails userDetails) {
+		Preconditions.checkNotNull(userDetails);
+		AccountType type = null;
+		for (GrantedAuthority authority : userDetails.getAuthorities()) {
+			if (Permission.OPENID.toString().equals(authority.getAuthority())) {
+				type = AccountType.OPENID;
+				break;
+			} else if (Permission.LOCAL.toString().equals(
+					authority.getAuthority())) {
+				type = AccountType.LOCAL;
+			}
+		}
+
+		return findAccountByNameAndType(userDetails.getUsername(), type);
 	}
 
 	@Override

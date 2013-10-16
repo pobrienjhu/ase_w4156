@@ -139,6 +139,8 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 		out.value(value.getName());
 		out.name(EventProperty.PROPERTY_DESCRIPTION.toString());
 		out.value(value.getDescription());
+		out.name(EventProperty.PROPERTY_EVENT_TYPE.toString());
+		out.value(value.getEventType().toString());
 
 		out.name(EventProperty.PROPERTY_EVENT_USERS.toString());
 		out.beginArray();

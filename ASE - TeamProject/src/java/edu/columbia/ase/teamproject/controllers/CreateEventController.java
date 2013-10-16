@@ -11,8 +11,8 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -54,29 +54,30 @@ public final class CreateEventController {
 	@ResponseBody
 	public String doPost(HttpSession session, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
+		Gson gson = gsonProvider.provideGson();
 
 		response.setContentType("application/json");
 	    response.setCharacterEncoding("UTF-8");
 		
-		// Deseiralize request
+		// Deserialize request
 		String jsonBody = IOUtils.toString(request.getInputStream());
 		logger.info("POST /app/createEvent.do " + jsonBody);
 
 		// Parse request body
-		Event event = gsonProvider.provideGson().fromJson(jsonBody, Event.class);
+		Event event = gson.fromJson(jsonBody, Event.class);
 
-		
-		// Get current user
-		Authentication auth = SecurityContextHolder.getContext()
-				.getAuthentication();
-		String username = auth.getName(); // get logged in username
+		if (event.getId() != null) {
+			// TODO(pames/anajjar): handle event updating, as this is referring
+			// to an existing event (permission checks, etc).
+		}
 
-		Event createdEvent = eventService.createEvent(username,
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().
+				getAuthentication().getPrincipal();
+
+		Event createdEvent = eventService.createEvent(userDetails,
 				event.getName(), event.getDescription(), event.getEventType());
 
-
-
-		return gsonProvider.provideGson().toJson(createdEvent, Event.class);
+		return gson.toJson(createdEvent, Event.class);
 
 
 	}

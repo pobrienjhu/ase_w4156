@@ -3,16 +3,17 @@
  */
 package edu.columbia.ase.teamproject.event;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 
-import org.hibernate.SessionFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.BlockJUnit4ClassRunner;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -56,7 +57,9 @@ public class EventServiceTest {
 	 */
 	@Test
 	public void testSuccessfulCreateEvent() {
-		Event e = eventService.createEvent("user", "Event Name", "Event Description", EventType.PRIVATE);
+		UserDetails fakeUser = new User("user", "pw",
+				AuthorityUtils.createAuthorityList(Permission.LOCAL.toString()));
+		Event e = eventService.createEvent(fakeUser, "Event Name", "Event Description", EventType.PRIVATE);
 		assertTrue(eventDao.list().size() == 1);
 		assertTrue(eventDao.find(e.getId()) != null);
 	}

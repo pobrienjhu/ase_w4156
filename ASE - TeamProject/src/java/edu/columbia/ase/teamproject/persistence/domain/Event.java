@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.annotation.Nullable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,7 +39,7 @@ public class Event {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "Id", nullable=false)
 	private Long id;
-	
+
 	@ManyToOne(cascade={CascadeType.ALL})
     @JoinColumn(name="adminId")
 	private UserAccount admin;
@@ -118,8 +119,9 @@ public class Event {
 	}
 
 	/**
-	 * @return the id
+	 * @return the id, or null if no ID set (e.g. this event hasn't been persisted).
 	 */
+	@Nullable
 	public Long getId() {
 		return id;
 	}
