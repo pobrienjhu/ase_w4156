@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.columbia.ase.teamproject.event;
+package edu.columbia.ase.teamproject.services;
 
 import static org.junit.Assert.assertTrue;
 
@@ -24,7 +24,6 @@ import edu.columbia.ase.teamproject.persistence.domain.UserAccount;
 import edu.columbia.ase.teamproject.persistence.domain.enumeration.AccountType;
 import edu.columbia.ase.teamproject.persistence.domain.enumeration.EventType;
 import edu.columbia.ase.teamproject.security.Permission;
-import edu.columbia.ase.teamproject.services.EventService;
 
 /**
  * @author aiman
@@ -53,7 +52,7 @@ public class EventServiceTest {
 	 }
 
 	/**
-	 * Test method for {@link edu.columbia.ase.teamproject.services.EventService#createEvent(java.lang.String, java.lang.String, java.lang.String)}.
+	 * Test method for {@link EventService#createEvent(UserDetails, String, String, EventType)}.
 	 */
 	@Test
 	public void testSuccessfulCreateEvent() {
