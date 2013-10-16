@@ -30,7 +30,8 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 		PROPERTY_NAME("name"),
 		PROPERTY_DESCRIPTION("description"),
 		PROPERTY_EVENT_USERS("eventUsers"),
-		PROPERTY_VOTE_CATEGORIES("voteCategories");
+		PROPERTY_VOTE_CATEGORIES("voteCategories"),
+		PROPERTY_EVENT_TYPE("eventType");
 
 		private static final Map<String, EventProperty> propertyMap;
 		static {
@@ -68,31 +69,33 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 		private List<UserAccount> eventUsers;
 		private boolean voteCategoriesSet;
 		private List<VoteCategory> voteCategories;
-		private EventType eventType = EventType.PUBLIC;  // Default to Public
+		private EventType eventType;
 		private boolean eventTypeSet;
 
 		public Event build() {
-			Preconditions.checkState(idSet);
 			Preconditions.checkState(nameSet);
 			Preconditions.checkState(descriptionSet);
+			Preconditions.checkState(eventTypeSet);
 			Preconditions.checkState(eventUsersSet);
 			Preconditions.checkState(voteCategoriesSet);
 			// TODO(pames): ensure that the admin information is serialized.
 			logger.warn("Building an event without any admin info");
 			Event event = new Event(null, name, description, eventType);
-			event.setId(id);
+			if (idSet) {
+				event.setId(id);
+			}
 			return event;
 		}
 
-		public EventBuilder setEventType(Long id) {
-			Preconditions.checkArgument(!idSet);
-			this.id = Preconditions.checkNotNull(id);
+		public EventBuilder setEventType(EventType eventType) {
+			Preconditions.checkState(!eventTypeSet);
+			this.eventType = Preconditions.checkNotNull(eventType);
 			this.eventTypeSet = true;
 			return this;
 		}
 		
 		public EventBuilder setId(Long id) {
-			Preconditions.checkArgument(!idSet);
+			Preconditions.checkState(!idSet);
 			this.id = Preconditions.checkNotNull(id);
 			this.idSet = true;
 			return this;
@@ -183,6 +186,10 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 						EventProperty.PROPERTY_VOTE_CATEGORIES);
 				builder.setVoteCategories(new ArrayList<VoteCategory>());
 				in.skipValue();
+				break;
+			case PROPERTY_EVENT_TYPE:
+				String eventType = in.nextString();
+				builder.setEventType(EventType.fromString(eventType));
 				break;
 			}
 		}

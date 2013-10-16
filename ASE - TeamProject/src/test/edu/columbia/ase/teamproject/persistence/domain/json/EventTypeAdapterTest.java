@@ -38,7 +38,8 @@ public class EventTypeAdapterTest {
 		UserAccount admin = new UserAccount(AccountType.OPENID,
 				"http://localhost", "displayName", null,
 				new ArrayList<Permission>());
-		Event event = new Event(admin, "eventName", "eventDescription", EventType.PRIVATE);
+		Event event = new Event(admin, "eventName", "eventDescription",
+				EventType.PRIVATE);
 		event.setId(123L);
 		String json = gson.toJson(event);
 		Event deserialized = gson.fromJson(json, Event.class);
@@ -47,6 +48,7 @@ public class EventTypeAdapterTest {
 		Assert.assertEquals(event.getName(), deserialized.getName());
 		Assert.assertEquals(event.getDescription(),
 				deserialized.getDescription());
+		Assert.assertEquals(event.getEventType(), deserialized.getEventType());
 		// TODO (pames): add checks for serialized member lists (user accounts
 		// and categories).
 	}

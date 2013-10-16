@@ -47,8 +47,8 @@ public enum EventType {
 		return eventType;
 	}
 	
-	public static EventType fromString( String accountType ){
-		return stringToEnum.get(accountType);
+	public static EventType fromString(String eventType){
+		return stringToEnum.get(eventType);
 	}
 	
 }

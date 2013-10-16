@@ -78,57 +78,44 @@ public class Event {
 		eventUsers = new ArrayList<UserAccount>();
 		voteCategories = new ArrayList<VoteCategory>();
 	}
-	
-	
-	
+
 	public Event(UserAccount admin, String name, String description, EventType eventType) {
 		this();
+		// TODO(pames): determine which fields should be required / non-null, and
+		// add Precondition checks for them.
 		this.admin = admin;
 		this.name = name;
 		this.description = description;
 		this.eventType = eventType;
 	}
 
-
-	public void addEventUser( UserAccount userAccount){
+	public void addEventUser(UserAccount userAccount){
 		eventUsers.add(userAccount);
 	}
 	
-	public void addAllEventUser( Collection<UserAccount> userAccounts){
+	public void addAllEventUser(Collection<UserAccount> userAccounts){
 		eventUsers.addAll(userAccounts);
 	}
 	
-	public void addVoteCategory( VoteCategory category){
+	public void addVoteCategory(VoteCategory category){
 		voteCategories.add(category);
 	}
 
-	
-	
 	public EventType getEventType() {
 		return eventType;
 	}
-
-
 
 	public void setEventType(EventType eventType) {
 		this.eventType = eventType;
 	}
 
-
-
 	public List<VoteCategory> getVoteCategories() {
 		return voteCategories;
 	}
 
-
-
 	public void setVoteCategories(List<VoteCategory> voteCategories) {
 		this.voteCategories = voteCategories;
 	}
-
-
-	
-	
 
 	/**
 	 * @return the id
@@ -186,31 +173,21 @@ public class Event {
 		this.description = description;
 	}
 
-	
-	
-	
 	public LocalDateTime getStartTime() {
 		return startTime;
 	}
-
-
 
 	public void setStartTime(LocalDateTime startTime) {
 		this.startTime = startTime;
 	}
 
-
-
 	public LocalDateTime getEndTime() {
 		return endTime;
 	}
 
-
-
 	public void setEndTime(LocalDateTime endTime) {
 		this.endTime = endTime;
 	}
-
 
 	@Override
 	public String toString() {
@@ -239,7 +216,4 @@ public class Event {
 		
 		return stringList;
 	}
-	
-
-	
 }
