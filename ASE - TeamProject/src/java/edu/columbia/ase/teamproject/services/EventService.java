@@ -31,21 +31,13 @@ public class EventService {
 	@Autowired
 	EventDao eventDao;
 
-	public Event createEvent(UserDetails creator, String name, String description, EventType eventType)
+	public Event createEvent(UserAccount creator, String name, String description, EventType eventType)
 	throws UsernameNotFoundException
 	{
 		Preconditions.checkNotNull(creator);
 		logger.info("Creating event " + name);
 
-		// Validate account
-		UserAccount acc = userDao.findAccountByUserDetails(creator);
-
-		if (acc == null)
-		{
-			throw new UsernameNotFoundException("No account for " + creator.getUsername());
-		}
-
-		Event event = new Event(acc, name, description, eventType);
+		Event event = new Event(creator, name, description, eventType);
 		eventDao.add(event);
 
 		logger.info("Event " + name + " created");
