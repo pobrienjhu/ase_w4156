@@ -90,7 +90,6 @@ public class OpenIdAuthenticationTokenConsumer implements
 				userAccountDao.add(account);
 				
 			}
-		//}
 
 		return new User(account.getUsername(), "[PROTECTED]",
 				AuthorityUtils.commaSeparatedStringToAuthorityList(
