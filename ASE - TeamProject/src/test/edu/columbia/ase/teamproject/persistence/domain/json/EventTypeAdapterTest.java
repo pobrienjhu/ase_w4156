@@ -37,7 +37,7 @@ public class EventTypeAdapterTest {
 		// the spring config works.
 		gson = new GsonProvider().provideGson();
 	}
-	
+
 	@Test
 	public void testSerializeandDeserializeEvent() {
 		UserAccount admin = new UserAccount(AccountType.OPENID,

@@ -173,7 +173,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 		out.value(value.getStartTime().getMillis());
 
 		out.name(EventProperty.PROPERTY_EVENT_END.toString());
-		out.value(value.getStartTime().getMillis());
+		out.value(value.getEndTime().getMillis());
 
 		out.name(EventProperty.PROPERTY_EVENT_USERS.toString());
 		out.beginArray();
