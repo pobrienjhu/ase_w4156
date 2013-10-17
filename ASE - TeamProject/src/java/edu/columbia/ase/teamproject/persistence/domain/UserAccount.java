@@ -75,7 +75,10 @@ public class UserAccount {
 	@Type(type="edu.columbia.ase.teamproject.persistence.domain.enumeration.PermissionUserType")
 	private List<Permission> permissions;
 
-	@OneToMany(mappedBy="admin", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch=FetchType.LAZY)
+	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch=FetchType.LAZY)
+	@JoinTable(name="Admin_Event",
+		joinColumns={@JoinColumn(name="userId")},
+		inverseJoinColumns={@JoinColumn(name="eventId")})
 	private List<Event> adminEvents;
 	
 	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch=FetchType.LAZY)
