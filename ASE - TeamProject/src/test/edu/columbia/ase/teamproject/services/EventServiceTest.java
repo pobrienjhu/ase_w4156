@@ -4,10 +4,11 @@
 package edu.columbia.ase.teamproject.services;
 
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -15,13 +16,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.columbia.ase.teamproject.persistence.dao.EventDao;
@@ -38,7 +36,6 @@ import edu.columbia.ase.teamproject.security.Permission;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:applicationContext.xml")
-@TransactionConfiguration(defaultRollback = true)
 @Transactional
 public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTests {
 
@@ -57,11 +54,10 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 
 	 @Before
 	 public void setUp() {
-/*		 UserAccount user = new UserAccount(AccountType.LOCAL, "user",
+		 UserAccount user = new UserAccount(AccountType.LOCAL, "user",
 				 "displayName", "password",
 				 Arrays.asList(new Permission[]{Permission.USER}));
 		 userAccountDao.add(user);
-*/
 	 }
 
 	/**
@@ -69,18 +65,13 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 	 */
 	@Test
 	public void testSuccessfulCreateEvent() {
-		UserAccount user = new UserAccount(AccountType.LOCAL, "user",
-				 "displayName", "password",
-				 Arrays.asList(new Permission[]{Permission.USER}));
-		Event e = eventService.createEvent(user, "Event Name", "Event Description", EventType.PRIVATE);
-		UserAccount fetchedUser = userAccountDao.findAccountByNameAndType("user",
+		UserAccount user = userAccountDao.findAccountByNameAndType("user",
 				AccountType.LOCAL);
+		Event e = eventService.createEvent(user, "Test Event Name", "Event Description", EventType.PRIVATE);
 
-		// Verifies that even though the user did not exist, Hibernate transitively persisted it.
-		assertTrue(fetchedUser.equals(user));
-		// Hard coded until we sort out the issue with the HibernateDao#add().
-		long eventId = 1;
-		assertTrue(eventDao.list().size() == 1);
+		long eventId = e.getId();
+		List<Event> events = eventDao.list();
+		assertTrue(events.size() == 1);
 
 		Event fetchedEvent = eventDao.find(eventId);
 		// TODO: when Event implements equals(), replace w/this
@@ -96,8 +87,9 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 		session.save(fetchedEvent);
 
 		// Retrieve the most recent copy from the database.
-		fetchedUser = userAccountDao.findAccountByNameAndType("user",
+		UserAccount fetchedUser = userAccountDao.findAccountByNameAndType("user",
 				AccountType.LOCAL);
+
 		fetchedEvent = eventDao.find(eventId);
 
 		// This change should be permitted.

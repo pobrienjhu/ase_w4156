@@ -6,7 +6,6 @@ package edu.columbia.ase.teamproject.services;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.google.common.base.Preconditions;
@@ -37,7 +36,6 @@ public class EventService {
 		Preconditions.checkNotNull(creator);
 		logger.info("Creating event " + name);
 		Event event = new Event(creator, name, description, eventType);
-		eventDao.add(event);
 
 		logger.info("Event " + name + " created");
 		
