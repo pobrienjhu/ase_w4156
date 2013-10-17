@@ -26,9 +26,6 @@ import edu.columbia.ase.teamproject.persistence.domain.enumeration.EventType;
 
 public class EventTypeAdapter extends TypeAdapter<Event> {
 
-	private static final LocalDateTime EPOCH =
-			new LocalDateTime(1970, 1, 1, 0, 0, 0);
-
 	private static final Logger logger =
 			LoggerFactory.getLogger(EventTypeAdapter.class);
 
@@ -173,12 +170,10 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 		out.name(EventProperty.PROPERTY_EVENT_TYPE.toString());
 		out.value(value.getEventType().toString());
 		out.name(EventProperty.PROPERTY_EVENT_START.toString());
-		out.value(new Duration(EPOCH.toDateTime(DateTimeZone.UTC),
-				value.getStartTime().toDateTime(DateTimeZone.UTC)).getMillis());
+		out.value(value.getStartTime().getMillis());
 
 		out.name(EventProperty.PROPERTY_EVENT_END.toString());
-		out.value(new Duration(EPOCH.toDateTime(DateTimeZone.UTC),
-				value.getEndTime().toDateTime(DateTimeZone.UTC)).getMillis());
+		out.value(value.getStartTime().getMillis());
 
 		out.name(EventProperty.PROPERTY_EVENT_USERS.toString());
 		out.beginArray();

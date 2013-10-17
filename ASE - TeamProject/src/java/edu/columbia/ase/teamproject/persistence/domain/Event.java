@@ -59,10 +59,6 @@ public class Event {
 	private String description;
 
 
-	// TODO(pames/aiman): determine if this is the best type to use, since
-	// this does not include timezone information and thus cannot be
-	// serialized to milliseconds-from-epoch easily.  This causes the event
-	// serialization / deserialization test to fail.
 	@Column(name="startTime", nullable=false)
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime startTime;
