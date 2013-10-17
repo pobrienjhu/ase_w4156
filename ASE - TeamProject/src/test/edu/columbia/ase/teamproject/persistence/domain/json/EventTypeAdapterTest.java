@@ -43,7 +43,7 @@ public class EventTypeAdapterTest {
 		UserAccount admin = new UserAccount(AccountType.OPENID,
 				"http://localhost", "displayName", null,
 				new ArrayList<Permission>());
-		DateTime now = DateTime.now(DateTimeZone.UTC);
+		DateTime now = DateTime.now();
 		Event event = new Event(admin, "eventName", "eventDescription",
 				EventType.PRIVATE, now, now.plus(Duration.standardDays(1)));
 		event.setId(123L);
