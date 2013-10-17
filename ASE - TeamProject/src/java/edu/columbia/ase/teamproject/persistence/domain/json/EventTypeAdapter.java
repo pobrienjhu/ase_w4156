@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.Duration;
 import org.joda.time.LocalDateTime;
@@ -79,9 +80,9 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 		private List<VoteCategory> voteCategories;
 		private EventType eventType;
 		private boolean eventTypeSet;
-		private LocalDateTime eventStart;
+		private DateTime eventStart;
 		private boolean eventStartSet;
-		private LocalDateTime eventEnd;
+		private DateTime eventEnd;
 		private boolean eventEndSet;
 
 		public Event build() {
@@ -130,14 +131,14 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 			return this;
 		}
 
-		public EventBuilder setEventStart(LocalDateTime eventStart) {
+		public EventBuilder setEventStart(DateTime eventStart) {
 			Preconditions.checkState(!eventStartSet);
 			this.eventStart = eventStart;
 			this.eventStartSet = true;
 			return this;
 		}
 
-		public EventBuilder setEventEnd(LocalDateTime eventEnd) {
+		public EventBuilder setEventEnd(DateTime eventEnd) {
 			Preconditions.checkState(!eventEndSet);
 			this.eventEnd = eventEnd;
 			this.eventEndSet = true;
@@ -231,10 +232,10 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 				builder.setEventType(EventType.fromString(eventType));
 				break;
 			case PROPERTY_EVENT_START:
-				builder.setEventStart(new LocalDateTime(in.nextLong()));
+				builder.setEventStart(new DateTime(in.nextLong()));
 				break;
 			case PROPERTY_EVENT_END:
-				builder.setEventEnd(new LocalDateTime(in.nextLong()));
+				builder.setEventEnd(new DateTime(in.nextLong()));
 				break;
 			}
 		}

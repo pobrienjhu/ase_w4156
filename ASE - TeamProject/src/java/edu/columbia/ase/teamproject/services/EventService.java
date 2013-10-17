@@ -3,6 +3,7 @@
  */
 package edu.columbia.ase.teamproject.services;
 
+import org.joda.time.DateTime;
 import org.joda.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +33,7 @@ public class EventService {
 	EventDao eventDao;
 
 	public Event createEvent(UserAccount creator, String name, String description, EventType eventType,
-			LocalDateTime start, LocalDateTime end)
+			DateTime start, DateTime end)
 	throws UsernameNotFoundException
 	{
 		Preconditions.checkNotNull(creator);

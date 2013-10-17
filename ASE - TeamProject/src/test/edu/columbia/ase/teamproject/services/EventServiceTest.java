@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.joda.time.DateTime;
 import org.joda.time.Duration;
 import org.joda.time.LocalDateTime;
 import org.junit.Before;
@@ -70,8 +71,8 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 		UserAccount user = userAccountDao.findAccountByNameAndType("user",
 				AccountType.LOCAL);
 		Event e = eventService.createEvent(user, "Test Event Name",
-				"Event Description", EventType.PRIVATE, LocalDateTime.now(),
-				LocalDateTime.now().plus(Duration.standardDays(1)));
+				"Event Description", EventType.PRIVATE, DateTime.now(),
+				DateTime.now().plus(Duration.standardDays(1)));
 
 		long eventId = e.getId();
 		List<Event> events = eventDao.list();

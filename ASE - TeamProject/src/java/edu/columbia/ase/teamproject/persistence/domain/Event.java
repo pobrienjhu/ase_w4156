@@ -25,6 +25,7 @@ import javax.persistence.Version;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
 import org.joda.time.LocalDateTime;
 
 import com.google.common.base.Joiner;
@@ -63,12 +64,12 @@ public class Event {
 	// serialized to milliseconds-from-epoch easily.  This causes the event
 	// serialization / deserialization test to fail.
 	@Column(name="startTime", nullable=false)
-	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
-	private LocalDateTime startTime;
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	private DateTime startTime;
 	
 	@Column(name="endTime", nullable=false)
-	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
-	private LocalDateTime endTime;
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	private DateTime endTime;
 	
 	@Column(name="eventType", nullable=false)
 	@Enumerated(EnumType.STRING)
@@ -98,8 +99,8 @@ public class Event {
 	 * @param admin if null, MUST be set before persisting to database.
 	 */
 	public Event(@Nullable UserAccount admin, String name, String description,
-			EventType eventType, LocalDateTime eventStart,
-			LocalDateTime eventEnd) {
+			EventType eventType, DateTime eventStart,
+			DateTime eventEnd) {
 		this();
 		Preconditions.checkArgument(name.length() < MAX_NAME_LENGTH);
 		Preconditions.checkArgument(description.length() < MAX_DESCRIPTION_LENGTH);
@@ -204,19 +205,19 @@ public class Event {
 		this.description = description;
 	}
 
-	public LocalDateTime getStartTime() {
+	public DateTime getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(LocalDateTime startTime) {
+	public void setStartTime(DateTime startTime) {
 		this.startTime = startTime;
 	}
 
-	public LocalDateTime getEndTime() {
+	public DateTime getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(LocalDateTime endTime) {
+	public void setEndTime(DateTime endTime) {
 		this.endTime = endTime;
 	}
 
