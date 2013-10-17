@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.joda.time.DateTimeZone;
+import org.joda.time.Duration;
+import org.joda.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,6 +25,9 @@ import edu.columbia.ase.teamproject.persistence.domain.enumeration.EventType;
 
 public class EventTypeAdapter extends TypeAdapter<Event> {
 
+	private static final LocalDateTime EPOCH =
+			new LocalDateTime(1970, 1, 1, 0, 0, 0);
+
 	private static final Logger logger =
 			LoggerFactory.getLogger(EventTypeAdapter.class);
 
@@ -31,7 +37,9 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 		PROPERTY_DESCRIPTION("description"),
 		PROPERTY_EVENT_USERS("eventUsers"),
 		PROPERTY_VOTE_CATEGORIES("voteCategories"),
-		PROPERTY_EVENT_TYPE("eventType");
+		PROPERTY_EVENT_TYPE("eventType"),
+		PROPERTY_EVENT_START("eventStart"),
+		PROPERTY_EVENT_END("eventEnd");
 
 		private static final Map<String, EventProperty> propertyMap;
 		static {
@@ -71,6 +79,10 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 		private List<VoteCategory> voteCategories;
 		private EventType eventType;
 		private boolean eventTypeSet;
+		private LocalDateTime eventStart;
+		private boolean eventStartSet;
+		private LocalDateTime eventEnd;
+		private boolean eventEndSet;
 
 		public Event build() {
 			Preconditions.checkState(nameSet);
@@ -78,9 +90,12 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 			Preconditions.checkState(eventTypeSet);
 			Preconditions.checkState(eventUsersSet);
 			Preconditions.checkState(voteCategoriesSet);
+			Preconditions.checkState(eventStartSet);
+			Preconditions.checkState(eventEndSet);
 			// TODO(pames): ensure that the admin information is serialized.
 			logger.warn("Building an event without any admin info");
-			Event event = new Event(null, name, description, eventType);
+			Event event = new Event(null, name, description, eventType,
+					eventStart, eventEnd);
 			if (idSet) {
 				event.setId(id);
 			}
@@ -115,6 +130,21 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 			return this;
 		}
 
+		public EventBuilder setEventStart(LocalDateTime eventStart) {
+			Preconditions.checkState(!eventStartSet);
+			this.eventStart = eventStart;
+			this.eventStartSet = true;
+			return this;
+		}
+
+		public EventBuilder setEventEnd(LocalDateTime eventEnd) {
+			Preconditions.checkState(!eventEndSet);
+			this.eventEnd = eventEnd;
+			this.eventEndSet = true;
+			return this;
+		}
+
+
 		public EventBuilder setEventUsers(List<UserAccount> eventUsers) {
 			Preconditions.checkState(!eventUsersSet);
 			this.eventUsers = eventUsers;
@@ -141,6 +171,13 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 		out.value(value.getDescription());
 		out.name(EventProperty.PROPERTY_EVENT_TYPE.toString());
 		out.value(value.getEventType().toString());
+		out.name(EventProperty.PROPERTY_EVENT_START.toString());
+		out.value(new Duration(EPOCH.toDateTime(DateTimeZone.UTC),
+				value.getStartTime().toDateTime(DateTimeZone.UTC)).getMillis());
+
+		out.name(EventProperty.PROPERTY_EVENT_END.toString());
+		out.value(new Duration(EPOCH.toDateTime(DateTimeZone.UTC),
+				value.getEndTime().toDateTime(DateTimeZone.UTC)).getMillis());
 
 		out.name(EventProperty.PROPERTY_EVENT_USERS.toString());
 		out.beginArray();
@@ -192,6 +229,12 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 			case PROPERTY_EVENT_TYPE:
 				String eventType = in.nextString();
 				builder.setEventType(EventType.fromString(eventType));
+				break;
+			case PROPERTY_EVENT_START:
+				builder.setEventStart(new LocalDateTime(in.nextLong()));
+				break;
+			case PROPERTY_EVENT_END:
+				builder.setEventEnd(new LocalDateTime(in.nextLong()));
 				break;
 			}
 		}

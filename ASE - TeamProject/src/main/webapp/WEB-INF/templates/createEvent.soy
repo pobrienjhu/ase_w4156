@@ -22,9 +22,15 @@
   
   function createEvent()
   {
-
-	var e = {"id":123,"name":"eventName","description":"eventDescription","eventUsers":[],"voteCategories":[]}
-	console.log("");
+	var e = { "name": $("#eventTitle")[0].value,
+	          "description": $("#eventDescription")[0].value,
+	          "eventType": $("#eventPublic")[0].checked ? "PUBLIC" : "PRIVATE",
+	          "eventStart": new Date($("#begins-datepicker")[0].value).getTime(),
+	          "eventEnd": new Date($("#ends-datepicker")[0].value).getTime(),
+	          "eventUsers":[],
+	          "voteCategories":[]
+	        };
+	console.log(JSON.stringify(e));
 	$.ajax({
 		type: "POST",
 		url: "/app/createEvent.do",
@@ -33,12 +39,11 @@
 		data: JSON.stringify(e)
 	})
 	.done(function( msg ) {
-		console.log(msg);
-		alert( "Data Saved: " + msg );
-	});   
-
+    console.log(msg);
+    alert( "Created event with ID: " + msg["id"]);
+    // TODO: store this id somewhere on the page for updates.
+	});
   }
-  
   </script>
 {/literal}  
 
@@ -49,15 +54,21 @@
     <div class="body">
     	<div style='padding:10px;padding-left:5px;'>
 			<div style='float:left; width:110px;'>Event Title</div>
-			<div><input type='text'></div>
+			<div><input type='text' id='eventTitle'></div>
 			<div style='clear:both'> </div>
 
 			<div style='float:left; width:110px;margin-top:5px;'>Event Description</div>
 			<div style='float:left; margin-top:5px;'>
-				<textarea rows=7 cols=30></textarea>
+				<textarea rows=7 cols=30 id='eventDescription'></textarea>
 			</div>
 			<div style='clear:both'> </div>
-			
+
+      <div style='float:left; margin-top:5px; width:110px;'>Public event?</div>
+      <div style='float:left; margin-top:5px;'>
+        <input type='checkbox' id='eventPublic' />
+      </div>
+      <div style='clear:both'> </div>
+      
 			<div style='float:left; margin-top:5px; width:110px;'>Begins On</div>
 			<div style='margin-top:5px;'>
 			<input type="text" id="begins-datepicker" />
@@ -68,6 +79,7 @@
 			<div style='margin-top:5px;'>
 			<input type="text" id="ends-datepicker" />
 			</div>
+
 			<div style='clear:both'> </div>
 			<input id='csrfCE' type='hidden' value='{$_csrf}'>
 			<input id='createEventBtn' type='button' value='Create' style='margin-top:5px;'><br/><br/>

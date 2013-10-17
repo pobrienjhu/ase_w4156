@@ -8,6 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
+import org.joda.time.Duration;
+import org.joda.time.LocalDateTime;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
@@ -57,7 +59,9 @@ public class PersistenceTest extends AbstractTransactionalJUnit4SpringContextTes
 				 "displayName", "password",
 				 Arrays.asList(new Permission[]{Permission.USER}));
 		 userAccountDao.add(user);
-		 Event event = new Event(user, "Event Name", "Event Description", EventType.PUBLIC);
+		 Event event = new Event(user, "Event Name", "Event Description",
+				 EventType.PUBLIC, LocalDateTime.now(),
+				 LocalDateTime.now().plus(Duration.standardDays(1)));
 		 eventDao.add(event);
 	 }
 
@@ -139,7 +143,10 @@ public class PersistenceTest extends AbstractTransactionalJUnit4SpringContextTes
 		
 		 System.out.println(admin);
 		 
-		 Event event = new Event(admin, "Write Test Event", "Testing description", EventType.PUBLIC);
+		 Event event = new Event(admin, "Write Test Event",
+				 "Testing description", EventType.PUBLIC,
+				 LocalDateTime.now(),
+				 LocalDateTime.now().plus(Duration.standardDays(1)));
 		 
 		 System.out.println(event);
 		 

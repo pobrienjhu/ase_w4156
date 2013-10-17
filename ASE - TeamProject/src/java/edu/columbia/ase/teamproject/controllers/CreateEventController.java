@@ -81,7 +81,8 @@ public final class CreateEventController {
 		UserAccount user = userAccountDao.findAccountByUserDetails(userDetails);
 
 		Event createdEvent = eventService.createEvent(user,
-				event.getName(), event.getDescription(), event.getEventType());
+				event.getName(), event.getDescription(), event.getEventType(),
+				event.getStartTime(), event.getEndTime());
 
 		return gson.toJson(createdEvent, Event.class);
 

@@ -28,6 +28,7 @@ import org.hibernate.annotations.Type;
 import org.joda.time.LocalDateTime;
 
 import com.google.common.base.Joiner;
+import com.google.common.base.Preconditions;
 
 import edu.columbia.ase.teamproject.persistence.dao.util.ColumnLength;
 import edu.columbia.ase.teamproject.persistence.domain.enumeration.EventType;
@@ -35,6 +36,9 @@ import edu.columbia.ase.teamproject.persistence.domain.enumeration.EventType;
 @Entity
 @Table(name = "Event")
 public class Event {
+
+	private static final int MAX_NAME_LENGTH = 50;
+	private static final int MAX_DESCRIPTION_LENGTH = 255;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -46,18 +50,23 @@ public class Event {
 	private UserAccount admin;
 	
 	@Column(name="name", nullable = false)
-	@ColumnLength(value = 50)
+	@ColumnLength(value = MAX_NAME_LENGTH)
 	private String name;
 	
 	@Column(name="description")
-	@ColumnLength(value = 255)
+	@ColumnLength(value = MAX_DESCRIPTION_LENGTH)
 	private String description;
-	
-	@Column(name="startTime")
+
+
+	// TODO(pames/aiman): determine if this is the best type to use, since
+	// this does not include timezone information and thus cannot be
+	// serialized to milliseconds-from-epoch easily.  This causes the event
+	// serialization / deserialization test to fail.
+	@Column(name="startTime", nullable=false)
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
 	private LocalDateTime startTime;
 	
-	@Column(name="endTime")
+	@Column(name="endTime", nullable=false)
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
 	private LocalDateTime endTime;
 	
@@ -85,14 +94,21 @@ public class Event {
 		voteCategories = new ArrayList<VoteCategory>();
 	}
 
-	public Event(UserAccount admin, String name, String description, EventType eventType) {
+	/**
+	 * @param admin if null, MUST be set before persisting to database.
+	 */
+	public Event(@Nullable UserAccount admin, String name, String description,
+			EventType eventType, LocalDateTime eventStart,
+			LocalDateTime eventEnd) {
 		this();
-		// TODO(pames): determine which fields should be required / non-null, and
-		// add Precondition checks for them.
+		Preconditions.checkArgument(name.length() < MAX_NAME_LENGTH);
+		Preconditions.checkArgument(description.length() < MAX_DESCRIPTION_LENGTH);
 		this.admin = admin;
+		this.eventType = Preconditions.checkNotNull(eventType);
+		this.startTime = Preconditions.checkNotNull(eventStart);
+		this.endTime = Preconditions.checkNotNull(eventEnd);
 		this.name = name;
 		this.description = description;
-		this.eventType = eventType;
 	}
 
 	public void addEventUser(UserAccount userAccount){

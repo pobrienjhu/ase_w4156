@@ -3,6 +3,7 @@
  */
 package edu.columbia.ase.teamproject.services;
 
+import org.joda.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +31,14 @@ public class EventService {
 	@Autowired
 	EventDao eventDao;
 
-	public Event createEvent(UserAccount creator, String name, String description, EventType eventType)
+	public Event createEvent(UserAccount creator, String name, String description, EventType eventType,
+			LocalDateTime start, LocalDateTime end)
 	throws UsernameNotFoundException
 	{
 		Preconditions.checkNotNull(creator);
 		logger.info("Creating event " + name);
-		Event event = new Event(creator, name, description, eventType);
+		Event event = new Event(creator, name, description, eventType,
+				start, end);
 
 		logger.info("Event " + name + " created");
 		

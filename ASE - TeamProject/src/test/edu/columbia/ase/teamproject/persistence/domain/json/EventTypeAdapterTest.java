@@ -1,8 +1,12 @@
 package edu.columbia.ase.teamproject.persistence.domain.json;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 
-import org.junit.Assert;
+import org.joda.time.DateTimeZone;
+import org.joda.time.Duration;
+import org.joda.time.LocalDateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,17 +42,21 @@ public class EventTypeAdapterTest {
 		UserAccount admin = new UserAccount(AccountType.OPENID,
 				"http://localhost", "displayName", null,
 				new ArrayList<Permission>());
+		LocalDateTime now = LocalDateTime.now(DateTimeZone.UTC);
 		Event event = new Event(admin, "eventName", "eventDescription",
-				EventType.PRIVATE);
+				EventType.PRIVATE, now, now.plus(Duration.standardDays(1)));
 		event.setId(123L);
 		String json = gson.toJson(event);
 		Event deserialized = gson.fromJson(json, Event.class);
 
-		Assert.assertEquals(event.getId(), deserialized.getId());
-		Assert.assertEquals(event.getName(), deserialized.getName());
-		Assert.assertEquals(event.getDescription(),
+		assertEquals(event.getId(), deserialized.getId());
+		assertEquals(event.getName(), deserialized.getName());
+		assertEquals(event.getDescription(),
 				deserialized.getDescription());
-		Assert.assertEquals(event.getEventType(), deserialized.getEventType());
+		assertEquals(event.getEventType(), deserialized.getEventType());
+		assertEquals(event.getEventType(), deserialized.getEventType());
+		assertEquals(event.getStartTime(), deserialized.getStartTime());
+		assertEquals(event.getEndTime(), deserialized.getEndTime());
 		// TODO (pames): add checks for serialized member lists (user accounts
 		// and categories).
 	}
