@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -39,6 +40,9 @@ public class VoteOption {
 
 	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch=FetchType.LAZY, mappedBy="id")
 	private List<Vote> votes;
+	
+    @Version
+    private Integer optimisticLockingVersion;
 	
 	// A no-arg constructor is required for Hibernate.
 	private VoteOption() {
@@ -97,6 +101,16 @@ public class VoteOption {
 	 */
 	public void setOptionName(String optionName) {
 		this.optionName = optionName;
+	}
+	
+	public Integer getOptimisticLockingVersion() {
+		return optimisticLockingVersion;
+	}
+
+
+
+	public void setOptimisticLockingVersion(Integer version) {
+		this.optimisticLockingVersion = version;
 	}
 	
 	

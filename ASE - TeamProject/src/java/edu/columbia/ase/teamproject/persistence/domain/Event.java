@@ -19,6 +19,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -71,6 +72,10 @@ public class Event {
 	
 	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch=FetchType.LAZY, mappedBy="id")
 	private List<VoteCategory> voteCategories;
+	
+    @Version
+    @Column(name="version")
+    private Integer optimisticLockingVersion;
 	
 	// A no-arg constructor is required for Hibernate.
 	private Event() { 
@@ -127,7 +132,15 @@ public class Event {
 	}
 
 
-	
+	public Integer getOptimisticLockingVersion() {
+		return optimisticLockingVersion;
+	}
+
+
+
+	public void setOptimisticLockingVersion(Integer version) {
+		this.optimisticLockingVersion = version;
+	}
 	
 
 	/**

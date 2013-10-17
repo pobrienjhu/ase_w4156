@@ -47,11 +47,8 @@ public class EventService {
 		}
 		
 		Event event = new Event(acc, name, description, eventType);
-		eventDao.add(event);
-		
-		logger.info("Event " + name + " created");
-		
-		return event;
+
+		return eventDao.add(event);
 	}
 	
 	
