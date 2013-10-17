@@ -72,6 +72,7 @@ public class PersistenceTest extends AbstractTransactionalJUnit4SpringContextTes
 	  assertNotNull (sessionFactory); 
 	 }
 	 
+	 
 	 @Test
 	 public void testUserAccountDao(){
 		  // Did Spring container instantiated and prepared personsDao
@@ -173,6 +174,7 @@ public class PersistenceTest extends AbstractTransactionalJUnit4SpringContextTes
 			 System.out.println(voteCategory);
 		 }
 	 }
+	 
 	 
 	 
 	 

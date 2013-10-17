@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -36,6 +37,7 @@ public class Vote {
     @JoinColumn(name="userId")
 	private UserAccount userAccount;
 
+	
 	public Vote() {
 		super();
 	}
@@ -101,7 +103,7 @@ public class Vote {
 	public void setVoteTime(LocalDateTime voteTime) {
 		this.voteTime = voteTime;
 	}
-
+	
 	@Override
 	public String toString() {
 		

@@ -97,7 +97,6 @@ public class UserAccountDaoImpl extends HibernateDao<UserAccount, Long>
 		Criteria criteria = currentSession().createCriteria(daoType)
 				.setProjection(Projections.rowCount());
 
-		@SuppressWarnings("unchecked")
 		Number count = (Number) criteria.uniqueResult(); 
 		return count.longValue();
 	}

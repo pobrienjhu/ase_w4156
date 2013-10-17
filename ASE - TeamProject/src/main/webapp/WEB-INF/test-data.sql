@@ -21,10 +21,10 @@ INSERT INTO Permission values(5, 'ADMIN' );
 INSERT INTO Permission values(5, 'USER' );
 
 -- Create test events
-INSERT INTO Event values(default, 'Patrick Test Event', current_timestamp, current_timestamp + '8' HOUR, 'Test event for system develpoment', 'PRIVATE' );
-INSERT INTO Event values(default, 'Najjar Test Event', current_timestamp, current_timestamp + '12' HOUR, 'Test event for system develpoment', 'PUBLIC' );
-INSERT INTO Event values(default, 'Phil Test Event', current_timestamp, current_timestamp + '16' HOUR, 'Test event for system develpoment', 'PRIVATE' );
-INSERT INTO Event values(default, 'Reva Test Event', current_timestamp, current_timestamp + '24' HOUR, 'Test event for system develpoment', 'PUBLIC' );
+INSERT INTO Event values(default, 'Patrick Test Event', current_timestamp, current_timestamp + '8' HOUR, 'Test event for system develpoment', 'PRIVATE', 0 );
+INSERT INTO Event values(default, 'Najjar Test Event', current_timestamp, current_timestamp + '12' HOUR, 'Test event for system develpoment', 'PUBLIC', 0 );
+INSERT INTO Event values(default, 'Phil Test Event', current_timestamp, current_timestamp + '16' HOUR, 'Test event for system develpoment', 'PRIVATE', 0 );
+INSERT INTO Event values(default, 'Reva Test Event', current_timestamp, current_timestamp + '24' HOUR, 'Test event for system develpoment', 'PUBLIC', 0 );
 
 -- add every one as voters for testing
 
@@ -49,62 +49,62 @@ INSERT INTO User_Event values(2, 4 );
 INSERT INTO User_Event values(3, 4 );
 
 
-INSERT INTO VoteCategory values(default, 1, 'Patrick Test Category 1', 'Vote Category description' );
-INSERT INTO VoteCategory values(default, 1, 'Patrick Test Category 2', 'Vote Category description' );
-INSERT INTO VoteCategory values(default, 1, 'Patrick Test Category 3', 'Vote Category description' );
+INSERT INTO VoteCategory values(default, 1, 'Patrick Test Category 1', 'Vote Category description', 0 );
+INSERT INTO VoteCategory values(default, 1, 'Patrick Test Category 2', 'Vote Category description', 0 );
+INSERT INTO VoteCategory values(default, 1, 'Patrick Test Category 3', 'Vote Category description', 0 );
 
-INSERT INTO VoteCategory values(default, 2, 'Najjar Test Category 1', 'Vote Category description' );
-INSERT INTO VoteCategory values(default, 2, 'Najjar Test Category 2', 'Vote Category description' );
-INSERT INTO VoteCategory values(default, 2, 'Najjar Test Category 3', 'Vote Category description' );
+INSERT INTO VoteCategory values(default, 2, 'Najjar Test Category 1', 'Vote Category description', 0 );
+INSERT INTO VoteCategory values(default, 2, 'Najjar Test Category 2', 'Vote Category description', 0 );
+INSERT INTO VoteCategory values(default, 2, 'Najjar Test Category 3', 'Vote Category description', 0 );
 
-INSERT INTO VoteCategory values(default, 2, 'Phil Test Category 1', 'Vote Category description' );
-INSERT INTO VoteCategory values(default, 2, 'Phil Test Category 2', 'Vote Category description' );
-INSERT INTO VoteCategory values(default, 2, 'Phil Test Category 3', 'Vote Category description' );
+INSERT INTO VoteCategory values(default, 2, 'Phil Test Category 1', 'Vote Category description', 0 );
+INSERT INTO VoteCategory values(default, 2, 'Phil Test Category 2', 'Vote Category description', 0 );
+INSERT INTO VoteCategory values(default, 2, 'Phil Test Category 3', 'Vote Category description', 0 );
 
-INSERT INTO VoteCategory values(default, 2, 'Reva Test Category 1', 'Vote Category description' );
-INSERT INTO VoteCategory values(default, 2, 'Reva Test Category 2', 'Vote Category description' );
-INSERT INTO VoteCategory values(default, 2, 'Reva Test Category 3', 'Vote Category description' );
-
-
-INSERT INTO VoteOption values(default, 1, 'Patrick Category 1 Option 1' );
-INSERT INTO VoteOption values(default, 1, 'Patrick Category 1 Option 2' );
-INSERT INTO VoteOption values(default, 1, 'Patrick Category 1 Option 3' );
-
-INSERT INTO VoteOption values(default, 2, 'Patrick Category 2 Option 1' );
-INSERT INTO VoteOption values(default, 2, 'Patrick Category 2 Option 2' );
-INSERT INTO VoteOption values(default, 2, 'Patrick Category 2 Option 3' );
-
-INSERT INTO VoteOption values(default, 3, 'Patrick Category 3 Option 1' );
-INSERT INTO VoteOption values(default, 3, 'Patrick Category 3 Option 2' );
-INSERT INTO VoteOption values(default, 3, 'Patrick Category 3 Option 3' );
+INSERT INTO VoteCategory values(default, 2, 'Reva Test Category 1', 'Vote Category description', 0 );
+INSERT INTO VoteCategory values(default, 2, 'Reva Test Category 2', 'Vote Category description', 0 );
+INSERT INTO VoteCategory values(default, 2, 'Reva Test Category 3', 'Vote Category description', 0 );
 
 
+INSERT INTO VoteOption values(default, 1, 'Patrick Category 1 Option 1', 0 );
+INSERT INTO VoteOption values(default, 1, 'Patrick Category 1 Option 2', 0 );
+INSERT INTO VoteOption values(default, 1, 'Patrick Category 1 Option 3', 0 );
 
-INSERT INTO VoteOption values(default, 4, 'Najjar Category 1 Option 1' );
-INSERT INTO VoteOption values(default, 4, 'Najjar Category 1 Option 2' );
-INSERT INTO VoteOption values(default, 4, 'Najjar Category 1 Option 3' );
+INSERT INTO VoteOption values(default, 2, 'Patrick Category 2 Option 1', 0 );
+INSERT INTO VoteOption values(default, 2, 'Patrick Category 2 Option 2', 0 );
+INSERT INTO VoteOption values(default, 2, 'Patrick Category 2 Option 3', 0 );
 
-INSERT INTO VoteOption values(default, 5, 'Najjar Category 2 Option 1' );
-INSERT INTO VoteOption values(default, 5, 'Najjar Category 2 Option 2' );
-INSERT INTO VoteOption values(default, 5, 'Najjar Category 2 Option 3' );
-
-INSERT INTO VoteOption values(default, 6, 'Najjar Category 3 Option 1' );
-INSERT INTO VoteOption values(default, 6, 'Najjar Category 3 Option 2' );
-INSERT INTO VoteOption values(default, 6, 'Najjar Category 3 Option 3' );
+INSERT INTO VoteOption values(default, 3, 'Patrick Category 3 Option 1', 0 );
+INSERT INTO VoteOption values(default, 3, 'Patrick Category 3 Option 2', 0 );
+INSERT INTO VoteOption values(default, 3, 'Patrick Category 3 Option 3', 0 );
 
 
 
-INSERT INTO VoteOption values(default, 7, 'Phil Category 1 Option 1' );
-INSERT INTO VoteOption values(default, 7, 'Phil Category 1 Option 2' );
-INSERT INTO VoteOption values(default, 7, 'Phil Category 1 Option 3' );
+INSERT INTO VoteOption values(default, 4, 'Najjar Category 1 Option 1', 0 );
+INSERT INTO VoteOption values(default, 4, 'Najjar Category 1 Option 2', 0 );
+INSERT INTO VoteOption values(default, 4, 'Najjar Category 1 Option 3', 0 );
 
-INSERT INTO VoteOption values(default, 8, 'Phil Category 2 Option 1' );
-INSERT INTO VoteOption values(default, 8, 'Phil Category 2 Option 2' );
-INSERT INTO VoteOption values(default, 8, 'Phil Category 2 Option 3' );
+INSERT INTO VoteOption values(default, 5, 'Najjar Category 2 Option 1', 0 );
+INSERT INTO VoteOption values(default, 5, 'Najjar Category 2 Option 2', 0 );
+INSERT INTO VoteOption values(default, 5, 'Najjar Category 2 Option 3', 0 );
 
-INSERT INTO VoteOption values(default, 9, 'Phil Category 3 Option 1' );
-INSERT INTO VoteOption values(default, 9, 'Phil Category 3 Option 2' );
-INSERT INTO VoteOption values(default, 9,  'Phil Category 3 Option 3' );
+INSERT INTO VoteOption values(default, 6, 'Najjar Category 3 Option 1', 0 );
+INSERT INTO VoteOption values(default, 6, 'Najjar Category 3 Option 2', 0 );
+INSERT INTO VoteOption values(default, 6, 'Najjar Category 3 Option 3', 0 );
+
+
+
+INSERT INTO VoteOption values(default, 7, 'Phil Category 1 Option 1', 0 );
+INSERT INTO VoteOption values(default, 7, 'Phil Category 1 Option 2', 0 );
+INSERT INTO VoteOption values(default, 7, 'Phil Category 1 Option 3', 0 );
+
+INSERT INTO VoteOption values(default, 8, 'Phil Category 2 Option 1', 0 );
+INSERT INTO VoteOption values(default, 8, 'Phil Category 2 Option 2', 0 );
+INSERT INTO VoteOption values(default, 8, 'Phil Category 2 Option 3', 0 );
+
+INSERT INTO VoteOption values(default, 9, 'Phil Category 3 Option 1', 0 );
+INSERT INTO VoteOption values(default, 9, 'Phil Category 3 Option 2', 0 );
+INSERT INTO VoteOption values(default, 9,  'Phil Category 3 Option 3', 0 );
 
 
 

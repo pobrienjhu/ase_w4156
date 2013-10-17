@@ -5,6 +5,8 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
 
+import javax.persistence.OptimisticLockException;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -55,21 +57,22 @@ public class HibernateDao<E, K extends Serializable> implements GenericDao<E, K>
     }
 
     @Override
-    public void add(E entity) {
+    public E add(E entity) {
     	entity = truncateFreeTextFields(entity);
     	entity = (E) currentSession().merge(entity);
         currentSession().save(entity);
+        return entity;
     }
 
     @Override
-    public void update(E entity) {
+    public E update(E entity) throws OptimisticLockException{
     	entity = truncateFreeTextFields(entity);
-    	entity = (E) currentSession().merge(entity);
-        currentSession().saveOrUpdate(entity);
+    	return (E) currentSession().merge(entity);
+        //currentSession().saveOrUpdate(entity);
     }
 
     @Override
-    public void remove(E entity) {
+    public void remove(E entity) throws OptimisticLockException {
     	entity = (E) currentSession().merge(entity);
         currentSession().delete(entity);
     }

@@ -36,13 +36,12 @@ public class EventService {
 	{
 		Preconditions.checkNotNull(creator);
 		logger.info("Creating event " + name);
-
 		Event event = new Event(creator, name, description, eventType);
 		eventDao.add(event);
 
 		logger.info("Event " + name + " created");
 		
-		return event;
+		return eventDao.add(event);
 	}
 
 }
