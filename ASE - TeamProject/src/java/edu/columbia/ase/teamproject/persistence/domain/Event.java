@@ -26,7 +26,6 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
-import org.joda.time.LocalDateTime;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Preconditions;
@@ -77,6 +76,12 @@ public class Event {
     	inverseJoinColumns={@JoinColumn(name="userId")})
 	private List<UserAccount> eventUsers;
 	
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch=FetchType.LAZY)
+	@JoinTable(name="Admin_Event",
+    	joinColumns={@JoinColumn(name="eventId")},
+    	inverseJoinColumns={@JoinColumn(name="userId")})
+	private List<UserAccount> adminUsers;
+	
 	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch=FetchType.LAZY, mappedBy="id")
 	private List<VoteCategory> voteCategories;
 	
@@ -87,6 +92,7 @@ public class Event {
 	// A no-arg constructor is required for Hibernate.
 	private Event() { 
 		super(); 
+		adminUsers = new ArrayList<UserAccount>();
 		eventUsers = new ArrayList<UserAccount>();
 		voteCategories = new ArrayList<VoteCategory>();
 	}
@@ -106,6 +112,14 @@ public class Event {
 		this.endTime = Preconditions.checkNotNull(eventEnd);
 		this.name = name;
 		this.description = description;
+	}
+	
+	public void addAdminUser(UserAccount userAccount){
+		adminUsers.add(userAccount);
+	}
+	
+	public void addAllAdminUser(Collection<UserAccount> userAccounts){
+		adminUsers.addAll(userAccounts);
 	}
 
 	public void addEventUser(UserAccount userAccount){
