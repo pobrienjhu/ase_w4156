@@ -44,10 +44,6 @@ public class Event {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "Id", nullable=false)
 	private Long id;
-
-	@ManyToOne(cascade={CascadeType.ALL})
-    @JoinColumn(name="adminId")
-	private UserAccount admin;
 	
 	@Column(name="name", nullable = false)
 	@ColumnLength(value = MAX_NAME_LENGTH)
@@ -86,7 +82,7 @@ public class Event {
     	inverseJoinColumns={@JoinColumn(name="userId")})
 	private List<UserAccount> adminUsers;
 	
-	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch=FetchType.LAZY, mappedBy="id")
+	@OneToMany(cascade = {CascadeType.ALL}, fetch=FetchType.LAZY, orphanRemoval=true, mappedBy="event")
 	private List<VoteCategory> voteCategories;
 	
     @Version
@@ -110,7 +106,7 @@ public class Event {
 		this();
 		Preconditions.checkArgument(name.length() < MAX_NAME_LENGTH);
 		Preconditions.checkArgument(description.length() < MAX_DESCRIPTION_LENGTH);
-		this.admin = admin;
+		adminUsers.add(admin);
 		this.eventType = Preconditions.checkNotNull(eventType);
 		this.startTime = Preconditions.checkNotNull(eventStart);
 		this.endTime = Preconditions.checkNotNull(eventEnd);
@@ -136,6 +132,7 @@ public class Event {
 	
 	public void addVoteCategory(VoteCategory category){
 		voteCategories.add(category);
+		category.setEvent(this);
 	}
 
 	public EventType getEventType() {
@@ -162,6 +159,22 @@ public class Event {
 		this.optimisticLockingVersion = version;
 	}
 
+	
+	
+	/**
+	 * @return the eventUsers
+	 */
+	public List<UserAccount> getEventUsers() {
+		return eventUsers;
+	}
+
+	/**
+	 * @return the adminUsers
+	 */
+	public List<UserAccount> getAdminUsers() {
+		return adminUsers;
+	}
+
 	/**
 	 * @return the id, or null if no ID set (e.g. this event hasn't been persisted).
 	 */
@@ -175,20 +188,6 @@ public class Event {
 	 */
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	/**
-	 * @return the admin
-	 */
-	public UserAccount getAdmin() {
-		return admin;
-	}
-
-	/**
-	 * @param admin the admin to set
-	 */
-	public void setAdmin(UserAccount admin) {
-		this.admin = admin;
 	}
 
 	/**
@@ -246,6 +245,7 @@ public class Event {
 				.append("endTime", endTime)
 				.append("eventType", eventType)
 				.append("eventUsers", Joiner.on("\n").join(translateEventUsers(eventUsers)))
+				.append("adminUsers", Joiner.on("\n").join(translateEventUsers(adminUsers)))
 				.append("voteCategories", Joiner.on("\n").join(voteCategories))
 				.toString();		
 	}	

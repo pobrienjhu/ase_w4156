@@ -33,7 +33,7 @@ public class VoteCategory {
 	@Column(name = "Id", nullable=false)
 	private Long id;
 	
-	@ManyToOne(cascade={CascadeType.ALL})
+	@ManyToOne(targetEntity = Event.class) //, fetch = FetchType.LAZY)
     @JoinColumn(name="eventId")
 	private Event event;
 	
@@ -45,7 +45,7 @@ public class VoteCategory {
 	@ColumnLength(value = 255)
 	private String description;
 	
-	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch=FetchType.LAZY, mappedBy="id")
+	@OneToMany(cascade = {CascadeType.ALL}, fetch=FetchType.LAZY, orphanRemoval=true, mappedBy="voteCategory")
 	private List<VoteOption> voteOptions;
 	
     @Version
@@ -58,9 +58,8 @@ public class VoteCategory {
 	}
 	
 	
-	public VoteCategory(Event event, String categoryName, String description) {
+	public VoteCategory(String categoryName, String description) {
 		this();
-		this.event = event;
 		this.categoryName = categoryName;
 		this.description = description;
 	}
@@ -68,6 +67,7 @@ public class VoteCategory {
 
 	public void addVotingOption(VoteOption voteOption){
 		voteOptions.add(voteOption);
+		voteOption.setVoteCategory(this);
 	}
 	
 

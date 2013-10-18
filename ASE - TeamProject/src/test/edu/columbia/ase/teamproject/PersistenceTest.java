@@ -13,6 +13,7 @@ import org.joda.time.Duration;
 import org.joda.time.LocalDateTime;
 import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ import edu.columbia.ase.teamproject.persistence.dao.VoteCategoryDao;
 import edu.columbia.ase.teamproject.persistence.domain.Event;
 import edu.columbia.ase.teamproject.persistence.domain.UserAccount;
 import edu.columbia.ase.teamproject.persistence.domain.VoteCategory;
+import edu.columbia.ase.teamproject.persistence.domain.VoteOption;
 import edu.columbia.ase.teamproject.persistence.domain.enumeration.AccountType;
 import edu.columbia.ase.teamproject.persistence.domain.enumeration.EventType;
 import edu.columbia.ase.teamproject.security.Permission;
@@ -39,7 +41,7 @@ import edu.columbia.ase.teamproject.security.Permission;
 public class PersistenceTest extends AbstractTransactionalJUnit4SpringContextTests{
 
     static {
-        System.setProperty("dataFile", "test-data.sql");
+        //System.setProperty("dataFile", "test-data.sql");
     }
 	
 	 @Autowired
@@ -52,23 +54,78 @@ public class PersistenceTest extends AbstractTransactionalJUnit4SpringContextTes
 	 private EventDao eventDao;
 	 
 	 @Autowired
-	 VoteCategoryDao voteCategoryDao;
+	 private VoteCategoryDao voteCategoryDao;
 
 	 @Before
 	 public void setUp() {
-		 UserAccount user = new UserAccount(AccountType.LOCAL, "user",
-				 "displayName", "password",
+		 /*
+		  * Add users
+		  */
+		 
+		 UserAccount user1 = new UserAccount(AccountType.LOCAL, "user1",
+				 "User1 Account", "password",
 				 Arrays.asList(new Permission[]{Permission.USER}));
-		 userAccountDao.add(user);
-		 Event event = new Event(user, "Event Name", "Event Description",
+		 
+		 UserAccount user2 = new UserAccount(AccountType.LOCAL, "user2",
+				 "User2 Account", "password",
+				 Arrays.asList(new Permission[]{Permission.USER}));
+		 
+		 UserAccount admin = new UserAccount(AccountType.LOCAL, "admin",
+				 "Admin Account", "password",
+				 Arrays.asList(new Permission[]{Permission.USER}));
+		 
+		 userAccountDao.add(user1);
+		 userAccountDao.add(user2);		 
+		 userAccountDao.add(admin);
+		 
+		 /*
+		  * Add Events
+		  */
+		 Event event = new Event(admin, "Event Name", "Event Description",
 				 EventType.PUBLIC, DateTime.now(),
 				 DateTime.now().plus(Duration.standardDays(1)));
-		 eventDao.add(event);
+		 
+		 event.addEventUser(user1);
+		 event.addEventUser(user2);
+		 
+		 event = eventDao.add(event);
+		 eventDao.flush();
+		 
+		 /*
+		  * Add voting categories
+		  */
+		 
+		 VoteCategory category1 = new VoteCategory("category1", "First Test category");
+		 VoteCategory category2 = new VoteCategory("category2", "Second Test category");
+		 
+		 category1.addVotingOption(new VoteOption("option 1"));
+		 category1.addVotingOption(new VoteOption("option 2"));
+		 category1.addVotingOption(new VoteOption("option 3"));
+
+		 category2.addVotingOption(new VoteOption("option 1"));
+		 category2.addVotingOption(new VoteOption("option 2"));
+		 category2.addVotingOption(new VoteOption("option 3"));
+		 
+		 event.addVoteCategory(category1);
+		 event.addVoteCategory(category2);
+		 
+		 event = eventDao.update(event);
+		
+		 for(VoteCategory category: event.getVoteCategories() ){
+			 category.addVotingOption(new VoteOption("option 4"));
+		 }
+
+		 event = eventDao.update(event);
+		 
+		 System.out.println(event);
+		 
+
+
 	 }
 
 	 @AfterClass
 	 public static void tearDown(){
-	        System.clearProperty("dataFile");
+	        //System.clearProperty("dataFile");
 	 }
 	 
 	 @Test

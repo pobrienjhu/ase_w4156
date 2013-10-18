@@ -30,7 +30,7 @@ public class VoteOption {
 	@Column(name = "Id", nullable=false)
 	private Long id;
 	
-	@ManyToOne(cascade={CascadeType.ALL})
+	@ManyToOne(targetEntity = VoteCategory.class) //cascade={CascadeType.MERGE})
     @JoinColumn(name="voteCategoryId")
 	private VoteCategory voteCategory;
 	
@@ -38,7 +38,7 @@ public class VoteOption {
 	@ColumnLength(value = 50)
 	private String optionName;
 
-	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch=FetchType.LAZY, mappedBy="id")
+	@OneToMany(cascade = {CascadeType.ALL}, fetch=FetchType.LAZY, orphanRemoval=true, mappedBy="id")
 	private List<Vote> votes;
 	
     @Version
@@ -51,11 +51,28 @@ public class VoteOption {
 	}
 
 	
-	public VoteOption(VoteCategory voteCategory, String optionName) {
+	public VoteOption(String optionName) {
 		this();
-		this.voteCategory = voteCategory;
 		this.optionName = optionName;
 	}
+
+	
+	
+	/**
+	 * @return the votes
+	 */
+	public List<Vote> getVotes() {
+		return votes;
+	}
+
+
+	/**
+	 * @param votes the votes to set
+	 */
+	public void setVotes(List<Vote> votes) {
+		this.votes = votes;
+	}
+
 
 	public void addVote(Vote vote){
 		votes.add(vote);
