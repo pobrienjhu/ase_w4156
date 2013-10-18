@@ -4,8 +4,7 @@ $(document).ready(
 			var els = $('#logout-href');
 			if (els.length) {
 				els[0].onclick = function(evt) {
-					$.ajax('/logout',
-							{ type: 'POST' })
+					$.ajax('/logout', { type: 'POST' })
 					 .done(
 							 function() { 
 								 window.location.href =
