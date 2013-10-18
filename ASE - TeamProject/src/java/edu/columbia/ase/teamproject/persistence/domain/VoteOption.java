@@ -19,11 +19,15 @@ import javax.persistence.Version;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import com.google.common.base.Preconditions;
+
 import edu.columbia.ase.teamproject.persistence.dao.util.ColumnLength;
 
 @Entity
 @Table(name = "VoteOption")
 public class VoteOption {
+
+	private static final int MAX_NAME_LENGTH = 50;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -35,7 +39,7 @@ public class VoteOption {
 	private VoteCategory voteCategory;
 	
 	@Column(name="optionName")
-	@ColumnLength(value = 50)
+	@ColumnLength(value = MAX_NAME_LENGTH)
 	private String optionName;
 
 	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch=FetchType.LAZY, mappedBy="id")
@@ -53,11 +57,13 @@ public class VoteOption {
 	
 	public VoteOption(VoteCategory voteCategory, String optionName) {
 		this();
-		this.voteCategory = voteCategory;
+		Preconditions.checkArgument(optionName.length() < MAX_NAME_LENGTH);
+		this.voteCategory = Preconditions.checkNotNull(voteCategory);
 		this.optionName = optionName;
 	}
 
 	public void addVote(Vote vote){
+		Preconditions.checkNotNull(vote);
 		votes.add(vote);
 	}
 
@@ -100,6 +106,7 @@ public class VoteOption {
 	 * @param optionName the optionName to set
 	 */
 	public void setOptionName(String optionName) {
+		Preconditions.checkArgument(optionName.length() < MAX_NAME_LENGTH);
 		this.optionName = optionName;
 	}
 	

@@ -20,6 +20,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.google.common.base.Joiner;
+import com.google.common.base.Preconditions;
 
 import edu.columbia.ase.teamproject.persistence.dao.util.ColumnLength;
 
@@ -27,6 +28,8 @@ import edu.columbia.ase.teamproject.persistence.dao.util.ColumnLength;
 @Table(name = "VoteCategory")
 public class VoteCategory {
 
+	private static final int MAX_NAME_LENGTH = 50;
+	private static final int MAX_DESCRIPTION_LENGTH = 255;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -38,11 +41,11 @@ public class VoteCategory {
 	private Event event;
 	
 	@Column(name="categoryName")
-	@ColumnLength(value = 50)
+	@ColumnLength(value = MAX_NAME_LENGTH)
 	private String categoryName;
 	
 	@Column(name="description")
-	@ColumnLength(value = 255)
+	@ColumnLength(value = MAX_DESCRIPTION_LENGTH)
 	private String description;
 	
 	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch=FetchType.LAZY, mappedBy="id")
@@ -53,24 +56,22 @@ public class VoteCategory {
 	
 	// A no-arg constructor is required for Hibernate.
 	private VoteCategory() { 
-		super();
 		voteOptions = new ArrayList<VoteOption>();
 	}
-	
-	
+
 	public VoteCategory(Event event, String categoryName, String description) {
 		this();
-		this.event = event;
+		Preconditions.checkArgument(categoryName.length() < MAX_NAME_LENGTH);
+		Preconditions.checkArgument(description.length() < MAX_DESCRIPTION_LENGTH);
+		this.event = Preconditions.checkNotNull(event);
 		this.categoryName = categoryName;
 		this.description = description;
 	}
-
 
 	public void addVotingOption(VoteOption voteOption){
 		voteOptions.add(voteOption);
 	}
 	
-
 	/**
 	 * @return the id
 	 */
@@ -110,6 +111,7 @@ public class VoteCategory {
 	 * @param categoryName the categoryName to set
 	 */
 	public void setCategoryName(String categoryName) {
+		Preconditions.checkArgument(categoryName.length() < MAX_NAME_LENGTH);
 		this.categoryName = categoryName;
 	}
 
@@ -124,6 +126,7 @@ public class VoteCategory {
 	 * @param description the description to set
 	 */
 	public void setDescription(String description) {
+		Preconditions.checkArgument(description.length() < MAX_DESCRIPTION_LENGTH);
 		this.description = description;
 	}
 	
@@ -131,12 +134,14 @@ public class VoteCategory {
 		return optimisticLockingVersion;
 	}
 
-
-
 	public void setOptimisticLockingVersion(Integer version) {
 		this.optimisticLockingVersion = version;
 	}
-	
+
+	public List<VoteOption> getVoteOptions() {
+		return voteOptions;
+	}
+
 	@Override
 	public String toString() {
 		

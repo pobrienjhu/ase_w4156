@@ -3,6 +3,7 @@
  */
 package edu.columbia.ase.teamproject.services;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -14,7 +15,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
-import org.joda.time.LocalDateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,10 +25,14 @@ import org.springframework.test.context.junit4.AbstractTransactionalJUnit4Spring
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.common.collect.ImmutableList;
+
 import edu.columbia.ase.teamproject.persistence.dao.EventDao;
 import edu.columbia.ase.teamproject.persistence.dao.UserAccountDao;
 import edu.columbia.ase.teamproject.persistence.domain.Event;
 import edu.columbia.ase.teamproject.persistence.domain.UserAccount;
+import edu.columbia.ase.teamproject.persistence.domain.VoteCategory;
+import edu.columbia.ase.teamproject.persistence.domain.VoteOption;
 import edu.columbia.ase.teamproject.persistence.domain.enumeration.AccountType;
 import edu.columbia.ase.teamproject.persistence.domain.enumeration.EventType;
 import edu.columbia.ase.teamproject.security.Permission;
@@ -55,12 +59,14 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 	 @Autowired
 	 private SessionFactory sessionFactory;
 
+	 private UserAccount userAccount; 
+
 	 @Before
 	 public void setUp() {
 		 UserAccount user = new UserAccount(AccountType.LOCAL, "user",
 				 "displayName", "password",
 				 Arrays.asList(new Permission[]{Permission.USER}));
-		 userAccountDao.add(user);
+		 userAccount = userAccountDao.add(user);
 	 }
 
 	/**
@@ -68,9 +74,7 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 	 */
 	@Test
 	public void testSuccessfulCreateEvent() {
-		UserAccount user = userAccountDao.findAccountByNameAndType("user",
-				AccountType.LOCAL);
-		Event e = eventService.createEvent(user, "Test Event Name",
+		Event e = eventService.createEvent(userAccount, "Test Event Name",
 				"Event Description", EventType.PRIVATE, DateTime.now(),
 				DateTime.now().plus(Duration.standardDays(1)));
 
@@ -104,4 +108,51 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 		assertFalse(fetchedUser.getPassword().equals("bogus"));
 	}
 
+	@Test
+	public void testCreateEventWithVotingCategories() {
+		Event e = eventService.createEvent(userAccount, "Test Event Name",
+				"Event Description", EventType.PRIVATE, DateTime.now(),
+				DateTime.now().plus(Duration.standardDays(1)));
+
+		VoteCategory firstCategory = new VoteCategory(e, "First Category",
+				"First Category Description");
+		VoteOption firstCategoryFirstOption =
+				new VoteOption(firstCategory, "Option 1-1");
+		VoteOption firstCategorySecondOption =
+				new VoteOption(firstCategory, "Option 1-2");
+		VoteOption firstCategoryThirdOption =
+				new VoteOption(firstCategory, "Option 1-3");
+		firstCategory.addVotingOption(firstCategoryFirstOption);
+		firstCategory.addVotingOption(firstCategorySecondOption);
+		firstCategory.addVotingOption(firstCategoryThirdOption);
+
+		VoteCategory secondCategory = new VoteCategory(e, "Second Category",
+				"First Category Description");
+		VoteOption secondCategoryFirstOption =
+				new VoteOption(firstCategory, "Option 2-1");
+		VoteOption secondCategorySecondOption =
+				new VoteOption(firstCategory, "Option 2-2");
+		secondCategory.addVotingOption(secondCategoryFirstOption);
+		secondCategory.addVotingOption(secondCategorySecondOption);
+
+		e.setVoteCategories(ImmutableList.<VoteCategory>of(firstCategory,
+				secondCategory));
+
+		// HACK: this should probably be an eventService 'update' method.
+		// TODO(pames/aiman): determine if there should be a createEvent() API
+		// which also takes a List<VoteCategory> so these can be passed in on
+		// initial creation.
+		sessionFactory.getCurrentSession().save(e);
+
+		Event fetchedEvent = eventDao.find(e.getId()); 
+		assertEquals(2, fetchedEvent.getVoteCategories().size());
+		// TODO(pames): confirm that order will be preserved for vote
+		// categories.  Doesn't seem like it necessarily would be.
+		assertEquals(3, fetchedEvent.getVoteCategories().get(0).getVoteOptions().size());
+		assertEquals(2, fetchedEvent.getVoteCategories().get(1).getVoteOptions().size());
+
+		// Verify that these elements were indeed transitively persisted and have IDs.
+		assertNotNull(fetchedEvent.getVoteCategories().get(0).getId());
+		assertNotNull(fetchedEvent.getVoteCategories().get(0).getVoteOptions().get(0).getId());
+	}
 }
