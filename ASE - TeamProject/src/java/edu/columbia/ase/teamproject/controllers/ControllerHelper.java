@@ -14,12 +14,16 @@ import org.springframework.security.web.csrf.CsrfToken;
 
 import com.google.common.collect.Maps;
 
+import edu.columbia.ase.teamproject.security.Permission;
 import edu.columbia.ase.teamproject.view.NavigationMenuSection;
 
 public class ControllerHelper {
 
 	private static final GrantedAuthority ADMIN_AUTHORITY =
-			AuthorityUtils.createAuthorityList("ROLE_ADMIN").get(0);
+			AuthorityUtils.createAuthorityList(Permission.ADMIN.toString())
+			.get(0);
+	private static final GrantedAuthority ANONYMOUS_AUTHORITY =
+			AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS").get(0);
 
 	/** 
 	 * @param session the current HttpSession
@@ -39,6 +43,11 @@ public class ControllerHelper {
 		if (authentication != null &&
 			authentication.getAuthorities().contains(ADMIN_AUTHORITY)) {
 			model.put("_admin", true);
+		}
+
+		if (authentication != null && authentication.isAuthenticated() &&
+			!authentication.getAuthorities().contains(ANONYMOUS_AUTHORITY)) {
+			model.put("_authenticated", true);
 		}
 
 		model.put("_menu", new ArrayList<NavigationMenuSection>());

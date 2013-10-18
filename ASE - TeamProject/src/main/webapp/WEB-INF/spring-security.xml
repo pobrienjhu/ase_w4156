@@ -10,6 +10,7 @@
   <http use-expressions="true">
 
     <intercept-url pattern="/" access="permitAll" />
+    <intercept-url pattern="/logout" access="permitAll" />
     <intercept-url pattern="/favicon.ico" access="permitAll" />
     <intercept-url pattern="/index.html" access="permitAll" />
     <intercept-url pattern="/index.do" access="permitAll" />
@@ -28,13 +29,18 @@
         login-page="/login.do">
     </openid-login>
 
-    <csrf token-repository-ref="csrfTokenService" />
+    <logout logout-url="/logout"/>
+    <csrf token-repository-ref="csrfTokenService"
+        request-matcher-ref="csrfRequestMatcher" />
   </http>
 
   <beans:bean name="csrfTokenService"
       class="org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository">
     <beans:property name="sessionAttributeName" value="_csrf" />
   </beans:bean>
+
+  <beans:bean name="csrfRequestMatcher"
+      class="edu.columbia.ase.teamproject.security.CsrfRequestMatcher" />
 
   <beans:bean name="openIdUserService"
       class="edu.columbia.ase.teamproject.security.OpenIdAuthenticationTokenConsumer" />
