@@ -4,11 +4,9 @@
 package edu.columbia.ase.teamproject.services;
 
 import org.joda.time.DateTime;
-import org.joda.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.google.common.base.Preconditions;
 
@@ -32,13 +30,12 @@ public class EventService {
 	@Autowired
 	EventDao eventDao;
 
-	public Event createEvent(UserAccount creator, String name, String description, EventType eventType,
+	public Event createEvent(UserAccount requestor, String name, String description, EventType eventType,
 			DateTime start, DateTime end)
-	throws UsernameNotFoundException
 	{
-		Preconditions.checkNotNull(creator);
+		Preconditions.checkNotNull(requestor);
 		logger.info("Creating event " + name);
-		Event event = new Event(creator, name, description, eventType,
+		Event event = new Event(requestor, name, description, eventType,
 				start, end);
 
 		logger.info("Event " + name + " created");
@@ -46,4 +43,25 @@ public class EventService {
 		return eventDao.add(event);
 	}
 
+	public Event lookupEvent(UserAccount requestor, Long id) {
+		Preconditions.checkNotNull(requestor);
+		Preconditions.checkNotNull(id);
+
+		Event event = eventDao.find(id);
+		if (event == null) {
+			return null;
+		}
+
+		switch (event.getEventType()) {
+		case PUBLIC:
+			return event;
+		case PRIVATE:
+			// TODO(pames): add tests for this
+			if (event.getAdminUsers().contains(requestor) ||
+				event.getEventUsers().contains(requestor)) {
+				return event;
+			}
+		}
+		return null;
+	}
 }

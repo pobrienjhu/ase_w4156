@@ -23,6 +23,8 @@ import javax.persistence.Version;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
@@ -65,19 +67,22 @@ public class Event {
 	@Enumerated(EnumType.STRING)
 	private EventType eventType;
 	
-	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch=FetchType.LAZY)
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinTable(name="User_Event",
     	joinColumns={@JoinColumn(name="eventId")},
     	inverseJoinColumns={@JoinColumn(name="userId")})
 	private List<UserAccount> eventUsers;
 	
-	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch=FetchType.LAZY)
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinTable(name="Admin_Event",
     	joinColumns={@JoinColumn(name="eventId")},
     	inverseJoinColumns={@JoinColumn(name="userId")})
 	private List<UserAccount> adminUsers;
 	
-	@OneToMany(cascade = {CascadeType.ALL}, fetch=FetchType.LAZY, orphanRemoval=true, mappedBy="event")
+	@OneToMany(cascade = {CascadeType.ALL}, orphanRemoval=true, mappedBy="event")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<VoteCategory> voteCategories;
 	
     @Version
