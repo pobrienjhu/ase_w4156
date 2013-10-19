@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
@@ -18,7 +19,9 @@ import com.google.gson.stream.JsonWriter;
 
 import edu.columbia.ase.teamproject.persistence.domain.Event;
 import edu.columbia.ase.teamproject.persistence.domain.UserAccount;
+import edu.columbia.ase.teamproject.persistence.domain.Vote;
 import edu.columbia.ase.teamproject.persistence.domain.VoteCategory;
+import edu.columbia.ase.teamproject.persistence.domain.VoteOption;
 import edu.columbia.ase.teamproject.persistence.domain.enumeration.EventType;
 
 public class EventTypeAdapter extends TypeAdapter<Event> {
@@ -94,6 +97,15 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 			if (idSet) {
 				event.setId(id);
 			}
+			for (VoteCategory category : voteCategories) {
+				event.addVoteCategory(category);
+			}
+			// TODO(pames): consider checking if the event id is set here
+			// and then transitively walking all VoteCategories to see if
+			// they have an ID (and if it matches this one), then in each
+			// VoteCategory, walking the VoteOptions to see if they have
+			// a category ID set which corresponds to the VoteCategory that
+			// contains them.
 			return event;
 		}
 
@@ -155,6 +167,226 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 		}
 	}
 
+	private static enum VoteCategoryProperty {
+		PROPERTY_ID("id"),
+		PROPERTY_EVENT_ID("eventId"),
+		PROPERTY_CATEGORY_NAME("categoryName"),
+		PROPERTY_DESCRIPTION("description"),
+		PROPERTY_VOTE_OPTIONS("voteOptions");
+
+		private static final Map<String, VoteCategoryProperty> propertyMap;
+		static {
+			propertyMap =
+					Maps.newHashMap();
+			for (VoteCategoryProperty property : VoteCategoryProperty.values()) {
+				propertyMap.put(property.toString(), property);
+			}
+		}
+
+		private final String propertyName; 
+		VoteCategoryProperty(String propertyName) {
+			Preconditions.checkArgument(!propertyName.isEmpty());
+			this.propertyName = propertyName;
+		}
+
+		@Override
+		public String toString() {
+			return propertyName;
+		}
+
+		public static VoteCategoryProperty fromString(String propertyName) {
+			return propertyMap.get(propertyName);
+		}
+	}
+
+	private class VoteCategoryBuilder {
+		private Long id;
+		private boolean idSet;
+		private Long eventId;
+		private boolean eventIdSet;
+		private String categoryName;
+		private boolean categoryNameSet;
+		private String description;
+		private boolean descriptionSet;
+		private List<VoteOption> voteOptions;
+		private boolean voteOptionsSet;
+
+		public VoteCategory build() {
+			Preconditions.checkState(eventIdSet);
+			Preconditions.checkState(categoryNameSet);
+			Preconditions.checkState(descriptionSet);
+			Preconditions.checkState(voteOptionsSet);
+			VoteCategory category = new VoteCategory(categoryName, description);
+			for (VoteOption option : voteOptions) {
+				category.addVotingOption(option);
+			}
+
+			if (idSet) {
+				category.setId(id);
+			}
+
+			return category;
+		}
+
+		public VoteCategoryBuilder setId(Long id) {
+			Preconditions.checkState(!idSet);
+			this.id = Preconditions.checkNotNull(id);
+			idSet = true;
+			return this;
+		}
+
+		public VoteCategoryBuilder setEventId(Long eventId) {
+			// Currently, we don't use this.  Perhaps it should not be required.
+			Preconditions.checkState(!eventIdSet);
+			this.eventId = Preconditions.checkNotNull(eventId);
+			eventIdSet = true;
+			return this;
+		}
+
+		public VoteCategoryBuilder setCategoryName(String categoryName) {
+			Preconditions.checkState(!categoryNameSet);
+			this.categoryName = categoryName;
+			categoryNameSet = true;
+			return this;
+		}
+
+		public VoteCategoryBuilder setDescription(String description) {
+			Preconditions.checkState(!descriptionSet);
+			this.description = description;
+			descriptionSet = true;
+			return this;
+		}
+
+		public VoteCategoryBuilder setVoteOptions(List<VoteOption> voteOptions) {
+			Preconditions.checkState(!voteOptionsSet);
+			Preconditions.checkNotNull(voteOptions);
+			this.voteOptions = Preconditions.checkNotNull(voteOptions);
+			voteOptionsSet = true;
+			return this;
+		}
+	}
+
+	private void writeVoteCategory(JsonWriter out, VoteCategory value) 
+			throws IOException {
+		out.beginObject();
+		out.name(VoteCategoryProperty.PROPERTY_ID.toString());
+		out.value(value.getId());
+		out.name(VoteCategoryProperty.PROPERTY_EVENT_ID.toString());
+		out.value(value.getEvent().getId());
+		out.name(VoteCategoryProperty.PROPERTY_CATEGORY_NAME.toString());
+		out.value(value.getCategoryName());
+		out.name(VoteCategoryProperty.PROPERTY_DESCRIPTION.toString());
+		out.value(value.getDescription());
+		out.name(VoteCategoryProperty.PROPERTY_VOTE_OPTIONS.toString());
+		out.beginArray();
+		for (VoteOption option : value.getVoteOptions()) {
+			writeVoteOption(out, option);
+		}
+		out.endArray();
+		out.endObject();
+	}
+
+	private static enum VoteOptionProperty {
+		PROPERTY_ID("id"),
+		PROPERTY_CATEGORY_ID("voteCategoryId"),
+		PROPERTY_OPTION_NAME("optionName"),
+		PROPERTY_VOTES("votes");
+
+		private static final Map<String, VoteOptionProperty> propertyMap;
+		static {
+			propertyMap =
+					Maps.newHashMap();
+			for (VoteOptionProperty property : VoteOptionProperty.values()) {
+				propertyMap.put(property.toString(), property);
+			}
+		}
+
+		private final String propertyName; 
+		VoteOptionProperty(String propertyName) {
+			Preconditions.checkArgument(!propertyName.isEmpty());
+			this.propertyName = propertyName;
+		}
+
+		@Override
+		public String toString() {
+			return propertyName;
+		}
+
+		public static VoteOptionProperty fromString(String propertyName) {
+			return propertyMap.get(propertyName);
+		}
+	}
+
+	private class VoteOptionBuilder {
+		private boolean idSet;
+		private Long id;
+		private boolean voteCategoryIdSet;
+		private Long voteCategoryId;
+		private String optionName;
+		private boolean optionNameSet;
+		private List<Vote> votes;
+		private boolean votesSet;
+
+		public VoteOption build() {
+			// TODO(pames): is this necessary?  what if we are deserializing
+			// something constructed by the client for the first time?
+			// In VoteCategoryBuilder this seems more reasonable because we
+			// currently treat creating an event as a distinct operation but if
+			// UI code is added to allow creating the initial categories before
+			// sending the createEvent() call to the server, then that check
+			// should go away too.
+			Preconditions.checkState(voteCategoryIdSet);
+			Preconditions.checkState(optionNameSet);
+			VoteOption option = new VoteOption(optionName);
+			if (idSet) {
+				option.setId(id);
+			}
+			return option;
+		}
+
+		public VoteOptionBuilder setId(Long id) {
+			Preconditions.checkState(!idSet);
+			this.id = Preconditions.checkNotNull(id);
+			idSet = true;
+			return this;
+		}
+
+		public VoteOptionBuilder setVoteCategoryId(Long voteCategoryId) {
+			Preconditions.checkState(!voteCategoryIdSet);
+			this.voteCategoryId = Preconditions.checkNotNull(voteCategoryId);
+			voteCategoryIdSet = true;
+			return this;
+		}
+
+		public VoteOptionBuilder setOptionName(String optionName) {
+			Preconditions.checkState(!optionNameSet);
+			this.optionName = optionName;
+			optionNameSet = true;
+			return this;
+		}
+
+		public VoteOptionBuilder setVotes(List<Vote> votes) {
+			Preconditions.checkState(!votesSet);
+			this.votes = votes;
+			votesSet = true;
+			return this;
+		}
+
+	}
+
+	private void writeVoteOption(JsonWriter out, VoteOption value)
+			throws IOException {
+		out.beginObject();
+		out.name(VoteOptionProperty.PROPERTY_ID.toString());
+		out.value(value.getId());
+		out.name(VoteOptionProperty.PROPERTY_CATEGORY_ID.toString());
+		out.value(value.getVoteCategory().getId());
+		out.name(VoteOptionProperty.PROPERTY_OPTION_NAME.toString());
+		out.value(value.getOptionName());
+		logger.warn("Not serializing vote counts.");
+		out.endObject();
+	}
+
 	@Override
 	public void write(JsonWriter out, Event value) throws IOException {
 		out.beginObject();
@@ -183,9 +415,75 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 		logger.warn("Ignoring serialization of " +
 				EventProperty.PROPERTY_VOTE_CATEGORIES);
 		out.beginArray();
-		// TODO(pames): serialize the vote categories.
+		for (VoteCategory category : value.getVoteCategories()) {
+			writeVoteCategory(out, category);
+		}
 		out.endArray();
 		out.endObject();
+	}
+ 
+	private List<VoteOption> readVoteOptions(JsonReader in) throws IOException {
+		List<VoteOption> options = Lists.newArrayList();
+		in.beginArray();
+		while (in.peek() != JsonToken.END_ARRAY) {
+			in.beginObject();
+			VoteOptionBuilder builder = new VoteOptionBuilder();
+			while (in.peek() != JsonToken.END_OBJECT) {
+				VoteOptionProperty property = VoteOptionProperty.fromString(in.nextName());
+				switch (property) {
+				case PROPERTY_ID:
+					builder.setId(in.nextLong());
+					break;
+				case PROPERTY_CATEGORY_ID:
+					builder.setVoteCategoryId(in.nextLong());
+					break;
+				case PROPERTY_OPTION_NAME:
+					builder.setOptionName(in.nextString());
+					break;
+				case PROPERTY_VOTES:
+					in.skipValue();
+					logger.warn("Not deserializing votes.");
+					break;
+				}
+			}
+			in.endObject();
+			options.add(builder.build());
+		}
+		in.endArray();
+		return options;
+	}
+
+	private List<VoteCategory> readVoteCategories(JsonReader in) throws IOException {
+		List<VoteCategory> categories = Lists.newArrayList();
+		in.beginArray();
+		while (in.peek() != JsonToken.END_ARRAY) {
+			in.beginObject();
+			VoteCategoryBuilder builder = new VoteCategoryBuilder();
+			while (in.peek() != JsonToken.END_OBJECT) {
+				VoteCategoryProperty property = VoteCategoryProperty.fromString(in.nextName());
+				switch (property) {
+				case PROPERTY_CATEGORY_NAME:
+					builder.setCategoryName(in.nextString());
+					break;
+				case PROPERTY_DESCRIPTION:
+					builder.setDescription(in.nextString());
+					break;
+				case PROPERTY_EVENT_ID:
+					builder.setEventId(in.nextLong());
+					break;
+				case PROPERTY_ID:
+					builder.setId(in.nextLong());
+					break;
+				case PROPERTY_VOTE_OPTIONS:
+					builder.setVoteOptions(readVoteOptions(in));
+					break;
+				}
+			}
+			in.endObject();
+			categories.add(builder.build());
+		}
+		in.endArray();
+		return categories;
 	}
 
 	@Override
@@ -212,12 +510,8 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 			case PROPERTY_NAME:
 				builder.setName(in.nextString());
 				break;
-			case PROPERTY_VOTE_CATEGORIES:
-				// TODO(pames): deserialize the array of categories and set it.
-				logger.warn("Ignoring deserialization of " +
-						EventProperty.PROPERTY_VOTE_CATEGORIES);
-				builder.setVoteCategories(new ArrayList<VoteCategory>());
-				in.skipValue();
+			case PROPERTY_VOTE_CATEGORIES:				
+				builder.setVoteCategories(readVoteCategories(in));
 				break;
 			case PROPERTY_EVENT_TYPE:
 				String eventType = in.nextString();
