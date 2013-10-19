@@ -412,8 +412,6 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 		out.endArray();
 
 		out.name(EventProperty.PROPERTY_VOTE_CATEGORIES.toString());
-		logger.warn("Ignoring serialization of " +
-				EventProperty.PROPERTY_VOTE_CATEGORIES);
 		out.beginArray();
 		for (VoteCategory category : value.getVoteCategories()) {
 			writeVoteCategory(out, category);
