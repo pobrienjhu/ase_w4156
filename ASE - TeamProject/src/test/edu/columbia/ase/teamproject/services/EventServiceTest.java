@@ -88,7 +88,9 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 		assertNotNull(fetchedEvent);
 
 		// Make a change to a referenced property to imitate a client modifying the serialized state.
-		fetchedEvent.getAdmin().setPassword("bogus");
+		assertFalse(fetchedEvent.getAdminUsers().size() == 0);
+		fetchedEvent.getAdminUsers().get(0).setPassword("bogus");
+
 		// Legitimately change a property of the event.
 		fetchedEvent.setDescription("new description");
 

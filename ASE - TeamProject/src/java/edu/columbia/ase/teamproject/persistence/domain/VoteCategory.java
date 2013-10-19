@@ -36,7 +36,7 @@ public class VoteCategory {
 	@Column(name = "Id", nullable=false)
 	private Long id;
 	
-	@ManyToOne(cascade={CascadeType.ALL})
+	@ManyToOne(targetEntity = Event.class) //, fetch = FetchType.LAZY)
     @JoinColumn(name="eventId")
 	private Event event;
 	
@@ -48,7 +48,7 @@ public class VoteCategory {
 	@ColumnLength(value = MAX_DESCRIPTION_LENGTH)
 	private String description;
 	
-	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch=FetchType.LAZY, mappedBy="id")
+	@OneToMany(cascade = {CascadeType.ALL}, fetch=FetchType.LAZY, orphanRemoval=true, mappedBy="voteCategory")
 	private List<VoteOption> voteOptions;
 	
     @Version
@@ -60,16 +60,21 @@ public class VoteCategory {
 	}
 
 	public VoteCategory(Event event, String categoryName, String description) {
+		this(categoryName, description);
+		this.event = Preconditions.checkNotNull(event);
+	}
+	
+	public VoteCategory(String categoryName, String description) {
 		this();
 		Preconditions.checkArgument(categoryName.length() < MAX_NAME_LENGTH);
 		Preconditions.checkArgument(description.length() < MAX_DESCRIPTION_LENGTH);
-		this.event = Preconditions.checkNotNull(event);
 		this.categoryName = categoryName;
 		this.description = description;
 	}
 
 	public void addVotingOption(VoteOption voteOption){
 		voteOptions.add(voteOption);
+		voteOption.setVoteCategory(this);
 	}
 	
 	/**
@@ -97,7 +102,7 @@ public class VoteCategory {
 	 * @param event the event to set
 	 */
 	public void setEvent(Event event) {
-		this.event = event;
+		this.event = Preconditions.checkNotNull(event);
 	}
 
 	/**
@@ -153,6 +158,4 @@ public class VoteCategory {
 				.append("voteOptions", Joiner.on("\n").join(voteOptions))
 				.toString();		
 	}	
-	
-	
 }

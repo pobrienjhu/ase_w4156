@@ -34,7 +34,7 @@ public class VoteOption {
 	@Column(name = "Id", nullable=false)
 	private Long id;
 	
-	@ManyToOne(cascade={CascadeType.ALL})
+	@ManyToOne(targetEntity = VoteCategory.class) //cascade={CascadeType.MERGE})
     @JoinColumn(name="voteCategoryId")
 	private VoteCategory voteCategory;
 	
@@ -42,7 +42,7 @@ public class VoteOption {
 	@ColumnLength(value = MAX_NAME_LENGTH)
 	private String optionName;
 
-	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch=FetchType.LAZY, mappedBy="id")
+	@OneToMany(cascade = {CascadeType.ALL}, fetch=FetchType.LAZY, orphanRemoval=true, mappedBy="id")
 	private List<Vote> votes;
 	
     @Version
@@ -54,13 +54,32 @@ public class VoteOption {
 		votes = new ArrayList<Vote>();
 	}
 
-	
 	public VoteOption(VoteCategory voteCategory, String optionName) {
+		this(optionName);
+		this.voteCategory = Preconditions.checkNotNull(voteCategory);
+	}
+	
+	public VoteOption(String optionName) {
 		this();
 		Preconditions.checkArgument(optionName.length() < MAX_NAME_LENGTH);
-		this.voteCategory = Preconditions.checkNotNull(voteCategory);
 		this.optionName = optionName;
+	}	
+	
+	/**
+	 * @return the votes
+	 */
+	public List<Vote> getVotes() {
+		return votes;
 	}
+
+
+	/**
+	 * @param votes the votes to set
+	 */
+	public void setVotes(List<Vote> votes) {
+		this.votes = votes;
+	}
+
 
 	public void addVote(Vote vote){
 		Preconditions.checkNotNull(vote);
@@ -92,7 +111,7 @@ public class VoteOption {
 	 * @param voteCategory the voteCategory to set
 	 */
 	public void setVoteCategory(VoteCategory voteCategory) {
-		this.voteCategory = voteCategory;
+		this.voteCategory = Preconditions.checkNotNull(voteCategory);
 	}
 
 	/**
@@ -113,8 +132,6 @@ public class VoteOption {
 	public Integer getOptimisticLockingVersion() {
 		return optimisticLockingVersion;
 	}
-
-
 
 	public void setOptimisticLockingVersion(Integer version) {
 		this.optimisticLockingVersion = version;

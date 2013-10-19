@@ -16,7 +16,6 @@
 	<!-- so we can use hsql as the embedded data source -->
 	<jdbc:embedded-database id="dataSource" type="HSQL">
     	<jdbc:script location="classpath:schema.sql" />
-    	<jdbc:script location="${dataFile:classpath:data.sql}" />
 	</jdbc:embedded-database>
 	
  	<!-- so we can manage transactions with annotations -->
@@ -39,6 +38,7 @@
    			<props>
     			<prop key="dialect">org.hibernate.dialect.HSQLDialect</prop>
     			<prop key="hibernate.show_sql">true</prop>
+    			<prop key="format_sql">true</prop>
     			<prop key="hibernate.hbm2ddl.auto">update</prop>
    			</props>
   		</property> 
