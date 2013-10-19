@@ -112,7 +112,7 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 
 	@Test
 	public void testCreateEventWithVotingCategories() {
-		Event e = eventService.createEvent(userAccount, "Test Event Name",
+		Event e = eventService.createEvent(userAccount, "Votable Event Name",
 				"Event Description", EventType.PRIVATE, DateTime.now(),
 				DateTime.now().plus(Duration.standardDays(1)));
 
