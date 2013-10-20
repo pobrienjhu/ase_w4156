@@ -16,7 +16,29 @@
   
   $(document).ready(function()
   	{
-  		$("#createEventBtn").click(createEvent);
+  		$("#createEventBtn").button().click(createEvent);
+  		
+  		$('input:text,textarea').button().css(
+  			{
+			    'text-align' : 'left',
+			       'outline' : 'none',
+			        'cursor' : 'text'
+  			}
+  		);
+  		
+  		$("#catg1").click(function()
+  			{
+  				$("#catg1Options").slideToggle(function()
+  					{
+  						var txt = $(this).is(':hidden') ? '+' : '-'
+  						$(".toggleTrigger").text(txt);
+  					}
+  				);
+  			}
+  		)
+  		
+
+
   	}
   );
   
@@ -82,12 +104,42 @@
 
 			<div style='clear:both'> </div>
 			<input id='csrfCE' type='hidden' value='{$_csrf}'>
-			<input id='createEventBtn' type='button' value='Create' style='margin-top:5px;'><br/><br/>
-			All fields are required	
 		</div>
       <div class="clearer"><span></span></div>
     </div>
   </div>
+  
+    <div class="newsitem">
+    <div class="title">Vote Categories</div>
+    <div class="body">
+    	<div style='padding:10px;padding-left:5px;'>
+
+      <div id='catg1' style='cursor: hand; padding:5px; font-weight: bold; font-size:14px;margin-top:1px; width:550px; background-color:#DDDDDD'><span class='toggleTrigger' style='font-size:15px; font-weight:normal'> - </span> Category 1</div>
+      <div id='catg1Options' style='padding:10px; font-weight: bold; font-size:13px;margin-top:0px; width:548px; border:1px solid #DDDDDD; background-color:#FDFDFD'>
+      Voting Options [<a href='#' style='color:#4F85CA; text-decoration:none'>Add Option</a>]<br/>
+      	<div id='catg1op1' style='margin-top:5px;'><input type='text'></div>
+      	<div id='catg1op2' style='margin-top:5px;'><input type='text'></div>
+      
+      
+      </div>
+      
+   
+		</div>
+      <div class="clearer"><span></span></div>
+    </div>
+  </div>
+    <div style='margin-left:10px; margin-bottom:25px; height:20px;text-align:center;'>
+
+
+<input id='createEventBtn' type='button' value='Create Event' style='margin-top:5px;'><br/><br/>
+
+      </div>
+    </div>
+  </div>  
+  
+  			
+  
+  
 </div>
 {call edu.columbia.ase.footer /}
 {/template}
