@@ -3,6 +3,7 @@
 /**
   * Create Event Page
   * @param _csrf CSRF token 
+  * TODO: Validate form before submission
   */
 {template .createEvent}
 {call edu.columbia.ase.header data="all" /}
@@ -91,14 +92,36 @@
   
   function createEvent()
   {
+	        
+	voteCategories = [];
+	$(".categoryEditBox").each(function()
+	{
+		var c = $(this).attr("id");
+		catName = $("#" + c + "Options input.catgName").val();
+		catDesc = $("#" + c + "Options textarea.catgDesc").val();
+		ops = []
+		catOptions = $("#" + c + "Options input.optionTextBox").each(function()
+		{
+			ops.push({optionName:$(this).val()});	
+		})
+		voteCategories.push({
+			categoryName: catName,
+			description: catDesc,
+			voteOptions: ops
+		});
+		 		
+	});
+	
 	var e = { "name": $("#eventTitle")[0].value,
 	          "description": $("#eventDescription")[0].value,
 	          "eventType": $("#eventPublic")[0].checked ? "PUBLIC" : "PRIVATE",
 	          "eventStart": new Date($("#begins-datepicker")[0].value).getTime(),
 	          "eventEnd": new Date($("#ends-datepicker")[0].value).getTime(),
 	          "eventUsers":[],
-	          "voteCategories":[]
-	        };
+	          "voteCategories": voteCategories
+	};
+	
+	
 	console.log(JSON.stringify(e));
 	$.ajax({
 		type: "POST",
@@ -165,9 +188,9 @@
 
       <div id='catg1' class="categoryEditBox" onclick='toggleCategory(1)'><span class='toggleTrigger' style='font-size:15px; font-weight:normal'> - </span> Category 1</div>
       <div id='catg1Options' class="categoryOptionsBox">
-      Category Name<br/><input type='text'><br/><br/>
+      Category Name<br/><input type='text' class='catgName'><br/><br/>
       Category Description<br/>
-      <textarea rows=4 cols=20></textarea><br/><br/>
+      <textarea rows=4 cols=20 class='catgDesc'></textarea><br/><br/>
       Voting Options [<a style='color:#4F85CA; text-decoration:none' href='javascript:addOption(1)'>Add Option</a>]<br/>
       	<div id='catg1op1' style='margin-top:5px;'><input class='optionTextBox' type='text'></div>
       	<div id='catg1op2' style='margin-top:5px;'><input class='optionTextBox'  type='text'></div>
