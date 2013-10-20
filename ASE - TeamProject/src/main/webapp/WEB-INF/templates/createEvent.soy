@@ -16,9 +16,53 @@
   
   $(document).ready(function()
   	{
-  		$("#createEventBtn").click(createEvent);
+  		$("#createEventBtn").button().click(createEvent);
+  		$("#addCatgLink").click(addCategory);
+  		
+		styleTextBoxes();
+  		
+
   	}
   );
+  
+  function toggleCategory(cat)
+  {
+  	$("#catg"+cat+"Options").slideToggle(function()
+	{  		
+		var txt = $(this).is(':hidden') ? '+' : '-'
+			$("#catg"+cat+" span.toggleTrigger").text(txt);
+	});
+	
+  	
+  }
+
+  function styleTextBoxes()
+  {
+  		$('input:text,textarea').button().css(
+  			{
+			    'text-align' : 'left',
+			       'outline' : 'none',
+			        'cursor' : 'text'
+  			}
+  		);  	
+  }
+  
+  function addCategory(e)
+  {
+  	e.preventDefault();
+  	var totalCatgs = $(".categoryEditBox").length;
+  	var c = totalCatgs + 1;
+  	html =  "<div id='catg" + c + "' class='categoryEditBox' onclick='toggleCategory("+c+")'><span class='toggleTrigger' style='font-size:15px; font-weight:normal'> - </span> Category " + c + "</div>";
+    html += "<div id='catg" + c + "Options' class='categoryOptionsBox'>Category Name: <input type='text'><br/>";
+    html += "Voting Options [<a href='#' style='color:#4F85CA; text-decoration:none'>Add Option</a>]<br/>";
+    html += "<div id='catg" + c + "op1' style='margin-top:5px;'><input type='text'></div>";
+    html += "<div id='catg" + c + "op2' style='margin-top:5px;'><input type='text'></div>";            
+    html += "</div>";
+  	
+  	$("#categories").append(html);
+  	styleTextBoxes();
+  	
+  }
   
   function createEvent()
   {
@@ -82,12 +126,52 @@
 
 			<div style='clear:both'> </div>
 			<input id='csrfCE' type='hidden' value='{$_csrf}'>
-			<input id='createEventBtn' type='button' value='Create' style='margin-top:5px;'><br/><br/>
-			All fields are required	
 		</div>
       <div class="clearer"><span></span></div>
     </div>
   </div>
+  
+    <div class="newsitem">
+    <div class="title">Vote Categories [<a href='#' id='addCatgLink' style='color:#4F85CA; text-decoration:none'>Add Category</a>]</div>
+    <div class="body">
+    	<div style='padding:10px;padding-left:5px;'>
+	
+	<div id='categories'>
+
+      <div id='catg1' class="categoryEditBox" onclick='toggleCategory(1)'><span class='toggleTrigger' style='font-size:15px; font-weight:normal'> - </span> Category 1</div>
+      <div id='catg1Options' class="categoryOptionsBox">
+      Category Name: <input type='text'><br/>
+      Voting Options [<a href='#' style='color:#4F85CA; text-decoration:none'>Add Option</a>]<br/>
+      	<div id='catg1op1' style='margin-top:5px;'><input type='text'></div>
+      	<div id='catg1op2' style='margin-top:5px;'><input type='text'></div>
+            
+      </div>
+
+      <div id='catg2' class='categoryEditBox' onclick='toggleCategory(2)'><span class='toggleTrigger' style='font-size:15px; font-weight:normal'> - </span> Category 2</div>
+      <div id='catg2Options' class="categoryOptionsBox">
+      Category Name: <input type='text'><br/>
+      Voting Options [<a href='#' style='color:#4F85CA; text-decoration:none'>Add Option</a>]<br/>
+      	<div id='catg2op1' style='margin-top:5px;'><input type='text'></div>
+      	<div id='catg2op2' style='margin-top:5px;'><input type='text'></div>
+            
+      </div>
+
+
+    </div>
+   
+		</div>
+      <div class="clearer"><span></span></div>
+    </div>
+  </div>
+    <div style='margin-left:10px; margin-bottom:25px; height:20px;text-align:center;'>
+		<input id='createEventBtn' type='button' value='Create Event' style='margin-top:5px;'><br/><br/>
+      </div>
+    </div>
+  </div>  
+  
+  			
+  
+  
 </div>
 {call edu.columbia.ase.footer /}
 {/template}

@@ -194,3 +194,30 @@ div.footer a {
 	font: bold 1em "Trebuchet MS",sans-serif;
 	text-decoration: none;
 }
+
+
+
+/* Create Event */
+.categoryEditBox
+{
+	cursor: hand; 
+	padding:5px; 
+	font-weight: bold; 
+	font-size:14px;
+	margin-top:2px; 
+	width:550px; 
+	background-color:#DDDDDD
+}
+
+
+.categoryOptionsBox
+{
+	padding:10px;
+	padding-right:0px; 
+	font-weight: bold; 
+	font-size:13px;
+	margin-top:0px; 
+	width:548px; 
+	border:1px solid #DDDDDD; 
+	background-color:#FDFDFD	
+}

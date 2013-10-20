@@ -18,6 +18,8 @@ import javax.persistence.Version;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Preconditions;
@@ -48,7 +50,8 @@ public class VoteCategory {
 	@ColumnLength(value = MAX_DESCRIPTION_LENGTH)
 	private String description;
 	
-	@OneToMany(cascade = {CascadeType.ALL}, fetch=FetchType.LAZY, orphanRemoval=true, mappedBy="voteCategory")
+	@OneToMany(cascade = {CascadeType.ALL}, orphanRemoval=true, mappedBy="voteCategory")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<VoteOption> voteOptions;
 	
     @Version
