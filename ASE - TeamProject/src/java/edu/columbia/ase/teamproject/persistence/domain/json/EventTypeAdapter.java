@@ -212,7 +212,9 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 		private boolean voteOptionsSet;
 
 		public VoteCategory build() {
-			Preconditions.checkState(eventIdSet);
+			// TODO(pames): similar logic to the VoteOption builder applies here
+			// as to whether this field should be required.
+			// Preconditions.checkState(eventIdSet);
 			Preconditions.checkState(categoryNameSet);
 			Preconditions.checkState(descriptionSet);
 			Preconditions.checkState(voteOptionsSet);
@@ -335,7 +337,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 			// UI code is added to allow creating the initial categories before
 			// sending the createEvent() call to the server, then that check
 			// should go away too.
-			Preconditions.checkState(voteCategoryIdSet);
+			// Preconditions.checkState(voteCategoryIdSet);
 			Preconditions.checkState(optionNameSet);
 			VoteOption option = new VoteOption(optionName);
 			if (idSet) {
