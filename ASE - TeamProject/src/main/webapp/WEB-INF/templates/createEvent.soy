@@ -63,9 +63,9 @@
   	html =  "<div id='catg" + c + "' class='categoryEditBox' onclick='toggleCategory("+c+")'><span class='toggleTrigger' style='font-size:15px; font-weight:normal'> - </span>"
   	html += " Category " + c + " (<a style='color:#4F85CA; text-decoration:none' href='#' onclick='javascript:removeCategory("+c+", window.event || event)'>Remove</a>)</div>";
     html += "<div id='catg" + c + "Options' class='categoryOptionsBox'>";
-    html += "Category Name<br/><input type='text'><br/><br/>"
+    html += "Category Name<br/><input class='catgName' type='text'><br/><br/>"
     html += "Category Description<br/>"
-	html += "<textarea rows=4 cols=20></textarea><br/><br/>";
+	html += "<textarea class='catgDesc' rows=4 cols=20></textarea><br/><br/>";
     html += "Voting Options [<a style='color:#4F85CA; text-decoration:none' href='javascript:addOption("+c+")'>Add Option</a>]<br/>";
     html += "<div id='catg" + c + "op1' style='margin-top:5px;' class='optionTextBox'><input type='text'></div>";
     html += "<div id='catg" + c + "op2' style='margin-top:5px;' class='optionTextBox'><input type='text'></div>";            
@@ -80,7 +80,7 @@
   {
   	var totalOps = $("#catg"+c+"Options .optionTextBox").length;
   	var o = totalOps + 1;
-  	$("#catg"+c+"Options").append("<div id='catg"+c+"op"+o+"' style='margin-top:5px;'><input type='text'> (<a style='color:#4F85CA; text-decoration:none' href='javascript:removeOption("+c+","+o+")'>Remove</a>)</div>");
+  	$("#catg"+c+"Options").append("<div id='catg"+c+"op"+o+"' style='margin-top:5px;'><input class='optionTextBox' type='text'> (<a style='color:#4F85CA; text-decoration:none' href='javascript:removeOption("+c+","+o+")'>Remove</a>)</div>");
   	styleTextBoxes();
   	
   }
@@ -97,6 +97,7 @@
 	$(".categoryEditBox").each(function()
 	{
 		var c = $(this).attr("id");
+		
 		catName = $("#" + c + "Options input.catgName").val();
 		catDesc = $("#" + c + "Options textarea.catgDesc").val();
 		ops = []
