@@ -19,11 +19,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.common.collect.ImmutableList;
 import com.google.gson.Gson;
 
 import edu.columbia.ase.teamproject.persistence.dao.UserAccountDao;
 import edu.columbia.ase.teamproject.persistence.domain.Event;
 import edu.columbia.ase.teamproject.persistence.domain.UserAccount;
+import edu.columbia.ase.teamproject.persistence.domain.VoteCategory;
 import edu.columbia.ase.teamproject.services.EventService;
 import edu.columbia.ase.teamproject.util.GsonProvider;
 
@@ -80,10 +82,14 @@ public final class CreateEventController {
 				getAuthentication().getPrincipal();
 		UserAccount user = userAccountDao.findAccountByUserDetails(userDetails);
 
+		logger.info("Event Categories size:" + event.getVoteCategories().size());
+		
 		Event createdEvent = eventService.createEvent(user,
 				event.getName(), event.getDescription(), event.getEventType(),
-				event.getStartTime(), event.getEndTime());
+				event.getStartTime(), event.getEndTime(), event.getVoteCategories());
 
+		
+		
 		return gson.toJson(createdEvent, Event.class);
 	}
 

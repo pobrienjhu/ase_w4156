@@ -3,6 +3,7 @@
 /**
   * Create Event Page
   * @param _csrf CSRF token 
+  * TODO: Validate form before submission
   */
 {template .createEvent}
 {call edu.columbia.ase.header data="all" /}
@@ -17,41 +18,110 @@
   $(document).ready(function()
   	{
   		$("#createEventBtn").button().click(createEvent);
+  		$("#addCatgLink").click(addCategory);
   		
+		styleTextBoxes();
+  		
+
+  	}
+  );
+  
+  function toggleCategory(cat)
+  {
+  	$("#catg"+cat+"Options").slideToggle(function()
+	{  		
+		var txt = $(this).is(':hidden') ? '+' : '-'
+			$("#catg"+cat+" span.toggleTrigger").text(txt);
+	});
+	
+  	
+  }
+
+  function styleTextBoxes()
+  {
   		$('input:text,textarea').button().css(
   			{
 			    'text-align' : 'left',
 			       'outline' : 'none',
 			        'cursor' : 'text'
   			}
-  		);
-  		
-  		$("#catg1").click(function()
-  			{
-  				$("#catg1Options").slideToggle(function()
-  					{
-  						var txt = $(this).is(':hidden') ? '+' : '-'
-  						$(".toggleTrigger").text(txt);
-  					}
-  				);
-  			}
-  		)
-  		
-
-
-  	}
-  );
+  		);  	
+  }
+  
+  function removeCategory(c, e)
+  {
+  	e.preventDefault();
+  	$("#catg"+c).remove();
+  	$("#catg"+c+"Options").remove();  	
+  }
+  
+  function addCategory(e)
+  {
+  	e.preventDefault();
+  	var totalCatgs = $(".categoryEditBox").length;
+  	var c = totalCatgs + 1;
+  	html =  "<div id='catg" + c + "' class='categoryEditBox' onclick='toggleCategory("+c+")'><span class='toggleTrigger' style='font-size:15px; font-weight:normal'> - </span>"
+  	html += " Category " + c + " (<a style='color:#4F85CA; text-decoration:none' href='#' onclick='javascript:removeCategory("+c+", window.event || event)'>Remove</a>)</div>";
+    html += "<div id='catg" + c + "Options' class='categoryOptionsBox'>";
+    html += "Category Name<br/><input type='text'><br/><br/>"
+    html += "Category Description<br/>"
+	html += "<textarea rows=4 cols=20></textarea><br/><br/>";
+    html += "Voting Options [<a style='color:#4F85CA; text-decoration:none' href='javascript:addOption("+c+")'>Add Option</a>]<br/>";
+    html += "<div id='catg" + c + "op1' style='margin-top:5px;' class='optionTextBox'><input type='text'></div>";
+    html += "<div id='catg" + c + "op2' style='margin-top:5px;' class='optionTextBox'><input type='text'></div>";            
+    html += "</div>";
+  	
+  	$("#categories").append(html);
+  	styleTextBoxes();
+  	
+  }
+  
+  function addOption(c)
+  {
+  	var totalOps = $("#catg"+c+"Options .optionTextBox").length;
+  	var o = totalOps + 1;
+  	$("#catg"+c+"Options").append("<div id='catg"+c+"op"+o+"' style='margin-top:5px;'><input type='text'> (<a style='color:#4F85CA; text-decoration:none' href='javascript:removeOption("+c+","+o+")'>Remove</a>)</div>");
+  	styleTextBoxes();
+  	
+  }
+  
+  function removeOption(c,o)
+  {
+  	$("#catg"+c+"op"+o).remove();
+  }
   
   function createEvent()
   {
+	        
+	voteCategories = [];
+	$(".categoryEditBox").each(function()
+	{
+		var c = $(this).attr("id");
+		catName = $("#" + c + "Options input.catgName").val();
+		catDesc = $("#" + c + "Options textarea.catgDesc").val();
+		ops = []
+		catOptions = $("#" + c + "Options input.optionTextBox").each(function()
+		{
+			ops.push({optionName:$(this).val()});	
+		})
+		voteCategories.push({
+			categoryName: catName,
+			description: catDesc,
+			voteOptions: ops
+		});
+		 		
+	});
+	
 	var e = { "name": $("#eventTitle")[0].value,
 	          "description": $("#eventDescription")[0].value,
 	          "eventType": $("#eventPublic")[0].checked ? "PUBLIC" : "PRIVATE",
 	          "eventStart": new Date($("#begins-datepicker")[0].value).getTime(),
 	          "eventEnd": new Date($("#ends-datepicker")[0].value).getTime(),
 	          "eventUsers":[],
-	          "voteCategories":[]
-	        };
+	          "voteCategories": voteCategories
+	};
+	
+	
 	console.log(JSON.stringify(e));
 	$.ajax({
 		type: "POST",
@@ -110,29 +180,33 @@
   </div>
   
     <div class="newsitem">
-    <div class="title">Vote Categories</div>
+    <div class="title">Vote Categories [<a href='#' id='addCatgLink' style='color:#4F85CA; text-decoration:none'>Add Category</a>]</div>
     <div class="body">
     	<div style='padding:10px;padding-left:5px;'>
+	
+	<div id='categories'>
 
-      <div id='catg1' style='cursor: hand; padding:5px; font-weight: bold; font-size:14px;margin-top:1px; width:550px; background-color:#DDDDDD'><span class='toggleTrigger' style='font-size:15px; font-weight:normal'> - </span> Category 1</div>
-      <div id='catg1Options' style='padding:10px; font-weight: bold; font-size:13px;margin-top:0px; width:548px; border:1px solid #DDDDDD; background-color:#FDFDFD'>
-      Voting Options [<a href='#' style='color:#4F85CA; text-decoration:none'>Add Option</a>]<br/>
-      	<div id='catg1op1' style='margin-top:5px;'><input type='text'></div>
-      	<div id='catg1op2' style='margin-top:5px;'><input type='text'></div>
-      
-      
+      <div id='catg1' class="categoryEditBox" onclick='toggleCategory(1)'><span class='toggleTrigger' style='font-size:15px; font-weight:normal'> - </span> Category 1</div>
+      <div id='catg1Options' class="categoryOptionsBox">
+      Category Name<br/><input type='text' class='catgName'><br/><br/>
+      Category Description<br/>
+      <textarea rows=4 cols=20 class='catgDesc'></textarea><br/><br/>
+      Voting Options [<a style='color:#4F85CA; text-decoration:none' href='javascript:addOption(1)'>Add Option</a>]<br/>
+      	<div id='catg1op1' style='margin-top:5px;'><input class='optionTextBox' type='text'></div>
+      	<div id='catg1op2' style='margin-top:5px;'><input class='optionTextBox'  type='text'></div>
+            
       </div>
-      
+
+
+
+    </div>
    
 		</div>
       <div class="clearer"><span></span></div>
     </div>
   </div>
     <div style='margin-left:10px; margin-bottom:25px; height:20px;text-align:center;'>
-
-
-<input id='createEventBtn' type='button' value='Create Event' style='margin-top:5px;'><br/><br/>
-
+		<input id='createEventBtn' type='button' value='Create Event' style='margin-top:5px;'><br/><br/>
       </div>
     </div>
   </div>  

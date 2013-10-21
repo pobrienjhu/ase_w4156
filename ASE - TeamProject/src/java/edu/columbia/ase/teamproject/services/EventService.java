@@ -3,6 +3,8 @@
  */
 package edu.columbia.ase.teamproject.services;
 
+import java.util.List;
+
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +16,7 @@ import edu.columbia.ase.teamproject.persistence.dao.EventDao;
 import edu.columbia.ase.teamproject.persistence.dao.UserAccountDao;
 import edu.columbia.ase.teamproject.persistence.domain.Event;
 import edu.columbia.ase.teamproject.persistence.domain.UserAccount;
+import edu.columbia.ase.teamproject.persistence.domain.VoteCategory;
 import edu.columbia.ase.teamproject.persistence.domain.enumeration.EventType;
 
 /**
@@ -34,6 +37,7 @@ public class EventService {
 			DateTime start, DateTime end)
 	{
 		Preconditions.checkNotNull(requestor);
+
 		logger.info("Creating event " + name);
 		Event event = new Event(requestor, name, description, eventType,
 				start, end);
@@ -42,6 +46,20 @@ public class EventService {
 		
 		return eventDao.add(event);
 	}
+	
+	public Event createEvent(UserAccount requestor, String name, String description, EventType eventType,
+			DateTime start, DateTime end, List<VoteCategory> voteCategories)
+	{
+		
+		Event event = this.createEvent(requestor, name, description, eventType, start, end);
+		for (VoteCategory v : voteCategories)
+		{
+			v.setEvent(event);
+		}
+		event.setVoteCategories(voteCategories);
+		
+		return eventDao.add(event);
+	}	
 
 	public Event lookupEvent(UserAccount requestor, Long id) {
 		Preconditions.checkNotNull(requestor);
