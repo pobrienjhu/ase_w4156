@@ -2,6 +2,7 @@ package edu.columbia.ase.teamproject.persistence.domain;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.Nullable;
@@ -10,7 +11,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -102,7 +102,7 @@ public class Event {
 	 */
 	public Event(@Nullable UserAccount admin, String name, String description,
 			EventType eventType, DateTime eventStart,
-			DateTime eventEnd) {
+			DateTime eventEnd, List<VoteCategory> voteCategories) {
 		this();
 		Preconditions.checkArgument(name.length() < MAX_NAME_LENGTH);
 		Preconditions.checkArgument(description.length() < MAX_DESCRIPTION_LENGTH);
@@ -114,6 +114,19 @@ public class Event {
 		this.endTime = Preconditions.checkNotNull(eventEnd);
 		this.name = name;
 		this.description = description;
+		for (VoteCategory category : voteCategories) {
+			addVoteCategory(category);
+		}
+	}
+
+	/**
+	 * @param admin if null, MUST be set before persisting to database.
+	 */
+	public Event(@Nullable UserAccount admin, String name, String description,
+			EventType eventType, DateTime eventStart,
+			DateTime eventEnd) {
+		this(admin, name, description, eventType, eventStart, eventEnd,
+				Collections.<VoteCategory> emptyList());
 	}
 	
 	public void addAdminUser(UserAccount userAccount){

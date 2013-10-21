@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Preconditions;
 
 import edu.columbia.ase.teamproject.persistence.dao.EventDao;
@@ -19,6 +20,7 @@ import edu.columbia.ase.teamproject.persistence.dao.UserAccountDao;
 import edu.columbia.ase.teamproject.persistence.domain.Event;
 import edu.columbia.ase.teamproject.persistence.domain.UserAccount;
 import edu.columbia.ase.teamproject.persistence.domain.VoteCategory;
+import edu.columbia.ase.teamproject.persistence.domain.VoteOption;
 import edu.columbia.ase.teamproject.persistence.domain.enumeration.EventType;
 
 /**
@@ -35,6 +37,24 @@ public class EventService {
 	@Autowired
 	EventDao eventDao;
 
+	@VisibleForTesting
+	boolean userCanUpdateEvent(UserAccount user, Long eventId) {
+		Preconditions.checkNotNull(user);
+		// No event ID provided means auto-create a new one.
+		if (eventId == null) {
+			return true;
+		}
+
+		Event event = eventDao.find(eventId);
+		if (event == null) {
+			// XXX: is this OK?  It allows someone to specify an arbitrary
+			// event id.
+			return true;
+		}
+
+		return event.getAdminUsers().contains(user);
+	}
+
 	/*
 	 * try to retrieve all the public events. 
 	 * If there is an exception, log it and return and empty ArrayList
@@ -47,35 +67,26 @@ public class EventService {
 		}
 		return new ArrayList<Event>();
 	}
-	
-	
-	public Event createEvent(UserAccount requestor, String name, String description, EventType eventType,
-			DateTime start, DateTime end)
-	{
-		Preconditions.checkNotNull(requestor);
 
-		logger.info("Creating event " + name);
-		Event event = new Event(requestor, name, description, eventType,
-				start, end);
-
-		logger.info("Event " + name + " created");
-		
-		return eventDao.add(event);
-	}
-	
 	public Event createEvent(UserAccount requestor, String name, String description, EventType eventType,
 			DateTime start, DateTime end, List<VoteCategory> voteCategories)
 	{
-		
-		Event event = this.createEvent(requestor, name, description, eventType, start, end);
+		Preconditions.checkNotNull(requestor);
+		logger.info("Creating event " + name);
+
+		Event event = new Event(requestor, name, description, eventType,
+				start, end);
 		for (VoteCategory v : voteCategories)
 		{
 			v.setEvent(event);
+			for (VoteOption o : v.getVoteOptions()) {
+				o.setVoteCategory(v);
+			}
 		}
 		event.setVoteCategories(voteCategories);
 		
 		return eventDao.add(event);
-	}	
+	}
 
 	public Event lookupEvent(UserAccount requestor, Long id) {
 		Preconditions.checkNotNull(requestor);

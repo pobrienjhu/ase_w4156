@@ -9,12 +9,14 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
+import org.joda.time.Instant;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -76,7 +78,8 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 	public void testSuccessfulCreateEvent() {
 		Event e = eventService.createEvent(userAccount, "Test Event Name",
 				"Event Description", EventType.PRIVATE, DateTime.now(),
-				DateTime.now().plus(Duration.standardDays(1)));
+				DateTime.now().plus(Duration.standardDays(1)),
+				Collections.<VoteCategory> emptyList());
 
 		long eventId = e.getId();
 		List<Event> events = eventDao.list();
@@ -112,11 +115,8 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 
 	@Test
 	public void testCreateEventWithVotingCategories() {
-		Event e = eventService.createEvent(userAccount, "Votable Event Name",
-				"Event Description", EventType.PRIVATE, DateTime.now(),
-				DateTime.now().plus(Duration.standardDays(1)));
 
-		VoteCategory firstCategory = new VoteCategory(e, "First Category",
+		VoteCategory firstCategory = new VoteCategory("First Category",
 				"First Category Description");
 		VoteOption firstCategoryFirstOption =
 				new VoteOption(firstCategory, "Option 1-1");
@@ -128,8 +128,8 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 		firstCategory.addVotingOption(firstCategorySecondOption);
 		firstCategory.addVotingOption(firstCategoryThirdOption);
 
-		VoteCategory secondCategory = new VoteCategory(e, "Second Category",
-				"First Category Description");
+		VoteCategory secondCategory = new VoteCategory("Second Category",
+				"Second Category Description");
 		VoteOption secondCategoryFirstOption =
 				new VoteOption(firstCategory, "Option 2-1");
 		VoteOption secondCategorySecondOption =
@@ -137,13 +137,12 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 		secondCategory.addVotingOption(secondCategoryFirstOption);
 		secondCategory.addVotingOption(secondCategorySecondOption);
 
-		e.setVoteCategories(ImmutableList.<VoteCategory>of(firstCategory,
-				secondCategory));
+		Event e = eventService.createEvent(userAccount, "Votable Event Name",
+				"Event Description", EventType.PRIVATE, DateTime.now(),
+				DateTime.now().plus(Duration.standardDays(1)),
+				ImmutableList.<VoteCategory>of(firstCategory,
+						secondCategory));
 
-		// HACK: this should probably be an eventService 'update' method.
-		// TODO(pames/aiman): determine if there should be a createEvent() API
-		// which also takes a List<VoteCategory> so these can be passed in on
-		// initial creation.
 		sessionFactory.getCurrentSession().save(e);
 
 		Event fetchedEvent = eventDao.find(e.getId()); 
@@ -156,5 +155,30 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 		// Verify that these elements were indeed transitively persisted and have IDs.
 		assertNotNull(fetchedEvent.getVoteCategories().get(0).getId());
 		assertNotNull(fetchedEvent.getVoteCategories().get(0).getVoteOptions().get(0).getId());
+	}
+
+	@Test
+	public void testUserCanUpdateEvent() {
+		UserAccount userA = new UserAccount(AccountType.LOCAL, "foo", "foo",
+				null, Collections.<Permission> emptyList());
+		UserAccount userB = new UserAccount(AccountType.LOCAL, "bar", "bar",
+				null, Collections.<Permission> emptyList());
+
+		assertFalse(userA.equals(userB));
+
+		assertTrue(eventService.userCanUpdateEvent(userA, null));
+
+		Event testEvent = new Event(userA, "event name", "description",
+				EventType.PRIVATE, DateTime.now(),
+				DateTime.now().plus(Duration.standardDays(1)));
+		testEvent = eventDao.add(testEvent);
+
+		assertTrue(eventService.userCanUpdateEvent(userA, testEvent.getId()));
+		assertFalse(eventService.userCanUpdateEvent(userB, testEvent.getId()));
+
+		testEvent.addAdminUser(userB);
+		eventDao.add(testEvent);
+		assertTrue(eventService.userCanUpdateEvent(userB, testEvent.getId()));
+
 	}
 }
