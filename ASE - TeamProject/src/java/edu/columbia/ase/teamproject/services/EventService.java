@@ -3,6 +3,8 @@
  */
 package edu.columbia.ase.teamproject.services;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.joda.time.DateTime;
@@ -33,6 +35,20 @@ public class EventService {
 	@Autowired
 	EventDao eventDao;
 
+	/*
+	 * try to retrieve all the public events. 
+	 * If there is an exception, log it and return and empty ArrayList
+	 */
+	public Collection<Event> getAllPublicEvents(DateTime start, DateTime end){
+		try {
+			return eventDao.getAllPublicEvents(start, end);
+		} catch (Exception e) {
+			logger.error("Unable to retrieve public events. Root Cause ("+e.getLocalizedMessage()+")");
+		}
+		return new ArrayList<Event>();
+	}
+	
+	
 	public Event createEvent(UserAccount requestor, String name, String description, EventType eventType,
 			DateTime start, DateTime end)
 	{

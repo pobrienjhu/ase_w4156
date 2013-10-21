@@ -85,7 +85,7 @@ public class OpenIdAuthenticationTokenConsumer implements
 				logger.info("Creating new account for " +
 						token.getIdentityUrl());
 				account = new UserAccount(AccountType.OPENID,
-						token.getIdentityUrl(), null, null,
+						token.getIdentityUrl(), "Remote User", null,
 						permissionBuilder.build());
 
 				userAccountDao.add(account);

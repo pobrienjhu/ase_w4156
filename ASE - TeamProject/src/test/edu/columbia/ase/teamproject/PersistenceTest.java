@@ -10,10 +10,8 @@ import java.util.List;
 import org.hibernate.SessionFactory;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
-import org.joda.time.LocalDateTime;
 import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +38,8 @@ import edu.columbia.ase.teamproject.security.Permission;
 @Transactional 
 public class PersistenceTest extends AbstractTransactionalJUnit4SpringContextTests{
 
-    static {
-        //System.setProperty("dataFile", "test-data.sql");
-    }
+    //static {
+        //System.setProperty("dataFile", "test-data.sql"); }
 	
 	 @Autowired
 	 private SessionFactory sessionFactory;

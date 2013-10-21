@@ -2,6 +2,7 @@
 
 /**
   * Event List Page
+  * @param userName display name of the user
   */
 {template .listEvent}
 {call edu.columbia.ase.header data="all" /}
@@ -14,7 +15,7 @@
 <div class="content_left">
 
 
-  <div class="date">Events Available </div>
+  <div class="date">Events Available for {$userName}</div>
 
   <div class="newsitem">
     <div class="title">Event 1</div>

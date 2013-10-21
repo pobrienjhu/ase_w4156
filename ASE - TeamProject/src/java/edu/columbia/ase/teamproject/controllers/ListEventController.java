@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,8 +52,10 @@ public class ListEventController {
 		Map<String, Object> model =
 				ControllerHelper.createBaseModel(session);
 
-		model.put("title", "Administration");
-		model.put("admin", true);
+		String displayName = StringUtils.defaultIfEmpty(user.getDisplayName(), user.getUsername() );
+		
+		model.put("userName", displayName );
+		model.put("title", "Event List");
 
 		return new ModelAndView("soy:edu.columbia.ase.event.listEvent", model);
 		
