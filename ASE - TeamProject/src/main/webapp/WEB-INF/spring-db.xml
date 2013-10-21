@@ -52,6 +52,7 @@
 	<bean id="eventDao" class="edu.columbia.ase.teamproject.persistence.dao.impl.EventDaoImpl" />
 	<bean id="userAccountDao" class="edu.columbia.ase.teamproject.persistence.dao.impl.UserAccountDaoImpl" />
 	<bean id="voteCategoryDao" class="edu.columbia.ase.teamproject.persistence.dao.impl.VoteCategoryDaoImpl" />
+	<bean id="voteOptionDao" class="edu.columbia.ase.teamproject.persistence.dao.impl.VoteOptionDaoImpl" />
 	
 
 </beans>

@@ -7,6 +7,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -179,6 +180,71 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 		testEvent.addAdminUser(userB);
 		eventDao.add(testEvent);
 		assertTrue(eventService.userCanUpdateEvent(userB, testEvent.getId()));
+	}
 
+	@Test
+	public void testValidateEventWithInvalidCategory() {
+		UserAccount admin = new UserAccount(AccountType.LOCAL, "foo", "foo",
+				null, Collections.<Permission> emptyList());
+
+		VoteCategory firstCategory = new VoteCategory("Category 1", "Description");
+		firstCategory.addVotingOption(new VoteOption("option name"));
+
+		Event firstEvent = eventService.createEvent(admin,
+				"event name", "description", EventType.PRIVATE, DateTime.now(),
+				DateTime.now().plus(Duration.standardDays(1)),
+				ImmutableList.<VoteCategory>of(firstCategory));
+
+		Event secondEvent = new Event(admin, "event name", "description",
+				EventType.PRIVATE, DateTime.now(),
+				DateTime.now().plus(Duration.standardDays(1)));
+		VoteCategory replacementFirstCategory =
+				new VoteCategory("Fake Category", "Description");
+		replacementFirstCategory.setId(
+				firstEvent.getVoteCategories().get(0).getId());
+		secondEvent.addVoteCategory(replacementFirstCategory);
+
+		try {
+			eventService.validateEvent(secondEvent);
+			fail("should not validate");
+		} catch (IllegalStateException ex) {
+			assertTrue(ex.getMessage().contains("existing voteCategory"));
+			assertTrue(ex.getMessage().contains("event mismatch"));
+			// expected
+		}
+	}
+
+	@Test
+	public void testValidateEventWithInvalidOption() {
+		UserAccount admin = new UserAccount(AccountType.LOCAL, "foo", "foo",
+				null, Collections.<Permission> emptyList());
+
+		VoteCategory firstCategory = new VoteCategory("Category 1", "Description");
+		firstCategory.addVotingOption(new VoteOption("option name"));
+
+		Event firstEvent = eventService.createEvent(admin,
+				"event name", "description", EventType.PRIVATE, DateTime.now(),
+				DateTime.now().plus(Duration.standardDays(1)),
+				ImmutableList.<VoteCategory>of(firstCategory));
+
+		Event secondEvent = new Event(admin, "event name", "description",
+				EventType.PRIVATE, DateTime.now(),
+				DateTime.now().plus(Duration.standardDays(1)));
+		VoteCategory secondCategory = new VoteCategory("category" ,"desc");
+		VoteOption replacementVoteOption = new VoteOption("bogus");
+		replacementVoteOption.setId(
+				firstEvent.getVoteCategories().get(0).getVoteOptions().get(0).getId());
+		secondCategory.addVotingOption(replacementVoteOption);
+
+		secondEvent.addVoteCategory(secondCategory);
+
+		try {
+			eventService.validateEvent(secondEvent);
+			fail("should not validate");
+		} catch (IllegalStateException ex) {
+			assertTrue(ex.getMessage().contains("existing option"));
+			assertTrue(ex.getMessage().contains("category mismatch"));
+			// expected
+		}
 	}
 }
