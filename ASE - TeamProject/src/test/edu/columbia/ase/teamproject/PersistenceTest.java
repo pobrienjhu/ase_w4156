@@ -60,20 +60,20 @@ public class PersistenceTest extends AbstractTransactionalJUnit4SpringContextTes
 		  */
 		 
 		 UserAccount user1 = new UserAccount(AccountType.LOCAL, "user1",
-				 "User1 Account", "password",
+				 "User1 Account", "password", "user1@example.com",
 				 Arrays.asList(new Permission[]{Permission.USER}));
 		 
 		 UserAccount user2 = new UserAccount(AccountType.LOCAL, "user2",
-				 "User2 Account", "password",
+				 "User2 Account", "password", "user2@example.com",
 				 Arrays.asList(new Permission[]{Permission.USER}));
 		 
 		 UserAccount admin = new UserAccount(AccountType.LOCAL, "admin",
-				 "Admin Account", "password",
+				 "Admin Account", "password", "user3@example.com",
 				 Arrays.asList(new Permission[]{Permission.USER}));
 		 
-		 userAccountDao.add(user1);
-		 userAccountDao.add(user2);		 
-		 userAccountDao.add(admin);
+		 user1 = userAccountDao.add(user1);
+		 user2 = userAccountDao.add(user2);		 
+		 admin = userAccountDao.add(admin);
 		 
 		 /*
 		  * Add Events
@@ -160,7 +160,9 @@ public class PersistenceTest extends AbstractTransactionalJUnit4SpringContextTes
 		 // Is personsDao ready for operations	 
 		List<Permission> permissions = new ArrayList<Permission>();
 		permissions.add(Permission.ADMIN);
-		UserAccount patrick = new UserAccount(AccountType.LOCAL, "patrick.obrien.8474@gmail.com", "Patrick OBrien", "password", permissions);
+		UserAccount patrick = new UserAccount(AccountType.LOCAL,
+				"patrick.obrien.8474@gmail.com", "Patrick OBrien", "password",
+				"patrick.obrien.8474@gmail.com", permissions);
 		
 		userAccountDao.add(patrick); 
 		

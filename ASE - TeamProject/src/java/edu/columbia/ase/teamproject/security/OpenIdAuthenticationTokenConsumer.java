@@ -1,5 +1,7 @@
 package edu.columbia.ase.teamproject.security;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.security.core.userdetails.AuthenticationUserDetailsSe
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.openid.OpenIDAttribute;
 import org.springframework.security.openid.OpenIDAuthenticationStatus;
 import org.springframework.security.openid.OpenIDAuthenticationToken;
 import org.springframework.transaction.annotation.Transactional;
@@ -81,11 +84,35 @@ public class OpenIdAuthenticationTokenConsumer implements
 						}
 					}
 				}
+				String email = null;
+				String displayName = null;
+				String firstName = null;
+				String lastName = null;
+				List<OpenIDAttribute> attributes = token.getAttributes();
+				for (OpenIDAttribute attribute : attributes) {
+					if (attribute.getName().equals("email") &&
+						!attribute.getValues().isEmpty()) {
+						email = attribute.getValues().get(0);
+					} else if (attribute.getName().equals("firstName") &&
+							!attribute.getValues().isEmpty()) {
+						firstName = attribute.getValues().get(0);
+					} else if (attribute.getName().equals("lastName") &&
+							!attribute.getValues().isEmpty()) {
+						lastName = attribute.getValues().get(0);
+					}
+
+				}
+				displayName = Joiner.on(" ").skipNulls().join(firstName,
+						lastName);
+				if (email == null) {
+					throw new IllegalArgumentException(
+							"No e-mail from OpenID provider.");
+				}
 
 				logger.info("Creating new account for " +
 						token.getIdentityUrl());
 				account = new UserAccount(AccountType.OPENID,
-						token.getIdentityUrl(), "Remote User", null,
+						token.getIdentityUrl(), displayName, null, email,
 						permissionBuilder.build());
 
 				userAccountDao.add(account);

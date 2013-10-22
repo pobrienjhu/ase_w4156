@@ -43,6 +43,7 @@ public class UserAccount {
 	public static final int MAX_USERNAME_LENGTH = 256;
 	public static final int MAX_PASSWORD_LENGTH = 256;
 	public static final int MAX_DISPLAY_NAME_LENGTH = 64;
+	public static final int MAX_EMAIL_LENGTH = 128;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -64,6 +65,10 @@ public class UserAccount {
 	@Column(name="displayName")
 	@ColumnLength(value = MAX_DISPLAY_NAME_LENGTH)
 	private String displayName;
+
+	@Column(name="email", nullable=false)
+	@ColumnLength(value = MAX_EMAIL_LENGTH)
+	private String email;
 	
 	@ElementCollection(fetch=FetchType.EAGER)
 	@Enumerated(EnumType.STRING)
@@ -99,7 +104,7 @@ public class UserAccount {
 
 	public UserAccount(AccountType type, String username,
 			@Nullable String displayName, @Nullable String password,
-			List<Permission> permissions) {
+			String email, List<Permission> permissions) {
 		this();
 		Preconditions.checkArgument(!username.isEmpty());
 		Preconditions.checkArgument(username.length() < MAX_USERNAME_LENGTH);
@@ -109,12 +114,14 @@ public class UserAccount {
 		Preconditions.checkArgument(password == null ||
 				(password != null &&
 				password.length() < MAX_PASSWORD_LENGTH));
+		Preconditions.checkArgument(!email.isEmpty());
 		this.accountType = Preconditions.checkNotNull(type);
 		Preconditions.checkNotNull(permissions);
 
 		this.username = username;
 		this.password = password;
 		this.displayName = displayName;
+		this.email = email;
 		// Create a copy of the list so creators can't modify the permissions.
 		this.permissions = Lists.newArrayList(permissions.iterator());
 	}
@@ -182,7 +189,10 @@ public class UserAccount {
 		this.displayName = displayName;
 	}
 
-	
+	public String getEmail() {
+		return email;
+	}
+
 	public Integer getOptimisticLockingVersion() {
 		return optimisticLockingVersion;
 	}

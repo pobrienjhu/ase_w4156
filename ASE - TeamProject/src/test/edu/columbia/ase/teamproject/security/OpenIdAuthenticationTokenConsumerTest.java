@@ -12,8 +12,11 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.openid.OpenIDAttribute;
 import org.springframework.security.openid.OpenIDAuthenticationStatus;
 import org.springframework.security.openid.OpenIDAuthenticationToken;
+
+import com.google.common.collect.ImmutableList;
 
 import edu.columbia.ase.teamproject.persistence.dao.UserAccountDao;
 
@@ -24,6 +27,7 @@ public class OpenIdAuthenticationTokenConsumerTest {
 
 	@Mock UserAccountDao mockAccountDao;
 	@Mock OpenIDAuthenticationToken mockToken;
+	@Mock OpenIDAttribute mockAttribute;
 
 	@Before
 	public void setUp() {
@@ -55,6 +59,11 @@ public class OpenIdAuthenticationTokenConsumerTest {
 		when(mockToken.getStatus()).thenReturn(
 				OpenIDAuthenticationStatus.SUCCESS);
 		when(mockToken.getIdentityUrl()).thenReturn("http://localhost");
+		when(mockToken.getAttributes()).thenReturn(
+				ImmutableList.of(mockAttribute));
+		when(mockAttribute.getName()).thenReturn("email");
+		when(mockAttribute.getValues()).thenReturn(
+				ImmutableList.of("user@example.com"));
 		when(mockAccountDao.getNumberOfUsers()).thenReturn(0L);
 		UserDetails details = tokenConsumer.loadUserDetails(mockToken);
 		GrantedAuthority expected =
@@ -67,6 +76,11 @@ public class OpenIdAuthenticationTokenConsumerTest {
 		when(mockToken.getStatus()).thenReturn(
 				OpenIDAuthenticationStatus.SUCCESS);
 		when(mockToken.getIdentityUrl()).thenReturn("http://localhost");
+		when(mockToken.getAttributes()).thenReturn(
+				ImmutableList.of(mockAttribute));
+		when(mockAttribute.getName()).thenReturn("email");
+		when(mockAttribute.getValues()).thenReturn(
+				ImmutableList.of("user@example.com"));
 		when(mockAccountDao.getNumberOfUsers()).thenReturn(1L);
 		UserDetails details = tokenConsumer.loadUserDetails(mockToken);
 		GrantedAuthority expected =
