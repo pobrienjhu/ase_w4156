@@ -9,6 +9,8 @@ import edu.columbia.ase.teamproject.persistence.domain.Event;
 
 public interface EventDao extends GenericDao<Event, Long> {
 	
-	public Collection<Event> getAllPublicEvents(DateTime start, DateTime end);
+	public Collection<Event> getAllPublicEvents(DateTime currentTime);
+
+	public Collection<Event> getAllPrivateEventsForUserId(DateTime currentTime, Long userId);
 	
 }

@@ -145,9 +145,9 @@ public class EventService {
 	 * try to retrieve all the public events. 
 	 * If there is an exception, log it and return and empty ArrayList
 	 */
-	public Collection<Event> getAllPublicEvents(DateTime start, DateTime end){
+	public Collection<Event> getAllPublicEvents(DateTime currentTime){
 		try {
-			return eventDao.getAllPublicEvents(start, end);
+			return eventDao.getAllPublicEvents(currentTime);
 		} catch (Exception e) {
 			logger.error("Unable to retrieve public events. Root Cause ("+e.getLocalizedMessage()+")");
 		}
