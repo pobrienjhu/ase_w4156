@@ -36,7 +36,9 @@ public class ControllerHelper {
 		CsrfToken token = (CsrfToken) session.getAttribute("_csrf");
 		if (token != null) {
 			model.put("_csrf", token.getToken());
+			model.put("_csrfParameterName", token.getParameterName());
 		}
+
 
 		SecurityContext context = SecurityContextHolder.getContext();
 		Authentication authentication = context.getAuthentication();

@@ -42,6 +42,7 @@
   <beans:bean name="csrfTokenService"
       class="org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository">
     <beans:property name="sessionAttributeName" value="_csrf" />
+    <beans:property name="parameterName" value="_csrf" />
   </beans:bean>
 
   <beans:bean name="csrfRequestMatcher"

@@ -2,7 +2,8 @@
 
 /**
   * Create Event Page
-  * @param _csrf CSRF token 
+  * @param _csrf CSRF token
+  * @param _csrfParameterName expected parameter name for the CSRF token. 
   * @param _vote
   */
 {template .voteEvent}
@@ -23,7 +24,7 @@
     <br />
   {/foreach} 
   </div>
-  <input id='csrfCE' type='hidden' value='{$_csrf}'>
+  <input id='csrfCE' type='hidden' name='{$_csrfParameterName}' value='{$_csrf}'>
       <input type="submit" value="Submit">
       </form>	
 		
