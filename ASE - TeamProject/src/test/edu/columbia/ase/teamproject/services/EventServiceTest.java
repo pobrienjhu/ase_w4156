@@ -67,7 +67,7 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 	 @Before
 	 public void setUp() {
 		 UserAccount user = new UserAccount(AccountType.LOCAL, "user",
-				 "displayName", "password",
+				 "displayName", "password", "user@example.com",
 				 Arrays.asList(new Permission[]{Permission.USER}));
 		 userAccount = userAccountDao.add(user);
 	 }
@@ -161,9 +161,9 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 	@Test
 	public void testUserCanUpdateEvent() {
 		UserAccount userA = new UserAccount(AccountType.LOCAL, "foo", "foo",
-				null, Collections.<Permission> emptyList());
+				null, "userA@example.com", Collections.<Permission> emptyList());
 		UserAccount userB = new UserAccount(AccountType.LOCAL, "bar", "bar",
-				null, Collections.<Permission> emptyList());
+				null, "userB@example.com", Collections.<Permission> emptyList());
 
 		assertFalse(userA.equals(userB));
 
@@ -185,7 +185,7 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 	@Test
 	public void testValidateEventWithInvalidCategory() {
 		UserAccount admin = new UserAccount(AccountType.LOCAL, "foo", "foo",
-				null, Collections.<Permission> emptyList());
+				null, "admin@example.com", Collections.<Permission> emptyList());
 
 		VoteCategory firstCategory = new VoteCategory("Category 1", "Description");
 		firstCategory.addVotingOption(new VoteOption("option name"));
@@ -217,7 +217,7 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 	@Test
 	public void testValidateEventWithInvalidOption() {
 		UserAccount admin = new UserAccount(AccountType.LOCAL, "foo", "foo",
-				null, Collections.<Permission> emptyList());
+				null, "admin@example.com", Collections.<Permission> emptyList());
 
 		VoteCategory firstCategory = new VoteCategory("Category 1", "Description");
 		firstCategory.addVotingOption(new VoteOption("option name"));

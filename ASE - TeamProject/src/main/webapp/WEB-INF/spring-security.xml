@@ -27,6 +27,11 @@
     <!--  declare that we support OpenId as an authentication mechanism  -->
     <openid-login user-service-ref="openIdUserService"
         login-page="/login.do">
+        <attribute-exchange>
+            <openid-attribute name="email" type="http://axschema.org/contact/email" required="true "/>
+            <openid-attribute name="firstName" type="http://axschema.org/namePerson/first" required="true "/>
+            <openid-attribute name="lastName" type="http://axschema.org/namePerson/last" required="true "/>
+        </attribute-exchange>
     </openid-login>
 
     <logout logout-url="/logout"/>

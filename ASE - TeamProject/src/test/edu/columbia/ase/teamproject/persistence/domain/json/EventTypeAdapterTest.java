@@ -42,7 +42,7 @@ public class EventTypeAdapterTest {
 	@Test
 	public void testSerializeAndDeserializeEvent() {
 		UserAccount admin = new UserAccount(AccountType.OPENID,
-				"http://localhost", "displayName", null,
+				"http://localhost", "displayName", null, "user@example.com",
 				new ArrayList<Permission>());
 		DateTime now = DateTime.now();
 		Event event = new Event(admin, "eventName", "eventDescription",
@@ -66,7 +66,7 @@ public class EventTypeAdapterTest {
 	@Test
 	public void testSerializeAndDeserializeVoteCategories() {
 		UserAccount admin = new UserAccount(AccountType.OPENID,
-				"http://localhost", "displayName", null,
+				"http://localhost", "displayName", null, "user@example.com",
 				new ArrayList<Permission>());
 		DateTime now = DateTime.now();
 		Event event = new Event(admin, "eventName", "eventDescription",
