@@ -2,33 +2,91 @@
 
 /**
   * Create Event Page
-  * @param _csrf CSRF token
-  * @param _csrfParameterName expected parameter name for the CSRF token. 
+  * @param _csrf CSRF token 
   * @param _vote
+  * @param _eventTitle
   */
 {template .voteEvent}
 {call edu.columbia.ase.header data="all" /}
+{literal}
+ <script>
+
+  
+  $(document).ready(function(){
+  		$("#submitBtn").button().click(submitVote);}
+  );
+  
+  
+  function submitVote()
+  {
+  
+   var list="";
+   
+	$(".radioClass").each(function()
+	{
+	
+		var c = $(this).attr("name");		
+		list = list + ($("input:radio[name='" + c + "']:checked").val()) + ",";
+	
+	});
+	alert(list);
+	$.ajax({
+		type: "POST",
+		url: "/app/voteEvent.do",
+		dataType: "text",
+		beforeSend: function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN', $("#csrfCE").val());},		
+		data:list,
+		success : function(msg) {
+                alert(msg);
+                
+            }, 
+            error : function(jqXHR, textStatus, errorThrown) {
+                alert("jquery error "+ textStatus + errorThrown);
+            }
+		
+	})
+	.done(function( msg ) {
+	    window.location="/app/listEvent.do";
+	});
+}
+	
+  </script>
+{/literal}  
+
 
 
 <div class="content_left">
  
     <div class="body">
-      <form method="post" id="voteForm" action="/app/voteEvent.do">
-      
+  
+    <div class="date" >{$_eventTitle}</div>
+    
+   <br />   
+   
   {foreach $section in $_vote}
-    <div class="date">{$section.sectionName}</div>
+    <div class='newsitem'> 
+    <div class="date2">{$section.sectionName}</div>
+   <br />
     {foreach $entry in $section.entries}
-      <input type="radio" name="{$entry.uri}" value="{$entry.id}">{$entry.text}</input>
+      <input class="radioClass" type="radio" name="{$entry.uri}" value="{$entry.id}">{$entry.text}</input>
       <div class="line"></div>
+    
     {/foreach}
-    <br />
+   
+     </div>
   {/foreach} 
-  </div>
-  <input id='csrfCE' type='hidden' name='{$_csrfParameterName}' value='{$_csrf}'>
-      <input type="submit" value="Submit">
-      </form>	
-		
+
+ 
+   <div class='newsitem'> 
+    <br />
+  <input id='csrfCE' type='hidden' value='{$_csrf}'>
+      <input id='submitBtn' type='button'value="Submit Your Vote!" />
+    
+		<br />
       <div class="clearer"><span></span></div>
+      <br />
+        </div>
+   
  </div>
  </div>
 {call edu.columbia.ase.footer /}

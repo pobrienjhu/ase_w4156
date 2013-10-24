@@ -46,7 +46,7 @@ public final class VoteController {
 	private UserAccountDao userAccountDao;
 
 	private static final Logger logger = LoggerFactory
-			.getLogger(CreateEventController.class);
+			.getLogger(VoteController.class);
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView doGet(HttpSession session, HttpServletRequest request) {
@@ -55,7 +55,7 @@ public final class VoteController {
 		Map<String, Object> model = ControllerHelper.createBaseModel(session);
 
 		model.put("title", "Event Voting");
-		model.put("test", "test");
+	
 		
 
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().
@@ -64,6 +64,8 @@ public final class VoteController {
 	
 		Event event = eventService.lookupEvent(user,
 				Long.valueOf(request.getParameter("event")));
+		
+		model.put("_eventTitle", event.getDescription());
 		
 		@SuppressWarnings("unchecked")
 		List<NavigationMenuSection> nms =
@@ -85,15 +87,20 @@ public final class VoteController {
 	
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseBody
-	public ModelAndView doPost(HttpSession session, HttpServletRequest request, HttpServletResponse response)
+	public String doPost(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
 		logger.info("POST /app/voteEvent.do");
+	
+		String a = IOUtils.toString(request.getInputStream());
+		logger.info(a);
+		logger.info("test");
 		
-		Map<String, Object> model = ControllerHelper.createBaseModel(session);
+	/*	Map<String, Object> model = ControllerHelper.createBaseModel(session);
 		model.put("title", "Home");
 		model.put("test", "test");
 		return new ModelAndView("soy:edu.columbia.ase.event.createEvent", model);
-
+*/
+		return  "hello";
 
 	}
 

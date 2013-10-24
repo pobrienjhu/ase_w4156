@@ -116,6 +116,13 @@ div.date {
 	font-weight: bold;
 	padding: 10px;
 }
+div.date2 {
+	background-color: #F0BA60;
+	color: #FFF;
+	font-weight: bold;
+	padding: 10px;
+	height: 10px;
+}
 div.newsitem {
 	background: #F0F0F0 url(/static/img/bg_newsitem.png) repeat-x;
 	border: 1px solid #EEE;
