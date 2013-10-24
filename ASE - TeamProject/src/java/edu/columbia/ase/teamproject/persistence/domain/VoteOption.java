@@ -49,7 +49,7 @@ public class VoteOption {
     private Integer optimisticLockingVersion;
 	
 	// A no-arg constructor is required for Hibernate.
-	private VoteOption() {
+	public VoteOption() {
 		super();
 		votes = new ArrayList<Vote>();
 	}

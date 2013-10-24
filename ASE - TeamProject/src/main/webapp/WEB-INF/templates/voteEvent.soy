@@ -20,22 +20,25 @@
   function submitVote()
   {
   
-   var list="";
+   var voteArray =new Array();
+
    
 	$(".radioClass").each(function()
 	{
 	
 		var c = $(this).attr("name");		
-		list = list + ($("input:radio[name='" + c + "']:checked").val()) + ",";
+		var selected =  ($("input:radio[name='" + c + "']:checked").val());
+		if (!~$.inArray(selected, voteArray)) voteArray.push(selected);
+		
 	
 	});
-	alert(list);
+	
 	$.ajax({
 		type: "POST",
 		url: "/app/voteEvent.do",
 		dataType: "text",
 		beforeSend: function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN', $("#csrfCE").val());},		
-		data:list,
+		data:voteArray.join(" "),
 		success : function(msg) {
                 alert(msg);
                 

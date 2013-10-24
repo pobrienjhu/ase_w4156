@@ -3,6 +3,7 @@ package edu.columbia.ase.teamproject.controllers;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,8 +24,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 
 import edu.columbia.ase.teamproject.persistence.dao.UserAccountDao;
+import edu.columbia.ase.teamproject.persistence.dao.VoteDao;
+import edu.columbia.ase.teamproject.persistence.dao.VoteOptionDao;
 import edu.columbia.ase.teamproject.persistence.domain.Event;
 import edu.columbia.ase.teamproject.persistence.domain.UserAccount;
+import edu.columbia.ase.teamproject.persistence.domain.Vote;
 import edu.columbia.ase.teamproject.persistence.domain.VoteCategory;
 import edu.columbia.ase.teamproject.persistence.domain.VoteOption;
 import edu.columbia.ase.teamproject.services.EventService;
@@ -44,6 +48,13 @@ public final class VoteController {
 	
 	@Autowired
 	private UserAccountDao userAccountDao;
+	
+	@Autowired
+	private VoteDao voteDao;
+	
+	@Autowired
+	private VoteOptionDao voteOptionDao;
+
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(VoteController.class);
@@ -90,17 +101,28 @@ public final class VoteController {
 	public String doPost(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
 		logger.info("POST /app/voteEvent.do");
-	
-		String a = IOUtils.toString(request.getInputStream());
-		logger.info(a);
-		logger.info("test");
 		
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().
+				getAuthentication().getPrincipal();
+		UserAccount user = userAccountDao.findAccountByUserDetails(userDetails);
+	
+	
+		 StringTokenizer st = new StringTokenizer( IOUtils.toString(request.getInputStream()));
+	     
+		 while (st.hasMoreTokens()) {
+	    		VoteOption vo = voteOptionDao.find(Long.parseLong(st.nextToken()));
+	    		Vote v = new Vote(vo,user); 
+	    		voteDao.add(v);
+	    	
+		 }
+		
+	
 	/*	Map<String, Object> model = ControllerHelper.createBaseModel(session);
 		model.put("title", "Home");
 		model.put("test", "test");
 		return new ModelAndView("soy:edu.columbia.ase.event.createEvent", model);
 */
-		return  "hello";
+		return  "Your vote has been submitted!";
 
 	}
 
