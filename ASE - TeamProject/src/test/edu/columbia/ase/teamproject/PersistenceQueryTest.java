@@ -62,20 +62,20 @@ public class PersistenceQueryTest extends AbstractTransactionalJUnit4SpringConte
 		  */
 		 
 		 UserAccount user1 = new UserAccount(AccountType.LOCAL, "user1",
-				 "User1 Account", "password",
+				 "User1 Account", "password", "user1@example.com",
 				 Arrays.asList(new Permission[]{Permission.USER}));
 		 
 		 UserAccount user2 = new UserAccount(AccountType.LOCAL, "user2",
-				 "User2 Account", "password",
+				 "User2 Account", "password", "user2@example.com",
 				 Arrays.asList(new Permission[]{Permission.USER}));
 		 
 		 UserAccount admin = new UserAccount(AccountType.LOCAL, "admin",
-				 "Admin Account", "password",
+				 "Admin Account", "password", "admin@example.com",
 				 Arrays.asList(new Permission[]{Permission.USER}));
 		 
-		 userAccountDao.add(user1);
-		 userAccountDao.add(user2);		 
-		 userAccountDao.add(admin);
+		 user1 = userAccountDao.add(user1);
+		 user2 = userAccountDao.add(user2);		 
+		 admin = userAccountDao.add(admin);
 		 
 		 /*
 		  * Add Events
