@@ -16,7 +16,7 @@ public class EventDaoImpl extends HibernateDao<Event, Long> implements EventDao 
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Collection<Event> getAllPublicEvents(DateTime currentTime){
+	public Collection<Event> getAllActivePublicEvents(DateTime currentTime){
 		
 		return currentSession().createQuery(
 				"From Event e "+
@@ -28,10 +28,11 @@ public class EventDaoImpl extends HibernateDao<Event, Long> implements EventDao 
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Collection<Event> getAllPrivateEventsForUserId(DateTime currentTime,
+	public Collection<Event> getAllActivePrivateEventsForUserId(DateTime currentTime,
 			Long userId) {
 		
 		return currentSession().createQuery(
+				"Select e "+
 				"From Event e "+
 				"inner join e.eventUsers eventUsers "+ 
 				"Where e.eventType = :et "+
@@ -42,6 +43,79 @@ public class EventDaoImpl extends HibernateDao<Event, Long> implements EventDao 
 				.setParameter("ct", currentTime ).list();	
 		
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Collection<Event> getAllActiveAdminEventsForUserId(DateTime currentTime,
+			Long userId) {
+		
+		return currentSession().createQuery(
+				"Select e "+
+				"From Event e "+
+				"inner join e.adminUsers adminUsers "+ 
+				"Where adminUsers.id = :uId "+
+				"and :ct between e.startTime and e.endTime ")
+				.setParameter("uId", userId )
+				.setParameter("ct", currentTime ).list();	
+		
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Collection<Event> getAllCompletedPublicEvents(DateTime currentTime) {
+		return currentSession().createQuery(
+				"From Event e "+
+				"Where e.eventType = :et "+
+				"and :ct > e.endTime  ")
+				.setParameter("et", EventType.PUBLIC )
+				.setParameter("ct", currentTime ).list();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Collection<Event> getAllCompletedPrivateEventsForUserId(
+			DateTime currentTime, Long userId) {
+		return currentSession().createQuery(
+				"Select e "+
+				"From Event e "+
+				"inner join e.eventUsers eventUsers "+ 
+				"Where e.eventType = :et "+
+				"and eventUsers.id = :uId "+
+				"and :ct > e.endTime ")
+				.setParameter("uId", userId )
+				.setParameter("et", EventType.PRIVATE )
+				.setParameter("ct", currentTime ).list();	
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Collection<Event> getAllCompletedAdminEventsForUserId(
+			DateTime currentTime, Long userId) {
+		return currentSession().createQuery(
+				"Select e "+
+				"From Event e "+
+				"inner join e.adminUsers adminUsers "+ 
+				"Where adminUsers.id = :uId "+
+				"and :ct > e.endTime ")
+				.setParameter("uId", userId )
+				.setParameter("ct", currentTime ).list();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Collection<Event> getAllFutureAdminEventsForUserId(
+			DateTime currentTime, Long userId) {
+		return currentSession().createQuery(
+				"Select e "+
+				"From Event e "+
+				"inner join e.adminUsers adminUsers "+ 
+				"Where adminUsers.id = :uId "+
+				"and :ct < e.startTime ")
+				.setParameter("uId", userId )
+				.setParameter("ct", currentTime ).list();
+	}
+	
+	
 	
 	
 }

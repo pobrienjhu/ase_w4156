@@ -147,14 +147,97 @@ public class EventService {
 	 * try to retrieve all the public events. 
 	 * If there is an exception, log it and return and empty ArrayList
 	 */
-	public Collection<Event> getAllPublicEvents(DateTime currentTime){
+	public Collection<Event> getAllActivePublicEvents(DateTime currentTime){
 		try {
-			return eventDao.getAllPublicEvents(currentTime);
+			return eventDao.getAllActivePublicEvents(currentTime);
 		} catch (Exception e) {
-			logger.error("Unable to retrieve public events. Root Cause ("+e.getLocalizedMessage()+")");
+			logger.error("Unable to retrieve active public events. Root Cause ("+e.getLocalizedMessage()+")");
 		}
 		return new ArrayList<Event>();
 	}
+	
+	/*
+	 * try to retrieve all the public events. 
+	 * If there is an exception, log it and return and empty ArrayList
+	 */
+	public Collection<Event> getAllCompletedPublicEvents(DateTime currentTime){
+		try {
+			return eventDao.getAllCompletedPublicEvents(currentTime);
+		} catch (Exception e) {
+			logger.error("Unable to retrieve completed public events. Root Cause ("+e.getLocalizedMessage()+")");
+		}
+		return new ArrayList<Event>();
+	}
+	
+	
+	/*
+	 * try to retrieve all the requested events. 
+	 * If there is an exception, log it and return and empty ArrayList
+	 */
+	public Collection<Event> getAllActivePrivateEventsForUserId(DateTime currentTime, Long userId){
+		try {
+			return eventDao.getAllActivePrivateEventsForUserId(currentTime, userId);
+		} catch (Exception e) {
+			logger.error("Unable to retrieve private events for userId ("+userId+"). Root Cause ("+e.getLocalizedMessage()+")");
+		}
+		return new ArrayList<Event>();
+	}
+	
+	/*
+	 * try to retrieve all the requested events. 
+	 * If there is an exception, log it and return and empty ArrayList
+	 */
+	public Collection<Event> getAllActiveAdminEventsForUserId(DateTime currentTime, Long userId){
+		try {
+			return eventDao.getAllActiveAdminEventsForUserId(currentTime, userId);
+		} catch (Exception e) {
+			logger.error("Unable to retrieve active admin events for userId ("+userId+"). Root Cause ("+e.getLocalizedMessage()+")");
+		}
+		return new ArrayList<Event>();
+	}
+	
+	
+	
+	/*
+	 * try to retrieve all the requested events. 
+	 * If there is an exception, log it and return and empty ArrayList
+	 */
+	public Collection<Event> getAllCompletedAdminEventsForUserId(DateTime currentTime, Long userId){
+		try {
+			return eventDao.getAllCompletedAdminEventsForUserId(currentTime, userId);
+		} catch (Exception e) {
+			logger.error("Unable to retrieve completed admin events for userId ("+userId+"). Root Cause ("+e.getLocalizedMessage()+")");
+		}
+		return new ArrayList<Event>();
+	}
+	
+	/*
+	 * try to retrieve all the requested events. 
+	 * If there is an exception, log it and return and empty ArrayList
+	 */
+	public Collection<Event> getAllCompletedPrivateEventsForUserId(DateTime currentTime, Long userId){
+		try {
+			return eventDao.getAllCompletedPublicEvents(currentTime);
+		} catch (Exception e) {
+			logger.error("Unable to retrieve completed private eventsfor userId ("+userId+"). Root Cause ("+e.getLocalizedMessage()+")");
+		}
+		return new ArrayList<Event>();
+	}
+	
+	
+	/*
+	 * try to retrieve all the requested events. 
+	 * If there is an exception, log it and return and empty ArrayList
+	 */
+	public Collection<Event> getAllFutureAdminEventsForUserId(DateTime currentTime, Long userId){
+		try {
+			return eventDao.getAllFutureAdminEventsForUserId(currentTime, userId);
+		} catch (Exception e) {
+			logger.error("Unable to retrieve future admin events for userId ("+userId+"). Root Cause ("+e.getLocalizedMessage()+")");
+		}
+		return new ArrayList<Event>();
+	}
+	
 
 	public Event createEvent(UserAccount requestor, String name, String description, EventType eventType,
 			DateTime start, DateTime end, List<VoteCategory> voteCategories)

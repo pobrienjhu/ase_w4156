@@ -2,6 +2,7 @@ package edu.columbia.ase.teamproject;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -97,15 +98,21 @@ public class PersistenceQueryTest extends AbstractTransactionalJUnit4SpringConte
 				 DateTime.now().plus(Duration.standardDays(1)));
 		 
 		 event4.addEventUser(user1);
+		 event4.addEventUser(user2);
 		 
 		 Event event5 = new Event(admin, "Event Name 5", "Event Description",
 				 EventType.PUBLIC, DateTime.now().plus(Duration.standardHours(1)),
 				 DateTime.now().plus(Duration.standardDays(1)));
 		 
-		 Event event6 = new Event(admin, "Event Name 4", "Event Description",
-				 EventType.PRIVATE, DateTime.now(),
-				 DateTime.now().plus(Duration.standardDays(1)));
+		 Event event6 = new Event(admin, "Event Name 6", "Event Description",
+				 EventType.PRIVATE, DateTime.now().minus(Duration.standardDays(2)),
+				 DateTime.now().minus(Duration.standardDays(1)));
 		 
+		 Event event7 = new Event(admin, "Event Name 7", "Event Description",
+				 EventType.PUBLIC, DateTime.now().minus(Duration.standardDays(2)),
+				 DateTime.now().minus(Duration.standardDays(1)));
+		 
+		 event6.addEventUser(user1);
 		 event6.addEventUser(user2);
 		 	 
 		 eventDao.add(event1);		 
@@ -114,6 +121,7 @@ public class PersistenceQueryTest extends AbstractTransactionalJUnit4SpringConte
 		 eventDao.add(event4);		 
 		 eventDao.add(event5);
 		 eventDao.add(event6);
+		 eventDao.add(event7);
 		 
 	 }
 
@@ -161,9 +169,9 @@ public class PersistenceQueryTest extends AbstractTransactionalJUnit4SpringConte
 	 
 	 
 	 @Test
-	 public void testEventDaoQueryPublic(){
+	 public void testEventDaoQueryActivePublicEvents(){
 		 
-		 Collection<Event> eventList = eventDao.getAllPublicEvents(new DateTime()) ;
+		 Collection<Event> eventList = eventDao.getAllActivePublicEvents(new DateTime()) ;
 		 
 		 System.out.println("Looking for list of all events in the db...");
 		 
@@ -177,20 +185,36 @@ public class PersistenceQueryTest extends AbstractTransactionalJUnit4SpringConte
 	 }
 	 
 	 @Test
-	 public void testEventDaoQueryPrivate(){
+	 public void testEventDaoQueryCompletedPublicEvents(){
+		 
+		 Collection<Event> eventList = eventDao.getAllCompletedPublicEvents(new DateTime()) ;
+		 
+		 System.out.println("Looking for list of all events in the db...");
+		 
+		 //personsList.size()
+		 assertNotNull(eventList);
+		 assertFalse( eventList.size() == 0 ) ;
+		 
+		 for(Event event: eventList ){
+			 System.out.println(event);
+		 }
+	 }
+	 
+	 @Test
+	 public void testEventDaoQueryActivePrivateEventsForUser(){
 		 
 		 List<UserAccount> userList = userAccountDao.list();
 		 
 		 for(UserAccount userAccount: userList){
 			 
-			 Collection<Event> eventList = eventDao.getAllPrivateEventsForUserId(new DateTime(), userAccount.getId() ) ;
+			 Collection<Event> eventList = eventDao.getAllActivePrivateEventsForUserId(new DateTime(), userAccount.getId() ) ;
 			 
 			 System.out.println("Looking for list of all events in the db...");
 			 
 			 
 			 if( StringUtils.equals(userAccount.getUsername(), "admin" ) ){
 				 assertNotNull(eventList);
-				 assertFalse( eventList.size() == 0 );
+				 assertTrue( eventList.size() == 0 );
 			 }
 			 else{
 				 assertNotNull(eventList);
@@ -202,4 +226,119 @@ public class PersistenceQueryTest extends AbstractTransactionalJUnit4SpringConte
 			 }
 		 }
 	 }
+	 
+	 @Test
+	 public void testEventDaoQueryActiveAdminEventsForUser(){
+		 
+		 List<UserAccount> userList = userAccountDao.list();
+		 
+		 for(UserAccount userAccount: userList){
+			 
+			 Collection<Event> eventList = eventDao.getAllActiveAdminEventsForUserId(new DateTime(), userAccount.getId() ) ;
+			 
+			 System.out.println("Looking for list of all events in the db...");
+			 
+			 
+			 if( StringUtils.equals(userAccount.getUsername(), "admin" ) ){
+				 assertNotNull(eventList);
+				 assertFalse( eventList.size() == 0 );
+				 
+				 for(Event event: eventList ){
+					 System.out.println(event);
+				 }
+			 }
+			 else{
+				 assertNotNull(eventList);
+				 assertTrue( eventList.size() == 0 ) ;
+			 
+
+			 }
+		 }
+	 }
+	 
+	 @Test
+	 public void testEventDaoQueryCompletedAdminEventsForUser(){
+		 
+		 List<UserAccount> userList = userAccountDao.list();
+		 
+		 for(UserAccount userAccount: userList){
+			 
+			 Collection<Event> eventList = eventDao.getAllCompletedAdminEventsForUserId(new DateTime(), userAccount.getId() ) ;
+			 
+			 System.out.println("Looking for list of all events in the db...");
+			 
+			 
+			 if( StringUtils.equals(userAccount.getUsername(), "admin" ) ){
+				 assertNotNull(eventList);
+				 assertFalse( eventList.size() == 0 );
+				 
+				 for(Event event: eventList ){
+					 System.out.println(event);
+				 }
+			 }
+			 else{
+				 assertNotNull(eventList);
+				 assertTrue( eventList.size() == 0 ) ;		 
+			 }
+		 }
+	 }
+	 
+	 @Test
+	 public void testEventDaoQueryFutureAdminEventsForUser(){
+		 
+		 List<UserAccount> userList = userAccountDao.list();
+		 
+		 for(UserAccount userAccount: userList){
+			 
+			 Collection<Event> eventList = eventDao.getAllFutureAdminEventsForUserId(new DateTime(), userAccount.getId() ) ;
+			 
+			 System.out.println("Looking for list of all events in the db...");
+			 
+			 
+			 if( StringUtils.equals(userAccount.getUsername(), "admin" ) ){
+				 assertNotNull(eventList);
+				 assertFalse( eventList.size() == 0 );
+				 
+				 for(Event event: eventList ){
+					 System.out.println(event);
+				 }
+			 }
+			 else{
+				 assertNotNull(eventList);
+				 assertTrue( eventList.size() == 0 ) ;		 
+			 }
+		 }
+	 }
+	 
+	 
+	 @Test
+	 public void testEventDaoQueryCompletedPrivateEventsForUser(){
+		 
+		 List<UserAccount> userList = userAccountDao.list();
+		 
+		 for(UserAccount userAccount: userList){
+			 
+			 Collection<Event> eventList = eventDao.getAllCompletedPrivateEventsForUserId(new DateTime(), userAccount.getId() ) ;
+			 
+			 System.out.println("Looking for list of all events in the db...");
+			 
+			 
+			 if( StringUtils.equals(userAccount.getUsername(), "admin" ) ){
+				 assertNotNull(eventList);
+				 assertTrue( eventList.size() == 0 );
+			 }
+			 else{
+				 assertNotNull(eventList);
+				 assertFalse( eventList.size() == 0 ) ;
+			 
+				 for(Event event: eventList ){
+					 System.out.println(event);
+				 }
+			 }
+		 }
+	 }
+	 
+	 
+	 
+	 
 }

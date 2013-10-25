@@ -48,11 +48,10 @@ public class ListEventController {
 		
 		UserAccount user = userAccountDao.findAccountByUserDetails(userDetails);
 
-
 		Map<String, Object> model =
 				ControllerHelper.createBaseModel(session);
 
-		String displayName = StringUtils.defaultIfEmpty(user.getDisplayName(), user.getUsername() );
+		String displayName = StringUtils.defaultIfEmpty(user.getDisplayName(), user.getEmail() );
 		
 		model.put("userName", displayName );
 		model.put("title", "Event List");
