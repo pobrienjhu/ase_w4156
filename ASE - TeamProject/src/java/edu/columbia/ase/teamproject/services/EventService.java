@@ -24,6 +24,7 @@ import edu.columbia.ase.teamproject.persistence.domain.UserAccount;
 import edu.columbia.ase.teamproject.persistence.domain.VoteCategory;
 import edu.columbia.ase.teamproject.persistence.domain.VoteOption;
 import edu.columbia.ase.teamproject.persistence.domain.enumeration.EventType;
+import edu.columbia.ase.teamproject.security.Permission;
 
 /**
  * @author aiman
@@ -138,7 +139,8 @@ public class EventService {
 			return true;
 		}
 
-		return event.getAdminUsers().contains(user);
+		return event.getAdminUsers().contains(user) ||
+				user.getPermissions().contains(Permission.ADMIN);
 	}
 
 	/*
