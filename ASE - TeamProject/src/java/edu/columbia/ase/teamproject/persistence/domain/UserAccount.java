@@ -159,6 +159,19 @@ public class UserAccount {
 		return accountType;
 	}
 
+	public void addPermission(Permission permission) {
+		Preconditions.checkState(!permissions.contains(permission));
+		permissions.add(permission);
+	}
+
+	public void revokePermission(Permission permission) {
+		int idx = permissions.indexOf(permission);
+		if (idx == -1) {
+			throw new IllegalArgumentException();
+		}
+		permissions.remove(idx);
+	}
+
 	public List<Permission> getPermissions() {
 		return Lists.newArrayList(permissions.iterator());
 	}

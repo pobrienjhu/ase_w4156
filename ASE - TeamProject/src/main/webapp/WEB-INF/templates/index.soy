@@ -150,25 +150,49 @@
 
 /**
   * A template for the admin page.
+  * @param? message a status message from the server
+  * @param _csrf a CSRF token.
+  * @param _csrfParameterName the name of the CSRF field  
   */
 {template .admin}
 {call .header data="all" /}
 <div class="content_left">
-  <div class="date">Large header?</div>
+  <div class="date">Administration</div>
+  {if $message}
   <div class="newsitem">
-    <div class="title">Title</div>
+    <div class="title">Request Status</div>
     <div class="body">
-      <p>Lorem ipsum...</p>
+      <p>{$message}</p>
     </div>
     <div class="clearer"><span></span></div>
   </div>
+  {/if}
   <div class="newsitem">
-    <div class="title">Title</div>
+    <div class="title">Grant / Revoke Privileges</div>
     <div class="body">
-      <p>Lorem ipsum...</p>
+      <p>Please enter the e-mail address of the user you would like to modify.</p>
+        <form method="post" action="/admin/index.do">
+          <div>
+            <label for="email">E-Mail:</label>
+            <input type="text" id="email" name="email" placeholder="user@example.com" />
+          </div>
+          <div>
+            <input type="radio" id="grant" name="action" value="grant" />
+            <label for="grant">Grant</label>
+          </div>
+          <div>
+            <input type="radio" id="revoke" name="action" value="revoke" checked />
+            <label for="revoke">Revoke</label>
+          </div>
+          <div>
+            <input type="hidden" name="{$_csrfParameterName}" value="{$_csrf}" />
+          </div>
+      <input type="submit" value="Submit" />
+      </form>
     </div>
     <div class="clearer"><span></span></div>
   </div>
+
 </div>
 {call .footer /}
 {/template}
@@ -176,6 +200,7 @@
 /**
   * Login page
   * @param _csrf a CSRF token.
+  * @param _csrfParameterName the name of the CSRF field
   */
 {template .login}
 {call .header data="all" /}
@@ -188,7 +213,7 @@
       <form method="post" id="openid_form" action="/j_spring_openid_security_check">
       <input name="openid_identifier" id="openid_identifier" value="" size="64"
         placeholder="https://www.google.com/accounts/o8/id" />
-      <input type="hidden" name="_csrf" value="{$_csrf}" />
+      <input type="hidden" name="{$_csrfParameterName}" value="{$_csrf}" />
       <input type="submit" value="Login">
       </form>
       <p>Please enter your OpenId provider URL, or select from one of the

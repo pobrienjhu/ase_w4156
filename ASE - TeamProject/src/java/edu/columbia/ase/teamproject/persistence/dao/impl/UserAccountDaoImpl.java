@@ -58,28 +58,14 @@ public class UserAccountDaoImpl extends HibernateDao<UserAccount, Long>
 	}
 
 	@Override
-	public UserAccount findAccountByName(String username) {
-		Preconditions.checkNotNull(username);
+	public UserAccount findAccountByEmail(String email) {
+		Preconditions.checkArgument(!email.isEmpty());
 
 		Criteria criteria = currentSession().createCriteria(daoType)
-				.add(Restrictions.eq("username", username))
+				.add(Restrictions.eq("email", email))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 
-		@SuppressWarnings("unchecked")
-		List<UserAccount> accounts = (List<UserAccount>) criteria.list();
-
-		if (accounts.isEmpty()) {
-			return null;
-		} else if (accounts.size() == 1) {
-			return accounts.get(0);
-		}
-		logger.warn("findAccountByName("+username+") returned "+accounts.size()+" results: ");
-		
-		for (UserAccount acc : accounts)
-		{
-			logger.warn("Account ID: " + acc.getId());
-		}
-		return null;
+		return (UserAccount) criteria.uniqueResult();
 	}
 
 	@Override
