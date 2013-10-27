@@ -24,6 +24,8 @@ import javax.persistence.Version;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.Type;
 
 import com.google.common.base.Joiner;
@@ -80,17 +82,25 @@ public class UserAccount {
 	@Type(type="edu.columbia.ase.teamproject.persistence.domain.enumeration.PermissionUserType")
 	private List<Permission> permissions;
 
-	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch=FetchType.LAZY)
+	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinTable(name="Admin_Event",
 		joinColumns={@JoinColumn(name="userId")},
 		inverseJoinColumns={@JoinColumn(name="eventId")})
 	private List<Event> adminEvents;
 	
-	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch=FetchType.LAZY)
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinTable(name="User_Event",
     	joinColumns={@JoinColumn(name="userId")},
     	inverseJoinColumns={@JoinColumn(name="eventId")})
 	private List<Event> userEvents;
+	
+	
+	
+	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, orphanRemoval=true, mappedBy="userAccount")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<Vote> votes;
 	
 	
     @Version
@@ -242,5 +252,10 @@ public class UserAccount {
 	@Override
 	public int hashCode() {
 		return Objects.hashCode(username, accountType);
+	}
+	
+	public void removeVote(Vote vote){
+		Preconditions.checkNotNull(vote);
+		votes.remove(vote);
 	}
 }

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,7 @@ import edu.columbia.ase.teamproject.persistence.domain.Vote;
 import edu.columbia.ase.teamproject.persistence.domain.VoteCategory;
 import edu.columbia.ase.teamproject.persistence.domain.VoteOption;
 import edu.columbia.ase.teamproject.services.EventService;
+import edu.columbia.ase.teamproject.services.VoteService;
 import edu.columbia.ase.teamproject.util.GsonProvider;
 import edu.columbia.ase.teamproject.view.NavigationMenuEntry;
 import edu.columbia.ase.teamproject.view.NavigationMenuSection;
@@ -42,6 +44,9 @@ public final class VoteController {
 
 	@Autowired
 	EventService eventService;
+	
+	@Autowired
+	VoteService voteService;
 
 	@Autowired
 	GsonProvider gsonProvider;
@@ -78,22 +83,35 @@ public final class VoteController {
 		
 		model.put("_eventTitle", event.getDescription());
 		
-		@SuppressWarnings("unchecked")
-		List<NavigationMenuSection> nms =
-				(List<NavigationMenuSection>) model.get("_vote");
 		
-		for(VoteCategory v : event.getVoteCategories() ){
-
-			NavigationMenuSection voteCatSection =
-					new NavigationMenuSection(v.getDescription());
-			for(VoteOption vo : v.getVoteOptions()){
-				voteCatSection.addEntry(
-						new NavigationMenuEntry(v.getCategoryName(), vo.getId().toString(),vo.getOptionName()));
-			}
-			nms.add(voteCatSection);
+		
+		if(event.getEndTime().isBeforeNow()) //voting window ended
+		{
+			voteService.getResults(event);
+					
+				
+			return new ModelAndView("soy:edu.columbia.ase.vote.voteResults", model);
+			
 		}
-
-		return new ModelAndView("soy:edu.columbia.ase.vote.voteEvent", model);
+		else
+		{
+			@SuppressWarnings("unchecked")
+			List<NavigationMenuSection> nms =
+					(List<NavigationMenuSection>) model.get("_vote");
+			
+			for(VoteCategory v : event.getVoteCategories() ){
+	
+				NavigationMenuSection voteCatSection =
+						new NavigationMenuSection(v.getDescription());
+				for(VoteOption vo : v.getVoteOptions()){
+					voteCatSection.addEntry(
+							new NavigationMenuEntry(v.getCategoryName(), vo.getId().toString(),vo.getOptionName()));
+				}
+				nms.add(voteCatSection);
+			}
+	
+			return new ModelAndView("soy:edu.columbia.ase.vote.voteEvent", model);
+		}
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
@@ -110,9 +128,9 @@ public final class VoteController {
 		 StringTokenizer st = new StringTokenizer( IOUtils.toString(request.getInputStream()));
 	     
 		 while (st.hasMoreTokens()) {
-	    		VoteOption vo = voteOptionDao.find(Long.parseLong(st.nextToken()));
-	    		Vote v = new Vote(vo,user); 
-	    		voteDao.add(v);
+			 
+			 voteService.addVote(Long.parseLong(st.nextToken()),user);
+				
 	    	
 		 }
 		

@@ -35,6 +35,8 @@
 
   <bean id="eventService"
       class="edu.columbia.ase.teamproject.services.EventService" />
+<bean id="voteService"
+      class="edu.columbia.ase.teamproject.services.VoteService" />
 
 
   <!--

@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -18,6 +19,8 @@ import javax.persistence.Version;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import com.google.common.base.Preconditions;
 
@@ -42,7 +45,8 @@ public class VoteOption {
 	@ColumnLength(value = MAX_NAME_LENGTH)
 	private String optionName;
 
-	@OneToMany(cascade = {CascadeType.ALL}, fetch=FetchType.LAZY, orphanRemoval=true, mappedBy="id")
+	@OneToMany(/*cascade = {CascadeType.ALL}*/cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE},orphanRemoval=true, mappedBy="voteOption")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Vote> votes;
 	
     @Version
@@ -84,6 +88,11 @@ public class VoteOption {
 	public void addVote(Vote vote){
 		Preconditions.checkNotNull(vote);
 		votes.add(vote);
+	}
+	
+	public void removeVote(Vote vote){
+		Preconditions.checkNotNull(vote);
+		votes.remove(vote);
 	}
 
 	/**
