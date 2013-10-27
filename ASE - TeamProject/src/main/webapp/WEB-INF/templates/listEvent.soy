@@ -3,68 +3,11 @@
 /**
   * Event List Page
   * @param userName display name of the user
+  * @param publicEventData data for public events
+  * @param privateEventData data for private events
   */
 {template .listEvent}
 {call edu.columbia.ase.header data="all" /}
-{literal}
-  <script>
- 
- 
- $.ajax({
-		type: "GET",
-		url: "/app/getEventsPublic.do",
-		dataType: "json",
-	})
-	.done(function( data ) {
-    
-    	console.log(JSON.stringify(data));
-    	console.dir(data);
-    
- 		var eventHtml = [];
-    
-    	eventHtml.push("<div id=\"list4\"><ul>");
-    	$.each(data, function(index, e){     
-        		console.dir(e);
-        		var title = e.description
-        		if( title == "" ) title = e.name
-        		eventHtml.push( "<li>", "<a href=\"/app/voteEvent.do?event=", e.id,  "\" title=\"", title, "\"><strong>",  e.name, "</strong></a></li>");
-    	 });
-    	 eventHtml.push("</ul></div>");
-    	 
-    	 console.log(eventHtml);
-    	 
-    	 $("#public").html(eventHtml.join(''));
-	});
- 
-  $.ajax({
-		type: "GET",
-		url: "/app/getEventsPrivate.do",
-		dataType: "json",
-	})
-	.done(function( data ) {
-    
-    	console.log(JSON.stringify(data));
-    	console.dir(data);
-    
- 		var eventHtml = [];
-    
-    	eventHtml.push("<div id=\"list4\"><ul>");
-    	$.each(data, function(index, e){     
-        		console.dir(e);
-        		var title = e.description
-        		if( title == "" ) title = e.name
-        		eventHtml.push( "<li>", "<a href=\"/app/voteEvent.do?event=", e.id,  "\" title=\"", title, "\"><strong>",  e.name, "</strong></a></li>");
-    	 });
-    	 eventHtml.push("</ul></div>");
-    	 
-    	 console.log(eventHtml);
-    	 
-    	 $("#private").html(eventHtml.join(''));
-	});
- 
- 
-  </script>
-{/literal}  
 
 <div class="content_left">
 
@@ -74,12 +17,35 @@
   <div class="newsitem">
     <div class="title">Private Events</div>
     <div class="body" id="private">
+      <div id="list4">
+        <ul>
+        {foreach $event in $privateEventData}
+        <li>
+          <a href="/app/voteEvent.do?event={$event.id}" title="{$event.description}">
+            <strong>{$event.name}</strong>
+          </a>
+        </li>
+        {/foreach}
+        </ul>
+      </div>
+
     </div>
   </div>  
 
   <div class="newsitem">
     <div class="title">Public Events</div>
     <div class="body" id="public">
+      <div id="list4">
+        <ul>
+        {foreach $event in $publicEventData}
+        <li>
+          <a href="/app/voteEvent.do?event={$event.id}" title="{$event.description}">
+            <strong>{$event.name}</strong>
+          </a>
+        </li>
+        {/foreach}
+        </ul>
+      </div>
     </div>
   </div>  
    
