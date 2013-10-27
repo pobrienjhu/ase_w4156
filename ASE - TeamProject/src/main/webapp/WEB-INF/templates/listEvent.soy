@@ -25,7 +25,9 @@
     	eventHtml.push("<div id=\"list4\"><ul>");
     	$.each(data, function(index, e){     
         		console.dir(e);
-        		eventHtml.push( "<li>", "<a href=\"/app/voteEvent.do?event=", e.id,  "\" title=\"", e.description, "\"><strong>",  e.name, "</strong></a></li>");
+        		var title = e.description
+        		if( title == "" ) title = e.name
+        		eventHtml.push( "<li>", "<a href=\"/app/voteEvent.do?event=", e.id,  "\" title=\"", title, "\"><strong>",  e.name, "</strong></a></li>");
     	 });
     	 eventHtml.push("</ul></div>");
     	 
@@ -49,7 +51,9 @@
     	eventHtml.push("<div id=\"list4\"><ul>");
     	$.each(data, function(index, e){     
         		console.dir(e);
-        		eventHtml.push( "<li>", "<a href=\"/app/voteEvent.do?event=", e.id,  "\" title=\"", e.description, "\"><strong>",  e.name, "</strong></a></li>");
+        		var title = e.description
+        		if( title == "" ) title = e.name
+        		eventHtml.push( "<li>", "<a href=\"/app/voteEvent.do?event=", e.id,  "\" title=\"", title, "\"><strong>",  e.name, "</strong></a></li>");
     	 });
     	 eventHtml.push("</ul></div>");
     	 
