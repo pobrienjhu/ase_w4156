@@ -6,10 +6,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-public class DummyUserDetailsService implements UserDetailsService {
+public class ApiUserDetailsService implements UserDetailsService {
 
 	private static final Logger logger =
-			LoggerFactory.getLogger(DummyUserDetailsService.class);
+			LoggerFactory.getLogger(ApiUserDetailsService.class);
 
 	@Override
 	public UserDetails loadUserByUsername(String username)

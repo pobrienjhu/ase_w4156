@@ -37,7 +37,7 @@
 			rev="3.1" conf="runtime->default" />
 		<dependency org="commons-beanutils" name="commons-beanutils-core" 
 			rev="1.8.3" conf="runtime->default" />
-		<dependency org="com.google.guava" name="guava" rev="12.0"
+		<dependency org="com.google.guava" name="guava" rev="15.0"
 			conf="runtime->default" />
 
 		<!-- Joda used for time related objects -->

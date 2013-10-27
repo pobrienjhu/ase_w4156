@@ -9,12 +9,13 @@
 
   <http use-expressions="true">
 
-    <intercept-url pattern="/" access="permitAll" />
+    <intercept-url pattern="/" access="permitAll" /> 
     <intercept-url pattern="/logout" access="permitAll" />
     <intercept-url pattern="/favicon.ico" access="permitAll" />
     <intercept-url pattern="/index.html" access="permitAll" />
     <intercept-url pattern="/index.do" access="permitAll" />
     <intercept-url pattern="/login.do" access="permitAll" />
+    <intercept-url pattern="/apiLogin.do" access="permitAll" />
     <intercept-url pattern="/static/**" access="permitAll" />
 
     <!-- TODO(pames): add catch-all paths for, e.g. /js/, /static/, ... -->
@@ -34,6 +35,9 @@
         </attribute-exchange>
     </openid-login>
 
+    <form-login login-processing-url="/apiLogin.do"
+        username-parameter="method" password-parameter="token" />
+
     <logout logout-url="/logout"/>
     <csrf token-repository-ref="csrfTokenService"
         request-matcher-ref="csrfRequestMatcher" />
@@ -50,10 +54,12 @@
 
   <beans:bean name="openIdUserService"
       class="edu.columbia.ase.teamproject.security.OpenIdAuthenticationTokenConsumer" />
-  <beans:bean name="userService"
-      class="edu.columbia.ase.teamproject.security.DummyUserDetailsService" />
+
+  <beans:bean name="authkeyAuthenticationProvider"
+      class="edu.columbia.ase.teamproject.security.AuthKeyAuthenticationProvider">      
+  </beans:bean>
 
   <authentication-manager>
-      <authentication-provider user-service-ref="userService" />
+      <authentication-provider ref="authkeyAuthenticationProvider" />
   </authentication-manager>
 </beans:beans>

@@ -11,7 +11,7 @@ public class CsrfRequestMatcher implements RequestMatcher {
 	private static final ImmutableList<String> CSRF_UNPROTECTED_METHODS =
 			ImmutableList.<String>of("GET", "HEAD");
 	private static final ImmutableList<String> CSRF_UNPROTECTED_URLS =
-			ImmutableList.<String>of("/logout");
+			ImmutableList.<String>of("/logout", "/apilogin.do");
 
 	@Override
 	public boolean matches(HttpServletRequest request) {
