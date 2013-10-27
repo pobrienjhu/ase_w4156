@@ -43,6 +43,20 @@ $.ajax({
   })
 .done(createEventList('private'));
 
+$.ajax({
+    type: "GET",
+    url: "/app/getEventsPublic.do?eventType=completed",
+    dataType: "json"
+  })
+.done(createEventList('completedPublic'));
+
+$.ajax({
+    type: "GET",
+    url: "/app/getEventsPrivate.do?eventType=completed",
+    dataType: "json"
+  })
+.done(createEventList('completedPrivate'));
+
 
 </script>
 {/literal}
@@ -63,7 +77,17 @@ $.ajax({
     </div>
   </div>  
    
+  <div class="newsitem">
+    <div class="title">Completed Public Events</div>
+    <div class="body" id="completedPublic">
+    </div>
+  </div>    			  
   			  
+   <div class="newsitem">
+    <div class="title">Completed Private Events</div>
+    <div class="body" id="completedPrivate">
+    </div>
+  </div>   			  
   
 </div>
 {call edu.columbia.ase.footer /}

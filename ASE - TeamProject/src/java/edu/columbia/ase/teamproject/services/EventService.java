@@ -253,7 +253,7 @@ public class EventService {
 	 */
 	public Collection<Event> getAllCompletedPrivateEventsForUserId(DateTime currentTime, Long userId){
 		try {
-			return eventDao.getAllCompletedPublicEvents(currentTime);
+			return eventDao.getAllCompletedPrivateEventsForUserId(currentTime, userId);
 		} catch (Exception e) {
 			logger.error("Unable to retrieve completed private eventsfor userId ("+userId+"). Root Cause ("+e.getLocalizedMessage()+")");
 		}
