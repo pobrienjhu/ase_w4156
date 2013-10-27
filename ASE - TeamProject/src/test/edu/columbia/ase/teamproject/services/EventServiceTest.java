@@ -89,26 +89,44 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 		Event fetchedEvent = eventDao.find(eventId);
 		// TODO: when Event implements equals(), replace w/this
 		//assertEquals(fetchedEvent, e);
-		assertNotNull(fetchedEvent);
+		assertEquals("Test Event Name", fetchedEvent.getName());
+		assertEquals("Event Description", fetchedEvent.getDescription());
+		assertEquals(EventType.PRIVATE, fetchedEvent.getEventType());
+	}
 
-		// Make a change to a referenced property to imitate a client modifying the serialized state.
-		assertFalse(fetchedEvent.getAdminUsers().size() == 0);
-		fetchedEvent.getAdminUsers().get(0).setPassword("bogus");
+	@Test
+	public void testUpdateEvent() {
+		Event e = eventService.createEvent(userAccount, "Test Event Name",
+				"Event Description", EventType.PRIVATE,
+				DateTime.now().plus(Duration.standardDays(1)),
+				DateTime.now().plus(Duration.standardDays(2)),
+				Collections.<VoteCategory> emptyList());
+		long eventId = e.getId();
 
-		// Legitimately change a property of the event.
-		fetchedEvent.setDescription("new description");
+		UserAccount deserializedUserAccount = new UserAccount(
+				AccountType.LOCAL, "user", "bogus displayName", "bogus",
+				"user@example.com",
+				Arrays.asList(new Permission[]{Permission.USER}));
+		deserializedUserAccount.setId(userAccount.getId());
+		Event deserializedEvent = new Event(deserializedUserAccount,
+				"new event name", "new description", EventType.PUBLIC,
+				DateTime.now().plus(Duration.standardDays(2)),
+				DateTime.now().plus(Duration.standardDays(3)),
+				Collections.<VoteCategory> emptyList());
+		deserializedEvent.setId(eventId);
+		deserializedEvent.addEventUser(deserializedUserAccount);
 
-		Session session = sessionFactory.getCurrentSession();
-		session.save(fetchedEvent);
+		eventService.updateEvent(userAccount, eventId, deserializedEvent);
 
 		// Retrieve the most recent copy from the database.
 		UserAccount fetchedUser = userAccountDao.findAccountByNameAndType("user",
 				AccountType.LOCAL);
 
-		fetchedEvent = eventDao.find(eventId);
+		Event fetchedEvent = eventDao.find(eventId);
 
 		// This change should be permitted.
 		assertTrue(fetchedEvent.getDescription().equals("new description"));
+		assertEquals(1, fetchedEvent.getEventUsers().size());
 
 		// This should not be permitted, or else anyone can overwrite any record in our database
 		assertFalse(fetchedUser.getPassword().equals("bogus"));

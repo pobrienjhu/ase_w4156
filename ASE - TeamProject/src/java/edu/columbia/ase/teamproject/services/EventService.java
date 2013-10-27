@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Preconditions;
+import com.google.common.collect.Lists;
 
 import edu.columbia.ase.teamproject.persistence.dao.EventDao;
 import edu.columbia.ase.teamproject.persistence.dao.UserAccountDao;
@@ -105,6 +106,28 @@ public class EventService {
 
 	}
 
+	private List<UserAccount> trustedUserDataFromUserList(List<UserAccount> accounts) {
+		Preconditions.checkNotNull(accounts);
+		List<Long> userIds = Lists.newArrayList();
+		List<UserAccount> userData = Lists.newArrayList();
+
+		for (UserAccount user : accounts) {
+			if (user.getId() != null) {
+				userIds.add(user.getId());
+			}
+		}
+
+		for (Long id : userIds) {
+			UserAccount user = userDao.find(id);
+			if (user != null) {
+				userData.add(user);
+			} else {
+				logger.warn("passed bogus user id " + id + " for event");
+			}
+		}
+		return userData;
+	}
+
 	/** 
 	 * Certain fields in an Event should be immutable from the client.  These
 	 * fields are:
@@ -120,8 +143,17 @@ public class EventService {
 	 */
 	private void replaceImmutableClientFieldsWithTrustedData(Event e) {
 		Preconditions.checkNotNull(e);
-		// TODO(pames): retrieve the user data.
-		// TODO(pames): retrieve the Vote data.
+
+		List<UserAccount> trustedUserData =
+				trustedUserDataFromUserList(e.getEventUsers());
+		List<UserAccount> trustedAdminData =
+				trustedUserDataFromUserList(e.getAdminUsers());
+		e.getEventUsers().clear();
+		e.addAllEventUser(trustedUserData);
+		e.getAdminUsers().clear();
+		e.addAllAdminUser(trustedAdminData);
+
+		// TODO(pames): retrieve / protect the Vote data.
 	}
 
 	@VisibleForTesting
@@ -133,6 +165,10 @@ public class EventService {
 		}
 
 		Event event = eventDao.find(eventId);
+		return userCanUpdateEvent(user, event);
+	}
+
+	private boolean userCanUpdateEvent(UserAccount user, Event event) {
 		if (event == null) {
 			// XXX: is this OK?  It allows someone to specify an arbitrary
 			// event id.
@@ -140,7 +176,7 @@ public class EventService {
 		}
 
 		return event.getAdminUsers().contains(user) ||
-				user.getPermissions().contains(Permission.ADMIN);
+				user.getPermissions().contains(Permission.ADMIN);		
 	}
 
 	/*
@@ -255,6 +291,47 @@ public class EventService {
 		validateEvent(event);
 		replaceImmutableClientFieldsWithTrustedData(event);
 		return eventDao.add(event);
+	}
+
+	public Event updateEvent(UserAccount requestor, Long id, Event newData) {
+		Preconditions.checkNotNull(requestor);
+		Preconditions.checkNotNull(id);
+		Preconditions.checkNotNull(newData);
+
+		logger.info("Updating event " + id);
+		Event existing = eventDao.find(id);
+		if (!userCanUpdateEvent(requestor, existing)) {
+			logger.info("user " + requestor.getId() + " cannot update event " + id);
+			// XXX: throw exception?
+			return null;
+		}
+
+		if (DateTime.now().isAfter(existing.getStartTime())) {
+			logger.info("attempt to update event after start time has failed");
+			return null;
+		}
+
+		validateEvent(newData);
+		replaceImmutableClientFieldsWithTrustedData(newData);
+
+		existing.setName(newData.getName());
+		existing.setDescription(newData.getDescription());
+		existing.setStartTime(newData.getStartTime());
+		existing.setEndTime(newData.getEndTime());
+		existing.setEventType(newData.getEventType());
+
+		// TODO(pames): serialize admin users to client + sanitize
+		existing.getAdminUsers().clear();
+		existing.addAllAdminUser(newData.getAdminUsers());
+
+		existing.getEventUsers().clear();
+		existing.addAllEventUser(newData.getEventUsers());
+
+		existing.getVoteCategories().clear();
+		for (VoteCategory category : newData.getVoteCategories()) {
+			existing.addVoteCategory(category);
+		}
+		return eventDao.add(existing);
 	}
 
 	public Event lookupEvent(UserAccount requestor, Long id) {
