@@ -28,8 +28,8 @@ import edu.columbia.ase.teamproject.services.EventService;
 import edu.columbia.ase.teamproject.util.GsonProvider;
 
 @Controller
-@RequestMapping("/app/getEventsPrivate.do")
-public class GetEventsPrivateController {
+@RequestMapping("/app/getEventsAdmin.do")
+public class GetEventsAdminController {
 	
 	@Autowired
 	EventService eventService;
@@ -41,7 +41,7 @@ public class GetEventsPrivateController {
 	GsonProvider gsonProvider;
 
 	private static final Logger logger = LoggerFactory
-			.getLogger(GetEventsPrivateController.class);
+			.getLogger(GetEventsAdminController.class);
 
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
@@ -59,12 +59,15 @@ public class GetEventsPrivateController {
 			
 			UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().
 					getAuthentication().getPrincipal();
+			
 			UserAccount user = userAccountDao.findAccountByUserDetails(userDetails);
 
 			if( StringUtils.equalsIgnoreCase(eventType, "active") ){
-				events = eventService.getAllActivePrivateEventsForUserId(new DateTime(), user.getId()) ;
+				events = eventService.getAllActiveAdminEventsForUserId(new DateTime(), user.getId()) ;
+			} else if( StringUtils.equalsIgnoreCase(eventType, "future") ){
+				events = eventService.getAllFutureAdminEventsForUserId(new DateTime(), user.getId());
 			} else if ( StringUtils.equalsIgnoreCase(eventType, "completed") ) {
-				events = eventService.getAllCompletedPrivateEventsForUserId(new DateTime(), user.getId());
+				events = eventService.getAllCompletedAdminEventsForUserId(new DateTime(), user.getId());
 			}
 			
 			if (events != null) {

@@ -203,14 +203,46 @@ div.footer a {
 }
 
 
-/* LIST #4  (iphone list) */
-#list4 { width:320px; font-family:Georgia, Times, serif; font-size:15px; }
-#list4 ul { list-style: none; }
-#list4 ul li { }
-#list4 ul li a { display:block; text-decoration:none; color:#000000; background-color:#FFFFFF; line-height:30px;
+/* List event page CSS */
+#privateList { width:320px; font-family:Georgia, Times, serif; font-size:15px; }
+#privateList ul { list-style: none; }
+#privateList ul li { }
+#privateList ul li a { display:block; text-decoration:none; color:#000000; background-color:#FFFFFF; line-height:30px;
   border-bottom-style:solid; border-bottom-width:1px; border-bottom-color:#CCCCCC; padding-left:10px; cursor:pointer; }
-#list4 ul li a:hover { color:#FFFFFF; background-image:url(/static/img/hover.png); background-repeat:repeat-x; }
-#list4 ul li a strong { margin-right:10px; }
+#privateList ul li a:hover { color:#FFFFFF; background-image:url(/static/img/hover.png); background-repeat:repeat-x; }
+#privateList ul li a strong { margin-right:10px; }
+
+#publicList { width:320px; font-family:Georgia, Times, serif; font-size:15px; }
+#publicList ul { list-style: none; }
+#publicList ul li { }
+#publicList ul li a { display:block; text-decoration:none; color:#000000; background-color:#FFFFFF; line-height:30px;
+  border-bottom-style:solid; border-bottom-width:1px; border-bottom-color:#CCCCCC; padding-left:10px; cursor:pointer; }
+#publicList ul li a:hover { color:#FFFFFF; background-image:url(/static/img/hover.png); background-repeat:repeat-x; }
+#publicList ul li a strong { margin-right:10px; }
+
+#completedPrivateList { width:320px; font-family:Georgia, Times, serif; font-size:15px; }
+#completedPrivateList ul { list-style: none; }
+#completedPrivateList ul li { }
+#completedPrivateList ul li a { display:block; text-decoration:none; color:#000000; background-color:#FFFFFF; line-height:30px;
+  border-bottom-style:solid; border-bottom-width:1px; border-bottom-color:#CCCCCC; padding-left:10px; cursor:pointer; }
+#completedPrivateList ul li a:hover { color:#FFFFFF; background-image:url(/static/img/hover.png); background-repeat:repeat-x; }
+#completedPrivateList ul li a strong { margin-right:10px; }
+
+#completedPublicList { width:320px; font-family:Georgia, Times, serif; font-size:15px; }
+#completedPublicList ul { list-style: none; }
+#completedPublicList ul li { }
+#completedPublicList ul li a { display:block; text-decoration:none; color:#000000; background-color:#FFFFFF; line-height:30px;
+  border-bottom-style:solid; border-bottom-width:1px; border-bottom-color:#CCCCCC; padding-left:10px; cursor:pointer; }
+#completedPublicList ul li a:hover { color:#FFFFFF; background-image:url(/static/img/hover.png); background-repeat:repeat-x; }
+#completedPublicList ul li a strong { margin-right:10px; }
+
+#adminList { width:320px; font-family:Georgia, Times, serif; font-size:15px; }
+#adminList ul { list-style: none; }
+#adminList ul li { }
+#adminList ul li a { display:block; text-decoration:none; color:#000000; background-color:#FFFFFF; line-height:30px;
+  border-bottom-style:solid; border-bottom-width:1px; border-bottom-color:#CCCCCC; padding-left:10px; cursor:pointer; }
+#adminList ul li a:hover { color:#FFFFFF; background-image:url(/static/img/hover.png); background-repeat:repeat-x; }
+#adminList ul li a strong { margin-right:10px; }
 
 
 /* Create Event */

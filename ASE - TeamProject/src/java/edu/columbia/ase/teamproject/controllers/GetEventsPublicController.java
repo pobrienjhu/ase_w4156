@@ -52,7 +52,7 @@ public class GetEventsPublicController {
 			
 			if( StringUtils.equalsIgnoreCase(eventType, "active") ){
 				events = eventService.getAllActivePublicEvents(new DateTime());
-			} else {
+			} else if ( StringUtils.equalsIgnoreCase(eventType, "completed") ) {
 				events = eventService.getAllCompletedPublicEvents(new DateTime());
 			}
 					
