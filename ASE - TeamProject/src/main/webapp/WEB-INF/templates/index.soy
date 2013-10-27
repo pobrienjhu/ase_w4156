@@ -156,6 +156,52 @@
   */
 {template .admin}
 {call .header data="all" /}
+{literal}
+<script>
+
+function createEventList(listType) {
+  return function(data) {
+    console.log(listType);
+    var div = document.createElement('div');
+    var ul = document.createElement('ul');
+    div.appendChild(ul);
+    div.setAttribute('id', 'adminList');
+    for (var i = 0; i < data.length, e = data[i]; i++) {
+      var li = document.createElement('li');
+      var anchor = document.createElement('a');
+      anchor.setAttribute('href', '#?id=' + e.id);
+      anchor.setAttribute('title', e.description);
+      anchor.innerText = e.name;
+      li.appendChild(anchor);
+      ul.appendChild(li);
+    }
+    $('#' + listType).append(div);
+  };
+}
+
+$.ajax({
+    type: "GET",
+    url: "/app/getEventsAdmin.do?eventType=future",
+    dataType: "json"
+  })
+.done(createEventList('future'));
+
+$.ajax({
+    type: "GET",
+    url: "/app/getEventsAdmin.do",
+    dataType: "json"
+  })
+.done(createEventList('active'));
+
+$.ajax({
+    type: "GET",
+    url: "/app/getEventsAdmin.do?eventType=completed",
+    dataType: "json"
+  })
+.done(createEventList('completed'));
+
+</script>
+{/literal}
 <div class="content_left">
   <div class="date">Administration</div>
   {if $message}
@@ -189,9 +235,27 @@
           </div>
       <input type="submit" value="Submit" />
       </form>
-    </div>
+    </div> 
     <div class="clearer"><span></span></div>
   </div>
+  
+  <div class="newsitem">
+    <div class="title">Upcoming Events</div>
+    <div class="body" id="future">
+    </div>
+  </div>  
+  
+  <div class="newsitem">
+    <div class="title">Currently Active Events</div>
+    <div class="body" id="active">
+    </div>
+  </div>  
+  
+  <div class="newsitem">
+    <div class="title">Completed Events</div>
+    <div class="body" id="completed">
+    </div>
+  </div>  
 
 </div>
 {call .footer /}

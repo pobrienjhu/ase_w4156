@@ -59,6 +59,7 @@ public class GetEventsAdminController {
 			
 			UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().
 					getAuthentication().getPrincipal();
+			
 			UserAccount user = userAccountDao.findAccountByUserDetails(userDetails);
 
 			if( StringUtils.equalsIgnoreCase(eventType, "active") ){
