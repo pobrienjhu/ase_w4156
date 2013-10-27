@@ -169,7 +169,7 @@ function createEditEventList(listType) {
     for (var i = 0; i < data.length, e = data[i]; i++) {
       var li = document.createElement('li');
       var anchor = document.createElement('a');
-      anchor.setAttribute('href', '#?id=' + e.id);
+      anchor.setAttribute('href', '/app/voteEvent.do?event=' + e.id);
       anchor.setAttribute('title', e.description);
       anchor.innerText = e.name;
       li.appendChild(anchor);
@@ -189,7 +189,7 @@ function createEventList(listType) {
     for (var i = 0; i < data.length, e = data[i]; i++) {
       var li = document.createElement('li');
       var anchor = document.createElement('a');
-      anchor.setAttribute('href', '#?id=' + e.id);
+      anchor.setAttribute('href', '/app/voteEvent.do?event=' + e.id);
       anchor.setAttribute('title', e.description);
       anchor.innerText = e.name;
       li.appendChild(anchor);
