@@ -30,3 +30,7 @@ INSERT INTO VoteOption values(default, 3, 'reva Category 3 Option 3' ,default,0)
 
 insert into user_event values(1,1)
 
+INSERT INTO "PUBLIC"."VOTE"
+( "ID", "USERID", "VOTEOPTIONID", "VOTETIME" )
+VALUES (default ,1 ,1 ,current_timestamp )
+

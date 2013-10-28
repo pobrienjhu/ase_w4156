@@ -2,6 +2,7 @@ package edu.columbia.ase.teamproject;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,8 +25,11 @@ import org.springframework.transaction.annotation.Transactional;
 import edu.columbia.ase.teamproject.persistence.dao.EventDao;
 import edu.columbia.ase.teamproject.persistence.dao.UserAccountDao;
 import edu.columbia.ase.teamproject.persistence.dao.VoteCategoryDao;
+import edu.columbia.ase.teamproject.persistence.dao.VoteDao;
+import edu.columbia.ase.teamproject.persistence.dao.VoteOptionDao;
 import edu.columbia.ase.teamproject.persistence.domain.Event;
 import edu.columbia.ase.teamproject.persistence.domain.UserAccount;
+import edu.columbia.ase.teamproject.persistence.domain.Vote;
 import edu.columbia.ase.teamproject.persistence.domain.VoteCategory;
 import edu.columbia.ase.teamproject.persistence.domain.VoteOption;
 import edu.columbia.ase.teamproject.persistence.domain.enumeration.AccountType;
@@ -34,8 +38,7 @@ import edu.columbia.ase.teamproject.security.Permission;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:spring-db.xml")
-@TransactionConfiguration(defaultRollback = true)
-@Transactional 
+
 public class PersistenceTest extends AbstractTransactionalJUnit4SpringContextTests{
 
     //static {
@@ -53,6 +56,16 @@ public class PersistenceTest extends AbstractTransactionalJUnit4SpringContextTes
 	 @Autowired
 	 private VoteCategoryDao voteCategoryDao;
 
+	 @Autowired
+	 private VoteOptionDao voteOptionDao;
+	 
+	 @Autowired
+	 private VoteDao voteDao;
+	 
+	 private long eventId;
+	 private long userId;
+	 private long voId;
+	 
 	 @Before
 	 public void setUp() {
 		 /*
@@ -72,9 +85,10 @@ public class PersistenceTest extends AbstractTransactionalJUnit4SpringContextTes
 				 Arrays.asList(new Permission[]{Permission.USER}));
 		 
 		 user1 = userAccountDao.add(user1);
+		
 		 user2 = userAccountDao.add(user2);		 
 		 admin = userAccountDao.add(admin);
-		 
+		 userId = user1.getId();
 		 /*
 		  * Add Events
 		  */
@@ -86,6 +100,7 @@ public class PersistenceTest extends AbstractTransactionalJUnit4SpringContextTes
 		 event.addEventUser(user2);
 		 
 		 event = eventDao.add(event);
+		 eventId = event.getId();
 		 eventDao.flush();
 		 
 		 /*
@@ -96,6 +111,7 @@ public class PersistenceTest extends AbstractTransactionalJUnit4SpringContextTes
 		 VoteCategory category2 = new VoteCategory("category2", "Second Test category");
 		 
 		 category1.addVotingOption(new VoteOption("option 1"));
+		 //voId = category1.getVoteOptions().get(0).getId();
 		 category1.addVotingOption(new VoteOption("option 2"));
 		 category1.addVotingOption(new VoteOption("option 3"));
 
@@ -239,7 +255,51 @@ public class PersistenceTest extends AbstractTransactionalJUnit4SpringContextTes
 		 }
 	 }
 	 
-	 
+	 @Test 
+	 public void testVoteDao()
+	 {
+		 Event e = eventDao.find(eventId);
+		
+		 UserAccount user = userAccountDao.find(userId);
+		 System.out.println(userId);
+		 
+			VoteOption vo = voteOptionDao.find(e.getVoteCategories().get(0).getVoteOptions().get(0).getId());
+			 System.out.println(vo.getVoteCategory().getEvent().getId());
+			
+		Vote v = new Vote(vo,user); 
+		v.setUserAccount(user);
+		v.setVoteOption(vo);
+	voteDao.add(v);
+	
+	System.out.println("size" +  voteDao.list().size());
+	
+	for(Vote v2 : voteDao.list()){ 
+//	v2.getVoteOption().removeVote(v2);
+	//v2.getUserAccount().removeVote(v2);
+		voteDao.remove(v2);
+	
+	//voteDao.update(v2);
+		
+	}
+	
+	System.out.println("size" +  voteDao.list().size());
+		/*	for(Vote v2 : vo.getVotes()){
+				System.out.println("test");
+				if(v2.getVoteOption().getVoteCategory()==v.getVoteOption().getVoteCategory() && v2.getUserAccount()==user)
+					voteDao.remove(v2);
+			}*/
+			// e.getVoteCategories().get(0).getVoteOptions().get(0).addVote(v);
+			//vo.addVote(v);
+		
+		//	eventDao.update(e);
+		//	System.out.println("size" +   e.getVoteCategories().get(0).getVoteOptions().get(0).getVotes().size());
+		
+			//System.out.println("size" +  voteDao.list().size());
+			/*
+			
+			assertTrue(vo.getVotes().size()>=1);
+			*/
+	 }
 	 
 	 
 }

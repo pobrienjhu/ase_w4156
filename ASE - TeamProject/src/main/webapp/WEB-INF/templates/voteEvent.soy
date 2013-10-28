@@ -1,7 +1,8 @@
 {namespace edu.columbia.ase.vote autoescape="contextual"}
 
+
 /**
-  * Create Event Page
+  * Vote Event Page
   * @param _csrf CSRF token 
   * @param _vote
   * @param _eventTitle
@@ -92,5 +93,31 @@
    
  </div>
  </div>
+{call edu.columbia.ase.footer /}
+{/template}
+
+
+
+/**
+  * Vote Results Page
+  * @param _eventTitle
+  */  
+{template .voteResults}
+{call edu.columbia.ase.header data="all" /}
+{literal}
+ <script>
+ </script>
+ {/literal}
+ 
+ <div class="content_left">
+ 
+    <div class="body">
+  
+    <div class="date" >{$_eventTitle} Results!</div>
+    
+   <br />  
+
+</div>
+</div>
 {call edu.columbia.ase.footer /}
 {/template}

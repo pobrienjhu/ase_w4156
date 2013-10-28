@@ -29,11 +29,11 @@ public class Vote {
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
 	private LocalDateTime voteTime;
 	
-	@ManyToOne(cascade={CascadeType.ALL})
+	@ManyToOne(targetEntity = VoteOption.class)/* (cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}) /*(cascade={CascadeType.ALL})*/
     @JoinColumn(name="voteOptionId")
 	private VoteOption voteOption;
 	
-	@ManyToOne(cascade={CascadeType.ALL})
+	@ManyToOne (targetEntity = UserAccount.class)/*(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})*/ /*(cascade={CascadeType.ALL})*/
     @JoinColumn(name="userId")
 	private UserAccount userAccount;
 

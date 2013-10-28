@@ -30,10 +30,7 @@ public class Main {
 		server.setHandler(webAppContext);
 		server.start();
 		server.join();
-		org.hsqldb.util.DatabaseManagerSwing.main(new String[] {
-				  "--url",  "jdbc:hsqldb:mem:dataSource", "--noexit"
-				});
-
+	
 	}
 
 }
