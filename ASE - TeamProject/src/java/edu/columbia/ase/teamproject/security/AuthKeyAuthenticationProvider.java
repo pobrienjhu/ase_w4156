@@ -20,7 +20,6 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 
 import com.google.common.base.Joiner;
-import com.google.common.io.BaseEncoding;
 
 import edu.columbia.ase.teamproject.persistence.dao.UserAccountDao;
 import edu.columbia.ase.teamproject.persistence.domain.UserAccount;
@@ -32,55 +31,6 @@ public class AuthKeyAuthenticationProvider implements AuthenticationProvider {
 
 	private static final Logger logger =
 			LoggerFactory.getLogger(AuthKeyAuthenticationProvider.class);
-
-	private class AuthKey {
-		private final Long id;
-		private final byte[] providedMac;
-
-		/*
-		 * authKey should be of the form:
-		 * base64(id:base64(hmac(id, secret)))
-		 */
-		public AuthKey(String authKey) {
-			String decoded = new String(BaseEncoding.base64().decode(authKey));
-			String [] parts = decoded.split(":", 2);
-			if (parts.length != 2) {
-				throw new IllegalArgumentException();
-			}
-			this.id = Long.valueOf(parts[0]);
-			this.providedMac = BaseEncoding.base64().decode(parts[1]);
-		}
-
-		public Long getId() {
-			return id;
-		}
-
-		public boolean isAuthKeyValid(String secret) {
-			try {
-				Mac mac = Mac.getInstance("HmacSHA256");
-				SecretKeySpec secretKey = new SecretKeySpec(secret.getBytes(),
-						"HmacSHA256");
-				mac.init(secretKey);
-				mac.update(id.byteValue());
-				byte [] expectedMac = mac.doFinal();
-				if (expectedMac.length != providedMac.length) {
-					return false;
-				}
-				int differences = 0;
-				for (int i = 0; i < expectedMac.length; i++) {
-					if (expectedMac[i] != providedMac[i]) {
-						differences++;
-					}
-				}
-				return differences == 0;
-			} catch (NoSuchAlgorithmException e) {
-				logger.warn(e.getMessage());
-			} catch (InvalidKeyException e) {
-				logger.warn(e.getMessage());
-			}
-			return false;
-		}
-	}
 
 	@Override
 	public Authentication authenticate(Authentication authentication)

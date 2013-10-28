@@ -62,6 +62,7 @@
     {/if}
     {if $_authenticated}
     <ul>
+      <li><div><a href="/app/mobileSetup.do">Mobile App Setup</a></div></li>
       <li><div><a href="#" id="logout-href">Logout</a></div></li>
     </ul>
     {/if}
@@ -124,23 +125,32 @@
 {/template}
 
 /**
-  * A template for a protected page.
+  * Mobile App Setup page.
+  * @param apiKey the API key for this user
   */
-{template .protected}
+{template .mobile}
 {call .header data="all" /}
+<script>
+  var apiKey = '{$apiKey}';
+{literal}
+  function displayApiKey() {
+    var img = document.createElement('img');
+    img.setAttribute('src', '//chart.googleapis.com/chart?chs=128x128&cht=qr&chl='
+      + apiKey);
+    $('#apiKeyDiv').append(img);
+    var div = document.createElement('div');
+    div.innerText = 'Scan the above code using your mobile application.';
+    $('#apiKeyDiv').append(div);
+  }
+{/literal}
+</script>
 <div class="content_left">
-  <div class="date">Large header?</div>
+  <div class="date">Mobile App Setup</div>
   <div class="newsitem">
-    <div class="title">Title</div>
-    <div class="body">
-      <p><a href="/admin/index.do">Find out whether you're an admin!</a></p>
-    </div>
-    <div class="clearer"><span></span></div>
-  </div>
-  <div class="newsitem">
-    <div class="title">Title</div>
-    <div class="body">
-      <p>Lorem ipsum...</p>
+    <div class="title">API Key</div>
+    <div class="body" id="apiKeyDiv">
+      <p>Click <a href="#" onclick="displayApiKey();">here</a> to generate an
+         authenticator for your mobile device.</p>
     </div>
     <div class="clearer"><span></span></div>
   </div>
