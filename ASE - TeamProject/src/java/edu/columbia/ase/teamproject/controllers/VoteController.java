@@ -1,6 +1,7 @@
 package edu.columbia.ase.teamproject.controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -70,7 +71,7 @@ public final class VoteController {
 
 		Map<String, Object> model = ControllerHelper.createBaseModel(session);
 
-		model.put("title", "Event Voting");
+		
 	
 		
 
@@ -87,14 +88,17 @@ public final class VoteController {
 		
 		if(event.getEndTime().isBeforeNow()) //voting window ended
 		{
-			voteService.getResults(event);
-					
-				
+			model.put("title", "Voting Results");
+			
+			model.put("_results",voteService.getResults(event));
+			
 			return new ModelAndView("soy:edu.columbia.ase.vote.voteResults", model);
 			
 		}
 		else
 		{
+			model.put("title", "Event Voting");
+			
 			@SuppressWarnings("unchecked")
 			List<NavigationMenuSection> nms =
 					(List<NavigationMenuSection>) model.get("_vote");

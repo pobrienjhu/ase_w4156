@@ -54,6 +54,7 @@ public class ControllerHelper {
 
 		model.put("_menu", new ArrayList<NavigationMenuSection>());
 		model.put("_vote", new ArrayList<NavigationMenuSection>());
+		model.put("_results", new String());
 
 		return model;
 	}

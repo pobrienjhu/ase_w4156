@@ -101,13 +101,10 @@
 /**
   * Vote Results Page
   * @param _eventTitle
-  */  
+  * @param _results
+ */  
 {template .voteResults}
 {call edu.columbia.ase.header data="all" /}
-{literal}
- <script>
- </script>
- {/literal}
  
  <div class="content_left">
  
@@ -115,9 +112,61 @@
   
     <div class="date" >{$_eventTitle} Results!</div>
     
+    <div class="newsitem">
+    
+    <div id='charts'>
+         
+    </div>
+    </div>
+      <div style="display:none" id="hiddenDiv">{$_results}</div>
+    
    <br />  
 
 </div>
 </div>
 {call edu.columbia.ase.footer /}
+{literal}
+ <script>
+ 
+    google.load("visualization", "1", {packages:["corechart"]});    
+    google.setOnLoadCallback(drawChart);     
+     function drawChart() { 
+    
+ 	var obj = jQuery.parseJSON($( "#hiddenDiv" ).text()) ;
+ 	
+ 	
+ 	$.each( obj, function(i,j) { 
+ 	
+ 		var html= "<div id='chart_div" + i + "' 	style='width: 550px; height: 400px;'></div>";
+ 		$("#charts").append(html);
+ 			
+ 		var myArray = new Array();
+ 					
+ 	
+ 		myArray[0] = new Array();
+ 		myArray[0].push('Option');
+ 		myArray[0].push('Votes');
+ 		
+ 		$.each( obj[i].entries,function(k,l){
+ 			myArray[k+1] = new Array();
+ 			myArray[k+1].push(obj[i].entries[k].text + ' votes');
+ 			myArray[k+1].push(parseInt(obj[i].entries[k].id));
+ 			
+ 			});
+ 			
+ 			
+ 			
+ 	 var dataTable = google.visualization.arrayToDataTable(myArray);        
+      var options = { title: obj[i].sectionName,  sliceVisibilityThreshold:0};     
+      var chart = new google.visualization.PieChart(document.getElementById('chart_div'+i));      
+      chart.draw(dataTable, options);
+ 		 	
+ 	
+ 	});
+  
+           
+      }
+      
+ </script>
+ {/literal}
 {/template}

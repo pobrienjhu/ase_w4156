@@ -1,6 +1,11 @@
 package edu.columbia.ase.teamproject.services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
+import com.google.gson.Gson;
 
 import edu.columbia.ase.teamproject.persistence.dao.VoteDao;
 import edu.columbia.ase.teamproject.persistence.dao.VoteOptionDao;
@@ -9,6 +14,9 @@ import edu.columbia.ase.teamproject.persistence.domain.UserAccount;
 import edu.columbia.ase.teamproject.persistence.domain.Vote;
 import edu.columbia.ase.teamproject.persistence.domain.VoteCategory;
 import edu.columbia.ase.teamproject.persistence.domain.VoteOption;
+import edu.columbia.ase.teamproject.util.GsonProvider;
+import edu.columbia.ase.teamproject.view.NavigationMenuEntry;
+import edu.columbia.ase.teamproject.view.NavigationMenuSection;
 
 public class VoteService {
 	
@@ -17,6 +25,9 @@ public class VoteService {
 	
 	@Autowired
 	VoteDao voteDao;
+	
+	@Autowired
+	GsonProvider gsonProvider;
 	
 	public void addVote(long id,UserAccount user)
 	{
@@ -42,21 +53,23 @@ public class VoteService {
 		
 	}
 	
-	public void getResults(Event e)
+	public String getResults(Event event)
 	{
-		
-		for(VoteCategory vc : e.getVoteCategories() ){	
-			
-			System.out.println(vc.getCategoryName());
-			
-			for(VoteOption vo : vc.getVoteOptions() ){
 				
-				System.out.println(vo.getOptionName() + " "+ vo.getVotes().size());
-				
-			
+		List<NavigationMenuSection> nms= new ArrayList<NavigationMenuSection>();
+		for(VoteCategory v : event.getVoteCategories() ){
+
+			NavigationMenuSection voteCatSection =
+					new NavigationMenuSection(v.getDescription());
+			for(VoteOption vo : v.getVoteOptions()){
+				voteCatSection.addEntry(
+						new NavigationMenuEntry(v.getCategoryName(),Integer.toString(vo.getVotes().size()),vo.getOptionName()));
 			}
-				
+			nms.add(voteCatSection);
 		}
+		Gson gson = gsonProvider.provideGson();
+		return (gson.toJson(nms));
+			
 	}
 	
 

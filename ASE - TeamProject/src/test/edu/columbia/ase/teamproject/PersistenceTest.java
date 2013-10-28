@@ -22,6 +22,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.gson.Gson;
+
 import edu.columbia.ase.teamproject.persistence.dao.EventDao;
 import edu.columbia.ase.teamproject.persistence.dao.UserAccountDao;
 import edu.columbia.ase.teamproject.persistence.dao.VoteCategoryDao;
@@ -35,6 +37,9 @@ import edu.columbia.ase.teamproject.persistence.domain.VoteOption;
 import edu.columbia.ase.teamproject.persistence.domain.enumeration.AccountType;
 import edu.columbia.ase.teamproject.persistence.domain.enumeration.EventType;
 import edu.columbia.ase.teamproject.security.Permission;
+import edu.columbia.ase.teamproject.util.GsonProvider;
+import edu.columbia.ase.teamproject.view.NavigationMenuEntry;
+import edu.columbia.ase.teamproject.view.NavigationMenuSection;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:spring-db.xml")
@@ -62,12 +67,16 @@ public class PersistenceTest extends AbstractTransactionalJUnit4SpringContextTes
 	 @Autowired
 	 private VoteDao voteDao;
 	 
+		
+		Gson gson;
+	 
 	 private long eventId;
 	 private long userId;
 	 private long voId;
 	 
 	 @Before
 	 public void setUp() {
+			gson = new GsonProvider().provideGson();
 		 /*
 		  * Add users
 		  */
@@ -107,17 +116,17 @@ public class PersistenceTest extends AbstractTransactionalJUnit4SpringContextTes
 		  * Add voting categories
 		  */
 		 
-		 VoteCategory category1 = new VoteCategory("category1", "First Test category");
-		 VoteCategory category2 = new VoteCategory("category2", "Second Test category");
+		 VoteCategory category1 = new VoteCategory("category1", "Category 1");
+		 VoteCategory category2 = new VoteCategory("category2", "Category 2");
 		 
-		 category1.addVotingOption(new VoteOption("option 1"));
+		 category1.addVotingOption(new VoteOption("option 1a"));
 		 //voId = category1.getVoteOptions().get(0).getId();
-		 category1.addVotingOption(new VoteOption("option 2"));
-		 category1.addVotingOption(new VoteOption("option 3"));
+		 category1.addVotingOption(new VoteOption("option 1b"));
+		 category1.addVotingOption(new VoteOption("option 1c"));
 
-		 category2.addVotingOption(new VoteOption("option 1"));
-		 category2.addVotingOption(new VoteOption("option 2"));
-		 category2.addVotingOption(new VoteOption("option 3"));
+		 category2.addVotingOption(new VoteOption("option 2a"));
+		 category2.addVotingOption(new VoteOption("option 2b"));
+		 category2.addVotingOption(new VoteOption("option 2c"));
 		 
 		 event.addVoteCategory(category1);
 		 event.addVoteCategory(category2);
@@ -254,7 +263,26 @@ public class PersistenceTest extends AbstractTransactionalJUnit4SpringContextTes
 			 System.out.println(voteCategory);
 		 }
 	 }
-	 
+	 @Test
+	 public void testResults()
+	 {
+		 Event event = eventDao.find(eventId);
+			
+			List<NavigationMenuSection> nms= new ArrayList<NavigationMenuSection>();
+			for(VoteCategory v : event.getVoteCategories() ){
+	
+				NavigationMenuSection voteCatSection =
+						new NavigationMenuSection(v.getDescription());
+				for(VoteOption vo : v.getVoteOptions()){
+					voteCatSection.addEntry(
+							new NavigationMenuEntry(v.getCategoryName(),Integer.toString(vo.getVotes().size()),vo.getOptionName()));
+				}
+				nms.add(voteCatSection);
+			}
+		//	System.out.println(nms.size());
+		System.out.println(gson.toJson(nms));
+				
+	 }
 	 @Test 
 	 public void testVoteDao()
 	 {
@@ -274,12 +302,7 @@ public class PersistenceTest extends AbstractTransactionalJUnit4SpringContextTes
 	System.out.println("size" +  voteDao.list().size());
 	
 	for(Vote v2 : voteDao.list()){ 
-//	v2.getVoteOption().removeVote(v2);
-	//v2.getUserAccount().removeVote(v2);
-		voteDao.remove(v2);
-	
-	//voteDao.update(v2);
-		
+		voteDao.remove(v2);	
 	}
 	
 	System.out.println("size" +  voteDao.list().size());
