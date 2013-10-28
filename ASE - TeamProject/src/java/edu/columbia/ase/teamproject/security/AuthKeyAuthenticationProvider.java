@@ -51,6 +51,7 @@ public class AuthKeyAuthenticationProvider implements AuthenticationProvider {
 			throw new BadCredentialsException("invalid MAC");
 		}
 
+		logger.info("Successful API login for user " + authKey.getId());
 		UserAccount apiUser = userDao.find(authKey.getId());
 
 		Collection<GrantedAuthority> authorities =
