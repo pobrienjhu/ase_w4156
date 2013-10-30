@@ -136,8 +136,11 @@
 {literal}
   function displayApiKey() {
     var img = document.createElement('img');
+    var portStr = (document.location.port ? ":" + document.location.port : "");
+    var qrData = document.location.protocol + '//' + document.location.hostname
+                  + portStr + ":" + apiKey;
     img.setAttribute('src', '//chart.googleapis.com/chart?chs=128x128&cht=qr&chl='
-      + apiKey);
+      + qrData);
     $('#apiKeyDiv').append(img);
     var div = document.createElement('div');
     div.innerText = 'Scan the above code using your mobile application.';
