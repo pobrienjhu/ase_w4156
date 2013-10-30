@@ -1,11 +1,6 @@
 package edu.columbia.ase.teamproject.security;
 
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
-
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
