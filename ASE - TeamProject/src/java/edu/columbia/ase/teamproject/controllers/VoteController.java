@@ -82,6 +82,7 @@ public final class VoteController {
 		Event event = eventService.lookupEvent(user,
 				Long.valueOf(request.getParameter("event")));
 		
+		model.put("_eventName", event.getName());
 		model.put("_eventTitle", event.getDescription());
 		
 		
@@ -106,7 +107,7 @@ public final class VoteController {
 			for(VoteCategory v : event.getVoteCategories() ){
 	
 				NavigationMenuSection voteCatSection =
-						new NavigationMenuSection(v.getDescription());
+						new NavigationMenuSection(v.getCategoryName() + " - " + v.getDescription());
 				for(VoteOption vo : v.getVoteOptions()){
 					voteCatSection.addEntry(
 							new NavigationMenuEntry(v.getCategoryName(), vo.getId().toString(),vo.getOptionName()));

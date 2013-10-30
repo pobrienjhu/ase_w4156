@@ -5,6 +5,7 @@
   * Vote Event Page
   * @param _csrf CSRF token 
   * @param _vote
+  * @param _eventName the event name
   * @param _eventTitle
   */
 {template .voteEvent}
@@ -63,7 +64,7 @@
  
     <div class="body">
   
-    <div class="date" >{$_eventTitle}</div>
+    <div class="date" >{$_eventName} - {$_eventTitle}</div>
     
    <br />   
    
