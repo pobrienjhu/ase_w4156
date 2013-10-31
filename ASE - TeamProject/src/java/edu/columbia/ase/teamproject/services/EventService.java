@@ -11,6 +11,7 @@ import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Preconditions;
@@ -293,6 +294,7 @@ public class EventService {
 		return eventDao.add(event);
 	}
 
+	@Transactional
 	public void addUserToEvent(UserAccount requestor, Long id,
 			UserAccount victim) {
 		Event event = eventDao.find(id);
@@ -318,6 +320,7 @@ public class EventService {
 		eventDao.add(event);
 	}
 
+	@Transactional
 	public void removeUserFromEvent(UserAccount requestor, Long id,
 			UserAccount victim) {
 		Event event = eventDao.find(id);
@@ -343,6 +346,7 @@ public class EventService {
 	}
 
 
+	@Transactional
 	public Event updateEvent(UserAccount requestor, Long id, Event newData) {
 		Preconditions.checkNotNull(requestor);
 		Preconditions.checkNotNull(id);
@@ -366,6 +370,7 @@ public class EventService {
 
 		existing.setName(newData.getName());
 		existing.setDescription(newData.getDescription());
+		existing.setOptimisticLockingVersion(newData.getOptimisticLockingVersion());
 		existing.setStartTime(newData.getStartTime());
 		existing.setEndTime(newData.getEndTime());
 		existing.setEventType(newData.getEventType());
