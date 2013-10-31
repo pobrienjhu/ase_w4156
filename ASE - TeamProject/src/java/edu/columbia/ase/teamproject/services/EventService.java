@@ -293,6 +293,56 @@ public class EventService {
 		return eventDao.add(event);
 	}
 
+	public void addUserToEvent(UserAccount requestor, Long id,
+			UserAccount victim) {
+		Event event = eventDao.find(id);
+
+		if (event == null || victim == null) {
+			logger.info("Attempt to operate on non-existent event " + id);
+			return;
+		}
+
+		if (!EventType.PRIVATE.equals(event.getEventType())) {
+			return;
+		}
+
+		// XXX: throw exception?
+		if (!userCanUpdateEvent(requestor, event)) {
+			return;
+		}
+		// XXX: should eventUsers actually be a Set<...> then?
+		if (!event.getEventUsers().contains(victim)) {
+			event.getEventUsers().add(victim);
+		}
+
+		eventDao.add(event);
+	}
+
+	public void removeUserFromEvent(UserAccount requestor, Long id,
+			UserAccount victim) {
+		Event event = eventDao.find(id);
+		if (event == null || victim == null) {
+			logger.info("Attempt to operate on non-existent event " + id);
+			return;
+		}
+
+		if (!EventType.PRIVATE.equals(event.getEventType())) {
+			return;
+		}
+
+		// XXX: throw exception?
+		if (!userCanUpdateEvent(requestor, event)) {
+			return;
+		}
+
+		int idx = event.getEventUsers().indexOf(victim);
+		if (idx != -1) {
+			event.getEventUsers().remove(victim);
+		}
+		eventDao.add(event);
+	}
+
+
 	public Event updateEvent(UserAccount requestor, Long id, Event newData) {
 		Preconditions.checkNotNull(requestor);
 		Preconditions.checkNotNull(id);
