@@ -1,8 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Survey Says</string>
+    <string name="app_name">SurveySays</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_setup">Survey Says Setup</string>
+    <string name="setup_barcode_scanner_missing">You don\'t seem to have a
+        barcode scanner installed, please click below to download a supported
+        barcode scanner from the Play Store.</string>
+    <string name="setup_playstore_button_msg">Visit the Play Store</string>
+    <string name="setup_scan_barcode_msg">Looks like you haven\'t used this
+        device yet!  Please log in to the web interface, go to your account
+        page, and click the \'setup mobile device\' link.</string>
+    <string name="setup_save">Save</string>
+    <string name="setup_url_label">Server URL</string>
+    <string name="setup_rescan_barcode_msg">Need to change accounts
+        associated with this device? Press the button below to change
+        identities.</string>
+    <string name="setup_scan_button_msg">Click here to scan</string>
+    <string name="title_activity_main">Survey Says</string>
+    <string name="title_public_events">Public Events</string>
+    <string name="title_private_events">Private Events</string>
+    <string name="main_visit_settings">Visit the settings page to set up your
+        account.</string>
+    <string name="event_list_empty">No events found.</string>
+    <string name="title_activity_event">EventActivity</string>
     <string name="hello_world">Hello world!</string>
 
 </resources>
