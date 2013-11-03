@@ -7,9 +7,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -165,6 +168,70 @@ public class EventActivity extends Activity implements VoteCategoriesReceiver {
 		}
 	}
 
+	private class CastVoteArgs {
+		private URI uri;
+		private Session session;
+		private Map<Long, Long> voteCategoryToSelection;
+
+		public URI getUri() {
+			return uri;
+		}
+
+		public Session getSession() {
+			return session;
+		}
+
+		public CastVoteArgs(String baseUrl, Session session,
+				Map<Long, Long> voteCategoryToSelection) {
+			this.uri = URI.create(baseUrl + "/app/voteEvent.do");
+			this.session = session;
+			this.voteCategoryToSelection = voteCategoryToSelection;
+		}
+	}
+
+	private class CastVoteTask extends AsyncTask<CastVoteArgs, Void, Boolean> {
+
+		private String buildVoteString(Map<Long, Long> map) {
+			StringBuilder sb = new StringBuilder();
+			for (Map.Entry<Long, Long> entry : map.entrySet()) {
+				sb.append(entry.getValue());
+				sb.append(" ");
+			}
+
+			return sb.toString();
+		}
+
+		@Override
+		protected Boolean doInBackground(CastVoteArgs... params) {
+			CastVoteArgs args = params[0];
+			Session session = args.getSession();
+			URI uri = args.getUri();
+			HttpClient client = Common.getHttpClient(uri, session);
+			HttpPost post = new HttpPost(uri);
+			post.addHeader("X-CSRF-TOKEN", session.getCsrfToken());
+			boolean succeeded = false;
+			try {
+				HttpEntity entity =
+						new StringEntity(buildVoteString(voteCategoryToSelection));
+				post.setEntity(entity);
+				HttpResponse response = client.execute(post);
+				if (response.getStatusLine().getStatusCode() == 200) {
+					succeeded = true;
+				}
+			} catch (IOException e) {
+				Log.w(TAG, e.getMessage());
+			}
+			return succeeded;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+			String msg = "Vote " + (result ? "successful" : "failed");
+			Toast.makeText(getApplicationContext(),
+					msg, Toast.LENGTH_LONG).show();
+		}
+	}
+
 	public void castVote(final View view) {
 		for (Map.Entry<Long, Long> entry : voteCategoryToSelection.entrySet()) {
 			if (entry.getValue() == null) {
@@ -173,7 +240,11 @@ public class EventActivity extends Activity implements VoteCategoriesReceiver {
 				return;
 			}
 		}
-		Toast.makeText(getApplicationContext(), "casting vote!",
-				Toast.LENGTH_SHORT).show();
+		CastVoteArgs args = new CastVoteArgs(
+				sharedPreferences.getString("serverUrl", null),
+				session, voteCategoryToSelection);
+		CastVoteTask task = new CastVoteTask();
+		task.execute(args);
 	}
+
 }
