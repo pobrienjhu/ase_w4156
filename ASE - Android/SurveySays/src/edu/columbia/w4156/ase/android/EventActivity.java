@@ -1,13 +1,24 @@
 package edu.columbia.w4156.ase.android;
 
+import java.io.IOException;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -16,6 +27,7 @@ import android.widget.Toast;
 
 public class EventActivity extends Activity implements VoteCategoriesReceiver {
 
+	private static final String TAG = EventActivity.class.getSimpleName();
 	public static final String ARG_EVENT_ID = "eventId";
 	public static final String ARG_SESSION = "session";
 
@@ -23,6 +35,7 @@ public class EventActivity extends Activity implements VoteCategoriesReceiver {
 
 	private Session session;
 	private long eventId;
+	private SharedPreferences sharedPreferences;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +52,11 @@ public class EventActivity extends Activity implements VoteCategoriesReceiver {
 		Bundle extras = getIntent().getExtras();
 		this.session = (Session) extras.getSerializable(ARG_SESSION);
 		this.eventId = extras.getLong(ARG_EVENT_ID);
+		sharedPreferences = getApplicationContext()
+				.getSharedPreferences("surveySays", Activity.MODE_PRIVATE);
 
-		FetchVoteCategoriesArgs args = new FetchVoteCategoriesArgs(this,
+		FetchVoteCategoriesArgs args = new FetchVoteCategoriesArgs(
+				sharedPreferences.getString("serverUrl", null), this,
 				session, eventId);
 		FetchVoteCategoriesTask fetchTask = new FetchVoteCategoriesTask();
 		fetchTask.execute(args);
@@ -67,9 +83,13 @@ public class EventActivity extends Activity implements VoteCategoriesReceiver {
 	}
 
 	private class FetchVoteCategoriesArgs {
+		private URI uri;
 		private VoteCategoriesReceiver receiver;
 		private Session session;
-		private long eventId;
+
+		public URI getUri() {
+			return uri;
+		}
 
 		public VoteCategoriesReceiver getReceiver() {
 			return receiver;
@@ -79,16 +99,12 @@ public class EventActivity extends Activity implements VoteCategoriesReceiver {
 			return session;
 		}
 
-		public long getEventId() {
-			return eventId;
-		}
-
-		public FetchVoteCategoriesArgs(VoteCategoriesReceiver receiver,
-				Session session, long eventId) {
-			super();
+		public FetchVoteCategoriesArgs(String baseUrl,
+				VoteCategoriesReceiver receiver, Session session, long eventId) {
+			this.uri =
+					URI.create(baseUrl + "/app/getEvent.do?eventId=" + eventId);
 			this.receiver = receiver;
 			this.session = session;
-			this.eventId = eventId;
 		}
 
 	}
@@ -101,19 +117,45 @@ public class EventActivity extends Activity implements VoteCategoriesReceiver {
 		@Override
 		protected List<VoteCategory> doInBackground(
 				FetchVoteCategoriesArgs... params) {
-			FetchVoteCategoriesArgs args = params[0];
-			this.receiver = args.getReceiver();
-
 			List<VoteCategory> results = new ArrayList<VoteCategory>();
-			for (int i = 0; i < 25; i++) {
-				VoteCategory foo = new VoteCategory(i, "foo" + i,
-						"foo" + i + "Desc");
-				foo.addVoteOption(new VoteOption(foo.getCategoryId(), i,
-						Integer.toString(i)));
-				foo.addVoteOption(new VoteOption(foo.getCategoryId(), i + 1,
-						Integer.toString(i + 1)));
-				results.add(foo);
+			FetchVoteCategoriesArgs args = params[0];
+
+			this.receiver = args.getReceiver();
+			URI uri = args.getUri();
+
+			HttpClient client = Common.getHttpClient(uri, args.getSession());
+			HttpGet get = new HttpGet(uri);
+
+			try {
+				HttpResponse response = client.execute(get);
+				JSONObject event = new JSONObject(
+					Common.inputStreamToString(
+							response.getEntity().getContent()));
+				JSONArray categoryArray = event.getJSONArray("voteCategories");
+				for (int i = 0; i < categoryArray.length(); i++) {
+					JSONObject categoryObject = categoryArray.getJSONObject(i);
+					VoteCategory category = new VoteCategory(
+							categoryObject.getLong("id"),
+							categoryObject.getString("categoryName"),
+							categoryObject.getString("description"));
+					JSONArray optionsArray =
+							categoryObject.getJSONArray("voteOptions");
+					for (int j = 0; j < optionsArray.length(); j++) {
+						JSONObject optionObject = optionsArray.getJSONObject(j);
+						VoteOption option = new VoteOption(
+								category.getCategoryId(),
+								optionObject.getLong("id"),
+								optionObject.getString("optionName"));
+						category.addVoteOption(option);
+					}
+					results.add(category);
+				}
+			} catch (IOException e) {
+				Log.w(TAG, e.getMessage());
+			} catch (JSONException e) {
+				Log.w(TAG, e.getMessage());
 			}
+
 			return results;
 		}
 
