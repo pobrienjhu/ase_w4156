@@ -13,11 +13,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
-import org.joda.time.Instant;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -177,7 +175,7 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 	}
 
 	@Test
-	public void testUserCanUpdateEvent() {
+	public void testEventAdminCanUpdateEvent() {
 		UserAccount userA = new UserAccount(AccountType.LOCAL, "foo", "foo",
 				null, "userA@example.com", Collections.<Permission> emptyList());
 		UserAccount userB = new UserAccount(AccountType.LOCAL, "bar", "bar",
@@ -188,7 +186,7 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 		assertTrue(eventService.userCanUpdateEvent(userA, null));
 
 		Event testEvent = new Event(userA, "event name", "description",
-				EventType.PRIVATE, DateTime.now(),
+				EventType.PRIVATE, DateTime.now().plus(Duration.standardMinutes(1)),
 				DateTime.now().plus(Duration.standardDays(1)));
 		testEvent = eventDao.add(testEvent);
 
@@ -198,6 +196,19 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 		testEvent.addAdminUser(userB);
 		eventDao.add(testEvent);
 		assertTrue(eventService.userCanUpdateEvent(userB, testEvent.getId()));
+	}
+
+	@Test
+	public void testEventCannotBeUpdatedAfterStarting() {
+		UserAccount userA = new UserAccount(AccountType.LOCAL, "foo", "foo",
+				null, "userA@example.com", Collections.<Permission> emptyList());
+		Event testEvent = new Event(userA, "event name", "description",
+				EventType.PRIVATE, DateTime.now(),
+				DateTime.now().plus(Duration.standardDays(1)));
+		testEvent = eventDao.add(testEvent);
+
+		assertFalse(eventService.userCanUpdateEvent(userA, testEvent.getId()));
+
 	}
 
 	@Test

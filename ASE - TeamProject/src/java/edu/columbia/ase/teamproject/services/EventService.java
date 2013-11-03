@@ -176,8 +176,9 @@ public class EventService {
 			return true;
 		}
 
-		return event.getAdminUsers().contains(user) ||
-				user.getPermissions().contains(Permission.ADMIN);		
+		return event.getStartTime().isAfter(DateTime.now()) &&
+				(event.getAdminUsers().contains(user) ||
+				 user.getPermissions().contains(Permission.ADMIN));		
 	}
 
 	/*
