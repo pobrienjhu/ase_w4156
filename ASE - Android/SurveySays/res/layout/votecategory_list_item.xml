@@ -3,12 +3,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <RadioButton
-        android:id="@+id/voteCategoryRadioButton"
+    <TextView
+        android:id="@+id/category_listitem_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="RadioButton" />
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/category_listitem_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/category_listitem_title"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <RadioGroup
+        android:id="@+id/category_listitem_radiogroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/category_listitem_description" >
+    </RadioGroup>
 
 </RelativeLayout>

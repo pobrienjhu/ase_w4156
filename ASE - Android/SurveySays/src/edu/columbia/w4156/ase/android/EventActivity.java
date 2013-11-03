@@ -1,7 +1,9 @@
 package edu.columbia.w4156.ase.android;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.app.Activity;
 import android.os.AsyncTask;
@@ -17,6 +19,8 @@ public class EventActivity extends Activity implements VoteCategoriesReceiver {
 	public static final String ARG_EVENT_ID = "eventId";
 	public static final String ARG_SESSION = "session";
 
+	Map<Long, Long> voteCategoryToSelection;
+
 	private Session session;
 	private long eventId;
 
@@ -26,6 +30,7 @@ public class EventActivity extends Activity implements VoteCategoriesReceiver {
 		setContentView(R.layout.activity_event);
 		((ProgressBar) findViewById(R.id.event_progress_bar))
 			.setVisibility(View.VISIBLE);
+		this.voteCategoryToSelection = new HashMap<Long, Long>();
 	}
 
 	@Override
@@ -45,8 +50,18 @@ public class EventActivity extends Activity implements VoteCategoriesReceiver {
 	public void receiveVoteCategories(List<VoteCategory> categories) {
 		((ProgressBar) findViewById(R.id.event_progress_bar))
 		.setVisibility(View.GONE);
-		((ListView) findViewById(R.id.event_vote_category_listview))
-			.setVisibility(View.VISIBLE);
+		ListView categoryListView =
+				(ListView) findViewById(R.id.event_vote_category_listview); 
+
+		voteCategoryToSelection.clear();
+		for (VoteCategory category : categories) {
+			voteCategoryToSelection.put(category.getCategoryId(), null);
+		}
+
+		VoteCategoryAdapter adapter = new VoteCategoryAdapter(this, categories,
+				voteCategoryToSelection);
+		categoryListView.setVisibility(View.VISIBLE);
+		categoryListView.setAdapter(adapter);
 		((Button) findViewById(R.id.event_vote_button))
 			.setVisibility(View.VISIBLE);
 	}
@@ -90,16 +105,15 @@ public class EventActivity extends Activity implements VoteCategoriesReceiver {
 			this.receiver = args.getReceiver();
 
 			List<VoteCategory> results = new ArrayList<VoteCategory>();
-			VoteCategory foo = new VoteCategory(1, "foo", "fooDesc");
-			foo.addVoteOption(new VoteOption(foo.getCategoryId(), 1, "1"));
-			foo.addVoteOption(new VoteOption(foo.getCategoryId(), 2, "2"));
-
-			VoteCategory bar = new VoteCategory(2, "bar", "barDesc");
-			bar.addVoteOption(new VoteOption(bar.getCategoryId(), 3, "3"));
-			bar.addVoteOption(new VoteOption(bar.getCategoryId(), 4, "4"));
-
-			results.add(foo);
-			results.add(bar);
+			for (int i = 0; i < 25; i++) {
+				VoteCategory foo = new VoteCategory(i, "foo" + i,
+						"foo" + i + "Desc");
+				foo.addVoteOption(new VoteOption(foo.getCategoryId(), i,
+						Integer.toString(i)));
+				foo.addVoteOption(new VoteOption(foo.getCategoryId(), i + 1,
+						Integer.toString(i + 1)));
+				results.add(foo);
+			}
 			return results;
 		}
 
@@ -110,6 +124,13 @@ public class EventActivity extends Activity implements VoteCategoriesReceiver {
 	}
 
 	public void castVote(final View view) {
+		for (Map.Entry<Long, Long> entry : voteCategoryToSelection.entrySet()) {
+			if (entry.getValue() == null) {
+				Toast.makeText(getApplicationContext(), "You haven't voted in"
+						+ " every category", Toast.LENGTH_SHORT).show(); 
+				return;
+			}
+		}
 		Toast.makeText(getApplicationContext(), "casting vote!",
 				Toast.LENGTH_SHORT).show();
 	}
