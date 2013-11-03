@@ -166,10 +166,7 @@ public class MainActivity extends Activity implements
 		}
 
 		Bundle args = new Bundle();
-		args.putString(EventListFragment.ARG_CSRF_TOKEN,
-				fragmentSession.getCsrfToken());
-		args.putString(EventListFragment.ARG_SESSION_ID,
-				fragmentSession.getSessionId());
+		args.putSerializable(EventListFragment.ARG_SESSION, fragmentSession);
 		args.putBoolean(EventListFragment.ARG_IS_PUBLIC, position == 0);
 		args.putString(EventListFragment.ARG_BASE_URL,
 				sharedPreferences.getString("serverUrl", null));
@@ -183,10 +180,9 @@ public class MainActivity extends Activity implements
 
 	public static class EventListFragment extends ListFragment
 		implements EventListReceiver {
-		public static final String ARG_CSRF_TOKEN = "csrf";
-		public static final String ARG_SESSION_ID = "sessionid";
 		public static final String ARG_IS_PUBLIC = "isPublic";
 		public static final String ARG_BASE_URL = "baseUrl";
+		public static final String ARG_SESSION = "session";
 
 		private Context context;
 		private Session session;
@@ -198,9 +194,7 @@ public class MainActivity extends Activity implements
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
 			this.context = inflater.getContext();
-			this.session = new Session(
-					getArguments().getString(ARG_SESSION_ID),
-					getArguments().getString(ARG_CSRF_TOKEN));
+			this.session = (Session) getArguments().getSerializable(ARG_SESSION);
 
 			rootView = inflater.inflate(R.layout.fragment_event_list,
 					container, false);

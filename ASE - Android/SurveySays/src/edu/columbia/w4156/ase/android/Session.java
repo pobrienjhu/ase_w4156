@@ -1,6 +1,11 @@
 package edu.columbia.w4156.ase.android;
 
-public class Session implements Cloneable {
+import java.io.Serializable;
+
+public class Session implements Cloneable, Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	private String sessionId;
 	private String csrfToken;
 
