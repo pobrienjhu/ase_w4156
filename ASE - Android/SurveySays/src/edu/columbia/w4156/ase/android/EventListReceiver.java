@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface EventListReceiver {
 
-	public void receiveEvents(List<String> events);
+	public void receiveEvents(List<EventListEntry> events);
 }

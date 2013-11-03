@@ -24,6 +24,6 @@
         account.</string>
     <string name="event_list_empty">No events found.</string>
     <string name="title_activity_event">EventActivity</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="event_cast_vote_btn_msg">Cast Vote</string>
 
 </resources>

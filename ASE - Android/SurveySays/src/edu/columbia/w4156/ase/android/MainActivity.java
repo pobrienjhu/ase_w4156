@@ -10,10 +10,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.params.HttpClientParams;
-import org.apache.http.cookie.Cookie;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.cookie.BasicClientCookie;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,7 +45,6 @@ public class MainActivity extends Activity implements
 	 */
 	private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
 	private static final String TAG = MainActivity.class.getSimpleName();
-	private static final String COOKIE_NAME = "JSESSIONID";
 
 	private Session session;
 	private Lock sessionLock;
@@ -186,8 +182,8 @@ public class MainActivity extends Activity implements
 
 		private Context context;
 		private Session session;
-		private List<String> eventList;
-		private ArrayAdapter<String> eventListAdapter;
+		private List<EventListEntry> eventList;
+		private ArrayAdapter<EventListEntry> eventListAdapter;
 		private View rootView;
 
 		@Override
@@ -198,10 +194,11 @@ public class MainActivity extends Activity implements
 
 			rootView = inflater.inflate(R.layout.fragment_event_list,
 					container, false);
-			eventList = new ArrayList<String>();
+			eventList = new ArrayList<EventListEntry>();
 
-			eventListAdapter = new ArrayAdapter<String>(context,
+			eventListAdapter = new ArrayAdapter<EventListEntry>(context,
 							android.R.layout.simple_list_item_1, eventList);
+
 			setListAdapter(eventListAdapter);
 			((ProgressBar) rootView.findViewById(R.id.event_list_progress_bar))
 					.setVisibility(View.VISIBLE);
@@ -215,7 +212,7 @@ public class MainActivity extends Activity implements
 		}
 
 		@Override
-		public void receiveEvents(List<String> events) {
+		public void receiveEvents(List<EventListEntry> events) {
 			eventList.clear();
 			eventList.addAll(events);
 			eventListAdapter.notifyDataSetChanged();
@@ -226,6 +223,9 @@ public class MainActivity extends Activity implements
 		@Override
 		public void onListItemClick(ListView l, View v, int position, long id) {
 			Intent intent = new Intent(context, EventActivity.class);
+			EventListEntry entry = eventList.get(position);
+			intent.putExtra(EventActivity.ARG_SESSION, session);
+			intent.putExtra(EventActivity.ARG_EVENT_ID, entry.getEventId());
 			startActivity(intent);
 		}
 	}
@@ -269,21 +269,6 @@ public class MainActivity extends Activity implements
 		task.execute(cookie);
 	}
 
-	private static Cookie createCookie(URI uri, String name, String value) {
-		BasicClientCookie cookie = new BasicClientCookie(name, value);
-		cookie.setPath("/");
-		cookie.setDomain(uri.getHost());
-		return cookie;
-	}
-
-	private static DefaultHttpClient getHttpClient(URI uri, Session session) {
-		DefaultHttpClient httpClient = new DefaultHttpClient();
-		HttpClientParams.setRedirecting(httpClient.getParams(), false);
-		Cookie cookie = createCookie(uri, COOKIE_NAME, session.getSessionId());
-		httpClient.getCookieStore().addCookie(cookie);
-		return httpClient;
-	}
-
 	private final class CheckSessionTask extends AsyncTask<String, Void, Boolean> {
 		private URI checkUri;
 
@@ -298,7 +283,7 @@ public class MainActivity extends Activity implements
 		@Override
 		protected Boolean doInBackground(String... params) {
 			boolean authPassed = false;
-			DefaultHttpClient httpClient = getHttpClient(checkUri,
+			DefaultHttpClient httpClient = Common.getHttpClient(checkUri,
 					new Session(params[0], null));
 			HttpGet get = new HttpGet(checkUri);
 
@@ -331,7 +316,7 @@ public class MainActivity extends Activity implements
 	}
  
 	private static final class GetEventsTask extends
-		AsyncTask<GetEventsTask.GetEventsTaskArgs, Void, List<String>> {
+		AsyncTask<GetEventsTask.GetEventsTaskArgs, Void, List<EventListEntry>> {
 		public static final class GetEventsTaskArgs {
 
 			private String baseUrl;
@@ -367,8 +352,8 @@ public class MainActivity extends Activity implements
 		private EventListReceiver receiver;
 
 		@Override
-		protected List<String> doInBackground(GetEventsTaskArgs... params) {
-			ArrayList<String> results = new ArrayList<String>();
+		protected List<EventListEntry> doInBackground(GetEventsTaskArgs... params) {
+			ArrayList<EventListEntry> results = new ArrayList<EventListEntry>();
 			GetEventsTaskArgs args = params[0];
 			this.receiver = args.getReceiver();
 			String controller = "getEvents" +
@@ -381,7 +366,7 @@ public class MainActivity extends Activity implements
 				return results;
 			}
 
-			DefaultHttpClient httpClient = getHttpClient(uri,
+			DefaultHttpClient httpClient = Common.getHttpClient(uri,
 					args.getSession());
 			HttpGet get = new HttpGet(uri);
 			try {
@@ -393,7 +378,9 @@ public class MainActivity extends Activity implements
 				results.ensureCapacity(length);
 				for (int i = 0; i < length; i++) {
 					JSONObject object = array.getJSONObject(i);
-					results.add(object.getString("name"));
+					EventListEntry entry = new EventListEntry(object.getLong("id"),
+							object.getString("name"), object.getString("description"));
+					results.add(entry);
 				}
 			} catch (IOException e) {
 				Log.w(TAG, e.getMessage());
@@ -404,7 +391,7 @@ public class MainActivity extends Activity implements
 		}
 
 		@Override
-		protected void onPostExecute(List<String> result) {
+		protected void onPostExecute(List<EventListEntry> result) {
 			receiver.receiveEvents(result);
 		}
 	}

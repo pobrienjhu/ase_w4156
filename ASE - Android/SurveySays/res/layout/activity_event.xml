@@ -8,9 +8,33 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".EventActivity" >
 
-    <TextView
+    <ProgressBar
+        android:id="@+id/event_progress_bar"
+        style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+    <ListView
+        android:id="@+id/event_vote_category_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/event_vote_button"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:visibility="gone">
+
+    </ListView>
+
+    <Button
+        android:id="@id/event_vote_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/event_cast_vote_btn_msg"
+        android:onClick="castVote"
+        android:visibility="gone" />
 
 </RelativeLayout>
