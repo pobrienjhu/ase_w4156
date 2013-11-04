@@ -32,25 +32,20 @@ public class VoteService {
 	public void addVote(long id,UserAccount user)
 	{
 		
+	
 		VoteOption vo = voteOptionDao.find(id);
 		
-		//first remove any votes in the same category by the same user
-		for(Vote v2 : voteDao.list()){ 
-			if(v2.getVoteOption().getVoteCategory().getId()==vo.getVoteCategory().getId() && v2.getUserAccount().getId()==user.getId()){
-			
-				voteDao.remove(v2);
-							
+	
+		for(Vote v2 : user.getVotes()){
+			if(v2.getVoteOption().getVoteCategory().getId()==vo.getVoteCategory().getId()){  // && v2.getUserAccount().getId()==user.getId()){
+				voteDao.remove(v2);							
 			}
 							
 		}
 	
 		Vote v = new Vote(vo,user); 
-		//try{ 
-			voteDao.add(v);
-		//}
-	//	catch(Exception e)
-		//{}
-		
+		voteDao.add(v);
+	
 	}
 	
 	public String getResults(Event event)

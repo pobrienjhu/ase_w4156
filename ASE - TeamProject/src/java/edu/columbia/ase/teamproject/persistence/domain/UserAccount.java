@@ -258,4 +258,10 @@ public class UserAccount {
 		Preconditions.checkNotNull(vote);
 		votes.remove(vote);
 	}
+	
+	public List<Vote> getVotes()
+	{
+		return votes;
+	
+	}
 }
