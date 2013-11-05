@@ -31,6 +31,8 @@ public class VoteService {
 	
 	public void verifyVotes(Event event,List<Long>voteList) throws Exception
 	{
+		if(event.getVoteCategories().size() != voteList.size())
+			throw new Exception("Invalid votes!");	
 		//making sure user votes in each category
 		boolean found;
 		for(VoteCategory vc : event.getVoteCategories()){
