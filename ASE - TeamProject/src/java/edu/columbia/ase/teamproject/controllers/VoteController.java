@@ -121,7 +121,7 @@ public final class VoteController {
 	
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseBody
-	public String doPost(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException
+	public String doPost(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws Exception 
 	{
 		logger.info("POST /app/voteEvent.do");
 		
@@ -129,22 +129,29 @@ public final class VoteController {
 				getAuthentication().getPrincipal();
 		UserAccount user = userAccountDao.findAccountByUserDetails(userDetails);
 	
+		 StringTokenizer st1 = new StringTokenizer( IOUtils.toString(request.getInputStream()));
+		 try{
+			
+			 voteService.verifyVotes( st1.countTokens(), Long.parseLong(st1.nextToken()));	
+		 }
+		 catch(Exception e){
 	
+			throw new Exception(e.getMessage()); //not sending message by itself
+			 //response.sendError(400, e.getMessage()); //not working properly
+			
+			
+		 }
+		 
 		 StringTokenizer st = new StringTokenizer( IOUtils.toString(request.getInputStream()));
-	     
+		
+	 
 		 while (st.hasMoreTokens()) {
-			 
-			 voteService.addVote(Long.parseLong(st.nextToken()),user);
-				
+	
+			 voteService.addVote( Long.parseLong(st.nextToken()),user);				
 	    	
 		 }
 		
-	
-	/*	Map<String, Object> model = ControllerHelper.createBaseModel(session);
-		model.put("title", "Home");
-		model.put("test", "test");
-		return new ModelAndView("soy:edu.columbia.ase.event.createEvent", model);
-*/
+
 		return  "Your vote has been submitted!";
 
 	}

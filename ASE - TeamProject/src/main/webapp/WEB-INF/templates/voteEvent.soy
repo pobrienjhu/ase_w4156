@@ -45,8 +45,9 @@
                 alert(msg);
                 
             }, 
-            error : function(jqXHR, textStatus, errorThrown) {
-                alert("jquery error "+ textStatus + errorThrown);
+            error : function(xhr, textStatus, errorThrown) {
+                alert("Error: "+ textStatus + " " + errorThrown );
+                            
             }
 		
 	})

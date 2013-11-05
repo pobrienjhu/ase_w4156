@@ -29,6 +29,17 @@ public class VoteService {
 	@Autowired
 	GsonProvider gsonProvider;
 	
+	public void verifyVotes( int count, long id) throws Exception
+	{
+		
+		VoteOption vo = voteOptionDao.find(id);
+	
+		if (vo.getVoteCategory().getEvent().getVoteCategories().size() != count){
+		
+			throw new Exception("Must vote in all categories!");
+		}
+	}
+	
 	public void addVote(long id,UserAccount user)
 	{
 		
