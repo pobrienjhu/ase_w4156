@@ -7,6 +7,7 @@
   * @param _vote
   * @param _eventName the event name
   * @param _eventTitle
+  * @param _eventId
   */
 {template .voteEvent}
 {call edu.columbia.ase.header data="all" /}
@@ -23,7 +24,7 @@
   {
   
    var voteArray =new Array();
-
+  
    
 	$(".radioClass").each(function()
 	{
@@ -34,7 +35,8 @@
 		
 	
 	});
-	
+	voteArray.splice(0,0, $("#eventId").val());
+
 	$.ajax({
 		type: "POST",
 		url: "/app/voteEvent.do",
@@ -47,6 +49,7 @@
             }, 
             error : function(xhr, textStatus, errorThrown) {
                 alert("Error: "+ textStatus + " " + errorThrown );
+               /* alert(xhr.responseText);*/
                             
             }
 		
@@ -86,6 +89,7 @@
    <div class='newsitem'> 
     <br />
   <input id='csrfCE' type='hidden' value='{$_csrf}'>
+   <input id='eventId'  type='hidden' value='{$_eventId}'>
       <input id='submitBtn' type='button'value="Submit Your Vote!" />
     
 		<br />

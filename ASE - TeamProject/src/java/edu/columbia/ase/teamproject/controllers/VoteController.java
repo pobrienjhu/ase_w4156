@@ -84,6 +84,7 @@ public final class VoteController {
 		
 		model.put("_eventName", event.getName());
 		model.put("_eventTitle", event.getDescription());
+		model.put("_eventId",event.getId().toString());
 		
 		
 		
@@ -129,11 +130,22 @@ public final class VoteController {
 				getAuthentication().getPrincipal();
 		UserAccount user = userAccountDao.findAccountByUserDetails(userDetails);
 	
-		 StringTokenizer st1 = new StringTokenizer( IOUtils.toString(request.getInputStream()));
-		 try{
-			
-			 voteService.verifyVotes( st1.countTokens(), Long.parseLong(st1.nextToken()));	
+		 StringTokenizer st = new StringTokenizer( IOUtils.toString(request.getInputStream()));
+		 List<Long>voteList = new ArrayList<Long>();
+		 
+		 Event event = eventService.lookupEvent(user,Long.parseLong(st.nextToken()));
+		 if(event == null){
+			 throw new Exception("Invalid Event!");			 
 		 }
+		 
+		 while(st.hasMoreTokens()){			
+			voteList.add(Long.parseLong(st.nextToken()));	
+		 }
+		 
+		 try{
+				
+			voteService.verifyVotes(event, voteList);	
+		 }		 
 		 catch(Exception e){
 	
 			throw new Exception(e.getMessage()); //not sending message by itself
@@ -142,12 +154,11 @@ public final class VoteController {
 			
 		 }
 		 
-		 StringTokenizer st = new StringTokenizer( IOUtils.toString(request.getInputStream()));
-		
-	 
-		 while (st.hasMoreTokens()) {
 	
-			 voteService.addVote( Long.parseLong(st.nextToken()),user);				
+	 
+		for(int i = 0; i < voteList.size(); i++){
+	
+			 voteService.addVote( voteList.get(i),user);				
 	    	
 		 }
 		

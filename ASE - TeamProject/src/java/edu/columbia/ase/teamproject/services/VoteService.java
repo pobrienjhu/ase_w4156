@@ -29,15 +29,22 @@ public class VoteService {
 	@Autowired
 	GsonProvider gsonProvider;
 	
-	public void verifyVotes( int count, long id) throws Exception
+	public void verifyVotes(Event event,List<Long>voteList) throws Exception
 	{
-		
-		VoteOption vo = voteOptionDao.find(id);
-	
-		if (vo.getVoteCategory().getEvent().getVoteCategories().size() != count){
-		
-			throw new Exception("Must vote in all categories!");
+		//making sure user votes in each category
+		boolean found;
+		for(VoteCategory vc : event.getVoteCategories()){
+			found = false;
+			for(VoteOption vo : vc.getVoteOptions()){
+				if(voteList.contains(vo.getId())){
+					found = true;
+				}
+			}		
+			if(!found){
+				throw new Exception("Must vote in all categories!");				
+			}
 		}
+	
 	}
 	
 	public void addVote(long id,UserAccount user)
