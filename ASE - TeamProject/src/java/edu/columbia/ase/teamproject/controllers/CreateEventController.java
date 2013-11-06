@@ -27,6 +27,7 @@ import edu.columbia.ase.teamproject.persistence.domain.Event;
 import edu.columbia.ase.teamproject.persistence.domain.UserAccount;
 import edu.columbia.ase.teamproject.persistence.domain.VoteCategory;
 import edu.columbia.ase.teamproject.services.EventService;
+import edu.columbia.ase.teamproject.services.exceptions.ValidationException;
 import edu.columbia.ase.teamproject.util.GsonProvider;
 
 @Controller
@@ -60,7 +61,7 @@ public final class CreateEventController {
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseBody
 	public String doPost(HttpSession session, HttpServletRequest request, HttpServletResponse response)
-			throws IOException {
+			throws IOException, ValidationException {
 		Gson gson = gsonProvider.provideGson();
 
 		response.setContentType("application/json");
@@ -87,7 +88,6 @@ public final class CreateEventController {
 		Event createdEvent = eventService.createEvent(user,
 				event.getName(), event.getDescription(), event.getEventType(),
 				event.getStartTime(), event.getEndTime(), event.getVoteCategories());
-
 		
 		
 		return gson.toJson(createdEvent, Event.class);

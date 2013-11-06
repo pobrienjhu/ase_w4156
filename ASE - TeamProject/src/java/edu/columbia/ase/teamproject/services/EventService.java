@@ -27,6 +27,7 @@ import edu.columbia.ase.teamproject.persistence.domain.VoteCategory;
 import edu.columbia.ase.teamproject.persistence.domain.VoteOption;
 import edu.columbia.ase.teamproject.persistence.domain.enumeration.EventType;
 import edu.columbia.ase.teamproject.security.Permission;
+import edu.columbia.ase.teamproject.services.exceptions.ValidationException;
 
 /**
  * @author aiman
@@ -278,7 +279,7 @@ public class EventService {
 	
 
 	public Event createEvent(UserAccount requestor, String name, String description, EventType eventType,
-			DateTime start, DateTime end, List<VoteCategory> voteCategories)
+			DateTime start, DateTime end, List<VoteCategory> voteCategories) throws ValidationException
 	{
 		Preconditions.checkNotNull(requestor);
 		logger.info("Creating event " + name);
@@ -290,11 +291,16 @@ public class EventService {
 			v.setEvent(event);
 		}
 		event.setVoteCategories(voteCategories);
+		
+		EventValidationHelper.validateEventCreation(event);
+		
 		validateEvent(event);
 		replaceImmutableClientFieldsWithTrustedData(event);
 		return eventDao.add(event);
 	}
 
+
+	
 	@Transactional
 	public void addUserToEvent(UserAccount requestor, Long id,
 			UserAccount victim) {
@@ -348,7 +354,7 @@ public class EventService {
 
 
 	@Transactional
-	public Event updateEvent(UserAccount requestor, Long id, Event newData) {
+	public Event updateEvent(UserAccount requestor, Long id, Event newData) throws ValidationException {
 		Preconditions.checkNotNull(requestor);
 		Preconditions.checkNotNull(id);
 		Preconditions.checkNotNull(newData);
@@ -361,10 +367,7 @@ public class EventService {
 			return null;
 		}
 
-		if (DateTime.now().isAfter(existing.getStartTime())) {
-			logger.info("attempt to update event after start time has failed");
-			return null;
-		}
+		EventValidationHelper.validateEventUpdate(existing);
 
 		validateEvent(newData);
 		replaceImmutableClientFieldsWithTrustedData(newData);

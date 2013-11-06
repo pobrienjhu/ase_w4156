@@ -37,6 +37,7 @@ import edu.columbia.ase.teamproject.persistence.domain.VoteOption;
 import edu.columbia.ase.teamproject.persistence.domain.enumeration.AccountType;
 import edu.columbia.ase.teamproject.persistence.domain.enumeration.EventType;
 import edu.columbia.ase.teamproject.security.Permission;
+import edu.columbia.ase.teamproject.services.exceptions.ValidationException;
 
 /**
  * @author aiman
@@ -72,9 +73,10 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 
 	/**
 	 * Test method for {@link EventService#createEvent(UserDetails, String, String, EventType)}.
+	 * @throws ValidationException 
 	 */
 	@Test
-	public void testSuccessfulCreateEvent() {
+	public void testSuccessfulCreateEvent() throws ValidationException {
 		Event e = eventService.createEvent(userAccount, "Test Event Name",
 				"Event Description", EventType.PRIVATE, DateTime.now(),
 				DateTime.now().plus(Duration.standardDays(1)),
@@ -93,7 +95,7 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 	}
 
 	@Test
-	public void testUpdateEvent() {
+	public void testUpdateEvent() throws ValidationException {
 		Event e = eventService.createEvent(userAccount, "Test Event Name",
 				"Event Description", EventType.PRIVATE,
 				DateTime.now().plus(Duration.standardDays(1)),
@@ -131,7 +133,7 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 	}
 
 	@Test
-	public void testCreateEventWithVotingCategories() {
+	public void testCreateEventWithVotingCategories() throws ValidationException {
 
 		VoteCategory firstCategory = new VoteCategory("First Category",
 				"First Category Description");
@@ -212,7 +214,7 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 	}
 
 	@Test
-	public void testValidateEventWithInvalidCategory() {
+	public void testValidateEventWithInvalidCategory() throws ValidationException {
 		UserAccount admin = new UserAccount(AccountType.LOCAL, "foo", "foo",
 				null, "admin@example.com", Collections.<Permission> emptyList());
 
@@ -244,7 +246,7 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 	}
 
 	@Test
-	public void testValidateEventWithInvalidOption() {
+	public void testValidateEventWithInvalidOption() throws ValidationException {
 		UserAccount admin = new UserAccount(AccountType.LOCAL, "foo", "foo",
 				null, "admin@example.com", Collections.<Permission> emptyList());
 
