@@ -169,6 +169,9 @@
     console.log(msg);
     alert( "Created event with ID: " + msg["id"]);
     // TODO: store this id somewhere on the page for updates.
+	})
+	.fail(function() {
+	  alert("Event creation failed -- check your input values!");
 	});
   }
   </script>

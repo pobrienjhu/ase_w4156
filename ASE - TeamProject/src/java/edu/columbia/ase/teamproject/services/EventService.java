@@ -293,16 +293,16 @@ public class EventService {
 		//remove duplicates
 		HashSet<String> hs = new HashSet<String>();
 		hs.addAll(userEmails);
+		// TODO(ra2659): why does this crash when adding event creator?
+		hs.remove(requestor);
 		
 		for(String email : hs){
 			UserAccount ua = userDao.findAccountByEmail(email);
-			//why does this crash when adding event creator?
-			if(ua != null && ua.getId() != requestor.getId()){
+			if(ua != null){
 				event.addEventUser(ua);						
 			}
 		}
-		//crashing with validationexception
-		//EventValidationHelper.validateEventCreation(event);
+		EventValidationHelper.validateEventCreation(event);
 		validateEvent(event);
 		replaceImmutableClientFieldsWithTrustedData(event);
 			

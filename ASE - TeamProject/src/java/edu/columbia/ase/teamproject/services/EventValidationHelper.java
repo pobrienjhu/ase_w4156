@@ -89,7 +89,7 @@ public class EventValidationHelper {
 			validationException.addMessage("Vote Category must have a name.");
 		}
 		
-		if( category.getVoteOptions() == null || category.getVoteOptions().size() < 3 ){
+		if( category.getVoteOptions() == null || category.getVoteOptions().size() < 2 ){
 			validationException.addMessage("Vote Category must have at least two options.");
 		}		
 		
