@@ -85,10 +85,10 @@ public final class CreateEventController {
 
 		logger.info("Event Categories size:" + event.getVoteCategories().size());
 		
-		Event createdEvent = eventService.createEvent(user,
-				event.getName(), event.getDescription(), event.getEventType(),
-				event.getStartTime(), event.getEndTime(), event.getVoteCategories());
-		
+		Event createdEvent = eventService.createEvent(user,	event.getName(), event.getDescription(), event.getEventType(),
+				event.getStartTime(), event.getEndTime(), event.getVoteCategories(),event.getUserEmails());
+
+
 		
 		return gson.toJson(createdEvent, Event.class);
 	}
