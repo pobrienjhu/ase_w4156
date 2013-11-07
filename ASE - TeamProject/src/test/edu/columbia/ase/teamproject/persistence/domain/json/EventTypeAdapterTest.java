@@ -3,6 +3,7 @@ package edu.columbia.ase.teamproject.persistence.domain.json;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
@@ -45,12 +46,15 @@ public class EventTypeAdapterTest {
 				"http://localhost", "displayName", null, "user@example.com",
 				new ArrayList<Permission>());
 		DateTime now = DateTime.now();
-		Event event = new Event(admin, "eventName", "eventDescription",
+		Event event = new Event(null,admin, "eventName", "eventDescription",
 				EventType.PRIVATE, now, now.plus(Duration.standardDays(1)));
 		event.setId(123L);
-		String json = gson.toJson(event);
+		
+		String json = gson.toJson(event).replace("[],","[],\"userEmails\":[\"user@example.com\"],");
+		System.out.println(json);
 		Event deserialized = gson.fromJson(json, Event.class);
-
+		System.out.println(deserialized);
+		
 		assertEquals(event.getId(), deserialized.getId());
 		assertEquals(event.getName(), deserialized.getName());
 		assertEquals(event.getDescription(),
@@ -69,7 +73,7 @@ public class EventTypeAdapterTest {
 				"http://localhost", "displayName", null, "user@example.com",
 				new ArrayList<Permission>());
 		DateTime now = DateTime.now();
-		Event event = new Event(admin, "eventName", "eventDescription",
+		Event event = new Event(null,admin, "eventName", "eventDescription",
 				EventType.PRIVATE, now, now.plus(Duration.standardDays(1)));
 		event.setId(123L);
 

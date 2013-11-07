@@ -9,6 +9,7 @@ import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -24,16 +25,23 @@ import edu.columbia.ase.teamproject.persistence.domain.VoteCategory;
 import edu.columbia.ase.teamproject.persistence.domain.VoteOption;
 import edu.columbia.ase.teamproject.persistence.domain.enumeration.EventType;
 
-public class EventTypeAdapter extends TypeAdapter<Event> {
 
+public class EventTypeAdapter extends TypeAdapter<Event> {
+	
+	
 	private static final Logger logger =
 			LoggerFactory.getLogger(EventTypeAdapter.class);
+	
+
+
+
 
 	private static enum EventProperty {
 		PROPERTY_ID("id"),
 		PROPERTY_NAME("name"),
 		PROPERTY_DESCRIPTION("description"),
 		PROPERTY_EVENT_USERS("eventUsers"),
+		PROPERTY_USER_EMAILS("userEmails"),
 		PROPERTY_VOTE_CATEGORIES("voteCategories"),
 		PROPERTY_EVENT_TYPE("eventType"),
 		PROPERTY_EVENT_START("eventStart"),
@@ -73,6 +81,8 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 		private String description;
 		private boolean eventUsersSet;
 		private List<UserAccount> eventUsers;
+		private boolean userEmailsSet;
+		private List<String> userEmails;
 		private boolean voteCategoriesSet;
 		private List<VoteCategory> voteCategories;
 		private EventType eventType;
@@ -87,12 +97,13 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 			Preconditions.checkState(descriptionSet);
 			Preconditions.checkState(eventTypeSet);
 			Preconditions.checkState(eventUsersSet);
+			Preconditions.checkState(userEmailsSet);
 			Preconditions.checkState(voteCategoriesSet);
 			Preconditions.checkState(eventStartSet);
 			Preconditions.checkState(eventEndSet);
 			// TODO(pames): ensure that the admin information is serialized.
 			logger.warn("Building an event without any admin info");
-			Event event = new Event(null, name, description, eventType,
+			Event event = new Event(userEmails, null, name, description, eventType,
 					eventStart, eventEnd);
 			if (idSet) {
 				event.setId(id);
@@ -100,6 +111,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 			for (VoteCategory category : voteCategories) {
 				event.addVoteCategory(category);
 			}
+			
 			// TODO(pames): consider checking if the event id is set here
 			// and then transitively walking all VoteCategories to see if
 			// they have an ID (and if it matches this one), then in each
@@ -156,6 +168,13 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 			Preconditions.checkState(!eventUsersSet);
 			this.eventUsers = eventUsers;
 			this.eventUsersSet = true;
+			return this;
+		}
+		
+		public EventBuilder setUserEmails(List<String> userEmails) {
+			Preconditions.checkState(!userEmailsSet);
+			this.userEmails = userEmails;
+			this.userEmailsSet = true;
 			return this;
 		}
 
@@ -405,7 +424,8 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 
 		out.name(EventProperty.PROPERTY_EVENT_END.toString());
 		out.value(value.getEndTime().getMillis());
-
+		/*out.name(EventProperty.PROPERTY_USER_EMAILS.toString());
+		out.value(value.getUserEmails().toString());*/
 		out.name(EventProperty.PROPERTY_EVENT_USERS.toString());
 		out.beginArray();
 		// TOOD(pames): serialize the event users.
@@ -488,6 +508,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 
 	@Override
 	public Event read(JsonReader in) throws IOException {
+		
 		EventBuilder builder = new EventBuilder();
 
 		in. beginObject();
@@ -504,6 +525,20 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 				builder.setEventUsers(new ArrayList<UserAccount>());
 				in.skipValue();
 				break;
+			case PROPERTY_USER_EMAILS:
+			
+				List<String>uel = new ArrayList<String>();
+				in.beginArray();
+				while (in.peek() != JsonToken.END_ARRAY) {			
+				
+						String  ue =in.nextString();
+						uel.add(ue);
+				}
+				in.endArray();
+				
+				builder.setUserEmails(uel);
+				break;
+		
 			case PROPERTY_ID:
 				builder.setId(in.nextLong());
 				break;

@@ -9,6 +9,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -80,7 +81,7 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 		Event e = eventService.createEvent(userAccount, "Test Event Name",
 				"Event Description", EventType.PRIVATE, DateTime.now(),
 				DateTime.now().plus(Duration.standardDays(1)),
-				Collections.<VoteCategory> emptyList());
+				Collections.<VoteCategory> emptyList(), new ArrayList<String>());
 
 		long eventId = e.getId();
 		List<Event> events = eventDao.list();
@@ -100,7 +101,7 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 				"Event Description", EventType.PRIVATE,
 				DateTime.now().plus(Duration.standardDays(1)),
 				DateTime.now().plus(Duration.standardDays(2)),
-				Collections.<VoteCategory> emptyList());
+				Collections.<VoteCategory> emptyList(),new ArrayList<String>());
 		long eventId = e.getId();
 
 		UserAccount deserializedUserAccount = new UserAccount(
@@ -108,7 +109,7 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 				"user@example.com",
 				Arrays.asList(new Permission[]{Permission.USER}));
 		deserializedUserAccount.setId(userAccount.getId());
-		Event deserializedEvent = new Event(deserializedUserAccount,
+		Event deserializedEvent = new Event(null,deserializedUserAccount,
 				"new event name", "new description", EventType.PUBLIC,
 				DateTime.now().plus(Duration.standardDays(2)),
 				DateTime.now().plus(Duration.standardDays(3)),
@@ -160,7 +161,7 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 				"Event Description", EventType.PRIVATE, DateTime.now(),
 				DateTime.now().plus(Duration.standardDays(1)),
 				ImmutableList.<VoteCategory>of(firstCategory,
-						secondCategory));
+						secondCategory),new ArrayList<String>());
 
 		sessionFactory.getCurrentSession().save(e);
 
@@ -187,7 +188,7 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 
 		assertTrue(eventService.userCanUpdateEvent(userA, null));
 
-		Event testEvent = new Event(userA, "event name", "description",
+		Event testEvent = new Event(null,userA, "event name", "description",
 				EventType.PRIVATE, DateTime.now().plus(Duration.standardMinutes(1)),
 				DateTime.now().plus(Duration.standardDays(1)));
 		testEvent = eventDao.add(testEvent);
@@ -204,7 +205,7 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 	public void testEventCannotBeUpdatedAfterStarting() {
 		UserAccount userA = new UserAccount(AccountType.LOCAL, "foo", "foo",
 				null, "userA@example.com", Collections.<Permission> emptyList());
-		Event testEvent = new Event(userA, "event name", "description",
+		Event testEvent = new Event(null,userA, "event name", "description",
 				EventType.PRIVATE, DateTime.now(),
 				DateTime.now().plus(Duration.standardDays(1)));
 		testEvent = eventDao.add(testEvent);
@@ -224,9 +225,9 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 		Event firstEvent = eventService.createEvent(admin,
 				"event name", "description", EventType.PRIVATE, DateTime.now(),
 				DateTime.now().plus(Duration.standardDays(1)),
-				ImmutableList.<VoteCategory>of(firstCategory));
+				ImmutableList.<VoteCategory>of(firstCategory),new ArrayList<String>());
 
-		Event secondEvent = new Event(admin, "event name", "description",
+		Event secondEvent = new Event(null,admin, "event name", "description",
 				EventType.PRIVATE, DateTime.now(),
 				DateTime.now().plus(Duration.standardDays(1)));
 		VoteCategory replacementFirstCategory =
@@ -256,9 +257,9 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 		Event firstEvent = eventService.createEvent(admin,
 				"event name", "description", EventType.PRIVATE, DateTime.now(),
 				DateTime.now().plus(Duration.standardDays(1)),
-				ImmutableList.<VoteCategory>of(firstCategory));
+				ImmutableList.<VoteCategory>of(firstCategory),new ArrayList<String>());
 
-		Event secondEvent = new Event(admin, "event name", "description",
+		Event secondEvent = new Event(null,admin, "event name", "description",
 				EventType.PRIVATE, DateTime.now(),
 				DateTime.now().plus(Duration.standardDays(1)));
 		VoteCategory secondCategory = new VoteCategory("category" ,"desc");

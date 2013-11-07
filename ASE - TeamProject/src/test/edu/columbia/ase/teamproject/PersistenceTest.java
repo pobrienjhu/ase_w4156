@@ -101,7 +101,7 @@ public class PersistenceTest extends AbstractTransactionalJUnit4SpringContextTes
 		 /*
 		  * Add Events
 		  */
-		 Event event = new Event(admin, "Event Name", "Event Description",
+		 Event event = new Event(null,admin, "Event Name", "Event Description",
 				 EventType.PUBLIC, DateTime.now(),
 				 DateTime.now().plus(Duration.standardDays(1)));
 		 
@@ -225,7 +225,7 @@ public class PersistenceTest extends AbstractTransactionalJUnit4SpringContextTes
 		
 		 System.out.println(admin);
 		 
-		 Event event = new Event(admin, "Write Test Event",
+		 Event event = new Event(null,admin, "Write Test Event",
 				 "Testing description", EventType.PUBLIC,
 				 DateTime.now(),
 				 DateTime.now().plus(Duration.standardDays(1)));

@@ -78,34 +78,34 @@ public class PersistenceQueryTest extends AbstractTransactionalJUnit4SpringConte
 		 /*
 		  * Add Events
 		  */
-		 Event event1 = new Event(admin, "Event Name 1", "Event Description",
+		 Event event1 = new Event(null,admin, "Event Name 1", "Event Description",
 				 EventType.PUBLIC, DateTime.now(),
 				 DateTime.now().plus(Duration.standardDays(1)));
 		 
-		 Event event2 = new Event(admin, "Event Name 2", "Event Description",
+		 Event event2 = new Event(null,admin, "Event Name 2", "Event Description",
 				 EventType.PUBLIC, DateTime.now(),
 				 DateTime.now().plus(Duration.standardDays(1)));
 		 
-		 Event event3 = new Event(admin, "Event Name 3", "Event Description",
+		 Event event3 = new Event(null,admin, "Event Name 3", "Event Description",
 				 EventType.PUBLIC, DateTime.now(),
 				 DateTime.now().plus(Duration.standardDays(1)));
 		 
-		 Event event4 = new Event(admin, "Event Name 4", "Event Description",
+		 Event event4 = new Event(null,admin, "Event Name 4", "Event Description",
 				 EventType.PRIVATE, DateTime.now(),
 				 DateTime.now().plus(Duration.standardDays(1)));
 		 
 		 event4.addEventUser(user1);
 		 event4.addEventUser(user2);
 		 
-		 Event event5 = new Event(admin, "Event Name 5", "Event Description",
+		 Event event5 = new Event(null,admin, "Event Name 5", "Event Description",
 				 EventType.PUBLIC, DateTime.now().plus(Duration.standardHours(1)),
 				 DateTime.now().plus(Duration.standardDays(1)));
 		 
-		 Event event6 = new Event(admin, "Event Name 6", "Event Description",
+		 Event event6 = new Event(null,admin, "Event Name 6", "Event Description",
 				 EventType.PRIVATE, DateTime.now().minus(Duration.standardDays(2)),
 				 DateTime.now().minus(Duration.standardDays(1)));
 		 
-		 Event event7 = new Event(admin, "Event Name 7", "Event Description",
+		 Event event7 = new Event(null,admin, "Event Name 7", "Event Description",
 				 EventType.PUBLIC, DateTime.now().minus(Duration.standardDays(2)),
 				 DateTime.now().minus(Duration.standardDays(1)));
 		 

@@ -19,6 +19,7 @@
   	{
   		$("#createEventBtn").button().click(createEvent);
   		$("#addCatgLink").click(addCategory);
+  		$("#eventPrivate").click(togglePrivate);
   		
 		styleTextBoxes();
   		
@@ -26,6 +27,17 @@
   	}
   );
   
+  function togglePrivate()
+  {
+ 
+	  $(".divTextBox").each(function()
+		{
+			$(this).remove();		
+	  
+		}); 
+		
+  		$('#divPrivate').toggle();
+  }
   function toggleCategory(cat)
   {
   	$("#catg"+cat+"Options").slideToggle(function()
@@ -90,9 +102,30 @@
   	$("#catg"+c+"op"+o).remove();
   }
   
+   function addEmail()
+  {
+  	var em = $("#divEmail .emailTextBox").length + 1;
+  	$("#divEmail").append("<div class='divTextBox' style='margin-top:5px' id='inputEmail" + em + "'><input  class='emailTextBox' type='text'> (<a style='color:#4F85CA; text-decoration:none' href='javascript:removeEmail("+ em +")'>Remove</a>)</div>");
+  	styleTextBoxes();
+  	
+  }
+  
+  function removeEmail(em)
+  {
+  	$("#inputEmail"+em).remove();
+  }
+  
   function createEvent()
   {
-	        
+  	
+  	userEmails = [];
+  	$(".emailTextBox").each(function()
+	{
+		userEmails.push($(this).val());		
+  
+	});  
+	
+	
 	voteCategories = [];
 	$(".categoryEditBox").each(function()
 	{
@@ -115,10 +148,11 @@
 	
 	var e = { "name": $("#eventTitle")[0].value,
 	          "description": $("#eventDescription")[0].value,
-	          "eventType": $("#eventPublic")[0].checked ? "PUBLIC" : "PRIVATE",
+	          "eventType": $("#eventPrivate")[0].checked ? "PRIVATE" : "PUBLIC",
 	          "eventStart": new Date($("#begins-datepicker")[0].value).getTime(),
 	          "eventEnd": new Date($("#ends-datepicker")[0].value).getTime(),
-	          "eventUsers":[],
+	          "eventUsers":[],	     
+	          "userEmails":userEmails,   
 	          "voteCategories": voteCategories
 	};
 	
@@ -156,9 +190,9 @@
 			</div>
 			<div style='clear:both'> </div>
 
-      <div style='float:left; margin-top:5px; width:110px;'>Public event?</div>
+      <div style='float:left; margin-top:5px; width:110px;'>Private event?</div>
       <div style='float:left; margin-top:5px;'>
-        <input type='checkbox' id='eventPublic' checked />
+        <input type='checkbox' id='eventPrivate' unchecked />
       </div>
       <div style='clear:both'> </div>
       
@@ -197,15 +231,23 @@
       	<div id='catg1op2' style='margin-top:5px;'><input class='optionTextBox'  type='text'></div>
             
       </div>
-
-
-
-    </div>
-   
+    </div>   
 		</div>
+		
       <div class="clearer"><span></span></div>
     </div>
   </div>
+  
+  	<div id="divPrivate" style="display:none">
+		<div class="newsitem">
+		  <div class="title">Private Event Participants  [<a href='javascript:addEmail()' style='color:#4F85CA; text-decoration:none'>Add Email</a>]</div>
+    <div class="body"><div id="divEmail" style='padding:10px;padding-left:5px;'></div></div>
+		</div>
+		 <div class="clearer"><span></span></div>
+   		</div>
+		
+		
+		
     <div style='margin-left:10px; margin-bottom:25px; height:20px;text-align:center;'>
 		<input id='createEventBtn' type='button' value='Create Event' style='margin-top:5px;'><br/><br/>
       </div>

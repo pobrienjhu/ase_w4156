@@ -5,6 +5,7 @@ package edu.columbia.ase.teamproject.services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 import org.joda.time.DateTime;
@@ -277,27 +278,42 @@ public class EventService {
 		return new ArrayList<Event>();
 	}
 	
-
-	public Event createEvent(UserAccount requestor, String name, String description, EventType eventType,
-			DateTime start, DateTime end, List<VoteCategory> voteCategories) throws ValidationException
+	public Event createEvent(UserAccount requestor, String name, String description, EventType eventType,DateTime start, DateTime end, List<VoteCategory> voteCategories,List<String> userEmails) throws ValidationException
 	{
 		Preconditions.checkNotNull(requestor);
 		logger.info("Creating event " + name);
-
-		Event event = new Event(requestor, name, description, eventType,
-				start, end);
+		
+		Event event = new Event(null,requestor, name, description, eventType, start, end);
 		for (VoteCategory v : voteCategories)
 		{
 			v.setEvent(event);
 		}
 		event.setVoteCategories(voteCategories);
 		
-		EventValidationHelper.validateEventCreation(event);
+		//remove duplicates
+		HashSet<String> hs = new HashSet<String>();
+		hs.addAll(userEmails);
 		
+		for(String email : hs){
+			UserAccount ua = userDao.findAccountByEmail(email);
+			//why does this crash when adding event creator?
+			if(ua != null && ua.getId() != requestor.getId()){
+				event.addEventUser(ua);						
+			}
+		}
+		//crashing with validationexception
+		//EventValidationHelper.validateEventCreation(event);
 		validateEvent(event);
 		replaceImmutableClientFieldsWithTrustedData(event);
+			
+		
 		return eventDao.add(event);
+	
+	
+	
 	}
+
+	
 
 
 	

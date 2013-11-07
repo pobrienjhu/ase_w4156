@@ -59,7 +59,9 @@ public class UserAccountDaoImpl extends HibernateDao<UserAccount, Long>
 
 	@Override
 	public UserAccount findAccountByEmail(String email) {
+		try{
 		Preconditions.checkArgument(!email.isEmpty());
+		}catch(Exception e){return null;}
 
 		Criteria criteria = currentSession().createCriteria(daoType)
 				.add(Restrictions.eq("email", email))

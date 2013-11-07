@@ -19,6 +19,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.Version;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -37,6 +38,9 @@ import edu.columbia.ase.teamproject.persistence.domain.enumeration.EventType;
 @Entity
 @Table(name = "Event")
 public class Event {
+	
+	@Transient
+	private List<String>userEmails;
 
 	private static final int MAX_NAME_LENGTH = 50;
 	private static final int MAX_DESCRIPTION_LENGTH = 255;
@@ -74,6 +78,8 @@ public class Event {
     	inverseJoinColumns={@JoinColumn(name="userId")})
 	private List<UserAccount> eventUsers;
 	
+	
+	
 	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinTable(name="Admin_Event",
@@ -100,7 +106,7 @@ public class Event {
 	/**
 	 * @param admin if null, MUST be set before persisting to database.
 	 */
-	public Event(@Nullable UserAccount admin, String name, String description,
+	public Event(@Nullable List<String>userEmails,@Nullable UserAccount admin, String name, String description,
 			EventType eventType, DateTime eventStart,
 			DateTime eventEnd, List<VoteCategory> voteCategories) {
 		this();
@@ -117,17 +123,20 @@ public class Event {
 		for (VoteCategory category : voteCategories) {
 			addVoteCategory(category);
 		}
+		this.userEmails = userEmails;
 	}
 
 	/**
 	 * @param admin if null, MUST be set before persisting to database.
 	 */
-	public Event(@Nullable UserAccount admin, String name, String description,
+	public Event(@Nullable List<String> userEmails, @Nullable UserAccount admin, String name, String description,
 			EventType eventType, DateTime eventStart,
 			DateTime eventEnd) {
-		this(admin, name, description, eventType, eventStart, eventEnd,
+		this(userEmails,admin, name, description, eventType, eventStart, eventEnd,
 				Collections.<VoteCategory> emptyList());
 	}
+	
+
 	
 	public void addAdminUser(UserAccount userAccount){
 		Preconditions.checkNotNull(userAccount);
@@ -282,4 +291,15 @@ public class Event {
 		
 		return stringList;
 	}
+	
+	public List<String> getUserEmails()
+	{
+		return userEmails;
+	}
+	public void setUserEmails(List<String>userEmails)
+	{
+		this.userEmails=userEmails;
+	}
+	
+
 }
