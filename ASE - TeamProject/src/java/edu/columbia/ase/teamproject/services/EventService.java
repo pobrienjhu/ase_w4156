@@ -289,34 +289,27 @@ public class EventService {
 			v.setEvent(event);
 		}
 		event.setVoteCategories(voteCategories);
-		
-		//remove duplicates
-		HashSet<String> hs = new HashSet<String>();
-		hs.addAll(userEmails);
-		// TODO(ra2659): why does this crash when adding event creator?
-		hs.remove(requestor);
-		
-		for(String email : hs){
-			UserAccount ua = userDao.findAccountByEmail(email);
-			if(ua != null){
-				event.addEventUser(ua);						
+
+		if (eventType == EventType.PRIVATE) {
+			//remove duplicates
+			HashSet<String> hs = new HashSet<String>();
+			hs.addAll(userEmails);
+			hs.remove(requestor.getEmail());
+
+			for(String email : hs){
+				UserAccount ua = userDao.findAccountByEmail(email);
+				if(ua != null){
+					event.addEventUser(ua);
+				}
 			}
+			event.addEventUser(requestor);
 		}
 		EventValidationHelper.validateEventCreation(event);
 		validateEvent(event);
-		replaceImmutableClientFieldsWithTrustedData(event);
-			
 		
 		return eventDao.add(event);
-	
-	
-	
 	}
 
-	
-
-
-	
 	@Transactional
 	public void addUserToEvent(UserAccount requestor, Long id,
 			UserAccount victim) {
