@@ -1,5 +1,6 @@
 package edu.columbia.ase.teamproject.security;
 
+import java.nio.ByteBuffer;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
@@ -48,12 +49,16 @@ public class AuthKey {
 	}
 
 	private static byte[] computeMac(Long id, String secret) {
+		Preconditions.checkNotNull(id);
+		Preconditions.checkArgument(!secret.isEmpty());
+		ByteBuffer buffer = ByteBuffer.allocate(8);
+		buffer.putLong(id);
 		try {
 			Mac mac = Mac.getInstance("HmacSHA256");
 			SecretKeySpec secretKey = new SecretKeySpec(secret.getBytes(),
 					"HmacSHA256");
 			mac.init(secretKey);
-			mac.update(id.byteValue());
+			mac.update(buffer.array());
 			return mac.doFinal();
 		} catch (NoSuchAlgorithmException e) {
 			Throwables.propagate(e);
