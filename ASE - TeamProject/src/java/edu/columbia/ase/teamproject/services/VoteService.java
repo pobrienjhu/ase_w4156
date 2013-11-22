@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.google.gson.Gson;
 
@@ -49,21 +50,41 @@ public class VoteService {
 	
 	}
 	
-	public void addVote(long id,UserAccount user)
+	@Transactional
+	public void addVotes(List<Long>voteList, UserAccount user) throws Exception{
+		
+		for(int i = 0; i < voteList.size(); i++){
+			
+			 addVote( voteList.get(i),user);				
+	    	
+		 }
+		
+	}
+	
+	@Transactional
+	public void addVote(long id,UserAccount user) throws Exception
 	{
 		
 	
-		VoteOption vo = voteOptionDao.find(id);
+		VoteOption voteOption = voteOptionDao.find(id);
+		
+		if( voteOption == null ){
+			throw new Exception("Invalid vote option id ("+id+")");
+		}
 		
 	
 		for(Vote v2 : user.getVotes()){
-			if(v2.getVoteOption().getVoteCategory().getId()==vo.getVoteCategory().getId()){  // && v2.getUserAccount().getId()==user.getId()){
-				voteDao.remove(v2);							
+			if(v2.getVoteOption().getVoteCategory().getId() == voteOption.getVoteCategory().getId()){  // && v2.getUserAccount().getId()==user.getId()){
+
+				v2.setVoteOption(voteOption);
+				voteOption.addVote(v2);
+				voteDao.update(v2);
+				return;
 			}
 							
 		}
 	
-		Vote v = new Vote(vo,user); 
+		Vote v = new Vote(voteOption,user); 
 		voteDao.add(v);
 	
 	}

@@ -37,6 +37,13 @@ public class Vote {
     @JoinColumn(name="userId")
 	private UserAccount userAccount;
 
+    @Version
+    @Column(name="version")
+    private Integer optimisticLockingVersion;
+    
+	@Column(name="voteCategoryId")
+	private Long voteCategoryId;
+	
 	
 	public Vote() {
 		super();
@@ -51,6 +58,7 @@ public class Vote {
 		this.voteOption = voteOption;
 		this.userAccount = userAccount;
 		this.voteTime = voteTime;
+		this.voteCategoryId = this.voteOption.getVoteCategory().getId();
 	}
 
 	/**
@@ -104,6 +112,28 @@ public class Vote {
 		this.voteTime = voteTime;
 	}
 	
+	/**
+	 * @return the VoteCategoryId
+	 */
+	public Long getVoteCategoryId() {
+		return this.voteCategoryId;
+	}
+
+	/**
+	 * @param id the VoteCategoryId to set
+	 */
+	public void setVoteCategoryId(Long id) {
+		this.voteCategoryId = id;
+	}
+	
+	public Integer getOptimisticLockingVersion() {
+		return optimisticLockingVersion;
+	}
+
+	public void setOptimisticLockingVersion(Integer optimisticLockingVersion) {
+		this.optimisticLockingVersion = optimisticLockingVersion;
+	}
+
 	@Override
 	public String toString() {
 		
