@@ -66,6 +66,7 @@ public class VoteServiceWhiteBoxTest extends AbstractTransactionalJUnit4SpringCo
 	 
 	 private long eventId;
 	 private long userId;
+
 	 
 	 @Before
 	 public void setUp() {
@@ -136,7 +137,12 @@ public class VoteServiceWhiteBoxTest extends AbstractTransactionalJUnit4SpringCo
 
 		 eventDao.flush();
 
-		 
+		 //cat1opt1Id = category1.getVoteOptions().get(0).getId();
+		 //cat1opt2Id = category2.getVoteOptions().get(1).getId();
+
+		 //cat2opt1Id = category1.getVoteOptions().get(0).getId();
+		 //cat2opt2Id = category2.getVoteOptions().get(1).getId();
+
 	 }
 
 	 @AfterClass
@@ -151,16 +157,16 @@ public class VoteServiceWhiteBoxTest extends AbstractTransactionalJUnit4SpringCo
 	  * with two categories category 1 and category 2
 	  * 
 	  * category 1 has options 
-	  *  option 1a
-	  *  option 2a
-	  *  option 3a
-	  *  option 4 (added)
+	  *  49. option 1a
+	  *  50. option 2a
+	  *  51. option 3a
+	  *  55. option 4 (added)
 	  *  
 	  * category 2 has options 
-	  *  option 2a
-	  *  option 2b
-	  *  option 2c 
-	  *  option 4 (added)
+	  *  52. option 2a
+	  *  53. option 2b
+	  *  54. option 2c 
+	  *  56. option 4 (added)
 	  * 
 	  */
 
@@ -170,10 +176,14 @@ public class VoteServiceWhiteBoxTest extends AbstractTransactionalJUnit4SpringCo
 
 		 Event event = eventDao.find(eventId);
 		 
+		 List<VoteCategory> voteCategories = voteCategoryDao.list();
+		 
 		 List<Long>voteList = new ArrayList<Long>();
 		 
-		 voteList.add(new Long(1));
-		 voteList.add(new Long(2));
+		 voteCategories.get(0).getVoteOptions().get(0).getId();
+		 
+		 voteList.add(voteCategories.get(0).getVoteOptions().get(0).getId());
+		 voteList.add(voteCategories.get(1).getVoteOptions().get(0).getId());
 		 
 		 boolean exceptionThrown = false;
 		 
@@ -206,17 +216,40 @@ public class VoteServiceWhiteBoxTest extends AbstractTransactionalJUnit4SpringCo
 		 		
 		 assert(exceptionThrown);
 	 }
-	 	 
+
+	 @Test
+	 public void testFailVerifyVotes2()
+	 {
+
+		 Event event = eventDao.find(eventId);
+		 List<VoteCategory> voteCategories = voteCategoryDao.list();
+
+		 List<Long>voteList = new ArrayList<Long>();
+		 
+		 voteList.add(new Long(250));
+		 voteList.add(new Long(190));
+		 
+		 boolean exceptionThrown = false;
+		 
+		 try {
+			voteService.verifyVotes(event, voteList);
+		 } catch (Exception e) {
+			 exceptionThrown = true;
+		 }
+		 		
+		 assert(exceptionThrown);
+	 }
 	 
 	 @Test
 	 public void testAddVotes()
 	 {
 		 UserAccount user = userAccountDao.find(userId);
+		 List<VoteCategory> voteCategories = voteCategoryDao.list();
 
 		 List<Long>voteList = new ArrayList<Long>();
 		 
-		 voteList.add(new Long(1));
-		 voteList.add(new Long(2));
+		 voteList.add(voteCategories.get(0).getVoteOptions().get(0).getId());
+		 voteList.add(voteCategories.get(1).getVoteOptions().get(0).getId());
 			
 		 boolean exceptionThrown = false;
 		 
@@ -234,11 +267,12 @@ public class VoteServiceWhiteBoxTest extends AbstractTransactionalJUnit4SpringCo
 	 public void testAddSecondVotes()
 	 {
 		 UserAccount user = userAccountDao.find(userId);
+		 List<VoteCategory> voteCategories = voteCategoryDao.list();
 
 		 List<Long>voteList = new ArrayList<Long>();
 		 
-		 voteList.add(new Long(1));
-		 voteList.add(new Long(2));
+		 voteList.add(voteCategories.get(0).getVoteOptions().get(0).getId());
+		 voteList.add(voteCategories.get(1).getVoteOptions().get(0).getId());
 		
 		 
 		 boolean exceptionThrown = false;
@@ -255,8 +289,8 @@ public class VoteServiceWhiteBoxTest extends AbstractTransactionalJUnit4SpringCo
 		 
 		 List<Long>secondVoteList = new ArrayList<Long>();
 		 
-		 secondVoteList.add(new Long(1));
-		 secondVoteList.add(new Long(2));
+		 secondVoteList.add(voteCategories.get(0).getVoteOptions().get(1).getId());
+		 secondVoteList.add(voteCategories.get(1).getVoteOptions().get(1).getId());
 
 		 exceptionThrown = false;
 		 
