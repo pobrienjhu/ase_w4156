@@ -134,7 +134,7 @@ public final class VoteController {
 		 List<Long>voteList = new ArrayList<Long>();
 		 
 		 Event event = eventService.lookupEvent(user,Long.parseLong(st.nextToken()));
-		 if(event == null){
+		 if(event == null || event.getEndTime().isBeforeNow()){
 			 throw new Exception("Invalid Event!");			 
 		 }
 		 
