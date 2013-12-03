@@ -145,6 +145,20 @@ public class VoteServiceTest extends AbstractTransactionalJUnit4SpringContextTes
 	 }
 
 	 @Test
+	 public void testVerifyAddVoteRecordsVote() throws Exception {
+		 List<Long> voteList = Lists.newArrayList();
+		 voteList.add(firstEvent.getVoteCategories().get(0).getVoteOptions().get(0).getId());
+		 voteList.add(firstEvent.getVoteCategories().get(1).getVoteOptions().get(0).getId());
+		 voteService.addVotes(firstEvent, voteList, voter);
+		 eventDao.update(firstEvent);
+
+		 VoteOption vo1o1 = voteOptionDao.find(firstEvent.getVoteCategories().get(0).getVoteOptions().get(0).getId());
+		 VoteOption vo2o1 = voteOptionDao.find(firstEvent.getVoteCategories().get(1).getVoteOptions().get(1).getId());
+		 assertTrue(vo1o1.getVotes().size() == 1);
+		 assertTrue(vo2o1.getVotes().size() == 1);
+	 }
+
+	 @Test
 	 public void testVerifyAddVoteReplacesExistingVote() throws Exception {
 		 List<Long> voteList = Lists.newArrayList();
 		 voteList.add(firstEvent.getVoteCategories().get(0).getVoteOptions().get(0).getId());
