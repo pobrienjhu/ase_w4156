@@ -110,6 +110,7 @@ public class UserAccount {
 	private UserAccount() {
 		userEvents = new ArrayList<Event>();
 		adminEvents = new ArrayList<Event>();
+		votes = new ArrayList<Vote>();
 	}
 
 	public UserAccount(AccountType type, String username,

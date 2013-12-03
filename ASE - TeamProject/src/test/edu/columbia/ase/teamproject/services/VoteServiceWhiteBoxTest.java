@@ -1,6 +1,4 @@
-package edu.columbia.ase.teamproject;
-
-import static org.junit.Assert.assertNotNull;
+package edu.columbia.ase.teamproject.services;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,7 +16,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-
 import com.google.gson.Gson;
 
 import edu.columbia.ase.teamproject.persistence.dao.EventDao;
@@ -28,13 +25,11 @@ import edu.columbia.ase.teamproject.persistence.dao.VoteDao;
 import edu.columbia.ase.teamproject.persistence.dao.VoteOptionDao;
 import edu.columbia.ase.teamproject.persistence.domain.Event;
 import edu.columbia.ase.teamproject.persistence.domain.UserAccount;
-import edu.columbia.ase.teamproject.persistence.domain.Vote;
 import edu.columbia.ase.teamproject.persistence.domain.VoteCategory;
 import edu.columbia.ase.teamproject.persistence.domain.VoteOption;
 import edu.columbia.ase.teamproject.persistence.domain.enumeration.AccountType;
 import edu.columbia.ase.teamproject.persistence.domain.enumeration.EventType;
 import edu.columbia.ase.teamproject.security.Permission;
-import edu.columbia.ase.teamproject.services.VoteService;
 import edu.columbia.ase.teamproject.util.GsonProvider;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -254,7 +249,7 @@ public class VoteServiceWhiteBoxTest extends AbstractTransactionalJUnit4SpringCo
 		 boolean exceptionThrown = false;
 		 
 		 try {
-			voteService.addVotes(voteList, user);
+			voteService.addVotes(eventDao.find(eventId), voteList, user);
 		} catch (Exception e) {
 			 exceptionThrown = true;
 		}
@@ -278,7 +273,7 @@ public class VoteServiceWhiteBoxTest extends AbstractTransactionalJUnit4SpringCo
 		 boolean exceptionThrown = false;
 		 
 		 try {
-			voteService.addVotes(voteList, user);
+			voteService.addVotes(eventDao.find(eventId), voteList, user);
 		} catch (Exception e) {
 			 exceptionThrown = true;
 		}
@@ -295,7 +290,7 @@ public class VoteServiceWhiteBoxTest extends AbstractTransactionalJUnit4SpringCo
 		 exceptionThrown = false;
 		 
 		 try {
-			voteService.addVotes(secondVoteList, user);
+			voteService.addVotes(eventDao.find(eventId), secondVoteList, user);
 		} catch (Exception e) {
 			 exceptionThrown = true;
 		}
@@ -317,7 +312,7 @@ public class VoteServiceWhiteBoxTest extends AbstractTransactionalJUnit4SpringCo
 		 boolean exceptionThrown = false;
 		 
 		 try {
-			voteService.addVotes(voteList, user);
+			voteService.addVotes(eventDao.find(eventId), voteList, user);
 		 } catch (Exception e) {
 			 exceptionThrown = true;
 		 }
@@ -338,7 +333,7 @@ public class VoteServiceWhiteBoxTest extends AbstractTransactionalJUnit4SpringCo
 		 boolean exceptionThrown = false;
 		 
 		 try {
-			voteService.addVotes(voteList, user);
+			voteService.addVotes(eventDao.find(eventId), voteList, user);
 		 } catch (Exception e) {
 			 exceptionThrown = true;
 		 }

@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.google.gson.Gson;
 
 import edu.columbia.ase.teamproject.persistence.dao.VoteDao;
@@ -29,8 +30,10 @@ public class VoteService {
 	
 	@Autowired
 	GsonProvider gsonProvider;
-	
-	public void verifyVotes(Event event,List<Long>voteList) throws Exception
+
+	@VisibleForTesting
+	@Transactional
+	void verifyVotes(Event event,List<Long>voteList) throws Exception
 	{
 		if(event.getVoteCategories().size() != voteList.size() ||  event.getEndTime().isBeforeNow())
 			throw new Exception("Invalid voting!");	
@@ -51,18 +54,17 @@ public class VoteService {
 	}
 	
 	@Transactional
-	public void addVotes(List<Long>voteList, UserAccount user) throws Exception{
-		
+	public void addVotes(Event event, List<Long>voteList, UserAccount user) throws Exception{
+		verifyVotes(event, voteList);
+
 		for(int i = 0; i < voteList.size(); i++){
-			
-			 addVote( voteList.get(i),user);				
-	    	
+			 addVote(voteList.get(i),user);
 		 }
-		
 	}
-	
+
+	@VisibleForTesting
 	@Transactional
-	public void addVote(long id,UserAccount user) throws Exception
+	void addVote(long id,UserAccount user) throws Exception
 	{
 		
 	

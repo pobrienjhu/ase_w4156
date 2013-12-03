@@ -142,32 +142,13 @@ public final class VoteController {
 			voteList.add(Long.parseLong(st.nextToken()));	
 		 }
 		 
-		 try{
-				
-			voteService.verifyVotes(event, voteList);	
-		 }		 
-		 catch(Exception e){
-	
-			throw new Exception(e.getMessage()); //not sending message by itself
-			 //response.sendError(400, e.getMessage()); //not working properly
-			
-			
-		 }
-		 
-		 
 		 try {
-			voteService.addVotes(voteList, user);
+			voteService.addVotes(event, voteList, user);
 		} catch (Exception e) {
 			logger.error("Unable to add vote. Root Cause ("+e+")");
 			return  "Unable to add votes!";			
 		}
 	
-	 
-		//for(int i = 0; i < voteList.size(); i++){	
-		//	 voteService.addVote( voteList.get(i),user);				
-		// }
-		
-
 		return  "Your vote has been submitted!";
 
 	}
