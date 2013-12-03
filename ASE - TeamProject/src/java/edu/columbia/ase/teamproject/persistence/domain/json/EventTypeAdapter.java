@@ -9,14 +9,15 @@ import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 
 import edu.columbia.ase.teamproject.persistence.domain.Event;
 import edu.columbia.ase.teamproject.persistence.domain.UserAccount;
@@ -97,10 +98,12 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 			Preconditions.checkState(descriptionSet);
 			Preconditions.checkState(eventTypeSet);
 			Preconditions.checkState(eventUsersSet);
-			Preconditions.checkState(userEmailsSet);
 			Preconditions.checkState(voteCategoriesSet);
 			Preconditions.checkState(eventStartSet);
 			Preconditions.checkState(eventEndSet);
+			if (!userEmailsSet) {
+				this.userEmails = ImmutableList.<String>of();
+			}
 			// TODO(pames): ensure that the admin information is serialized.
 			logger.warn("Building an event without any admin info");
 			Event event = new Event(userEmails, null, name, description, eventType,

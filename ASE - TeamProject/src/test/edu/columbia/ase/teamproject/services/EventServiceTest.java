@@ -11,6 +11,7 @@ import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -64,6 +65,16 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 
 	 private UserAccount userAccount; 
 
+	 private List<VoteCategory> createBogusCategories() {
+		 VoteCategory vc1 = new VoteCategory("category 1", "category 1 description");
+		 VoteCategory vc2 = new VoteCategory("category 2", "category 2 description");
+		 vc1.addVotingOption(new VoteOption(vc1, "1-1"));
+		 vc1.addVotingOption(new VoteOption(vc1, "1-2"));
+		 vc2.addVotingOption(new VoteOption(vc2, "2-1"));
+		 vc2.addVotingOption(new VoteOption(vc2, "2-2"));
+		 return ImmutableList.<VoteCategory>of(vc1, vc2);
+	 }
+
 	 @Before
 	 public void setUp() {
 		 UserAccount user = new UserAccount(AccountType.LOCAL, "user",
@@ -81,7 +92,7 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 		Event e = eventService.createEvent(userAccount, "Test Event Name",
 				"Event Description", EventType.PRIVATE, DateTime.now(),
 				DateTime.now().plus(Duration.standardDays(1)),
-				Collections.<VoteCategory> emptyList(), new ArrayList<String>());
+				createBogusCategories(), new ArrayList<String>());
 
 		long eventId = e.getId();
 		List<Event> events = eventDao.list();
@@ -101,7 +112,7 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 				"Event Description", EventType.PRIVATE,
 				DateTime.now().plus(Duration.standardDays(1)),
 				DateTime.now().plus(Duration.standardDays(2)),
-				Collections.<VoteCategory> emptyList(),new ArrayList<String>());
+				createBogusCategories(), new ArrayList<String>());
 		long eventId = e.getId();
 
 		UserAccount deserializedUserAccount = new UserAccount(
@@ -220,7 +231,8 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 				null, "admin@example.com", Collections.<Permission> emptyList());
 
 		VoteCategory firstCategory = new VoteCategory("Category 1", "Description");
-		firstCategory.addVotingOption(new VoteOption("option name"));
+		firstCategory.addVotingOption(new VoteOption("first option name"));
+		firstCategory.addVotingOption(new VoteOption("second option name"));
 
 		Event firstEvent = eventService.createEvent(admin,
 				"event name", "description", EventType.PRIVATE, DateTime.now(),
@@ -252,7 +264,8 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 				null, "admin@example.com", Collections.<Permission> emptyList());
 
 		VoteCategory firstCategory = new VoteCategory("Category 1", "Description");
-		firstCategory.addVotingOption(new VoteOption("option name"));
+		firstCategory.addVotingOption(new VoteOption("first option name"));
+		firstCategory.addVotingOption(new VoteOption("second option name"));
 
 		Event firstEvent = eventService.createEvent(admin,
 				"event name", "description", EventType.PRIVATE, DateTime.now(),
