@@ -38,7 +38,7 @@ public class VoteService {
 		if(event.getVoteCategories().size() != voteList.size() ||  event.getEndTime().isBeforeNow())
 			throw new Exception("Invalid voting!");	
 		//making sure user votes in each category
-		boolean found;
+		boolean found = false;
 		for(VoteCategory vc : event.getVoteCategories()){
 			found = false;
 			for(VoteOption vo : vc.getVoteOptions()){
@@ -76,8 +76,8 @@ public class VoteService {
 		
 	
 		for(Vote v2 : user.getVotes()){
-			if(v2.getVoteOption().getVoteCategory().getId() == voteOption.getVoteCategory().getId()){  // && v2.getUserAccount().getId()==user.getId()){
-
+			if(v2.getVoteOption().getVoteCategory().getId() == voteOption.getVoteCategory().getId()){
+				
 				v2.setVoteOption(voteOption);
 				voteOption.addVote(v2);
 				voteDao.update(v2);
@@ -88,6 +88,8 @@ public class VoteService {
 	
 		Vote v = new Vote(voteOption,user); 
 		voteDao.add(v);
+		
+		user.addVote(v);
 	
 	}
 	

@@ -265,4 +265,9 @@ public class UserAccount {
 		return votes;
 	
 	}
+
+	public void addVote(Vote vote){
+		votes.add(vote);
+	}
+
 }
