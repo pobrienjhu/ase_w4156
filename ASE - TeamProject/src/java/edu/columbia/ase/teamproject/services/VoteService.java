@@ -76,21 +76,30 @@ public class VoteService {
 		
 	
 		for(Vote v2 : user.getVotes()){
+		
 			if(v2.getVoteOption().getVoteCategory().getId() == voteOption.getVoteCategory().getId()){
 				
+				v2.getVoteOption().removeVote(v2);
+				user.removeVote(v2);
+				
+			
 				v2.setVoteOption(voteOption);
-				voteOption.addVote(v2);
+			
 				voteDao.update(v2);
+				
+				v2.getVoteOption().addVote(v2);
+				user.addVote(v2);
+				
 				return;
 			}
 							
 		}
 	
 		Vote v = new Vote(voteOption,user); 
-		voteDao.add(v);
-		
+		v = voteDao.add(v);
+		voteOption.addVote(v);
 		user.addVote(v);
-	
+			
 	}
 	
 	public String getResults(Event event)
