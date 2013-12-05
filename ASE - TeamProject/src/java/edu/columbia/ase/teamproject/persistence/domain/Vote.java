@@ -1,6 +1,5 @@
 package edu.columbia.ase.teamproject.persistence.domain;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,38 +22,52 @@ import org.joda.time.LocalDateTime;
 @Entity
 @Table(name = "Vote")
 public class Vote {
-	
+
 	/** The id. */
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "Id", nullable=false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "Id", nullable = false)
 	private Long id;
-	
+
 	/** The vote time. */
-	@Column(name="voteTime")
-	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
+	@Column(name = "voteTime")
+	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
 	private LocalDateTime voteTime;
-	
+
 	/** The vote option. */
-	@ManyToOne(targetEntity = VoteOption.class)/* (cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}) /*(cascade={CascadeType.ALL})*/
-    @JoinColumn(name="voteOptionId")
+	@ManyToOne(targetEntity = VoteOption.class)
+	/*
+	 * (cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+	 * /*(cascade={CascadeType.ALL})
+	 */
+	@JoinColumn(name = "voteOptionId")
 	private VoteOption voteOption;
-	
+
 	/** The user account. */
-	@ManyToOne (targetEntity = UserAccount.class)/*(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})*/ /*(cascade={CascadeType.ALL})*/
-    @JoinColumn(name="userId")
+	@ManyToOne(targetEntity = UserAccount.class)
+	/* (cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}) *//*
+																					 * (
+																					 * cascade
+																					 * =
+																					 * {
+																					 * CascadeType
+																					 * .
+																					 * ALL
+																					 * }
+																					 * )
+																					 */
+	@JoinColumn(name = "userId")
 	private UserAccount userAccount;
 
-    /** The optimistic locking version. */
-    @Version
-    @Column(name="version")
-    private Integer optimisticLockingVersion;
-    
+	/** The optimistic locking version. */
+	@Version
+	@Column(name = "version")
+	private Integer optimisticLockingVersion;
+
 	/** The vote category id. */
-	@Column(name="voteCategoryId")
+	@Column(name = "voteCategoryId")
 	private Long voteCategoryId;
-	
-	
+
 	/**
 	 * Instantiates a new vote.
 	 */
@@ -65,21 +78,27 @@ public class Vote {
 	/**
 	 * Instantiates a new vote.
 	 *
-	 * @param voteOption the vote option
-	 * @param userAccount the user account
+	 * @param voteOption
+	 *            the vote option
+	 * @param userAccount
+	 *            the user account
 	 */
 	public Vote(VoteOption voteOption, UserAccount userAccount) {
 		this(voteOption, userAccount, new LocalDateTime());
 	}
-	
+
 	/**
 	 * Instantiates a new vote.
 	 *
-	 * @param voteOption the vote option
-	 * @param userAccount the user account
-	 * @param voteTime the vote time
+	 * @param voteOption
+	 *            the vote option
+	 * @param userAccount
+	 *            the user account
+	 * @param voteTime
+	 *            the vote time
 	 */
-	public Vote(VoteOption voteOption, UserAccount userAccount, LocalDateTime voteTime) {
+	public Vote(VoteOption voteOption, UserAccount userAccount,
+			LocalDateTime voteTime) {
 		this();
 		this.voteOption = voteOption;
 		this.userAccount = userAccount;
@@ -99,7 +118,8 @@ public class Vote {
 	/**
 	 * Sets the id.
 	 *
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(Long id) {
 		this.id = id;
@@ -117,7 +137,8 @@ public class Vote {
 	/**
 	 * Sets the vote option.
 	 *
-	 * @param voteOption the voteOption to set
+	 * @param voteOption
+	 *            the voteOption to set
 	 */
 	public void setVoteOption(VoteOption voteOption) {
 		this.voteOption = voteOption;
@@ -135,13 +156,13 @@ public class Vote {
 	/**
 	 * Sets the user account.
 	 *
-	 * @param userAccount the userAccount to set
+	 * @param userAccount
+	 *            the userAccount to set
 	 */
 	public void setUserAccount(UserAccount userAccount) {
 		this.userAccount = userAccount;
 	}
 
-	
 	/**
 	 * Gets the vote time.
 	 *
@@ -154,12 +175,13 @@ public class Vote {
 	/**
 	 * Sets the vote time.
 	 *
-	 * @param voteTime the new vote time
+	 * @param voteTime
+	 *            the new vote time
 	 */
 	public void setVoteTime(LocalDateTime voteTime) {
 		this.voteTime = voteTime;
 	}
-	
+
 	/**
 	 * Gets the vote category id.
 	 *
@@ -172,12 +194,13 @@ public class Vote {
 	/**
 	 * Sets the vote category id.
 	 *
-	 * @param id the VoteCategoryId to set
+	 * @param id
+	 *            the VoteCategoryId to set
 	 */
 	public void setVoteCategoryId(Long id) {
 		this.voteCategoryId = id;
 	}
-	
+
 	/**
 	 * Gets the optimistic locking version.
 	 *
@@ -190,25 +213,25 @@ public class Vote {
 	/**
 	 * Sets the optimistic locking version.
 	 *
-	 * @param optimisticLockingVersion the new optimistic locking version
+	 * @param optimisticLockingVersion
+	 *            the new optimistic locking version
 	 */
 	public void setOptimisticLockingVersion(Integer optimisticLockingVersion) {
 		this.optimisticLockingVersion = optimisticLockingVersion;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		
+
 		return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
-				.append("id", id)
-				.append("voteOption", voteOption)
+				.append("id", id).append("voteOption", voteOption)
 				.append("voteTime", voteTime)
-				.append("userAccount", userAccount.getUsername() )
-				.toString();		
+				.append("userAccount", userAccount.getUsername()).toString();
 	}
-	
 
 }

@@ -6,12 +6,10 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -39,29 +37,31 @@ public class VoteOption {
 
 	/** The id. */
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "Id", nullable=false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "Id", nullable = false)
 	private Long id;
-	
+
 	/** The vote category. */
-	@ManyToOne(targetEntity = VoteCategory.class) //cascade={CascadeType.MERGE})
-    @JoinColumn(name="voteCategoryId")
+	@ManyToOne(targetEntity = VoteCategory.class)
+	// cascade={CascadeType.MERGE})
+	@JoinColumn(name = "voteCategoryId")
 	private VoteCategory voteCategory;
-	
+
 	/** The option name. */
-	@Column(name="optionName")
+	@Column(name = "optionName")
 	@ColumnLength(value = MAX_NAME_LENGTH)
 	private String optionName;
 
 	/** The votes. */
-	@OneToMany(/*cascade = {CascadeType.ALL}*/cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE},orphanRemoval=true, mappedBy="voteOption")
+	@OneToMany(/* cascade = {CascadeType.ALL} */cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE }, orphanRemoval = true, mappedBy = "voteOption")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Vote> votes;
-	
-    /** The optimistic locking version. */
-    @Version
-    private Integer optimisticLockingVersion;
-	
+
+	/** The optimistic locking version. */
+	@Version
+	private Integer optimisticLockingVersion;
+
 	// A no-arg constructor is required for Hibernate.
 	/**
 	 * Instantiates a new vote option.
@@ -74,25 +74,28 @@ public class VoteOption {
 	/**
 	 * Instantiates a new vote option.
 	 *
-	 * @param voteCategory the vote category
-	 * @param optionName the option name
+	 * @param voteCategory
+	 *            the vote category
+	 * @param optionName
+	 *            the option name
 	 */
 	public VoteOption(VoteCategory voteCategory, String optionName) {
 		this(optionName);
 		this.voteCategory = Preconditions.checkNotNull(voteCategory);
 	}
-	
+
 	/**
 	 * Instantiates a new vote option.
 	 *
-	 * @param optionName the option name
+	 * @param optionName
+	 *            the option name
 	 */
 	public VoteOption(String optionName) {
 		this();
 		Preconditions.checkArgument(optionName.length() < MAX_NAME_LENGTH);
 		this.optionName = optionName;
-	}	
-	
+	}
+
 	/**
 	 * Gets the votes.
 	 *
@@ -102,33 +105,34 @@ public class VoteOption {
 		return votes;
 	}
 
-
 	/**
 	 * Sets the votes.
 	 *
-	 * @param votes the votes to set
+	 * @param votes
+	 *            the votes to set
 	 */
 	public void setVotes(List<Vote> votes) {
 		this.votes = votes;
 	}
 
-
 	/**
 	 * Adds the vote.
 	 *
-	 * @param vote the vote
+	 * @param vote
+	 *            the vote
 	 */
-	public void addVote(Vote vote){
+	public void addVote(Vote vote) {
 		Preconditions.checkNotNull(vote);
 		votes.add(vote);
 	}
-	
+
 	/**
 	 * Removes the vote.
 	 *
-	 * @param vote the vote
+	 * @param vote
+	 *            the vote
 	 */
-	public void removeVote(Vote vote){
+	public void removeVote(Vote vote) {
 		Preconditions.checkNotNull(vote);
 		votes.remove(vote);
 	}
@@ -145,7 +149,8 @@ public class VoteOption {
 	/**
 	 * Sets the id.
 	 *
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(Long id) {
 		this.id = id;
@@ -163,7 +168,8 @@ public class VoteOption {
 	/**
 	 * Sets the vote category.
 	 *
-	 * @param voteCategory the voteCategory to set
+	 * @param voteCategory
+	 *            the voteCategory to set
 	 */
 	public void setVoteCategory(VoteCategory voteCategory) {
 		this.voteCategory = Preconditions.checkNotNull(voteCategory);
@@ -181,13 +187,14 @@ public class VoteOption {
 	/**
 	 * Sets the option name.
 	 *
-	 * @param optionName the optionName to set
+	 * @param optionName
+	 *            the optionName to set
 	 */
 	public void setOptionName(String optionName) {
 		Preconditions.checkArgument(optionName.length() < MAX_NAME_LENGTH);
 		this.optionName = optionName;
 	}
-	
+
 	/**
 	 * Gets the optimistic locking version.
 	 *
@@ -200,25 +207,24 @@ public class VoteOption {
 	/**
 	 * Sets the optimistic locking version.
 	 *
-	 * @param version the new optimistic locking version
+	 * @param version
+	 *            the new optimistic locking version
 	 */
 	public void setOptimisticLockingVersion(Integer version) {
 		this.optimisticLockingVersion = version;
 	}
-	
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		
+
 		return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
-				.append("id", id)
-				.append("optionName", optionName)
-				.append("category", voteCategory.getCategoryName())
-				.toString();		
+				.append("id", id).append("optionName", optionName)
+				.append("category", voteCategory.getCategoryName()).toString();
 	}
-	
-	
+
 }

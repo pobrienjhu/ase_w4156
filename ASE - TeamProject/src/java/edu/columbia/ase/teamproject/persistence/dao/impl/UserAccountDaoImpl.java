@@ -26,14 +26,18 @@ import edu.columbia.ase.teamproject.security.Permission;
  */
 @Transactional(propagation = Propagation.REQUIRED)
 public class UserAccountDaoImpl extends HibernateDao<UserAccount, Long>
-	implements UserAccountDao {
+		implements UserAccountDao {
 
 	/** The Constant logger. */
-	private static final Logger logger =
-			LoggerFactory.getLogger(UserAccountDaoImpl.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(UserAccountDaoImpl.class);
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.ase.teamproject.persistence.dao.UserAccountDao#findAccountByNameAndType(java.lang.String, edu.columbia.ase.teamproject.persistence.domain.enumeration.AccountType)
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see edu.columbia.ase.teamproject.persistence.dao.UserAccountDao#
+	 * findAccountByNameAndType(java.lang.String,
+	 * edu.columbia.ase.teamproject.persistence.domain.enumeration.AccountType)
 	 */
 	@Override
 	public UserAccount findAccountByNameAndType(String username,
@@ -48,8 +52,12 @@ public class UserAccountDaoImpl extends HibernateDao<UserAccount, Long>
 		return (UserAccount) criteria.uniqueResult();
 	}
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.ase.teamproject.persistence.dao.UserAccountDao#findAccountByUserDetails(org.springframework.security.core.userdetails.UserDetails)
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see edu.columbia.ase.teamproject.persistence.dao.UserAccountDao#
+	 * findAccountByUserDetails
+	 * (org.springframework.security.core.userdetails.UserDetails)
 	 */
 	@Override
 	public UserAccount findAccountByUserDetails(UserDetails userDetails) {
@@ -68,14 +76,20 @@ public class UserAccountDaoImpl extends HibernateDao<UserAccount, Long>
 		return findAccountByNameAndType(userDetails.getUsername(), type);
 	}
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.ase.teamproject.persistence.dao.UserAccountDao#findAccountByEmail(java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see edu.columbia.ase.teamproject.persistence.dao.UserAccountDao#
+	 * findAccountByEmail(java.lang.String)
 	 */
 	@Override
 	public UserAccount findAccountByEmail(String email) {
-		try{
-		Preconditions.checkArgument(!email.isEmpty());
-		}catch(Exception e){return null;}
+		try {
+			Preconditions.checkArgument(!email.isEmpty());
+		} catch (Exception e) {
+			logger.warn("findAccountByEmail exception", e);
+			return null;
+		}
 
 		Criteria criteria = currentSession().createCriteria(daoType)
 				.add(Restrictions.eq("email", email))
@@ -84,27 +98,33 @@ public class UserAccountDaoImpl extends HibernateDao<UserAccount, Long>
 		return (UserAccount) criteria.uniqueResult();
 	}
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.ase.teamproject.persistence.dao.UserAccountDao#getNumberOfUsers()
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * edu.columbia.ase.teamproject.persistence.dao.UserAccountDao#getNumberOfUsers
+	 * ()
 	 */
 	@Override
 	public long getNumberOfUsers() {
 		Criteria criteria = currentSession().createCriteria(daoType)
 				.setProjection(Projections.rowCount());
 
-		Number count = (Number) criteria.uniqueResult(); 
+		Number count = (Number) criteria.uniqueResult();
 		return count.longValue();
 	}
-	
-    /* (non-Javadoc)
-     * @see edu.columbia.ase.teamproject.persistence.dao.generic.HibernateDao#list()
-     */
-    @SuppressWarnings("unchecked")
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * edu.columbia.ase.teamproject.persistence.dao.generic.HibernateDao#list()
+	 */
+	@SuppressWarnings("unchecked")
 	@Override
-    public List<UserAccount> list() {
-        return currentSession().createCriteria(UserAccount.class)
-                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
-                .list();
-    }
-	
+	public List<UserAccount> list() {
+		return currentSession().createCriteria(UserAccount.class)
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+	}
+
 }

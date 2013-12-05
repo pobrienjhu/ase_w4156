@@ -11,11 +11,10 @@ public class AseException extends Exception {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -3014083307092488968L;
-	
-	
+
 	/** The error messages. */
 	private Collection<String> errorMessages;
-	
+
 	/**
 	 * Instantiates a new ase exception.
 	 */
@@ -23,11 +22,12 @@ public class AseException extends Exception {
 		super();
 		this.errorMessages = new ArrayList<String>();
 	}
-	
+
 	/**
 	 * Instantiates a new ase exception.
 	 *
-	 * @param message the message
+	 * @param message
+	 *            the message
 	 */
 	public AseException(String message) {
 		this();
@@ -46,30 +46,30 @@ public class AseException extends Exception {
 	/**
 	 * Adds the message.
 	 *
-	 * @param message the message
+	 * @param message
+	 *            the message
 	 */
 	public void addMessage(String message) {
 		errorMessages.add(message);
 	}
-	
+
 	/**
 	 * Adds the all messages.
 	 *
-	 * @param messages the messages
+	 * @param messages
+	 *            the messages
 	 */
-	public void addAllMessages(Collection<String> messages){
+	public void addAllMessages(Collection<String> messages) {
 		errorMessages.addAll(messages);
 	}
-	
+
 	/**
 	 * Checks for error messages.
 	 *
 	 * @return true, if successful
 	 */
-	public boolean hasErrorMessages(){
+	public boolean hasErrorMessages() {
 		return (errorMessages.size() > 0);
 	}
 
-
-	
 }

@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class AuthCheckController {
 
 	/** The Constant logger. */
-	private static final Logger logger =
-			LoggerFactory.getLogger(AuthCheckController.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(AuthCheckController.class);
 
 	/**
 	 * Handles HTTP GET requests.

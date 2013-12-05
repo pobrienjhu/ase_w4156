@@ -26,7 +26,7 @@ import edu.columbia.ase.teamproject.services.EventService;
 @Controller
 @RequestMapping("/app/listEvent.do")
 public class ListEventController {
-	
+
 	/** The event service. */
 	@Autowired
 	EventService eventService;
@@ -42,27 +42,28 @@ public class ListEventController {
 	/**
 	 * Handles HTTP GET requests.
 	 *
-	 * @param session the session
+	 * @param session
+	 *            the session
 	 * @return the model and view
 	 */
-	@RequestMapping(method=RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView doGet(HttpSession session) {
 
-		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().
-				getAuthentication().getPrincipal();
-		
+		UserDetails userDetails = (UserDetails) SecurityContextHolder
+				.getContext().getAuthentication().getPrincipal();
+
 		UserAccount user = userAccountDao.findAccountByUserDetails(userDetails);
 
-		Map<String, Object> model =
-				ControllerHelper.createBaseModel(session);
+		Map<String, Object> model = ControllerHelper.createBaseModel(session);
 
-		String displayName = StringUtils.defaultIfEmpty(user.getDisplayName(), user.getEmail() );
-		
-		model.put("userName", displayName );
+		String displayName = StringUtils.defaultIfEmpty(user.getDisplayName(),
+				user.getEmail());
+
+		model.put("userName", displayName);
 		model.put("title", "Event List");
 
 		return new ModelAndView("soy:edu.columbia.ase.event.listEvent", model);
-		
+
 	}
 
 }

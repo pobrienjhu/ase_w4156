@@ -16,18 +16,20 @@ import com.google.common.io.BaseEncoding;
  * The Class AuthKey.
  */
 public class AuthKey {
-	
+
 	/** The id. */
 	private final Long id;
-	
+
 	/** The provided mac. */
 	private final byte[] providedMac;
 
 	/**
 	 * Instantiates a new auth key.
 	 *
-	 * @param id the id
-	 * @param mac the mac
+	 * @param id
+	 *            the id
+	 * @param mac
+	 *            the mac
 	 */
 	private AuthKey(Long id, byte[] mac) {
 		this.id = Preconditions.checkNotNull(id);
@@ -40,7 +42,8 @@ public class AuthKey {
 	/**
 	 * Instantiates a new auth key.
 	 *
-	 * @param apiKey the api key
+	 * @param apiKey
+	 *            the api key
 	 */
 	public AuthKey(String apiKey) {
 		String decoded = new String(BaseEncoding.base64().decode(apiKey));
@@ -55,8 +58,10 @@ public class AuthKey {
 	/**
 	 * Auth key for id and secret.
 	 *
-	 * @param id the id
-	 * @param secret the secret
+	 * @param id
+	 *            the id
+	 * @param secret
+	 *            the secret
 	 * @return the auth key
 	 */
 	public static AuthKey authKeyForIdAndSecret(Long id, String secret) {
@@ -74,7 +79,7 @@ public class AuthKey {
 	public String getApiKey() {
 		StringBuilder sb = new StringBuilder(128);
 		sb.append(id.toString());
-		sb.append(":");
+		sb.append(':');
 		sb.append(BaseEncoding.base64().encode(providedMac));
 		return BaseEncoding.base64().encode(sb.toString().getBytes());
 	}
@@ -82,8 +87,10 @@ public class AuthKey {
 	/**
 	 * Compute mac.
 	 *
-	 * @param id the id
-	 * @param secret the secret
+	 * @param id
+	 *            the id
+	 * @param secret
+	 *            the secret
 	 * @return the byte[]
 	 */
 	private static byte[] computeMac(Long id, String secret) {
@@ -118,7 +125,8 @@ public class AuthKey {
 	/**
 	 * Checks if is auth key valid.
 	 *
-	 * @param secret the secret
+	 * @param secret
+	 *            the secret
 	 * @return true, if is auth key valid
 	 */
 	public boolean isAuthKeyValid(String secret) {

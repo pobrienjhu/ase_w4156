@@ -17,32 +17,35 @@ import edu.columbia.ase.teamproject.controllers.ControllerHelper;
 /**
  * A convenience class that implements partial {@link Map} functionality.
  * Designed to be used by
- * {@link ControllerHelper#createBaseModel(javax.servlet.http.HttpSession)}
- * and other controllers to create lists of menu items that go into a
+ * {@link ControllerHelper#createBaseModel(javax.servlet.http.HttpSession)} and
+ * other controllers to create lists of menu items that go into a
  * {@link NavigationMenuSection}.
  */
 public class NavigationMenuEntry implements Map<String, String> {
 
 	/** The uri. */
 	private final String uri;
-	
+
 	/** The id. */
 	private final String id;
-	
+
 	/** The text. */
 	private final String text;
 
 	/** The Constant NAVIGATION_MENU_KEYS. */
-	public static final Set<String> NAVIGATION_MENU_KEYS =
-			ImmutableSet.<String>of("uri", "id", "text");
+	public static final Set<String> NAVIGATION_MENU_KEYS = ImmutableSet
+			.<String> of("uri", "id", "text");
 
 	/**
-	 * Create an entry in the navigation menu list.  This should be added to
-	 * an {@link NavigationMenuSection}.
+	 * Create an entry in the navigation menu list. This should be added to an
+	 * {@link NavigationMenuSection}.
 	 *
-	 * @param uri the URI to add to the 'href' attribute of the tag.
-	 * @param id the value of the 'id' attribute 
-	 * @param text the text to wrap in the anchor tag.
+	 * @param uri
+	 *            the URI to add to the 'href' attribute of the tag.
+	 * @param id
+	 *            the value of the 'id' attribute
+	 * @param text
+	 *            the text to wrap in the anchor tag.
 	 */
 	public NavigationMenuEntry(@Nullable String uri, @Nullable String id,
 			String text) {
@@ -60,7 +63,9 @@ public class NavigationMenuEntry implements Map<String, String> {
 		this.text = text;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see java.util.Map#clear()
 	 */
 	@Override
@@ -68,7 +73,9 @@ public class NavigationMenuEntry implements Map<String, String> {
 		throw new UnsupportedOperationException();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see java.util.Map#containsKey(java.lang.Object)
 	 */
 	@Override
@@ -76,7 +83,9 @@ public class NavigationMenuEntry implements Map<String, String> {
 		return NAVIGATION_MENU_KEYS.contains(key);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see java.util.Map#containsValue(java.lang.Object)
 	 */
 	@Override
@@ -84,7 +93,9 @@ public class NavigationMenuEntry implements Map<String, String> {
 		throw new UnsupportedOperationException();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see java.util.Map#entrySet()
 	 */
 	@SuppressWarnings("unchecked")
@@ -95,7 +106,9 @@ public class NavigationMenuEntry implements Map<String, String> {
 				Maps.immutableEntry("text", text));
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see java.util.Map#get(java.lang.Object)
 	 */
 	@Override
@@ -115,7 +128,9 @@ public class NavigationMenuEntry implements Map<String, String> {
 		throw new IllegalArgumentException();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see java.util.Map#isEmpty()
 	 */
 	@Override
@@ -123,7 +138,9 @@ public class NavigationMenuEntry implements Map<String, String> {
 		return false;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see java.util.Map#keySet()
 	 */
 	@Override
@@ -131,7 +148,9 @@ public class NavigationMenuEntry implements Map<String, String> {
 		return NAVIGATION_MENU_KEYS;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see java.util.Map#put(java.lang.Object, java.lang.Object)
 	 */
 	@Override
@@ -139,7 +158,9 @@ public class NavigationMenuEntry implements Map<String, String> {
 		throw new UnsupportedOperationException();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see java.util.Map#putAll(java.util.Map)
 	 */
 	@Override
@@ -147,7 +168,9 @@ public class NavigationMenuEntry implements Map<String, String> {
 		throw new UnsupportedOperationException();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see java.util.Map#remove(java.lang.Object)
 	 */
 	@Override
@@ -155,7 +178,9 @@ public class NavigationMenuEntry implements Map<String, String> {
 		throw new UnsupportedOperationException();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see java.util.Map#size()
 	 */
 	@Override
@@ -163,7 +188,9 @@ public class NavigationMenuEntry implements Map<String, String> {
 		return NAVIGATION_MENU_KEYS.size();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see java.util.Map#values()
 	 */
 	@Override

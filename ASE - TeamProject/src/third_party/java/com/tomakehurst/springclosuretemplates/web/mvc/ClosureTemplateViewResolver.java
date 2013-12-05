@@ -22,7 +22,7 @@ public class ClosureTemplateViewResolver extends AbstractTemplateViewResolver {
 
 	public ClosureTemplateViewResolver() {
 		super();
-        setExposeSpringMacroHelpers(false);
+		setExposeSpringMacroHelpers(false);
 	}
 
 	@Override
@@ -36,29 +36,35 @@ public class ClosureTemplateViewResolver extends AbstractTemplateViewResolver {
 
 	private SoyTofu compileTemplates() {
 
-        Resource templatesLocation = closureTemplateConfig.getTemplatesLocation();
-        List<File> templateFiles;
-        try {
-            File baseDirectory = templatesLocation.getFile();
-            if (baseDirectory.isDirectory()) {
-                templateFiles = findSoyFiles(baseDirectory, closureTemplateConfig.isRecursive());
-            } else {
-                throw new IllegalArgumentException("Soy template base directory '" + templatesLocation + "' is not a directory");
-            }
-        } catch (IOException e) {
-            throw new IllegalArgumentException("Soy template base directory '" + templatesLocation + "' does not exist", e);
-        }
+		Resource templatesLocation = closureTemplateConfig
+				.getTemplatesLocation();
+		List<File> templateFiles;
+		try {
+			File baseDirectory = templatesLocation.getFile();
+			if (baseDirectory.isDirectory()) {
+				templateFiles = findSoyFiles(baseDirectory,
+						closureTemplateConfig.isRecursive());
+			} else {
+				throw new IllegalArgumentException(
+						"Soy template base directory '" + templatesLocation
+								+ "' is not a directory");
+			}
+		} catch (IOException e) {
+			throw new IllegalArgumentException("Soy template base directory '"
+					+ templatesLocation + "' does not exist", e);
+		}
 
-        SoyFileSet.Builder fileSetBuilder = new SoyFileSet.Builder();
-        for (File templateFile: templateFiles) {
-            fileSetBuilder.add(templateFile);
-        }
+		SoyFileSet.Builder fileSetBuilder = new SoyFileSet.Builder();
+		for (File templateFile : templateFiles) {
+			fileSetBuilder.add(templateFile);
+		}
 
-        SoyFileSet soyFileSet = fileSetBuilder.build();
-        return soyFileSet.compileToJavaObj();
+		SoyFileSet soyFileSet = fileSetBuilder.build();
+		return soyFileSet.compileToJavaObj();
 	}
 
-	public void setClosureTemplateConfig(ClosureTemplateConfig closureTemplateConfig) {
+	public void setClosureTemplateConfig(
+			ClosureTemplateConfig closureTemplateConfig) {
 		this.closureTemplateConfig = closureTemplateConfig;
 	}
 
@@ -69,7 +75,8 @@ public class ClosureTemplateViewResolver extends AbstractTemplateViewResolver {
 
 	@Override
 	protected AbstractUrlBasedView buildView(String viewName) throws Exception {
-		ClosureTemplateView view = (ClosureTemplateView) super.buildView(viewName);
+		ClosureTemplateView view = (ClosureTemplateView) super
+				.buildView(viewName);
 		view.setTemplateName(viewName);
 
 		if (isCache()) {
@@ -82,25 +89,27 @@ public class ClosureTemplateViewResolver extends AbstractTemplateViewResolver {
 	}
 
 	protected List<File> findSoyFiles(File baseDirectory, boolean recursive) {
-        List<File> soyFiles = new ArrayList<File>();
-        findSoyFiles(soyFiles, baseDirectory, recursive);
-        return soyFiles;
-    }
+		List<File> soyFiles = new ArrayList<File>();
+		findSoyFiles(soyFiles, baseDirectory, recursive);
+		return soyFiles;
+	}
 
-	protected void findSoyFiles(List<File> soyFiles, File baseDirectory, boolean recursive) {
-        File[] files = baseDirectory.listFiles();
-        if (files != null) {
-            for (File file : files) {
-                if (file.isFile()) {
-                    if (file.getName().endsWith(".soy")) {
-                        soyFiles.add(file);
-                    }
-                } else if (file.isDirectory() && recursive) {
-                    findSoyFiles(soyFiles, file, recursive);
-                }
-            }
-        } else {
-            throw new IllegalArgumentException("Unable to retrieve contents of: " + baseDirectory);
-        }
-    }
+	protected void findSoyFiles(List<File> soyFiles, File baseDirectory,
+			boolean recursive) {
+		File[] files = baseDirectory.listFiles();
+		if (files != null) {
+			for (File file : files) {
+				if (file.isFile()) {
+					if (file.getName().endsWith(".soy")) {
+						soyFiles.add(file);
+					}
+				} else if (file.isDirectory() && recursive) {
+					findSoyFiles(soyFiles, file, recursive);
+				}
+			}
+		} else {
+			throw new IllegalArgumentException(
+					"Unable to retrieve contents of: " + baseDirectory);
+		}
+	}
 }

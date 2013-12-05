@@ -30,17 +30,19 @@ public class AuthKeyAuthenticationProvider implements AuthenticationProvider {
 	UserAccountDao userDao;
 
 	/** The Constant logger. */
-	private static final Logger logger =
-			LoggerFactory.getLogger(AuthKeyAuthenticationProvider.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(AuthKeyAuthenticationProvider.class);
 
-	/* (non-Javadoc)
-	 * @see org.springframework.security.authentication.AuthenticationProvider#authenticate(org.springframework.security.core.Authentication)
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see org.springframework.security.authentication.AuthenticationProvider#
+	 * authenticate(org.springframework.security.core.Authentication)
 	 */
 	@Override
 	public Authentication authenticate(Authentication authentication)
 			throws AuthenticationException {
-		UsernamePasswordAuthenticationToken token =
-				(UsernamePasswordAuthenticationToken) authentication;
+		UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) authentication;
 
 		String username = token.getName();
 		if (!username.equals("api")) {
@@ -58,16 +60,20 @@ public class AuthKeyAuthenticationProvider implements AuthenticationProvider {
 		logger.info("Successful API login for user " + authKey.getId());
 		UserAccount apiUser = userDao.find(authKey.getId());
 
-		Collection<GrantedAuthority> authorities =
-				AuthorityUtils.commaSeparatedStringToAuthorityList(
-						Joiner.on(",").join(apiUser.getPermissions()));
+		Collection<GrantedAuthority> authorities = AuthorityUtils
+				.commaSeparatedStringToAuthorityList(Joiner.on(",").join(
+						apiUser.getPermissions()));
 		User user = new User(apiUser.getUsername(), "[PROTECTED]", authorities);
 
 		return new UsernamePasswordAuthenticationToken(user, null, authorities);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.springframework.security.authentication.AuthenticationProvider#supports(java.lang.Class)
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * org.springframework.security.authentication.AuthenticationProvider#supports
+	 * (java.lang.Class)
 	 */
 	@Override
 	public boolean supports(Class<?> authentication) {

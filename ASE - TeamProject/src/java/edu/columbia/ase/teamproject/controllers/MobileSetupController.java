@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.common.collect.Maps;
-
 import edu.columbia.ase.teamproject.persistence.dao.UserAccountDao;
 import edu.columbia.ase.teamproject.persistence.domain.UserAccount;
 import edu.columbia.ase.teamproject.security.AuthKey;
@@ -33,23 +31,23 @@ public class MobileSetupController {
 	UserAccountDao userAccountDao;
 
 	/** The Constant logger. */
-	private static final Logger logger =
-			LoggerFactory.getLogger(MobileSetupController.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(MobileSetupController.class);
 
 	/**
 	 * Handles HTTP GET requests.
 	 *
-	 * @param session the session
+	 * @param session
+	 *            the session
 	 * @return the model and view
 	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView doGet(HttpSession session) {
 		logger.info("GET /app/mobileSetup.do");
-		Map<String, Object> model =
-				ControllerHelper.createBaseModel(session);
+		Map<String, Object> model = ControllerHelper.createBaseModel(session);
 
-		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().
-				getAuthentication().getPrincipal();
+		UserDetails userDetails = (UserDetails) SecurityContextHolder
+				.getContext().getAuthentication().getPrincipal();
 		UserAccount user = userAccountDao.findAccountByUserDetails(userDetails);
 
 		// TODO(pames): don't hard code the secret.

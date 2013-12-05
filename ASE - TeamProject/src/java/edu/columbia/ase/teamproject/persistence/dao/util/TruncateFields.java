@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 /**
  * The Interface TruncateFields.
  */
-@Target(value = {ElementType.FIELD})
+@Target(value = { ElementType.FIELD })
 @Retention(value = RetentionPolicy.RUNTIME)
 public @interface TruncateFields {
 

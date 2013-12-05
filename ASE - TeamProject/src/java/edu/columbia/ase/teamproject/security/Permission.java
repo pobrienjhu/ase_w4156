@@ -6,24 +6,23 @@ import java.util.Map;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
 
-
 // TODO: Auto-generated Javadoc
 /**
  * An enumeration of permission levels that users have.
  */
 public enum Permission {
-	
+
 	/** The admin. */
 	ADMIN("ADMIN"),
-	
+
 	/** The user. */
 	USER("USER"),
-	// This is kind of a dirty hack.  We add the appropriate value as a granted
+	// This is kind of a dirty hack. We add the appropriate value as a granted
 	// authority during login so we can later look up the correct account
 	// using just the Spring UserDetails object.
 	/** The openid. */
 	OPENID("OPENID"),
-	
+
 	/** The local. */
 	LOCAL("LOCAL");
 
@@ -32,28 +31,28 @@ public enum Permission {
 
 	/** The Constant stringToEnum. */
 	private static final Map<String, Permission> stringToEnum;
-	
-	static{
-		final Map<String, Permission> tempMap = 
-				new HashMap<String, Permission>();
-		for(Permission permission: values()){
+
+	static {
+		final Map<String, Permission> tempMap = new HashMap<String, Permission>();
+		for (Permission permission : values()) {
 			tempMap.put(permission.getPermissionName(), permission);
 		}
 		stringToEnum = ImmutableMap.copyOf(tempMap);
 	}
-	
+
 	/**
 	 * Create a new permission level with the specified {@code roleName}, which
 	 * must not be empty and may not contain a comma.
 	 *
-	 * @param permissionName the permission name
+	 * @param permissionName
+	 *            the permission name
 	 */
 	private Permission(String permissionName) {
 		Preconditions.checkArgument(permissionName.length() != 0);
 		Preconditions.checkArgument(!permissionName.contains(","));
 		this.permissionName = permissionName;
 	}
-	
+
 	/**
 	 * Gets the permission name.
 	 *
@@ -63,26 +62,25 @@ public enum Permission {
 		return permissionName;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see java.lang.Enum#toString()
 	 */
 	@Override
 	public String toString() {
 		return permissionName;
 	}
-	
 
 	/**
 	 * From string.
 	 *
-	 * @param permission the permission
+	 * @param permission
+	 *            the permission
 	 * @return the permission
 	 */
-	public static Permission fromString( String permission ){
+	public static Permission fromString(String permission) {
 		return stringToEnum.get(permission);
 	}
 
-
-	
-	
 }

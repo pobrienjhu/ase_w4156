@@ -15,8 +15,12 @@ public class ClosureViewResolver extends ClosureTemplateViewResolver {
 	/** The Constant VIEW_PREFIX. */
 	public static final String VIEW_PREFIX = "soy:";
 
-	/* (non-Javadoc)
-	 * @see org.springframework.web.servlet.view.UrlBasedViewResolver#loadView(java.lang.String, java.util.Locale)
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * org.springframework.web.servlet.view.UrlBasedViewResolver#loadView(java
+	 * .lang.String, java.util.Locale)
 	 */
 	@Override
 	protected View loadView(String viewName, Locale locale) throws Exception {

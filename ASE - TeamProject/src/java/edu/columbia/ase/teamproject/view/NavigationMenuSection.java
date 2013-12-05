@@ -13,24 +13,25 @@ import com.google.common.collect.Sets;
 
 // TODO: Auto-generated Javadoc
 /**
- * Represents a section of the right hand side navigation bar. 
+ * Represents a section of the right hand side navigation bar.
  */
 public class NavigationMenuSection implements Map<String, Object> {
-	
+
 	/** The section name. */
 	private final String sectionName;
-	
+
 	/** The entries. */
 	private List<Object> entries;
 
 	/** The Constant NAVIGATION_SECTION_KEYS. */
-	public static final Set<String> NAVIGATION_SECTION_KEYS =
-			ImmutableSet.<String>of("sectionName", "entries");
+	public static final Set<String> NAVIGATION_SECTION_KEYS = ImmutableSet
+			.<String> of("sectionName", "entries");
 
 	/**
 	 * Instantiates a new navigation menu section.
 	 *
-	 * @param sectionName the name of the section
+	 * @param sectionName
+	 *            the name of the section
 	 */
 	public NavigationMenuSection(String sectionName) {
 		Preconditions.checkArgument(!sectionName.isEmpty());
@@ -50,14 +51,17 @@ public class NavigationMenuSection implements Map<String, Object> {
 	/**
 	 * Adds the entry.
 	 *
-	 * @param entry the entry to add to this section
+	 * @param entry
+	 *            the entry to add to this section
 	 */
 	public void addEntry(NavigationMenuEntry entry) {
 		Preconditions.checkNotNull(entry);
 		this.entries.add(entry);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see java.util.Map#clear()
 	 */
 	@Override
@@ -65,7 +69,9 @@ public class NavigationMenuSection implements Map<String, Object> {
 		throw new UnsupportedOperationException();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see java.util.Map#containsKey(java.lang.Object)
 	 */
 	@Override
@@ -73,7 +79,9 @@ public class NavigationMenuSection implements Map<String, Object> {
 		throw new UnsupportedOperationException();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see java.util.Map#containsValue(java.lang.Object)
 	 */
 	@Override
@@ -81,7 +89,9 @@ public class NavigationMenuSection implements Map<String, Object> {
 		throw new UnsupportedOperationException();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see java.util.Map#put(java.lang.Object, java.lang.Object)
 	 */
 	@Override
@@ -89,7 +99,9 @@ public class NavigationMenuSection implements Map<String, Object> {
 		throw new UnsupportedOperationException();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see java.util.Map#putAll(java.util.Map)
 	 */
 	@Override
@@ -97,7 +109,9 @@ public class NavigationMenuSection implements Map<String, Object> {
 		throw new UnsupportedOperationException();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see java.util.Map#values()
 	 */
 	@Override
@@ -105,7 +119,9 @@ public class NavigationMenuSection implements Map<String, Object> {
 		throw new UnsupportedOperationException();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see java.util.Map#remove(java.lang.Object)
 	 */
 	@Override
@@ -113,7 +129,9 @@ public class NavigationMenuSection implements Map<String, Object> {
 		throw new UnsupportedOperationException();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see java.util.Map#get(java.lang.Object)
 	 */
 	@Override
@@ -132,7 +150,9 @@ public class NavigationMenuSection implements Map<String, Object> {
 		throw new IllegalArgumentException();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see java.util.Map#isEmpty()
 	 */
 	@Override
@@ -140,7 +160,9 @@ public class NavigationMenuSection implements Map<String, Object> {
 		return false;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see java.util.Map#keySet()
 	 */
 	@Override
@@ -148,7 +170,9 @@ public class NavigationMenuSection implements Map<String, Object> {
 		return NAVIGATION_SECTION_KEYS;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see java.util.Map#size()
 	 */
 	@Override
@@ -156,16 +180,18 @@ public class NavigationMenuSection implements Map<String, Object> {
 		return NAVIGATION_SECTION_KEYS.size();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see java.util.Map#entrySet()
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public Set<java.util.Map.Entry<String, Object>> entrySet() {
-		Map.Entry<String, Object> sectionEntry =
-				Maps.immutableEntry("sectionName", (Object) sectionName); 
-		Map.Entry<String, Object> linkListEntry =
-				Maps.immutableEntry("entries", (Object) entries);
+		Map.Entry<String, Object> sectionEntry = Maps.immutableEntry(
+				"sectionName", (Object) sectionName);
+		Map.Entry<String, Object> linkListEntry = Maps.immutableEntry(
+				"entries", (Object) entries);
 		return Sets.newHashSet(sectionEntry, linkListEntry);
 	}
 }

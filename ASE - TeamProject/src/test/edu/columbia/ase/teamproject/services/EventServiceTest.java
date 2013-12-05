@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package edu.columbia.ase.teamproject.services;
 
@@ -11,7 +11,6 @@ import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -48,44 +47,48 @@ import edu.columbia.ase.teamproject.services.exceptions.ValidationException;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:applicationContext.xml")
 @Transactional
-public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTests {
+public class EventServiceTest extends
+		AbstractTransactionalJUnit4SpringContextTests {
 
-	
-	 @Autowired
-	 private UserAccountDao userAccountDao;
+	@Autowired
+	private UserAccountDao userAccountDao;
 
-	 @Autowired
-	 private EventDao eventDao;
-	 
-	 @Autowired
-	 private EventService eventService;
+	@Autowired
+	private EventDao eventDao;
 
-	 @Autowired
-	 private SessionFactory sessionFactory;
+	@Autowired
+	private EventService eventService;
 
-	 private UserAccount userAccount; 
+	@Autowired
+	private SessionFactory sessionFactory;
 
-	 private List<VoteCategory> createBogusCategories() {
-		 VoteCategory vc1 = new VoteCategory("category 1", "category 1 description");
-		 VoteCategory vc2 = new VoteCategory("category 2", "category 2 description");
-		 vc1.addVotingOption(new VoteOption(vc1, "1-1"));
-		 vc1.addVotingOption(new VoteOption(vc1, "1-2"));
-		 vc2.addVotingOption(new VoteOption(vc2, "2-1"));
-		 vc2.addVotingOption(new VoteOption(vc2, "2-2"));
-		 return ImmutableList.<VoteCategory>of(vc1, vc2);
-	 }
+	private UserAccount userAccount;
 
-	 @Before
-	 public void setUp() {
-		 UserAccount user = new UserAccount(AccountType.LOCAL, "user",
-				 "displayName", "password", "user@example.com",
-				 Arrays.asList(new Permission[]{Permission.USER}));
-		 userAccount = userAccountDao.add(user);
-	 }
+	private List<VoteCategory> createBogusCategories() {
+		VoteCategory vc1 = new VoteCategory("category 1",
+				"category 1 description");
+		VoteCategory vc2 = new VoteCategory("category 2",
+				"category 2 description");
+		vc1.addVotingOption(new VoteOption(vc1, "1-1"));
+		vc1.addVotingOption(new VoteOption(vc1, "1-2"));
+		vc2.addVotingOption(new VoteOption(vc2, "2-1"));
+		vc2.addVotingOption(new VoteOption(vc2, "2-2"));
+		return ImmutableList.<VoteCategory> of(vc1, vc2);
+	}
+
+	@Before
+	public void setUp() {
+		UserAccount user = new UserAccount(AccountType.LOCAL, "user",
+				"displayName", "password", "user@example.com",
+				Arrays.asList(new Permission[] { Permission.USER }));
+		userAccount = userAccountDao.add(user);
+	}
 
 	/**
-	 * Test method for {@link EventService#createEvent(UserDetails, String, String, EventType)}.
-	 * @throws ValidationException 
+	 * Test method for
+	 * {@link EventService#createEvent(UserDetails, String, String, EventType)}.
+	 *
+	 * @throws ValidationException
 	 */
 	@Test
 	public void testSuccessfulCreateEvent() throws ValidationException {
@@ -100,7 +103,7 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 
 		Event fetchedEvent = eventDao.find(eventId);
 		// TODO: when Event implements equals(), replace w/this
-		//assertEquals(fetchedEvent, e);
+		// assertEquals(fetchedEvent, e);
 		assertEquals("Test Event Name", fetchedEvent.getName());
 		assertEquals("Event Description", fetchedEvent.getDescription());
 		assertEquals(EventType.PRIVATE, fetchedEvent.getEventType());
@@ -110,20 +113,20 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 	public void testUpdateEvent() throws ValidationException {
 		Event e = eventService.createEvent(userAccount, "Test Event Name",
 				"Event Description", EventType.PRIVATE,
-				DateTime.now().plus(Duration.standardDays(1)),
-				DateTime.now().plus(Duration.standardDays(2)),
+				DateTime.now().plus(Duration.standardDays(1)), DateTime.now()
+						.plus(Duration.standardDays(2)),
 				createBogusCategories(), new ArrayList<String>());
 		long eventId = e.getId();
 
 		UserAccount deserializedUserAccount = new UserAccount(
 				AccountType.LOCAL, "user", "bogus displayName", "bogus",
 				"user@example.com",
-				Arrays.asList(new Permission[]{Permission.USER}));
+				Arrays.asList(new Permission[] { Permission.USER }));
 		deserializedUserAccount.setId(userAccount.getId());
-		Event deserializedEvent = new Event(null,deserializedUserAccount,
-				"new event name", "new description", EventType.PUBLIC,
-				DateTime.now().plus(Duration.standardDays(2)),
-				DateTime.now().plus(Duration.standardDays(3)),
+		Event deserializedEvent = new Event(null, deserializedUserAccount,
+				"new event name", "new description", EventType.PUBLIC, DateTime
+						.now().plus(Duration.standardDays(2)), DateTime.now()
+						.plus(Duration.standardDays(3)),
 				Collections.<VoteCategory> emptyList());
 		deserializedEvent.setId(eventId);
 		deserializedEvent.addEventUser(deserializedUserAccount);
@@ -131,8 +134,8 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 		eventService.updateEvent(userAccount, eventId, deserializedEvent);
 
 		// Retrieve the most recent copy from the database.
-		UserAccount fetchedUser = userAccountDao.findAccountByNameAndType("user",
-				AccountType.LOCAL);
+		UserAccount fetchedUser = userAccountDao.findAccountByNameAndType(
+				"user", AccountType.LOCAL);
 
 		Event fetchedEvent = eventDao.find(eventId);
 
@@ -140,52 +143,58 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 		assertTrue(fetchedEvent.getDescription().equals("new description"));
 		assertEquals(1, fetchedEvent.getEventUsers().size());
 
-		// This should not be permitted, or else anyone can overwrite any record in our database
+		// This should not be permitted, or else anyone can overwrite any record
+		// in our database
 		assertFalse(fetchedUser.getPassword().equals("bogus"));
 	}
 
 	@Test
-	public void testCreateEventWithVotingCategories() throws ValidationException {
+	public void testCreateEventWithVotingCategories()
+			throws ValidationException {
 
 		VoteCategory firstCategory = new VoteCategory("First Category",
 				"First Category Description");
-		VoteOption firstCategoryFirstOption =
-				new VoteOption(firstCategory, "Option 1-1");
-		VoteOption firstCategorySecondOption =
-				new VoteOption(firstCategory, "Option 1-2");
-		VoteOption firstCategoryThirdOption =
-				new VoteOption(firstCategory, "Option 1-3");
+		VoteOption firstCategoryFirstOption = new VoteOption(firstCategory,
+				"Option 1-1");
+		VoteOption firstCategorySecondOption = new VoteOption(firstCategory,
+				"Option 1-2");
+		VoteOption firstCategoryThirdOption = new VoteOption(firstCategory,
+				"Option 1-3");
 		firstCategory.addVotingOption(firstCategoryFirstOption);
 		firstCategory.addVotingOption(firstCategorySecondOption);
 		firstCategory.addVotingOption(firstCategoryThirdOption);
 
 		VoteCategory secondCategory = new VoteCategory("Second Category",
 				"Second Category Description");
-		VoteOption secondCategoryFirstOption =
-				new VoteOption(firstCategory, "Option 2-1");
-		VoteOption secondCategorySecondOption =
-				new VoteOption(firstCategory, "Option 2-2");
+		VoteOption secondCategoryFirstOption = new VoteOption(firstCategory,
+				"Option 2-1");
+		VoteOption secondCategorySecondOption = new VoteOption(firstCategory,
+				"Option 2-2");
 		secondCategory.addVotingOption(secondCategoryFirstOption);
 		secondCategory.addVotingOption(secondCategorySecondOption);
 
 		Event e = eventService.createEvent(userAccount, "Votable Event Name",
 				"Event Description", EventType.PRIVATE, DateTime.now(),
 				DateTime.now().plus(Duration.standardDays(1)),
-				ImmutableList.<VoteCategory>of(firstCategory,
-						secondCategory),new ArrayList<String>());
+				ImmutableList.<VoteCategory> of(firstCategory, secondCategory),
+				new ArrayList<String>());
 
 		sessionFactory.getCurrentSession().save(e);
 
-		Event fetchedEvent = eventDao.find(e.getId()); 
+		Event fetchedEvent = eventDao.find(e.getId());
 		assertEquals(2, fetchedEvent.getVoteCategories().size());
 		// TODO(pames): confirm that order will be preserved for vote
-		// categories.  Doesn't seem like it necessarily would be.
-		assertEquals(3, fetchedEvent.getVoteCategories().get(0).getVoteOptions().size());
-		assertEquals(2, fetchedEvent.getVoteCategories().get(1).getVoteOptions().size());
+		// categories. Doesn't seem like it necessarily would be.
+		assertEquals(3, fetchedEvent.getVoteCategories().get(0)
+				.getVoteOptions().size());
+		assertEquals(2, fetchedEvent.getVoteCategories().get(1)
+				.getVoteOptions().size());
 
-		// Verify that these elements were indeed transitively persisted and have IDs.
+		// Verify that these elements were indeed transitively persisted and
+		// have IDs.
 		assertNotNull(fetchedEvent.getVoteCategories().get(0).getId());
-		assertNotNull(fetchedEvent.getVoteCategories().get(0).getVoteOptions().get(0).getId());
+		assertNotNull(fetchedEvent.getVoteCategories().get(0).getVoteOptions()
+				.get(0).getId());
 	}
 
 	@Test
@@ -199,9 +208,10 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 
 		assertTrue(eventService.userCanUpdateEvent(userA, null));
 
-		Event testEvent = new Event(null,userA, "event name", "description",
-				EventType.PRIVATE, DateTime.now().plus(Duration.standardMinutes(1)),
-				DateTime.now().plus(Duration.standardDays(1)));
+		Event testEvent = new Event(null, userA, "event name", "description",
+				EventType.PRIVATE, DateTime.now().plus(
+						Duration.standardMinutes(1)), DateTime.now().plus(
+						Duration.standardDays(1)));
 		testEvent = eventDao.add(testEvent);
 
 		assertTrue(eventService.userCanUpdateEvent(userA, testEvent.getId()));
@@ -216,9 +226,9 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 	public void testEventCannotBeUpdatedAfterStarting() {
 		UserAccount userA = new UserAccount(AccountType.LOCAL, "foo", "foo",
 				null, "userA@example.com", Collections.<Permission> emptyList());
-		Event testEvent = new Event(null,userA, "event name", "description",
-				EventType.PRIVATE, DateTime.now(),
-				DateTime.now().plus(Duration.standardDays(1)));
+		Event testEvent = new Event(null, userA, "event name", "description",
+				EventType.PRIVATE, DateTime.now(), DateTime.now().plus(
+						Duration.standardDays(1)));
 		testEvent = eventDao.add(testEvent);
 
 		assertFalse(eventService.userCanUpdateEvent(userA, testEvent.getId()));
@@ -226,26 +236,29 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 	}
 
 	@Test
-	public void testValidateEventWithInvalidCategory() throws ValidationException {
+	public void testValidateEventWithInvalidCategory()
+			throws ValidationException {
 		UserAccount admin = new UserAccount(AccountType.LOCAL, "foo", "foo",
 				null, "admin@example.com", Collections.<Permission> emptyList());
 
-		VoteCategory firstCategory = new VoteCategory("Category 1", "Description");
+		VoteCategory firstCategory = new VoteCategory("Category 1",
+				"Description");
 		firstCategory.addVotingOption(new VoteOption("first option name"));
 		firstCategory.addVotingOption(new VoteOption("second option name"));
 
-		Event firstEvent = eventService.createEvent(admin,
-				"event name", "description", EventType.PRIVATE, DateTime.now(),
-				DateTime.now().plus(Duration.standardDays(1)),
-				ImmutableList.<VoteCategory>of(firstCategory),new ArrayList<String>());
+		Event firstEvent = eventService.createEvent(admin, "event name",
+				"description", EventType.PRIVATE, DateTime.now(), DateTime
+						.now().plus(Duration.standardDays(1)), ImmutableList
+						.<VoteCategory> of(firstCategory),
+				new ArrayList<String>());
 
-		Event secondEvent = new Event(null,admin, "event name", "description",
-				EventType.PRIVATE, DateTime.now(),
-				DateTime.now().plus(Duration.standardDays(1)));
-		VoteCategory replacementFirstCategory =
-				new VoteCategory("Fake Category", "Description");
-		replacementFirstCategory.setId(
-				firstEvent.getVoteCategories().get(0).getId());
+		Event secondEvent = new Event(null, admin, "event name", "description",
+				EventType.PRIVATE, DateTime.now(), DateTime.now().plus(
+						Duration.standardDays(1)));
+		VoteCategory replacementFirstCategory = new VoteCategory(
+				"Fake Category", "Description");
+		replacementFirstCategory.setId(firstEvent.getVoteCategories().get(0)
+				.getId());
 		secondEvent.addVoteCategory(replacementFirstCategory);
 
 		try {
@@ -263,22 +276,24 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 		UserAccount admin = new UserAccount(AccountType.LOCAL, "foo", "foo",
 				null, "admin@example.com", Collections.<Permission> emptyList());
 
-		VoteCategory firstCategory = new VoteCategory("Category 1", "Description");
+		VoteCategory firstCategory = new VoteCategory("Category 1",
+				"Description");
 		firstCategory.addVotingOption(new VoteOption("first option name"));
 		firstCategory.addVotingOption(new VoteOption("second option name"));
 
-		Event firstEvent = eventService.createEvent(admin,
-				"event name", "description", EventType.PRIVATE, DateTime.now(),
-				DateTime.now().plus(Duration.standardDays(1)),
-				ImmutableList.<VoteCategory>of(firstCategory),new ArrayList<String>());
+		Event firstEvent = eventService.createEvent(admin, "event name",
+				"description", EventType.PRIVATE, DateTime.now(), DateTime
+						.now().plus(Duration.standardDays(1)), ImmutableList
+						.<VoteCategory> of(firstCategory),
+				new ArrayList<String>());
 
-		Event secondEvent = new Event(null,admin, "event name", "description",
-				EventType.PRIVATE, DateTime.now(),
-				DateTime.now().plus(Duration.standardDays(1)));
-		VoteCategory secondCategory = new VoteCategory("category" ,"desc");
+		Event secondEvent = new Event(null, admin, "event name", "description",
+				EventType.PRIVATE, DateTime.now(), DateTime.now().plus(
+						Duration.standardDays(1)));
+		VoteCategory secondCategory = new VoteCategory("category", "desc");
 		VoteOption replacementVoteOption = new VoteOption("bogus");
-		replacementVoteOption.setId(
-				firstEvent.getVoteCategories().get(0).getVoteOptions().get(0).getId());
+		replacementVoteOption.setId(firstEvent.getVoteCategories().get(0)
+				.getVoteOptions().get(0).getId());
 		secondCategory.addVotingOption(replacementVoteOption);
 
 		secondEvent.addVoteCategory(secondCategory);

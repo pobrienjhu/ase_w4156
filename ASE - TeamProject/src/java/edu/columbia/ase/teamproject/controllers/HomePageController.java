@@ -22,21 +22,21 @@ import org.springframework.web.servlet.ModelAndView;
 public class HomePageController {
 
 	/** The Constant logger. */
-	private static final Logger logger =
-			LoggerFactory.getLogger(HomePageController.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(HomePageController.class);
 
 	/**
 	 * Handles HTTP GET requests.
 	 *
-	 * @param session the session
+	 * @param session
+	 *            the session
 	 * @return the model and view
 	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView doGet(HttpSession session) {
 		logger.info("GET /index.do");
 
-		Map<String, Object> model =
-				ControllerHelper.createBaseModel(session);
+		Map<String, Object> model = ControllerHelper.createBaseModel(session);
 		model.put("title", "Home");
 
 		return new ModelAndView("soy:edu.columbia.ase.index", model);

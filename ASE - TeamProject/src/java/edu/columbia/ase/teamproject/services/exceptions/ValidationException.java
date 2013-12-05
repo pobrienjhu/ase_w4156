@@ -12,7 +12,8 @@ public class ValidationException extends AseException {
 	/**
 	 * Instantiates a new validation exception.
 	 *
-	 * @param message the message
+	 * @param message
+	 *            the message
 	 */
 	public ValidationException(String message) {
 		super(message);
@@ -24,6 +25,5 @@ public class ValidationException extends AseException {
 	public ValidationException() {
 		super();
 	}
-	
-	
+
 }

@@ -6,6 +6,6 @@ import edu.columbia.ase.teamproject.persistence.domain.Vote;
 /**
  * The Interface VoteDao.
  */
-public interface VoteDao extends GenericDao<Vote, Long>  {
+public interface VoteDao extends GenericDao<Vote, Long> {
 
 }

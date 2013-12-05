@@ -12,11 +12,14 @@ import org.springframework.security.core.Authentication;
 public class DummyAuthenticationProvider implements AuthenticationProvider {
 
 	/** The Constant logger. */
-	private static final Logger logger =
-			LoggerFactory.getLogger(DummyAuthenticationProvider.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(DummyAuthenticationProvider.class);
 
-	/* (non-Javadoc)
-	 * @see org.springframework.security.authentication.AuthenticationProvider#authenticate(org.springframework.security.core.Authentication)
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see org.springframework.security.authentication.AuthenticationProvider#
+	 * authenticate(org.springframework.security.core.Authentication)
 	 */
 	@Override
 	public Authentication authenticate(Authentication authentication) {
@@ -24,8 +27,12 @@ public class DummyAuthenticationProvider implements AuthenticationProvider {
 		return null;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.springframework.security.authentication.AuthenticationProvider#supports(java.lang.Class)
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * org.springframework.security.authentication.AuthenticationProvider#supports
+	 * (java.lang.Class)
 	 */
 	@Override
 	public boolean supports(Class<?> authentication) {

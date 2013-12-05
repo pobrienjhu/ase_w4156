@@ -19,13 +19,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.common.collect.ImmutableList;
 import com.google.gson.Gson;
 
 import edu.columbia.ase.teamproject.persistence.dao.UserAccountDao;
 import edu.columbia.ase.teamproject.persistence.domain.Event;
 import edu.columbia.ase.teamproject.persistence.domain.UserAccount;
-import edu.columbia.ase.teamproject.persistence.domain.VoteCategory;
 import edu.columbia.ase.teamproject.services.EventService;
 import edu.columbia.ase.teamproject.services.exceptions.ValidationException;
 import edu.columbia.ase.teamproject.util.GsonProvider;
@@ -57,7 +55,8 @@ public final class CreateEventController {
 	/**
 	 * Handles HTTP GET requests.
 	 *
-	 * @param session the session
+	 * @param session
+	 *            the session
 	 * @return the model and view
 	 */
 	@RequestMapping(method = RequestMethod.GET)
@@ -73,24 +72,30 @@ public final class CreateEventController {
 	}
 
 	/**
-* Handles HTTP POST requests
+	 * Handles HTTP POST requests
 	 *
-	 * @param session the session
-	 * @param request the request
-	 * @param response the response
+	 * @param session
+	 *            the session
+	 * @param request
+	 *            the request
+	 * @param response
+	 *            the response
 	 * @return the string
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @throws ValidationException the validation exception
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 * @throws ValidationException
+	 *             the validation exception
 	 */
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseBody
-	public String doPost(HttpSession session, HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ValidationException {
+	public String doPost(HttpSession session, HttpServletRequest request,
+			HttpServletResponse response) throws IOException,
+			ValidationException {
 		Gson gson = gsonProvider.provideGson();
 
 		response.setContentType("application/json");
-	    response.setCharacterEncoding("UTF-8");
-		
+		response.setCharacterEncoding("UTF-8");
+
 		// Deserialize request
 		String jsonBody = IOUtils.toString(request.getInputStream());
 		logger.info("POST /app/createEvent.do " + jsonBody);
@@ -103,17 +108,17 @@ public final class CreateEventController {
 			// to an existing event (permission checks, etc).
 		}
 
-		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().
-				getAuthentication().getPrincipal();
+		UserDetails userDetails = (UserDetails) SecurityContextHolder
+				.getContext().getAuthentication().getPrincipal();
 		UserAccount user = userAccountDao.findAccountByUserDetails(userDetails);
 
 		logger.info("Event Categories size:" + event.getVoteCategories().size());
-		
-		Event createdEvent = eventService.createEvent(user,	event.getName(), event.getDescription(), event.getEventType(),
-				event.getStartTime(), event.getEndTime(), event.getVoteCategories(),event.getUserEmails());
 
+		Event createdEvent = eventService.createEvent(user, event.getName(),
+				event.getDescription(), event.getEventType(),
+				event.getStartTime(), event.getEndTime(),
+				event.getVoteCategories(), event.getUserEmails());
 
-		
 		return gson.toJson(createdEvent, Event.class);
 	}
 

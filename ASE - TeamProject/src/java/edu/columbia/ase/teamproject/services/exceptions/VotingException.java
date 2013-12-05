@@ -6,14 +6,14 @@ package edu.columbia.ase.teamproject.services.exceptions;
  */
 public class VotingException extends AseException {
 
-
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 7731660244736420321L;
 
 	/**
 	 * Instantiates a new voting exception.
 	 *
-	 * @param message the message
+	 * @param message
+	 *            the message
 	 */
 	public VotingException(String message) {
 		super(message);
@@ -25,6 +25,5 @@ public class VotingException extends AseException {
 	public VotingException() {
 		super();
 	}
-	
-	
+
 }

@@ -25,21 +25,24 @@ public class OpenIdAuthenticationTokenConsumerTest {
 
 	private OpenIdAuthenticationTokenConsumer tokenConsumer;
 
-	@Mock UserAccountDao mockAccountDao;
-	@Mock OpenIDAuthenticationToken mockToken;
-	@Mock OpenIDAttribute mockAttribute;
+	@Mock
+	UserAccountDao mockAccountDao;
+	@Mock
+	OpenIDAuthenticationToken mockToken;
+	@Mock
+	OpenIDAttribute mockAttribute;
 
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
-		this.tokenConsumer =
-				new OpenIdAuthenticationTokenConsumer(mockAccountDao);
+		this.tokenConsumer = new OpenIdAuthenticationTokenConsumer(
+				mockAccountDao);
 	}
 
 	@Test
 	public void testUnsuccessfulAuthenticationThrowsException() {
-		OpenIDAuthenticationStatus[] statuses =
-				OpenIDAuthenticationStatus.values();
+		OpenIDAuthenticationStatus[] statuses = OpenIDAuthenticationStatus
+				.values();
 		for (OpenIDAuthenticationStatus status : statuses) {
 			if (status.equals(OpenIDAuthenticationStatus.SUCCESS)) {
 				continue;
@@ -66,8 +69,8 @@ public class OpenIdAuthenticationTokenConsumerTest {
 				ImmutableList.of("user@example.com"));
 		when(mockAccountDao.getNumberOfUsers()).thenReturn(0L);
 		UserDetails details = tokenConsumer.loadUserDetails(mockToken);
-		GrantedAuthority expected =
-				AuthorityUtils.createAuthorityList("ADMIN").get(0);
+		GrantedAuthority expected = AuthorityUtils.createAuthorityList("ADMIN")
+				.get(0);
 		Assert.assertTrue(details.getAuthorities().contains(expected));
 	}
 
@@ -83,10 +86,10 @@ public class OpenIdAuthenticationTokenConsumerTest {
 				ImmutableList.of("user@example.com"));
 		when(mockAccountDao.getNumberOfUsers()).thenReturn(1L);
 		UserDetails details = tokenConsumer.loadUserDetails(mockToken);
-		GrantedAuthority expected =
-				AuthorityUtils.createAuthorityList("USER").get(0);
-		GrantedAuthority unexpected =
-				AuthorityUtils.createAuthorityList("ADMIN").get(0);
+		GrantedAuthority expected = AuthorityUtils.createAuthorityList("USER")
+				.get(0);
+		GrantedAuthority unexpected = AuthorityUtils.createAuthorityList(
+				"ADMIN").get(0);
 
 		Assert.assertTrue(details.getAuthorities().contains(expected));
 		Assert.assertFalse(details.getAuthorities().contains(unexpected));

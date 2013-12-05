@@ -15,8 +15,10 @@ public interface UserAccountDao extends GenericDao<UserAccount, Long> {
 	/**
 	 * Find account by name and type.
 	 *
-	 * @param username the username
-	 * @param type the type
+	 * @param username
+	 *            the username
+	 * @param type
+	 *            the type
 	 * @return the user account
 	 */
 	public UserAccount findAccountByNameAndType(String username,
@@ -25,7 +27,8 @@ public interface UserAccountDao extends GenericDao<UserAccount, Long> {
 	/**
 	 * Find account by user details.
 	 *
-	 * @param userDetails the user details
+	 * @param userDetails
+	 *            the user details
 	 * @return the user account
 	 */
 	public UserAccount findAccountByUserDetails(UserDetails userDetails);
@@ -40,7 +43,8 @@ public interface UserAccountDao extends GenericDao<UserAccount, Long> {
 	/**
 	 * Find account by email.
 	 *
-	 * @param email the email
+	 * @param email
+	 *            the email
 	 * @return the user account
 	 */
 	public UserAccount findAccountByEmail(String email);

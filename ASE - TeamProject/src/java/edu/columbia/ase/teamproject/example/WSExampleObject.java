@@ -7,13 +7,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * The Class WSExampleObject.
  */
-@XmlRootElement(name="wsExample")
+@XmlRootElement(name = "wsExample")
 public class WSExampleObject {
-	
+
 	/** The message. */
 	private String message;
 
-	
 	/*
 	 * Default constructor for de marshalling via Jaxb
 	 */
@@ -28,7 +27,8 @@ public class WSExampleObject {
 	/**
 	 * Instantiates a new wS example object.
 	 *
-	 * @param message the message
+	 * @param message
+	 *            the message
 	 */
 	public WSExampleObject(String message) {
 		super();
@@ -40,7 +40,7 @@ public class WSExampleObject {
 	 *
 	 * @return the message
 	 */
-	@XmlAttribute(name="message")
+	@XmlAttribute(name = "message")
 	public String getMessage() {
 		return message;
 	}
@@ -48,12 +48,11 @@ public class WSExampleObject {
 	/**
 	 * Sets the message.
 	 *
-	 * @param message the new message
+	 * @param message
+	 *            the new message
 	 */
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	
-	
 
 }

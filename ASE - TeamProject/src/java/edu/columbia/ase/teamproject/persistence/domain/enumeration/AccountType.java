@@ -25,28 +25,28 @@ public enum AccountType {
 	public static final int MAX_ACCOUNT_TYPE_LENGTH = 64;
 
 	/** The account type. */
-	private final String accountType;	
-	
+	private final String accountType;
+
 	/** The Constant stringToEnum. */
 	private static final Map<String, AccountType> stringToEnum;
-	
+
 	static {
-		final Map<String, AccountType> tempMap = 
-				new HashMap<String, AccountType>();
-		for(AccountType accountType: values()){
+		final Map<String, AccountType> tempMap = new HashMap<String, AccountType>();
+		for (AccountType accountType : values()) {
 			tempMap.put(accountType.getAccountType(), accountType);
 		}
 		stringToEnum = ImmutableMap.copyOf(tempMap);
 	}
-	
+
 	/**
 	 * Instantiates a new account type.
 	 *
-	 * @param accountType the account type
+	 * @param accountType
+	 *            the account type
 	 */
 	private AccountType(String accountType) {
-		Preconditions.checkArgument(
-				accountType.length() < MAX_ACCOUNT_TYPE_LENGTH);
+		Preconditions
+				.checkArgument(accountType.length() < MAX_ACCOUNT_TYPE_LENGTH);
 		this.accountType = accountType;
 	}
 
@@ -59,24 +59,25 @@ public enum AccountType {
 		return accountType;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see java.lang.Enum#toString()
 	 */
 	@Override
 	public String toString() {
 		return accountType;
 	}
-	
+
 	/**
 	 * From string.
 	 *
-	 * @param accountType the account type
+	 * @param accountType
+	 *            the account type
 	 * @return the account type
 	 */
-	public static AccountType fromString( String accountType ){
+	public static AccountType fromString(String accountType) {
 		return stringToEnum.get(accountType);
 	}
 
-	
 };
-

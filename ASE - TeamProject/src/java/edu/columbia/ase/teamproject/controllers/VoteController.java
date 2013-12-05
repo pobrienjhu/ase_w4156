@@ -1,6 +1,5 @@
 package edu.columbia.ase.teamproject.controllers;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
-import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +21,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.Gson;
-
 import edu.columbia.ase.teamproject.persistence.dao.UserAccountDao;
 import edu.columbia.ase.teamproject.persistence.dao.VoteDao;
 import edu.columbia.ase.teamproject.persistence.dao.VoteOptionDao;
 import edu.columbia.ase.teamproject.persistence.domain.Event;
 import edu.columbia.ase.teamproject.persistence.domain.UserAccount;
-import edu.columbia.ase.teamproject.persistence.domain.Vote;
 import edu.columbia.ase.teamproject.persistence.domain.VoteCategory;
 import edu.columbia.ase.teamproject.persistence.domain.VoteOption;
 import edu.columbia.ase.teamproject.services.EventService;
@@ -50,7 +45,7 @@ public final class VoteController {
 	/** The event service. */
 	@Autowired
 	EventService eventService;
-	
+
 	/** The vote service. */
 	@Autowired
 	VoteService voteService;
@@ -58,19 +53,18 @@ public final class VoteController {
 	/** The gson provider. */
 	@Autowired
 	GsonProvider gsonProvider;
-	
+
 	/** The user account dao. */
 	@Autowired
 	private UserAccountDao userAccountDao;
-	
+
 	/** The vote dao. */
 	@Autowired
 	private VoteDao voteDao;
-	
+
 	/** The vote option dao. */
 	@Autowired
 	private VoteOptionDao voteOptionDao;
-
 
 	/** The Constant logger. */
 	private static final Logger logger = LoggerFactory
@@ -79,8 +73,10 @@ public final class VoteController {
 	/**
 	 * Handles HTTP GET requests.
 	 *
-	 * @param session the session
-	 * @param request the request
+	 * @param session
+	 *            the session
+	 * @param request
+	 *            the request
 	 * @return the model and view
 	 */
 	@RequestMapping(method = RequestMethod.GET)
@@ -89,97 +85,96 @@ public final class VoteController {
 
 		Map<String, Object> model = ControllerHelper.createBaseModel(session);
 
-		
-	
-		
-
-		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().
-				getAuthentication().getPrincipal();
+		UserDetails userDetails = (UserDetails) SecurityContextHolder
+				.getContext().getAuthentication().getPrincipal();
 		UserAccount user = userAccountDao.findAccountByUserDetails(userDetails);
-	
+
 		Event event = eventService.lookupEvent(user,
 				Long.valueOf(request.getParameter("event")));
-		
+
 		model.put("_eventName", event.getName());
 		model.put("_eventTitle", event.getDescription());
-		model.put("_eventId",event.getId().toString());
-		
-		
-		
-		if(event.getEndTime().isBeforeNow()) //voting window ended
+		model.put("_eventId", event.getId().toString());
+
+		if (event.getEndTime().isBeforeNow()) // voting window ended
 		{
 			model.put("title", "Voting Results");
-			
-			model.put("_results",voteService.getResults(event));
-			
-			return new ModelAndView("soy:edu.columbia.ase.vote.voteResults", model);
-			
-		}
-		else
-		{
+
+			model.put("_results", voteService.getResults(event));
+
+			return new ModelAndView("soy:edu.columbia.ase.vote.voteResults",
+					model);
+
+		} else {
 			model.put("title", "Event Voting");
-			
+
 			@SuppressWarnings("unchecked")
-			List<NavigationMenuSection> nms =
-					(List<NavigationMenuSection>) model.get("_vote");
-			
-			for(VoteCategory v : event.getVoteCategories() ){
-	
-				NavigationMenuSection voteCatSection =
-						new NavigationMenuSection(v.getCategoryName() + " - " + v.getDescription());
-				for(VoteOption vo : v.getVoteOptions()){
-					voteCatSection.addEntry(
-							new NavigationMenuEntry(v.getCategoryName(), vo.getId().toString(),vo.getOptionName()));
+			List<NavigationMenuSection> nms = (List<NavigationMenuSection>) model
+					.get("_vote");
+
+			for (VoteCategory v : event.getVoteCategories()) {
+
+				NavigationMenuSection voteCatSection = new NavigationMenuSection(
+						v.getCategoryName() + " - " + v.getDescription());
+				for (VoteOption vo : v.getVoteOptions()) {
+					voteCatSection.addEntry(new NavigationMenuEntry(v
+							.getCategoryName(), vo.getId().toString(), vo
+							.getOptionName()));
 				}
 				nms.add(voteCatSection);
 			}
-	
-			return new ModelAndView("soy:edu.columbia.ase.vote.voteEvent", model);
+
+			return new ModelAndView("soy:edu.columbia.ase.vote.voteEvent",
+					model);
 		}
 	}
-	
+
 	/**
-* Handles HTTP POST requests
+	 * Handles HTTP POST requests
 	 *
-	 * @param session the session
-	 * @param request the request
-	 * @param response the response
+	 * @param session
+	 *            the session
+	 * @param request
+	 *            the request
+	 * @param response
+	 *            the response
 	 * @return the string
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseBody
-	public String doPost(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws Exception 
-	{
+	public String doPost(HttpSession session, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 		logger.info("POST /app/voteEvent.do");
-		
-		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().
-				getAuthentication().getPrincipal();
+
+		UserDetails userDetails = (UserDetails) SecurityContextHolder
+				.getContext().getAuthentication().getPrincipal();
 		UserAccount user = userAccountDao.findAccountByUserDetails(userDetails);
-	
-		 StringTokenizer st = new StringTokenizer( IOUtils.toString(request.getInputStream()));
-		 List<Long>voteList = new ArrayList<Long>();
-		 
-		 Event event = eventService.lookupEvent(user,Long.parseLong(st.nextToken()));
-		 if(event == null || event.getEndTime().isBeforeNow()){
-			 throw new Exception("Invalid Event!");			 
-		 }
-		 
-		 while(st.hasMoreTokens()){			
-			voteList.add(Long.parseLong(st.nextToken()));	
-		 }
-		 
-		 try {
+
+		StringTokenizer st = new StringTokenizer(IOUtils.toString(request
+				.getInputStream()));
+		List<Long> voteList = new ArrayList<Long>();
+
+		Event event = eventService.lookupEvent(user,
+				Long.parseLong(st.nextToken()));
+		if (event == null || event.getEndTime().isBeforeNow()) {
+			throw new Exception("Invalid Event!");
+		}
+
+		while (st.hasMoreTokens()) {
+			voteList.add(Long.parseLong(st.nextToken()));
+		}
+
+		try {
 			voteService.addVotes(event, voteList, user);
 		} catch (Exception e) {
-			logger.error("Unable to add vote. Root Cause ("+e+")");
-			return  "Unable to add votes!";			
+			logger.error("Unable to add vote. Root Cause (" + e + ")");
+			return "Unable to add votes!";
 		}
-	
-		return  "Your vote has been submitted!";
+
+		return "Your vote has been submitted!";
 
 	}
-
-
 
 }
