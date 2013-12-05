@@ -469,5 +469,13 @@ public class Event {
     public void setUserEmails(final List<String> userEmails) {
         this.userEmails = userEmails;
     }
+    
+    
+    
+    public static Event generateEventForTest(){
+    	Event evt = new Event();
+    	evt.id = new Long(22);
+    	return evt;
+    }
 
 }

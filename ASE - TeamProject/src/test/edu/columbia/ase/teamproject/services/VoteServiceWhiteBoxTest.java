@@ -223,6 +223,44 @@ public class VoteServiceWhiteBoxTest extends AbstractTransactionalJUnit4SpringCo
     }
 
     @Test
+    public void testAddVoteForInvalidEvent() {
+        UserAccount user = userAccountDao.find(userId);
+
+        boolean exceptionThrown = false;
+
+        try {
+            voteService.addVote(userId+5, user);
+        } catch (Exception e) {
+            exceptionThrown = true;
+        }
+
+        assert (exceptionThrown == true);
+
+    }
+    
+    @Test
+    public void testAddVotesForInvalidEvent() {
+        UserAccount user = userAccountDao.find(userId);
+        List<VoteCategory> voteCategories = voteCategoryDao.list();
+
+        List<Long> voteList = new ArrayList<Long>();
+
+        voteList.add(voteCategories.get(0).getVoteOptions().get(0).getId());
+        voteList.add(voteCategories.get(1).getVoteOptions().get(0).getId());
+
+        boolean exceptionThrown = false;
+
+        try {
+            voteService.addVotes(Event.generateEventForTest(), voteList, user);
+        } catch (Exception e) {
+            exceptionThrown = true;
+        }
+
+        assert (exceptionThrown == true);
+
+    }
+    
+    @Test
     public void testAddVotes() {
         UserAccount user = userAccountDao.find(userId);
         List<VoteCategory> voteCategories = voteCategoryDao.list();
