@@ -35,71 +35,63 @@ import edu.columbia.ase.teamproject.util.GsonProvider;
 @RequestMapping("/app/getEventsPrivate.do")
 public class GetEventsPrivateController {
 
-	/** The event service. */
-	@Autowired
-	EventService eventService;
+    /** The event service. */
+    @Autowired
+    EventService eventService;
 
-	/** The user account dao. */
-	@Autowired
-	private UserAccountDao userAccountDao;
+    /** The user account dao. */
+    @Autowired
+    private UserAccountDao userAccountDao;
 
-	/** The gson provider. */
-	@Autowired
-	GsonProvider gsonProvider;
+    /** The gson provider. */
+    @Autowired
+    GsonProvider gsonProvider;
 
-	/** The Constant logger. */
-	private static final Logger logger = LoggerFactory
-			.getLogger(GetEventsPrivateController.class);
+    /** The Constant logger. */
+    private static final Logger logger = LoggerFactory.getLogger(GetEventsPrivateController.class);
 
-	/**
-	 * Handles HTTP GET requests.
-	 *
-	 * @param session
-	 *            the session
-	 * @param request
-	 *            the request
-	 * @param response
-	 *            the response
-	 * @return the string
-	 */
-	@RequestMapping(method = RequestMethod.GET)
-	@ResponseBody
-	public String doGet(HttpSession session, HttpServletRequest request,
-			HttpServletResponse response) {
+    /**
+     * Handles HTTP GET requests.
+     * 
+     * @param session
+     *            the session
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @return the string
+     */
+    @RequestMapping(method = RequestMethod.GET)
+    @ResponseBody
+    public String doGet(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
 
-		try {
-			Gson gson = gsonProvider.provideGson();
+        try {
+            Gson gson = gsonProvider.provideGson();
 
-			String eventType = StringUtils.defaultIfEmpty(
-					request.getParameter("eventType"), "active");
+            String eventType = StringUtils.defaultIfEmpty(request.getParameter("eventType"), "active");
 
-			response.setContentType("application/json");
-			response.setCharacterEncoding("UTF-8");
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
 
-			Collection<Event> events = new ArrayList<Event>();
+            Collection<Event> events = new ArrayList<Event>();
 
-			UserDetails userDetails = (UserDetails) SecurityContextHolder
-					.getContext().getAuthentication().getPrincipal();
-			UserAccount user = userAccountDao
-					.findAccountByUserDetails(userDetails);
+            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            UserAccount user = userAccountDao.findAccountByUserDetails(userDetails);
 
-			if (StringUtils.equalsIgnoreCase(eventType, "active")) {
-				events = eventService.getAllActivePrivateEventsForUserId(
-						new DateTime(), user.getId());
-			} else if (StringUtils.equalsIgnoreCase(eventType, "completed")) {
-				events = eventService.getAllCompletedPrivateEventsForUserId(
-						new DateTime(), user.getId());
-			}
+            if (StringUtils.equalsIgnoreCase(eventType, "active")) {
+                events = eventService.getAllActivePrivateEventsForUserId(new DateTime(), user.getId());
+            } else if (StringUtils.equalsIgnoreCase(eventType, "completed")) {
+                events = eventService.getAllCompletedPrivateEventsForUserId(new DateTime(), user.getId());
+            }
 
-			if (events != null) {
-				return gson.toJson(events);
-			}
-		} catch (Exception e) {
-			logger.error("Unable to find public event list. Root Cause ("
-					+ e.getMessage() + ")");
-		}
+            if (events != null) {
+                return gson.toJson(events);
+            }
+        } catch (Exception e) {
+            logger.error("Unable to find public event list. Root Cause (" + e.getMessage() + ")");
+        }
 
-		return "{}";
-	}
+        return "{}";
+    }
 
 }

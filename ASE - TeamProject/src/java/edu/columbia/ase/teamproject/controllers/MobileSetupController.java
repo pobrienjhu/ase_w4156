@@ -26,37 +26,35 @@ import edu.columbia.ase.teamproject.security.AuthKey;
 @RequestMapping("/app/mobileSetup.do")
 public class MobileSetupController {
 
-	/** The user account dao. */
-	@Autowired
-	UserAccountDao userAccountDao;
+    /** The user account dao. */
+    @Autowired
+    UserAccountDao userAccountDao;
 
-	/** The Constant logger. */
-	private static final Logger logger = LoggerFactory
-			.getLogger(MobileSetupController.class);
+    /** The Constant logger. */
+    private static final Logger logger = LoggerFactory.getLogger(MobileSetupController.class);
 
-	/**
-	 * Handles HTTP GET requests.
-	 *
-	 * @param session
-	 *            the session
-	 * @return the model and view
-	 */
-	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView doGet(HttpSession session) {
-		logger.info("GET /app/mobileSetup.do");
-		Map<String, Object> model = ControllerHelper.createBaseModel(session);
+    /**
+     * Handles HTTP GET requests.
+     * 
+     * @param session
+     *            the session
+     * @return the model and view
+     */
+    @RequestMapping(method = RequestMethod.GET)
+    public ModelAndView doGet(HttpSession session) {
+        logger.info("GET /app/mobileSetup.do");
+        Map<String, Object> model = ControllerHelper.createBaseModel(session);
 
-		UserDetails userDetails = (UserDetails) SecurityContextHolder
-				.getContext().getAuthentication().getPrincipal();
-		UserAccount user = userAccountDao.findAccountByUserDetails(userDetails);
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserAccount user = userAccountDao.findAccountByUserDetails(userDetails);
 
-		// TODO(pames): don't hard code the secret.
-		AuthKey apiKey = AuthKey.authKeyForIdAndSecret(user.getId(), "secret");
-		model.put("apiKey", apiKey.getApiKey());
+        // TODO(pames): don't hard code the secret.
+        AuthKey apiKey = AuthKey.authKeyForIdAndSecret(user.getId(), "secret");
+        model.put("apiKey", apiKey.getApiKey());
 
-		model.put("title", "Mobile App Setup");
+        model.put("title", "Mobile App Setup");
 
-		return new ModelAndView("soy:edu.columbia.ase.mobile", model);
-	}
+        return new ModelAndView("soy:edu.columbia.ase.mobile", model);
+    }
 
 }

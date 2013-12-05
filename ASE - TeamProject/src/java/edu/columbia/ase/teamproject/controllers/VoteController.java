@@ -42,139 +42,126 @@ import edu.columbia.ase.teamproject.view.NavigationMenuSection;
 @RequestMapping("/app/voteEvent.do")
 public final class VoteController {
 
-	/** The event service. */
-	@Autowired
-	EventService eventService;
+    /** The event service. */
+    @Autowired
+    EventService eventService;
 
-	/** The vote service. */
-	@Autowired
-	VoteService voteService;
+    /** The vote service. */
+    @Autowired
+    VoteService voteService;
 
-	/** The gson provider. */
-	@Autowired
-	GsonProvider gsonProvider;
+    /** The gson provider. */
+    @Autowired
+    GsonProvider gsonProvider;
 
-	/** The user account dao. */
-	@Autowired
-	private UserAccountDao userAccountDao;
+    /** The user account dao. */
+    @Autowired
+    private UserAccountDao userAccountDao;
 
-	/** The vote dao. */
-	@Autowired
-	private VoteDao voteDao;
+    /** The vote dao. */
+    @Autowired
+    private VoteDao voteDao;
 
-	/** The vote option dao. */
-	@Autowired
-	private VoteOptionDao voteOptionDao;
+    /** The vote option dao. */
+    @Autowired
+    private VoteOptionDao voteOptionDao;
 
-	/** The Constant logger. */
-	private static final Logger logger = LoggerFactory
-			.getLogger(VoteController.class);
+    /** The Constant logger. */
+    private static final Logger logger = LoggerFactory.getLogger(VoteController.class);
 
-	/**
-	 * Handles HTTP GET requests.
-	 *
-	 * @param session
-	 *            the session
-	 * @param request
-	 *            the request
-	 * @return the model and view
-	 */
-	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView doGet(HttpSession session, HttpServletRequest request) {
-		logger.info("GET /app/voteEvent.do");
+    /**
+     * Handles HTTP GET requests.
+     * 
+     * @param session
+     *            the session
+     * @param request
+     *            the request
+     * @return the model and view
+     */
+    @RequestMapping(method = RequestMethod.GET)
+    public ModelAndView doGet(HttpSession session, HttpServletRequest request) {
+        logger.info("GET /app/voteEvent.do");
 
-		Map<String, Object> model = ControllerHelper.createBaseModel(session);
+        Map<String, Object> model = ControllerHelper.createBaseModel(session);
 
-		UserDetails userDetails = (UserDetails) SecurityContextHolder
-				.getContext().getAuthentication().getPrincipal();
-		UserAccount user = userAccountDao.findAccountByUserDetails(userDetails);
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserAccount user = userAccountDao.findAccountByUserDetails(userDetails);
 
-		Event event = eventService.lookupEvent(user,
-				Long.valueOf(request.getParameter("event")));
+        Event event = eventService.lookupEvent(user, Long.valueOf(request.getParameter("event")));
 
-		model.put("_eventName", event.getName());
-		model.put("_eventTitle", event.getDescription());
-		model.put("_eventId", event.getId().toString());
+        model.put("_eventName", event.getName());
+        model.put("_eventTitle", event.getDescription());
+        model.put("_eventId", event.getId().toString());
 
-		if (event.getEndTime().isBeforeNow()) // voting window ended
-		{
-			model.put("title", "Voting Results");
+        if (event.getEndTime().isBeforeNow()) // voting window ended
+        {
+            model.put("title", "Voting Results");
 
-			model.put("_results", voteService.getResults(event));
+            model.put("_results", voteService.getResults(event));
 
-			return new ModelAndView("soy:edu.columbia.ase.vote.voteResults",
-					model);
+            return new ModelAndView("soy:edu.columbia.ase.vote.voteResults", model);
 
-		} else {
-			model.put("title", "Event Voting");
+        } else {
+            model.put("title", "Event Voting");
 
-			@SuppressWarnings("unchecked")
-			List<NavigationMenuSection> nms = (List<NavigationMenuSection>) model
-					.get("_vote");
+            @SuppressWarnings("unchecked")
+            List<NavigationMenuSection> nms = (List<NavigationMenuSection>) model.get("_vote");
 
-			for (VoteCategory v : event.getVoteCategories()) {
+            for (VoteCategory v : event.getVoteCategories()) {
 
-				NavigationMenuSection voteCatSection = new NavigationMenuSection(
-						v.getCategoryName() + " - " + v.getDescription());
-				for (VoteOption vo : v.getVoteOptions()) {
-					voteCatSection.addEntry(new NavigationMenuEntry(v
-							.getCategoryName(), vo.getId().toString(), vo
-							.getOptionName()));
-				}
-				nms.add(voteCatSection);
-			}
+                NavigationMenuSection voteCatSection = new NavigationMenuSection(v.getCategoryName() + " - " + v.getDescription());
+                for (VoteOption vo : v.getVoteOptions()) {
+                    voteCatSection.addEntry(new NavigationMenuEntry(v.getCategoryName(), vo.getId().toString(), vo.getOptionName()));
+                }
+                nms.add(voteCatSection);
+            }
 
-			return new ModelAndView("soy:edu.columbia.ase.vote.voteEvent",
-					model);
-		}
-	}
+            return new ModelAndView("soy:edu.columbia.ase.vote.voteEvent", model);
+        }
+    }
 
-	/**
-	 * Handles HTTP POST requests
-	 *
-	 * @param session
-	 *            the session
-	 * @param request
-	 *            the request
-	 * @param response
-	 *            the response
-	 * @return the string
-	 * @throws Exception
-	 *             the exception
-	 */
-	@RequestMapping(method = RequestMethod.POST)
-	@ResponseBody
-	public String doPost(HttpSession session, HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		logger.info("POST /app/voteEvent.do");
+    /**
+     * Handles HTTP POST requests
+     * 
+     * @param session
+     *            the session
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @return the string
+     * @throws Exception
+     *             the exception
+     */
+    @RequestMapping(method = RequestMethod.POST)
+    @ResponseBody
+    public String doPost(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        logger.info("POST /app/voteEvent.do");
 
-		UserDetails userDetails = (UserDetails) SecurityContextHolder
-				.getContext().getAuthentication().getPrincipal();
-		UserAccount user = userAccountDao.findAccountByUserDetails(userDetails);
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserAccount user = userAccountDao.findAccountByUserDetails(userDetails);
 
-		StringTokenizer st = new StringTokenizer(IOUtils.toString(request
-				.getInputStream()));
-		List<Long> voteList = new ArrayList<Long>();
+        StringTokenizer st = new StringTokenizer(IOUtils.toString(request.getInputStream()));
+        List<Long> voteList = new ArrayList<Long>();
 
-		Event event = eventService.lookupEvent(user,
-				Long.parseLong(st.nextToken()));
-		if (event == null || event.getEndTime().isBeforeNow()) {
-			throw new Exception("Invalid Event!");
-		}
+        Event event = eventService.lookupEvent(user, Long.parseLong(st.nextToken()));
+        if (event == null || event.getEndTime().isBeforeNow()) {
+            throw new Exception("Invalid Event!");
+        }
 
-		while (st.hasMoreTokens()) {
-			voteList.add(Long.parseLong(st.nextToken()));
-		}
+        while (st.hasMoreTokens()) {
+            voteList.add(Long.parseLong(st.nextToken()));
+        }
 
-		try {
-			voteService.addVotes(event, voteList, user);
-		} catch (Exception e) {
-			logger.error("Unable to add vote. Root Cause (" + e + ")");
-			return "Unable to add votes!";
-		}
+        try {
+            voteService.addVotes(event, voteList, user);
+        } catch (Exception e) {
+            logger.error("Unable to add vote. Root Cause (" + e + ")");
+            return "Unable to add votes!";
+        }
 
-		return "Your vote has been submitted!";
+        return "Your vote has been submitted!";
 
-	}
+    }
 
 }

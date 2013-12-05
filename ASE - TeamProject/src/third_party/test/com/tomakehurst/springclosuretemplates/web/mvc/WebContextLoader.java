@@ -11,28 +11,27 @@ import org.springframework.web.context.support.GenericWebApplicationContext;
 
 public class WebContextLoader implements ContextLoader {
 
-	@Override
-	public String[] processLocations(Class<?> clazz, String... locations) {
-		return locations;
-	}
+    @Override
+    public String[] processLocations(Class<?> clazz, String... locations) {
+        return locations;
+    }
 
-	@Override
-	public ApplicationContext loadContext(String... locations) throws Exception {
-		MockServletContext servletContext = new MockServletContext();
+    @Override
+    public ApplicationContext loadContext(String... locations) throws Exception {
+        MockServletContext servletContext = new MockServletContext();
 
-		GenericWebApplicationContext context = new GenericWebApplicationContext();
-		context.setServletContext(servletContext);
+        GenericWebApplicationContext context = new GenericWebApplicationContext();
+        context.setServletContext(servletContext);
 
-		XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(context);
-		reader.loadBeanDefinitions(locations);
-		AnnotationConfigUtils.registerAnnotationConfigProcessors(context);
-		context.registerShutdownHook();
-		context.refresh();
+        XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(context);
+        reader.loadBeanDefinitions(locations);
+        AnnotationConfigUtils.registerAnnotationConfigProcessors(context);
+        context.registerShutdownHook();
+        context.refresh();
 
-		servletContext.setAttribute(ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE,
-				context);
+        servletContext.setAttribute(ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, context);
 
-		return context;
-	}
+        return context;
+    }
 
 }

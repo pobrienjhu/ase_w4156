@@ -31,61 +31,56 @@ import edu.columbia.ase.teamproject.util.GsonProvider;
 @RequestMapping("/app/getEventsPublic.do")
 public class GetEventsPublicController {
 
-	/** The event service. */
-	@Autowired
-	EventService eventService;
+    /** The event service. */
+    @Autowired
+    EventService eventService;
 
-	/** The gson provider. */
-	@Autowired
-	GsonProvider gsonProvider;
+    /** The gson provider. */
+    @Autowired
+    GsonProvider gsonProvider;
 
-	/** The Constant logger. */
-	private static final Logger logger = LoggerFactory
-			.getLogger(GetEventsPublicController.class);
+    /** The Constant logger. */
+    private static final Logger logger = LoggerFactory.getLogger(GetEventsPublicController.class);
 
-	/**
-	 * Handles HTTP GET requests.
-	 *
-	 * @param session
-	 *            the session
-	 * @param request
-	 *            the request
-	 * @param response
-	 *            the response
-	 * @return the string
-	 */
-	@RequestMapping(method = RequestMethod.GET)
-	@ResponseBody
-	public String doGet(HttpSession session, HttpServletRequest request,
-			HttpServletResponse response) {
+    /**
+     * Handles HTTP GET requests.
+     * 
+     * @param session
+     *            the session
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @return the string
+     */
+    @RequestMapping(method = RequestMethod.GET)
+    @ResponseBody
+    public String doGet(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
 
-		try {
-			Gson gson = gsonProvider.provideGson();
+        try {
+            Gson gson = gsonProvider.provideGson();
 
-			String eventType = StringUtils.defaultIfEmpty(
-					request.getParameter("eventType"), "active");
+            String eventType = StringUtils.defaultIfEmpty(request.getParameter("eventType"), "active");
 
-			response.setContentType("application/json");
-			response.setCharacterEncoding("UTF-8");
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
 
-			Collection<Event> events = new ArrayList<Event>();
+            Collection<Event> events = new ArrayList<Event>();
 
-			if (StringUtils.equalsIgnoreCase(eventType, "active")) {
-				events = eventService.getAllActivePublicEvents(new DateTime());
-			} else if (StringUtils.equalsIgnoreCase(eventType, "completed")) {
-				events = eventService
-						.getAllCompletedPublicEvents(new DateTime());
-			}
+            if (StringUtils.equalsIgnoreCase(eventType, "active")) {
+                events = eventService.getAllActivePublicEvents(new DateTime());
+            } else if (StringUtils.equalsIgnoreCase(eventType, "completed")) {
+                events = eventService.getAllCompletedPublicEvents(new DateTime());
+            }
 
-			if (events != null) {
-				return gson.toJson(events);
-			}
-		} catch (Exception e) {
-			logger.error("Unable to find public event list. Root Cause ("
-					+ e.getMessage() + ")");
-		}
+            if (events != null) {
+                return gson.toJson(events);
+            }
+        } catch (Exception e) {
+            logger.error("Unable to find public event list. Root Cause (" + e.getMessage() + ")");
+        }
 
-		return "{}";
-	}
+        return "{}";
+    }
 
 }

@@ -36,301 +36,275 @@ import edu.columbia.ase.teamproject.security.Permission;
 @ContextConfiguration(locations = "classpath:spring-db.xml")
 @TransactionConfiguration(defaultRollback = true)
 @Transactional
-public class PersistenceQueryTest extends
-		AbstractTransactionalJUnit4SpringContextTests {
-
-	// static {
-	// System.setProperty("dataFile", "test-data.sql"); }
-
-	@Autowired
-	private SessionFactory sessionFactory;
-
-	@Autowired
-	private UserAccountDao userAccountDao;
-
-	@Autowired
-	private EventDao eventDao;
-
-	@Autowired
-	private VoteCategoryDao voteCategoryDao;
-
-	@Before
-	public void setUp() {
-		/*
-		 * Add users
-		 */
-
-		UserAccount user1 = new UserAccount(AccountType.LOCAL, "user1",
-				"User1 Account", "password", "user1@example.com",
-				Arrays.asList(new Permission[] { Permission.USER }));
-
-		UserAccount user2 = new UserAccount(AccountType.LOCAL, "user2",
-				"User2 Account", "password", "user2@example.com",
-				Arrays.asList(new Permission[] { Permission.USER }));
-
-		UserAccount admin = new UserAccount(AccountType.LOCAL, "admin",
-				"Admin Account", "password", "admin@example.com",
-				Arrays.asList(new Permission[] { Permission.USER }));
-
-		user1 = userAccountDao.add(user1);
-		user2 = userAccountDao.add(user2);
-		admin = userAccountDao.add(admin);
-
-		/*
-		 * Add Events
-		 */
-		Event event1 = new Event(null, admin, "Event Name 1",
-				"Event Description", EventType.PUBLIC, DateTime.now(), DateTime
-						.now().plus(Duration.standardDays(1)));
-
-		Event event2 = new Event(null, admin, "Event Name 2",
-				"Event Description", EventType.PUBLIC, DateTime.now(), DateTime
-						.now().plus(Duration.standardDays(1)));
-
-		Event event3 = new Event(null, admin, "Event Name 3",
-				"Event Description", EventType.PUBLIC, DateTime.now(), DateTime
-						.now().plus(Duration.standardDays(1)));
-
-		Event event4 = new Event(null, admin, "Event Name 4",
-				"Event Description", EventType.PRIVATE, DateTime.now(),
-				DateTime.now().plus(Duration.standardDays(1)));
-
-		event4.addEventUser(user1);
-		event4.addEventUser(user2);
-
-		Event event5 = new Event(null, admin, "Event Name 5",
-				"Event Description", EventType.PUBLIC, DateTime.now().plus(
-						Duration.standardHours(1)), DateTime.now().plus(
-						Duration.standardDays(1)));
+public class PersistenceQueryTest extends AbstractTransactionalJUnit4SpringContextTests {
 
-		Event event6 = new Event(null, admin, "Event Name 6",
-				"Event Description", EventType.PRIVATE, DateTime.now().minus(
-						Duration.standardDays(2)), DateTime.now().minus(
-						Duration.standardDays(1)));
+    // static {
+    // System.setProperty("dataFile", "test-data.sql"); }
 
-		Event event7 = new Event(null, admin, "Event Name 7",
-				"Event Description", EventType.PUBLIC, DateTime.now().minus(
-						Duration.standardDays(2)), DateTime.now().minus(
-						Duration.standardDays(1)));
+    @Autowired
+    private SessionFactory sessionFactory;
 
-		event6.addEventUser(user1);
-		event6.addEventUser(user2);
+    @Autowired
+    private UserAccountDao userAccountDao;
 
-		eventDao.add(event1);
-		eventDao.add(event2);
-		eventDao.add(event3);
-		eventDao.add(event4);
-		eventDao.add(event5);
-		eventDao.add(event6);
-		eventDao.add(event7);
-
-	}
-
-	@AfterClass
-	public static void tearDown() {
-	}
+    @Autowired
+    private EventDao eventDao;
 
-	@Test
-	public void testHibernateConfiguration() {
-		// Did Spring container instantiated and prepared sessionFactory
-		assertNotNull(sessionFactory);
-	}
+    @Autowired
+    private VoteCategoryDao voteCategoryDao;
 
-	@Test
-	public void testUserAccountDao() {
-		// Did Spring container instantiated and prepared personsDao
-		assertNotNull(userAccountDao);
-	}
+    @Before
+    public void setUp() {
+        /*
+         * Add users
+         */
 
-	@Test
-	public void testEventDao() {
-		// Did Spring container instantiated and prepared eventDao
-		assertNotNull(eventDao);
-	}
+        UserAccount user1 = new UserAccount(AccountType.LOCAL, "user1", "User1 Account", "password", "user1@example.com",
+                Arrays.asList(new Permission[] { Permission.USER }));
 
-	@Test
-	public void testEventDaoQuery() {
-		// Is personsDao ready for operations
-		List<Event> eventList = eventDao.list();
+        UserAccount user2 = new UserAccount(AccountType.LOCAL, "user2", "User2 Account", "password", "user2@example.com",
+                Arrays.asList(new Permission[] { Permission.USER }));
 
-		System.out.println("Looking for list of all events in the db...");
+        UserAccount admin = new UserAccount(AccountType.LOCAL, "admin", "Admin Account", "password", "admin@example.com",
+                Arrays.asList(new Permission[] { Permission.USER }));
 
-		assertNotNull(eventList);
-		assertFalse(eventList.size() == 0);
+        user1 = userAccountDao.add(user1);
+        user2 = userAccountDao.add(user2);
+        admin = userAccountDao.add(admin);
 
-		for (Event event : eventList) {
-			System.out.println(event);
-		}
-	}
+        /*
+         * Add Events
+         */
+        Event event1 = new Event(null, admin, "Event Name 1", "Event Description", EventType.PUBLIC, DateTime.now(), DateTime.now().plus(
+                Duration.standardDays(1)));
 
-	@Test
-	public void testEventDaoQueryActivePublicEvents() {
+        Event event2 = new Event(null, admin, "Event Name 2", "Event Description", EventType.PUBLIC, DateTime.now(), DateTime.now().plus(
+                Duration.standardDays(1)));
 
-		Collection<Event> eventList = eventDao
-				.getAllActivePublicEvents(new DateTime());
+        Event event3 = new Event(null, admin, "Event Name 3", "Event Description", EventType.PUBLIC, DateTime.now(), DateTime.now().plus(
+                Duration.standardDays(1)));
 
-		System.out.println("Looking for list of all events in the db...");
+        Event event4 = new Event(null, admin, "Event Name 4", "Event Description", EventType.PRIVATE, DateTime.now(), DateTime.now().plus(
+                Duration.standardDays(1)));
 
-		// personsList.size()
-		assertNotNull(eventList);
-		assertFalse(eventList.size() == 0);
+        event4.addEventUser(user1);
+        event4.addEventUser(user2);
 
-		for (Event event : eventList) {
-			System.out.println(event);
-		}
-	}
+        Event event5 = new Event(null, admin, "Event Name 5", "Event Description", EventType.PUBLIC, DateTime.now().plus(Duration.standardHours(1)),
+                DateTime.now().plus(Duration.standardDays(1)));
 
-	@Test
-	public void testEventDaoQueryCompletedPublicEvents() {
+        Event event6 = new Event(null, admin, "Event Name 6", "Event Description", EventType.PRIVATE, DateTime.now().minus(Duration.standardDays(2)),
+                DateTime.now().minus(Duration.standardDays(1)));
 
-		Collection<Event> eventList = eventDao
-				.getAllCompletedPublicEvents(new DateTime());
+        Event event7 = new Event(null, admin, "Event Name 7", "Event Description", EventType.PUBLIC, DateTime.now().minus(Duration.standardDays(2)),
+                DateTime.now().minus(Duration.standardDays(1)));
 
-		System.out.println("Looking for list of all events in the db...");
+        event6.addEventUser(user1);
+        event6.addEventUser(user2);
 
-		// personsList.size()
-		assertNotNull(eventList);
-		assertFalse(eventList.size() == 0);
+        eventDao.add(event1);
+        eventDao.add(event2);
+        eventDao.add(event3);
+        eventDao.add(event4);
+        eventDao.add(event5);
+        eventDao.add(event6);
+        eventDao.add(event7);
 
-		for (Event event : eventList) {
-			System.out.println(event);
-		}
-	}
+    }
 
-	@Test
-	public void testEventDaoQueryActivePrivateEventsForUser() {
+    @AfterClass
+    public static void tearDown() {
+    }
 
-		List<UserAccount> userList = userAccountDao.list();
+    @Test
+    public void testHibernateConfiguration() {
+        // Did Spring container instantiated and prepared sessionFactory
+        assertNotNull(sessionFactory);
+    }
 
-		for (UserAccount userAccount : userList) {
+    @Test
+    public void testUserAccountDao() {
+        // Did Spring container instantiated and prepared personsDao
+        assertNotNull(userAccountDao);
+    }
 
-			Collection<Event> eventList = eventDao
-					.getAllActivePrivateEventsForUserId(new DateTime(),
-							userAccount.getId());
+    @Test
+    public void testEventDao() {
+        // Did Spring container instantiated and prepared eventDao
+        assertNotNull(eventDao);
+    }
 
-			System.out.println("Looking for list of all events in the db...");
+    @Test
+    public void testEventDaoQuery() {
+        // Is personsDao ready for operations
+        List<Event> eventList = eventDao.list();
 
-			if (StringUtils.equals(userAccount.getUsername(), "admin")) {
-				assertNotNull(eventList);
-				assertTrue(eventList.size() == 0);
-			} else {
-				assertNotNull(eventList);
-				assertFalse(eventList.size() == 0);
+        System.out.println("Looking for list of all events in the db...");
 
-				for (Event event : eventList) {
-					System.out.println(event);
-				}
-			}
-		}
-	}
+        assertNotNull(eventList);
+        assertFalse(eventList.size() == 0);
 
-	@Test
-	public void testEventDaoQueryActiveAdminEventsForUser() {
+        for (Event event : eventList) {
+            System.out.println(event);
+        }
+    }
 
-		List<UserAccount> userList = userAccountDao.list();
+    @Test
+    public void testEventDaoQueryActivePublicEvents() {
 
-		for (UserAccount userAccount : userList) {
+        Collection<Event> eventList = eventDao.getAllActivePublicEvents(new DateTime());
 
-			Collection<Event> eventList = eventDao
-					.getAllActiveAdminEventsForUserId(new DateTime(),
-							userAccount.getId());
+        System.out.println("Looking for list of all events in the db...");
 
-			System.out.println("Looking for list of all events in the db...");
+        // personsList.size()
+        assertNotNull(eventList);
+        assertFalse(eventList.size() == 0);
 
-			if (StringUtils.equals(userAccount.getUsername(), "admin")) {
-				assertNotNull(eventList);
-				assertFalse(eventList.size() == 0);
+        for (Event event : eventList) {
+            System.out.println(event);
+        }
+    }
 
-				for (Event event : eventList) {
-					System.out.println(event);
-				}
-			} else {
-				assertNotNull(eventList);
-				assertTrue(eventList.size() == 0);
+    @Test
+    public void testEventDaoQueryCompletedPublicEvents() {
 
-			}
-		}
-	}
+        Collection<Event> eventList = eventDao.getAllCompletedPublicEvents(new DateTime());
 
-	@Test
-	public void testEventDaoQueryCompletedAdminEventsForUser() {
+        System.out.println("Looking for list of all events in the db...");
 
-		List<UserAccount> userList = userAccountDao.list();
+        // personsList.size()
+        assertNotNull(eventList);
+        assertFalse(eventList.size() == 0);
 
-		for (UserAccount userAccount : userList) {
+        for (Event event : eventList) {
+            System.out.println(event);
+        }
+    }
 
-			Collection<Event> eventList = eventDao
-					.getAllCompletedAdminEventsForUserId(new DateTime(),
-							userAccount.getId());
+    @Test
+    public void testEventDaoQueryActivePrivateEventsForUser() {
 
-			System.out.println("Looking for list of all events in the db...");
+        List<UserAccount> userList = userAccountDao.list();
 
-			if (StringUtils.equals(userAccount.getUsername(), "admin")) {
-				assertNotNull(eventList);
-				assertFalse(eventList.size() == 0);
+        for (UserAccount userAccount : userList) {
 
-				for (Event event : eventList) {
-					System.out.println(event);
-				}
-			} else {
-				assertNotNull(eventList);
-				assertTrue(eventList.size() == 0);
-			}
-		}
-	}
+            Collection<Event> eventList = eventDao.getAllActivePrivateEventsForUserId(new DateTime(), userAccount.getId());
 
-	@Test
-	public void testEventDaoQueryFutureAdminEventsForUser() {
+            System.out.println("Looking for list of all events in the db...");
 
-		List<UserAccount> userList = userAccountDao.list();
+            if (StringUtils.equals(userAccount.getUsername(), "admin")) {
+                assertNotNull(eventList);
+                assertTrue(eventList.size() == 0);
+            } else {
+                assertNotNull(eventList);
+                assertFalse(eventList.size() == 0);
 
-		for (UserAccount userAccount : userList) {
+                for (Event event : eventList) {
+                    System.out.println(event);
+                }
+            }
+        }
+    }
 
-			Collection<Event> eventList = eventDao
-					.getAllFutureAdminEventsForUserId(new DateTime(),
-							userAccount.getId());
+    @Test
+    public void testEventDaoQueryActiveAdminEventsForUser() {
 
-			System.out.println("Looking for list of all events in the db...");
+        List<UserAccount> userList = userAccountDao.list();
 
-			if (StringUtils.equals(userAccount.getUsername(), "admin")) {
-				assertNotNull(eventList);
-				assertFalse(eventList.size() == 0);
+        for (UserAccount userAccount : userList) {
 
-				for (Event event : eventList) {
-					System.out.println(event);
-				}
-			} else {
-				assertNotNull(eventList);
-				assertTrue(eventList.size() == 0);
-			}
-		}
-	}
+            Collection<Event> eventList = eventDao.getAllActiveAdminEventsForUserId(new DateTime(), userAccount.getId());
 
-	@Test
-	public void testEventDaoQueryCompletedPrivateEventsForUser() {
+            System.out.println("Looking for list of all events in the db...");
 
-		List<UserAccount> userList = userAccountDao.list();
+            if (StringUtils.equals(userAccount.getUsername(), "admin")) {
+                assertNotNull(eventList);
+                assertFalse(eventList.size() == 0);
 
-		for (UserAccount userAccount : userList) {
+                for (Event event : eventList) {
+                    System.out.println(event);
+                }
+            } else {
+                assertNotNull(eventList);
+                assertTrue(eventList.size() == 0);
 
-			Collection<Event> eventList = eventDao
-					.getAllCompletedPrivateEventsForUserId(new DateTime(),
-							userAccount.getId());
+            }
+        }
+    }
 
-			System.out.println("Looking for list of all events in the db...");
+    @Test
+    public void testEventDaoQueryCompletedAdminEventsForUser() {
 
-			if (StringUtils.equals(userAccount.getUsername(), "admin")) {
-				assertNotNull(eventList);
-				assertTrue(eventList.size() == 0);
-			} else {
-				assertNotNull(eventList);
-				assertFalse(eventList.size() == 0);
+        List<UserAccount> userList = userAccountDao.list();
 
-				for (Event event : eventList) {
-					System.out.println(event);
-				}
-			}
-		}
-	}
+        for (UserAccount userAccount : userList) {
+
+            Collection<Event> eventList = eventDao.getAllCompletedAdminEventsForUserId(new DateTime(), userAccount.getId());
+
+            System.out.println("Looking for list of all events in the db...");
+
+            if (StringUtils.equals(userAccount.getUsername(), "admin")) {
+                assertNotNull(eventList);
+                assertFalse(eventList.size() == 0);
+
+                for (Event event : eventList) {
+                    System.out.println(event);
+                }
+            } else {
+                assertNotNull(eventList);
+                assertTrue(eventList.size() == 0);
+            }
+        }
+    }
+
+    @Test
+    public void testEventDaoQueryFutureAdminEventsForUser() {
+
+        List<UserAccount> userList = userAccountDao.list();
+
+        for (UserAccount userAccount : userList) {
+
+            Collection<Event> eventList = eventDao.getAllFutureAdminEventsForUserId(new DateTime(), userAccount.getId());
+
+            System.out.println("Looking for list of all events in the db...");
+
+            if (StringUtils.equals(userAccount.getUsername(), "admin")) {
+                assertNotNull(eventList);
+                assertFalse(eventList.size() == 0);
+
+                for (Event event : eventList) {
+                    System.out.println(event);
+                }
+            } else {
+                assertNotNull(eventList);
+                assertTrue(eventList.size() == 0);
+            }
+        }
+    }
+
+    @Test
+    public void testEventDaoQueryCompletedPrivateEventsForUser() {
+
+        List<UserAccount> userList = userAccountDao.list();
+
+        for (UserAccount userAccount : userList) {
+
+            Collection<Event> eventList = eventDao.getAllCompletedPrivateEventsForUserId(new DateTime(), userAccount.getId());
+
+            System.out.println("Looking for list of all events in the db...");
+
+            if (StringUtils.equals(userAccount.getUsername(), "admin")) {
+                assertNotNull(eventList);
+                assertTrue(eventList.size() == 0);
+            } else {
+                assertNotNull(eventList);
+                assertFalse(eventList.size() == 0);
+
+                for (Event event : eventList) {
+                    System.out.println(event);
+                }
+            }
+        }
+    }
 
 }

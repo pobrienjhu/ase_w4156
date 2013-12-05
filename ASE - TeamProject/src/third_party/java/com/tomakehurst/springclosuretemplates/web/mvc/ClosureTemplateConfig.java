@@ -4,9 +4,9 @@ import org.springframework.core.io.Resource;
 
 public interface ClosureTemplateConfig {
 
-	Resource getTemplatesLocation();
+    Resource getTemplatesLocation();
 
-	boolean isRecursive();
+    boolean isRecursive();
 
-	boolean isDevMode();
+    boolean isDevMode();
 }

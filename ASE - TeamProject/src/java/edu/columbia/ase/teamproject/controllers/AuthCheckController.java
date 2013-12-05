@@ -15,19 +15,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/app/authCheck.do")
 public class AuthCheckController {
 
-	/** The Constant logger. */
-	private static final Logger logger = LoggerFactory
-			.getLogger(AuthCheckController.class);
+    /** The Constant logger. */
+    private static final Logger logger = LoggerFactory.getLogger(AuthCheckController.class);
 
-	/**
-	 * Handles HTTP GET requests.
-	 *
-	 * @return the string
-	 */
-	@RequestMapping(method = RequestMethod.GET)
-	@ResponseBody
-	public String doGet() {
-		logger.info("GET /app/authCheck.do");
-		return "OK";
-	}
+    /**
+     * Handles HTTP GET requests.
+     * 
+     * @return the string
+     */
+    @RequestMapping(method = RequestMethod.GET)
+    @ResponseBody
+    public String doGet() {
+        logger.info("GET /app/authCheck.do");
+        return "OK";
+    }
 }

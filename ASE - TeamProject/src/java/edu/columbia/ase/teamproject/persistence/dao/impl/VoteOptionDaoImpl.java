@@ -11,7 +11,6 @@ import edu.columbia.ase.teamproject.persistence.domain.VoteOption;
  * The Class VoteOptionDaoImpl.
  */
 @Transactional(propagation = Propagation.REQUIRED)
-public class VoteOptionDaoImpl extends HibernateDao<VoteOption, Long> implements
-		VoteOptionDao {
+public class VoteOptionDaoImpl extends HibernateDao<VoteOption, Long> implements VoteOptionDao {
 
 }

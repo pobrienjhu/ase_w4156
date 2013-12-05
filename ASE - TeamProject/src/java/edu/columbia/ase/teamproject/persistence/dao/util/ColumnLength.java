@@ -13,11 +13,11 @@ import java.lang.annotation.Target;
 @Retention(value = RetentionPolicy.RUNTIME)
 public @interface ColumnLength {
 
-	/**
-	 * Value.
-	 *
-	 * @return the int
-	 */
-	public int value() default -1;
+    /**
+     * Value.
+     * 
+     * @return the int
+     */
+    public int value() default -1;
 
 }

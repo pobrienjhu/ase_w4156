@@ -12,17 +12,16 @@ import edu.columbia.ase.teamproject.persistence.domain.json.EventTypeAdapter;
  */
 public class GsonProvider {
 
-	/** The Constant gson. */
-	private static final Gson gson = new GsonBuilder().registerTypeAdapter(
-			Event.class, new EventTypeAdapter()).create();
+    /** The Constant gson. */
+    private static final Gson gson = new GsonBuilder().registerTypeAdapter(Event.class, new EventTypeAdapter()).create();
 
-	/**
-	 * Provide gson.
-	 *
-	 * @return the gson
-	 */
-	public Gson provideGson() {
-		return gson;
-	}
+    /**
+     * Provide gson.
+     * 
+     * @return the gson
+     */
+    public Gson provideGson() {
+        return gson;
+    }
 
 }

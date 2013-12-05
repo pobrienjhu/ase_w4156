@@ -23,35 +23,30 @@ import edu.columbia.ase.teamproject.view.NavigationMenuSection;
 @RequestMapping("/login.do")
 public class LoginController {
 
-	/** The Constant logger. */
-	private static final Logger logger = LoggerFactory
-			.getLogger(LoginController.class);
+    /** The Constant logger. */
+    private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
-	/**
-	 * Handles HTTP GET requests.
-	 *
-	 * @param session
-	 *            the session
-	 * @return the model and view
-	 */
-	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView doGet(HttpSession session) {
-		logger.info("GET /login.do");
+    /**
+     * Handles HTTP GET requests.
+     * 
+     * @param session
+     *            the session
+     * @return the model and view
+     */
+    @RequestMapping(method = RequestMethod.GET)
+    public ModelAndView doGet(HttpSession session) {
+        logger.info("GET /login.do");
 
-		Map<String, Object> model = ControllerHelper.createBaseModel(session);
-		model.put("title", "Login");
+        Map<String, Object> model = ControllerHelper.createBaseModel(session);
+        model.put("title", "Login");
 
-		@SuppressWarnings("unchecked")
-		List<NavigationMenuSection> navMenu = (List<NavigationMenuSection>) model
-				.get("_menu");
-		NavigationMenuSection openIdProviders = new NavigationMenuSection(
-				"OpenId Providers");
-		openIdProviders.addEntry(new NavigationMenuEntry(null, "openid_google",
-				"Google"));
-		openIdProviders.addEntry(new NavigationMenuEntry(null, "openid_yahoo",
-				"Yahoo!"));
-		navMenu.add(openIdProviders);
+        @SuppressWarnings("unchecked")
+        List<NavigationMenuSection> navMenu = (List<NavigationMenuSection>) model.get("_menu");
+        NavigationMenuSection openIdProviders = new NavigationMenuSection("OpenId Providers");
+        openIdProviders.addEntry(new NavigationMenuEntry(null, "openid_google", "Google"));
+        openIdProviders.addEntry(new NavigationMenuEntry(null, "openid_yahoo", "Yahoo!"));
+        navMenu.add(openIdProviders);
 
-		return new ModelAndView("soy:edu.columbia.ase.login", model);
-	}
+        return new ModelAndView("soy:edu.columbia.ase.login", model);
+    }
 }

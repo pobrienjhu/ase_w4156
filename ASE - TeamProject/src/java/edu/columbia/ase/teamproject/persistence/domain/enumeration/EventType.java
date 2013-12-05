@@ -12,71 +12,71 @@ import com.google.common.collect.ImmutableMap;
  */
 public enum EventType {
 
-	/**
-	 * Event only accessible to users designated by the admin.
-	 */
-	PRIVATE("PRIVATE"),
-	/**
-	 * Event accessible to anyone on the site.
-	 */
-	PUBLIC("PUBLIC");
+    /**
+     * Event only accessible to users designated by the admin.
+     */
+    PRIVATE("PRIVATE"),
+    /**
+     * Event accessible to anyone on the site.
+     */
+    PUBLIC("PUBLIC");
 
-	/** The Constant MAX_EVENT_TYPE_LENGTH. */
-	public static final int MAX_EVENT_TYPE_LENGTH = 64;
+    /** The Constant MAX_EVENT_TYPE_LENGTH. */
+    public static final int MAX_EVENT_TYPE_LENGTH = 64;
 
-	/** The event type. */
-	private final String eventType;
+    /** The event type. */
+    private final String eventType;
 
-	/** The Constant stringToEnum. */
-	private static final Map<String, EventType> stringToEnum;
+    /** The Constant stringToEnum. */
+    private static final Map<String, EventType> stringToEnum;
 
-	static {
-		final Map<String, EventType> tempMap = new HashMap<String, EventType>();
-		for (EventType eventType : values()) {
-			tempMap.put(eventType.getEventType(), eventType);
-		}
-		stringToEnum = ImmutableMap.copyOf(tempMap);
-	}
+    static {
+        final Map<String, EventType> tempMap = new HashMap<String, EventType>();
+        for (EventType eventType : values()) {
+            tempMap.put(eventType.getEventType(), eventType);
+        }
+        stringToEnum = ImmutableMap.copyOf(tempMap);
+    }
 
-	/**
-	 * Instantiates a new event type.
-	 *
-	 * @param eventType
-	 *            the event type
-	 */
-	private EventType(String eventType) {
-		Preconditions.checkArgument(eventType.length() < MAX_EVENT_TYPE_LENGTH);
-		this.eventType = eventType;
-	}
+    /**
+     * Instantiates a new event type.
+     * 
+     * @param eventType
+     *            the event type
+     */
+    private EventType(String eventType) {
+        Preconditions.checkArgument(eventType.length() < MAX_EVENT_TYPE_LENGTH);
+        this.eventType = eventType;
+    }
 
-	/**
-	 * Gets the event type.
-	 *
-	 * @return the event type
-	 */
-	public String getEventType() {
-		return eventType;
-	}
+    /**
+     * Gets the event type.
+     * 
+     * @return the event type
+     */
+    public String getEventType() {
+        return eventType;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see java.lang.Enum#toString()
-	 */
-	@Override
-	public String toString() {
-		return eventType;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Enum#toString()
+     */
+    @Override
+    public String toString() {
+        return eventType;
+    }
 
-	/**
-	 * From string.
-	 *
-	 * @param eventType
-	 *            the event type
-	 * @return the event type
-	 */
-	public static EventType fromString(String eventType) {
-		return stringToEnum.get(eventType);
-	}
+    /**
+     * From string.
+     * 
+     * @param eventType
+     *            the event type
+     * @return the event type
+     */
+    public static EventType fromString(String eventType) {
+        return stringToEnum.get(eventType);
+    }
 
 }

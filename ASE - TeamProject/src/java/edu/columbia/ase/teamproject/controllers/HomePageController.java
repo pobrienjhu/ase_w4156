@@ -21,25 +21,24 @@ import org.springframework.web.servlet.ModelAndView;
 @PermitAll
 public class HomePageController {
 
-	/** The Constant logger. */
-	private static final Logger logger = LoggerFactory
-			.getLogger(HomePageController.class);
+    /** The Constant logger. */
+    private static final Logger logger = LoggerFactory.getLogger(HomePageController.class);
 
-	/**
-	 * Handles HTTP GET requests.
-	 *
-	 * @param session
-	 *            the session
-	 * @return the model and view
-	 */
-	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView doGet(HttpSession session) {
-		logger.info("GET /index.do");
+    /**
+     * Handles HTTP GET requests.
+     * 
+     * @param session
+     *            the session
+     * @return the model and view
+     */
+    @RequestMapping(method = RequestMethod.GET)
+    public ModelAndView doGet(HttpSession session) {
+        logger.info("GET /index.do");
 
-		Map<String, Object> model = ControllerHelper.createBaseModel(session);
-		model.put("title", "Home");
+        Map<String, Object> model = ControllerHelper.createBaseModel(session);
+        model.put("title", "Home");
 
-		return new ModelAndView("soy:edu.columbia.ase.index", model);
-	}
+        return new ModelAndView("soy:edu.columbia.ase.index", model);
+    }
 
 }
