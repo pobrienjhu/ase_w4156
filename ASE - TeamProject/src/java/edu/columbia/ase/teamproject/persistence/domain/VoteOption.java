@@ -73,7 +73,7 @@ public class VoteOption {
 
     /**
      * Instantiates a new vote option.
-     * 
+     *
      * @param voteCategory
      *            the vote category
      * @param optionName
@@ -86,7 +86,7 @@ public class VoteOption {
 
     /**
      * Instantiates a new vote option.
-     * 
+     *
      * @param optionName
      *            the option name
      */
@@ -98,7 +98,7 @@ public class VoteOption {
 
     /**
      * Gets the votes.
-     * 
+     *
      * @return the votes
      */
     public List<Vote> getVotes() {
@@ -107,7 +107,7 @@ public class VoteOption {
 
     /**
      * Sets the votes.
-     * 
+     *
      * @param votes
      *            the votes to set
      */
@@ -117,7 +117,7 @@ public class VoteOption {
 
     /**
      * Adds the vote.
-     * 
+     *
      * @param vote
      *            the vote
      */
@@ -128,7 +128,7 @@ public class VoteOption {
 
     /**
      * Removes the vote.
-     * 
+     *
      * @param vote
      *            the vote
      */
@@ -139,7 +139,7 @@ public class VoteOption {
 
     /**
      * Gets the id.
-     * 
+     *
      * @return the id
      */
     public Long getId() {
@@ -148,7 +148,7 @@ public class VoteOption {
 
     /**
      * Sets the id.
-     * 
+     *
      * @param id
      *            the id to set
      */
@@ -158,7 +158,7 @@ public class VoteOption {
 
     /**
      * Gets the vote category.
-     * 
+     *
      * @return the voteCategory
      */
     public VoteCategory getVoteCategory() {
@@ -167,7 +167,7 @@ public class VoteOption {
 
     /**
      * Sets the vote category.
-     * 
+     *
      * @param voteCategory
      *            the voteCategory to set
      */
@@ -177,7 +177,7 @@ public class VoteOption {
 
     /**
      * Gets the option name.
-     * 
+     *
      * @return the optionName
      */
     public String getOptionName() {
@@ -186,7 +186,7 @@ public class VoteOption {
 
     /**
      * Sets the option name.
-     * 
+     *
      * @param optionName
      *            the optionName to set
      */
@@ -197,7 +197,7 @@ public class VoteOption {
 
     /**
      * Gets the optimistic locking version.
-     * 
+     *
      * @return the optimistic locking version
      */
     public Integer getOptimisticLockingVersion() {
@@ -206,7 +206,7 @@ public class VoteOption {
 
     /**
      * Sets the optimistic locking version.
-     * 
+     *
      * @param version
      *            the new optimistic locking version
      */
@@ -216,7 +216,7 @@ public class VoteOption {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override

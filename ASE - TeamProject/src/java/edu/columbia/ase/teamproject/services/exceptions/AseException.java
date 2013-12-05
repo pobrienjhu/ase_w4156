@@ -25,7 +25,7 @@ public class AseException extends Exception {
 
     /**
      * Instantiates a new ase exception.
-     * 
+     *
      * @param message
      *            the message
      */
@@ -36,7 +36,7 @@ public class AseException extends Exception {
 
     /**
      * Gets the error messages.
-     * 
+     *
      * @return the list of errorMessages
      */
     public Collection<String> getErrorMessages() {
@@ -45,7 +45,7 @@ public class AseException extends Exception {
 
     /**
      * Adds the message.
-     * 
+     *
      * @param message
      *            the message
      */
@@ -55,7 +55,7 @@ public class AseException extends Exception {
 
     /**
      * Adds the all messages.
-     * 
+     *
      * @param messages
      *            the messages
      */
@@ -65,7 +65,7 @@ public class AseException extends Exception {
 
     /**
      * Checks for error messages.
-     * 
+     *
      * @return true, if successful
      */
     public boolean hasErrorMessages() {

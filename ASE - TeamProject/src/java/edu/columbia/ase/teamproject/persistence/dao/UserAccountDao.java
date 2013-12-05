@@ -14,7 +14,7 @@ public interface UserAccountDao extends GenericDao<UserAccount, Long> {
 
     /**
      * Find account by name and type.
-     * 
+     *
      * @param username
      *            the username
      * @param type
@@ -25,7 +25,7 @@ public interface UserAccountDao extends GenericDao<UserAccount, Long> {
 
     /**
      * Find account by user details.
-     * 
+     *
      * @param userDetails
      *            the user details
      * @return the user account
@@ -34,14 +34,14 @@ public interface UserAccountDao extends GenericDao<UserAccount, Long> {
 
     /**
      * Gets the number of users.
-     * 
+     *
      * @return the number of users
      */
     public long getNumberOfUsers();
 
     /**
      * Find account by email.
-     * 
+     *
      * @param email
      *            the email
      * @return the user account

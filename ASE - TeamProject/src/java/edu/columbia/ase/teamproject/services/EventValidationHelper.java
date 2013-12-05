@@ -15,7 +15,7 @@ public class EventValidationHelper {
 
     /**
      * Validate event update.
-     * 
+     *
      * @param event
      *            the event
      * @throws ValidationException
@@ -42,7 +42,7 @@ public class EventValidationHelper {
 
     /**
      * Validate event creation.
-     * 
+     *
      * @param event
      *            the event
      * @throws ValidationException
@@ -99,7 +99,7 @@ public class EventValidationHelper {
 
     /**
      * Validate vote category.
-     * 
+     *
      * @param category
      *            the category
      * @throws ValidationException

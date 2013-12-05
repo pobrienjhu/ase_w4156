@@ -77,7 +77,7 @@ public class Vote {
 
     /**
      * Instantiates a new vote.
-     * 
+     *
      * @param voteOption
      *            the vote option
      * @param userAccount
@@ -89,7 +89,7 @@ public class Vote {
 
     /**
      * Instantiates a new vote.
-     * 
+     *
      * @param voteOption
      *            the vote option
      * @param userAccount
@@ -107,7 +107,7 @@ public class Vote {
 
     /**
      * Gets the id.
-     * 
+     *
      * @return the id
      */
     public Long getId() {
@@ -116,7 +116,7 @@ public class Vote {
 
     /**
      * Sets the id.
-     * 
+     *
      * @param id
      *            the id to set
      */
@@ -126,7 +126,7 @@ public class Vote {
 
     /**
      * Gets the vote option.
-     * 
+     *
      * @return the voteOption
      */
     public VoteOption getVoteOption() {
@@ -135,7 +135,7 @@ public class Vote {
 
     /**
      * Sets the vote option.
-     * 
+     *
      * @param voteOption
      *            the voteOption to set
      */
@@ -145,7 +145,7 @@ public class Vote {
 
     /**
      * Gets the user account.
-     * 
+     *
      * @return the userAccount
      */
     public UserAccount getUserAccount() {
@@ -154,7 +154,7 @@ public class Vote {
 
     /**
      * Sets the user account.
-     * 
+     *
      * @param userAccount
      *            the userAccount to set
      */
@@ -164,7 +164,7 @@ public class Vote {
 
     /**
      * Gets the vote time.
-     * 
+     *
      * @return the vote time
      */
     public LocalDateTime getVoteTime() {
@@ -173,7 +173,7 @@ public class Vote {
 
     /**
      * Sets the vote time.
-     * 
+     *
      * @param voteTime
      *            the new vote time
      */
@@ -183,7 +183,7 @@ public class Vote {
 
     /**
      * Gets the vote category id.
-     * 
+     *
      * @return the VoteCategoryId
      */
     public Long getVoteCategoryId() {
@@ -192,7 +192,7 @@ public class Vote {
 
     /**
      * Sets the vote category id.
-     * 
+     *
      * @param id
      *            the VoteCategoryId to set
      */
@@ -202,7 +202,7 @@ public class Vote {
 
     /**
      * Gets the optimistic locking version.
-     * 
+     *
      * @return the optimistic locking version
      */
     public Integer getOptimisticLockingVersion() {
@@ -211,7 +211,7 @@ public class Vote {
 
     /**
      * Sets the optimistic locking version.
-     * 
+     *
      * @param optimisticLockingVersion
      *            the new optimistic locking version
      */
@@ -221,7 +221,7 @@ public class Vote {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override

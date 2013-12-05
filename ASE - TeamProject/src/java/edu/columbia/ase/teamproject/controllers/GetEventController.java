@@ -51,7 +51,7 @@ public class GetEventController {
     // just return the JSON.
     /**
      * Handles HTTP GET requests.
-     * 
+     *
      * @param session
      *            the session
      * @param request

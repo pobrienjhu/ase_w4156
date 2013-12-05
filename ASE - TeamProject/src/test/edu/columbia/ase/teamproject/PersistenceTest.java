@@ -307,7 +307,7 @@ public class PersistenceTest extends AbstractTransactionalJUnit4SpringContextTes
 
         // System.out.println("size" + voteDao.list().size());
         /*
-         * 
+         *
          * assertTrue(vo.getVotes().size()>=1);
          */
     }

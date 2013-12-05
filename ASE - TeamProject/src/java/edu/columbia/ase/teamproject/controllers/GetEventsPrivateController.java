@@ -52,7 +52,7 @@ public class GetEventsPrivateController {
 
     /**
      * Handles HTTP GET requests.
-     * 
+     *
      * @param session
      *            the session
      * @param request

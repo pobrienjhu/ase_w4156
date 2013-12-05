@@ -29,7 +29,7 @@ public class NavigationMenuSection implements Map<String, Object> {
 
     /**
      * Instantiates a new navigation menu section.
-     * 
+     *
      * @param sectionName
      *            the name of the section
      */
@@ -41,7 +41,7 @@ public class NavigationMenuSection implements Map<String, Object> {
 
     /**
      * Gets the section name.
-     * 
+     *
      * @return the section name
      */
     public String getSectionName() {
@@ -50,7 +50,7 @@ public class NavigationMenuSection implements Map<String, Object> {
 
     /**
      * Adds the entry.
-     * 
+     *
      * @param entry
      *            the entry to add to this section
      */
@@ -61,7 +61,7 @@ public class NavigationMenuSection implements Map<String, Object> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Map#clear()
      */
     @Override
@@ -71,7 +71,7 @@ public class NavigationMenuSection implements Map<String, Object> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Map#containsKey(java.lang.Object)
      */
     @Override
@@ -81,7 +81,7 @@ public class NavigationMenuSection implements Map<String, Object> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Map#containsValue(java.lang.Object)
      */
     @Override
@@ -91,7 +91,7 @@ public class NavigationMenuSection implements Map<String, Object> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Map#put(java.lang.Object, java.lang.Object)
      */
     @Override
@@ -101,7 +101,7 @@ public class NavigationMenuSection implements Map<String, Object> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Map#putAll(java.util.Map)
      */
     @Override
@@ -111,7 +111,7 @@ public class NavigationMenuSection implements Map<String, Object> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Map#values()
      */
     @Override
@@ -121,7 +121,7 @@ public class NavigationMenuSection implements Map<String, Object> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Map#remove(java.lang.Object)
      */
     @Override
@@ -131,7 +131,7 @@ public class NavigationMenuSection implements Map<String, Object> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Map#get(java.lang.Object)
      */
     @Override
@@ -152,7 +152,7 @@ public class NavigationMenuSection implements Map<String, Object> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Map#isEmpty()
      */
     @Override
@@ -162,7 +162,7 @@ public class NavigationMenuSection implements Map<String, Object> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Map#keySet()
      */
     @Override
@@ -172,7 +172,7 @@ public class NavigationMenuSection implements Map<String, Object> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Map#size()
      */
     @Override
@@ -182,7 +182,7 @@ public class NavigationMenuSection implements Map<String, Object> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Map#entrySet()
      */
     @SuppressWarnings("unchecked")

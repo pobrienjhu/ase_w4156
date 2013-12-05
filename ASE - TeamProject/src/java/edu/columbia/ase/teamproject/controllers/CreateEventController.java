@@ -53,7 +53,7 @@ public final class CreateEventController {
 
     /**
      * Handles HTTP GET requests.
-     * 
+     *
      * @param session
      *            the session
      * @return the model and view
@@ -72,7 +72,7 @@ public final class CreateEventController {
 
     /**
      * Handles HTTP POST requests
-     * 
+     *
      * @param session
      *            the session
      * @param request

@@ -32,20 +32,20 @@ public class ClosureTemplateJavascriptControllerTest {
     /*
      * @Test public void shouldCompileAndReturnComiledTemplateAsJavascript() {
      * compileExampleOne(); assertThat(js, containsString("Hello")); }
-     * 
+     *
      * @Test public void shouldSetContentTypeToTextJavascript() {
      * compileExampleOne(); assertThat(headers.toSingleValueMap(),
      * hasEntry("Content-Type", "text/javascript")); }
-     * 
+     *
      * @Test public void shouldSetCacheControlAccordingToProperty() {
      * controller.setCacheControl("public, max-age=900"); compileExampleOne();
      * assertThat(headers.toSingleValueMap(), hasEntry("Cache-Control",
      * "public, max-age=900")); }
-     * 
+     *
      * @Test public void shouldSetCacheControlForOneHourWhenNoCacheControlSet()
      * { compileExampleOne(); assertThat(headers.toSingleValueMap(),
      * hasEntry("Cache-Control", "public, max-age=3600")); }
-     * 
+     *
      * @Test public void shouldSetCacheControlToNoCacheWhenInDevMode() {
      * config.setDevMode(true); compileExampleOne();
      * assertThat(headers.toSingleValueMap(), hasEntry("Cache-Control",

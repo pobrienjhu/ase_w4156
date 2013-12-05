@@ -20,7 +20,7 @@ public class EventDaoImpl extends HibernateDao<Event, Long> implements EventDao 
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see edu.columbia.ase.teamproject.persistence.dao.EventDao#
      * getAllActivePublicEvents(org.joda.time.DateTime)
      */
@@ -37,7 +37,7 @@ public class EventDaoImpl extends HibernateDao<Event, Long> implements EventDao 
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see edu.columbia.ase.teamproject.persistence.dao.EventDao#
      * getAllActivePrivateEventsForUserId(org.joda.time.DateTime,
      * java.lang.Long)
@@ -58,7 +58,7 @@ public class EventDaoImpl extends HibernateDao<Event, Long> implements EventDao 
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see edu.columbia.ase.teamproject.persistence.dao.EventDao#
      * getAllActiveAdminEventsForUserId(org.joda.time.DateTime, java.lang.Long)
      */
@@ -77,7 +77,7 @@ public class EventDaoImpl extends HibernateDao<Event, Long> implements EventDao 
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see edu.columbia.ase.teamproject.persistence.dao.EventDao#
      * getAllCompletedPublicEvents(org.joda.time.DateTime)
      */
@@ -91,7 +91,7 @@ public class EventDaoImpl extends HibernateDao<Event, Long> implements EventDao 
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see edu.columbia.ase.teamproject.persistence.dao.EventDao#
      * getAllCompletedPrivateEventsForUserId(org.joda.time.DateTime,
      * java.lang.Long)
@@ -109,7 +109,7 @@ public class EventDaoImpl extends HibernateDao<Event, Long> implements EventDao 
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see edu.columbia.ase.teamproject.persistence.dao.EventDao#
      * getAllCompletedAdminEventsForUserId(org.joda.time.DateTime,
      * java.lang.Long)
@@ -126,7 +126,7 @@ public class EventDaoImpl extends HibernateDao<Event, Long> implements EventDao 
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see edu.columbia.ase.teamproject.persistence.dao.EventDao#
      * getAllFutureAdminEventsForUserId(org.joda.time.DateTime, java.lang.Long)
      */

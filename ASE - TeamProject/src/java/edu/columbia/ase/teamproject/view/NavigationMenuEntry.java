@@ -39,7 +39,7 @@ public class NavigationMenuEntry implements Map<String, String> {
     /**
      * Create an entry in the navigation menu list. This should be added to an
      * {@link NavigationMenuSection}.
-     * 
+     *
      * @param uri
      *            the URI to add to the 'href' attribute of the tag.
      * @param id
@@ -64,7 +64,7 @@ public class NavigationMenuEntry implements Map<String, String> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Map#clear()
      */
     @Override
@@ -74,7 +74,7 @@ public class NavigationMenuEntry implements Map<String, String> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Map#containsKey(java.lang.Object)
      */
     @Override
@@ -84,7 +84,7 @@ public class NavigationMenuEntry implements Map<String, String> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Map#containsValue(java.lang.Object)
      */
     @Override
@@ -94,7 +94,7 @@ public class NavigationMenuEntry implements Map<String, String> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Map#entrySet()
      */
     @SuppressWarnings("unchecked")
@@ -106,7 +106,7 @@ public class NavigationMenuEntry implements Map<String, String> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Map#get(java.lang.Object)
      */
     @Override
@@ -128,7 +128,7 @@ public class NavigationMenuEntry implements Map<String, String> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Map#isEmpty()
      */
     @Override
@@ -138,7 +138,7 @@ public class NavigationMenuEntry implements Map<String, String> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Map#keySet()
      */
     @Override
@@ -148,7 +148,7 @@ public class NavigationMenuEntry implements Map<String, String> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Map#put(java.lang.Object, java.lang.Object)
      */
     @Override
@@ -158,7 +158,7 @@ public class NavigationMenuEntry implements Map<String, String> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Map#putAll(java.util.Map)
      */
     @Override
@@ -168,7 +168,7 @@ public class NavigationMenuEntry implements Map<String, String> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Map#remove(java.lang.Object)
      */
     @Override
@@ -178,7 +178,7 @@ public class NavigationMenuEntry implements Map<String, String> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Map#size()
      */
     @Override
@@ -188,7 +188,7 @@ public class NavigationMenuEntry implements Map<String, String> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Map#values()
      */
     @Override

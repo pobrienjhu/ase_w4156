@@ -20,7 +20,7 @@ public class AuthCheckController {
 
     /**
      * Handles HTTP GET requests.
-     * 
+     *
      * @return the string
      */
     @RequestMapping(method = RequestMethod.GET)

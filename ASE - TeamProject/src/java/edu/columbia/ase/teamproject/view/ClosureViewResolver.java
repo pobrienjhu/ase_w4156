@@ -17,7 +17,7 @@ public class ClosureViewResolver extends ClosureTemplateViewResolver {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * org.springframework.web.servlet.view.UrlBasedViewResolver#loadView(java
      * .lang.String, java.util.Locale)

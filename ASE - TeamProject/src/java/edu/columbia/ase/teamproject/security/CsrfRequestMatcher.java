@@ -22,7 +22,7 @@ public class CsrfRequestMatcher implements RequestMatcher {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * org.springframework.security.web.util.RequestMatcher#matches(javax.servlet
      * .http.HttpServletRequest)

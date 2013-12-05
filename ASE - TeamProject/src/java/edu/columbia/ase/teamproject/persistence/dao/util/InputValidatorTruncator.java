@@ -22,7 +22,7 @@ public class InputValidatorTruncator {
 
     /**
      * Truncate.
-     * 
+     *
      * @param <T>
      *            the generic type
      * @param object
@@ -42,7 +42,7 @@ public class InputValidatorTruncator {
 
     /**
      * Handle fields for class.
-     * 
+     *
      * @param object
      *            the object
      * @param aClass
@@ -80,7 +80,7 @@ public class InputValidatorTruncator {
      */
     /**
      * Handle sub object.
-     * 
+     *
      * @param object
      *            the object
      * @param field
@@ -115,7 +115,7 @@ public class InputValidatorTruncator {
 
     /**
      * Handle truncate fields.
-     * 
+     *
      * @param object
      *            the object
      * @param field
@@ -150,7 +150,7 @@ public class InputValidatorTruncator {
 
     /**
      * Truncate all entities.
-     * 
+     *
      * @param entities
      *            the entities
      * @throws Exception
@@ -165,7 +165,7 @@ public class InputValidatorTruncator {
 
     /**
      * Truncate all entities.
-     * 
+     *
      * @param entities
      *            the entities
      * @throws Exception
@@ -179,7 +179,7 @@ public class InputValidatorTruncator {
 
     /**
      * Handle string field.
-     * 
+     *
      * @param object
      *            the object
      * @param field
@@ -208,7 +208,7 @@ public class InputValidatorTruncator {
 
     /**
      * Truncate value.
-     * 
+     *
      * @param object
      *            the object
      * @param field

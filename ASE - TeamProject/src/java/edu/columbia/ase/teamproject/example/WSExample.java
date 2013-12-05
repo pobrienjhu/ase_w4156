@@ -22,7 +22,7 @@ public class WSExample {
 
     /**
      * Hello world.
-     * 
+     *
      * @param inputString
      *            the input string
      * @return the string
@@ -36,7 +36,7 @@ public class WSExample {
 
     /**
      * Hello world object.
-     * 
+     *
      * @param inputString
      *            the input string
      * @return the wS example object

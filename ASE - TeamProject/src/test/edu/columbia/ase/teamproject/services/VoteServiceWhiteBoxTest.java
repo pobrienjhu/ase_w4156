@@ -144,13 +144,13 @@ public class VoteServiceWhiteBoxTest extends AbstractTransactionalJUnit4SpringCo
     }
 
     /*
-     * 
+     *
      * The setup creates a single event Event Name with two categories category
      * 1 and category 2
-     * 
+     *
      * category 1 has options 49. option 1a 50. option 2a 51. option 3a 55.
      * option 4 (added)
-     * 
+     *
      * category 2 has options 52. option 2a 53. option 2b 54. option 2c 56.
      * option 4 (added)
      */

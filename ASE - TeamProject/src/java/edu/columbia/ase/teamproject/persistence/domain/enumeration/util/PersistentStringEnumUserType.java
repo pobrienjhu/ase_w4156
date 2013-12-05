@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 // TODO: Auto-generated Javadoc
 /**
  * The Class PersistentStringEnumUserType.
- * 
+ *
  * @param <E>
  *            the element type
  */
@@ -23,14 +23,14 @@ public abstract class PersistentStringEnumUserType<E> implements UserType {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.hibernate.usertype.UserType#returnedClass()
      */
     public abstract Class<E> returnedClass();
 
     /**
      * From string.
-     * 
+     *
      * @param fromValue
      *            the from value
      * @return the object
@@ -46,7 +46,7 @@ public abstract class PersistentStringEnumUserType<E> implements UserType {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.hibernate.usertype.UserType#sqlTypes()
      */
     public int[] sqlTypes() {
@@ -55,7 +55,7 @@ public abstract class PersistentStringEnumUserType<E> implements UserType {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.hibernate.usertype.UserType#nullSafeGet(java.sql.ResultSet,
      * java.lang.String[], org.hibernate.engine.spi.SessionImplementor,
      * java.lang.Object)
@@ -86,7 +86,7 @@ public abstract class PersistentStringEnumUserType<E> implements UserType {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * org.hibernate.usertype.UserType#nullSafeSet(java.sql.PreparedStatement,
      * java.lang.Object, int, org.hibernate.engine.spi.SessionImplementor)
@@ -106,7 +106,7 @@ public abstract class PersistentStringEnumUserType<E> implements UserType {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.hibernate.usertype.UserType#deepCopy(java.lang.Object)
      */
     @Override
@@ -116,7 +116,7 @@ public abstract class PersistentStringEnumUserType<E> implements UserType {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.hibernate.usertype.UserType#isMutable()
      */
     @Override
@@ -126,7 +126,7 @@ public abstract class PersistentStringEnumUserType<E> implements UserType {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.hibernate.usertype.UserType#assemble(java.io.Serializable,
      * java.lang.Object)
      */
@@ -137,7 +137,7 @@ public abstract class PersistentStringEnumUserType<E> implements UserType {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.hibernate.usertype.UserType#disassemble(java.lang.Object)
      */
     @Override
@@ -147,7 +147,7 @@ public abstract class PersistentStringEnumUserType<E> implements UserType {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.hibernate.usertype.UserType#replace(java.lang.Object,
      * java.lang.Object, java.lang.Object)
      */
@@ -158,7 +158,7 @@ public abstract class PersistentStringEnumUserType<E> implements UserType {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.hibernate.usertype.UserType#hashCode(java.lang.Object)
      */
     public int hashCode(Object x) throws HibernateException {
@@ -167,7 +167,7 @@ public abstract class PersistentStringEnumUserType<E> implements UserType {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.hibernate.usertype.UserType#equals(java.lang.Object,
      * java.lang.Object)
      */

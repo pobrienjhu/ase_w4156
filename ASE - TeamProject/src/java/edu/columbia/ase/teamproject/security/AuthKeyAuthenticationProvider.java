@@ -35,7 +35,7 @@ public class AuthKeyAuthenticationProvider implements AuthenticationProvider {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.springframework.security.authentication.AuthenticationProvider#
      * authenticate(org.springframework.security.core.Authentication)
      */
@@ -69,7 +69,7 @@ public class AuthKeyAuthenticationProvider implements AuthenticationProvider {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * org.springframework.security.authentication.AuthenticationProvider#supports
      * (java.lang.Class)

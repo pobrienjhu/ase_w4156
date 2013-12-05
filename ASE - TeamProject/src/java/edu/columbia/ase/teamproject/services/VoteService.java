@@ -40,7 +40,7 @@ public class VoteService {
 
     /**
      * Verify votes.
-     * 
+     *
      * @param event
      *            the event
      * @param voteList
@@ -71,7 +71,7 @@ public class VoteService {
 
     /**
      * Adds the votes.
-     * 
+     *
      * @param event
      *            the event
      * @param voteList
@@ -92,7 +92,7 @@ public class VoteService {
 
     /**
      * Adds the vote.
-     * 
+     *
      * @param id
      *            the id
      * @param user
@@ -139,7 +139,7 @@ public class VoteService {
 
     /**
      * Gets the results.
-     * 
+     *
      * @param event
      *            the event
      * @return the results

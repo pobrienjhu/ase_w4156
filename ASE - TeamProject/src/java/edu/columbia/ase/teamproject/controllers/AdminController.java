@@ -41,7 +41,7 @@ public class AdminController {
 
     /**
      * Handles HTTP GET requests.
-     * 
+     *
      * @param session
      *            the session
      * @return the model and view
@@ -60,7 +60,7 @@ public class AdminController {
 
     /**
      * Handles HTTP POST requests
-     * 
+     *
      * @param session
      *            the session
      * @param action

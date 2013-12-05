@@ -11,7 +11,7 @@ public class PermissionUserType extends PersistentStringEnumUserType<Permission>
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see edu.columbia.ase.teamproject.persistence.domain.enumeration.util.
      * PersistentStringEnumUserType#returnedClass()
      */
@@ -22,7 +22,7 @@ public class PermissionUserType extends PersistentStringEnumUserType<Permission>
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see edu.columbia.ase.teamproject.persistence.domain.enumeration.util.
      * PersistentStringEnumUserType#fromString(java.lang.String)
      */

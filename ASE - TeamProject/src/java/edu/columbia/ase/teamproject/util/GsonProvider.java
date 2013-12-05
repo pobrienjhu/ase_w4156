@@ -18,7 +18,7 @@ public class GsonProvider {
 
     /**
      * Provide gson.
-     * 
+     *
      * @return the gson
      */
     public Gson provideGson() {

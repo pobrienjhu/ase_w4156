@@ -130,7 +130,7 @@ public class UserAccount {
 
     /**
      * Instantiates a new user account.
-     * 
+     *
      * @param type
      *            the type
      * @param username
@@ -167,7 +167,7 @@ public class UserAccount {
 
     /**
      * Gets the id.
-     * 
+     *
      * @return the id
      */
     public Long getId() {
@@ -176,7 +176,7 @@ public class UserAccount {
 
     /**
      * Sets the id.
-     * 
+     *
      * @param id
      *            the id to set
      */
@@ -186,7 +186,7 @@ public class UserAccount {
 
     /**
      * Adds the admin event.
-     * 
+     *
      * @param event
      *            the event
      */
@@ -197,7 +197,7 @@ public class UserAccount {
 
     /**
      * Gets the username.
-     * 
+     *
      * @return the username
      */
     @Nullable
@@ -207,7 +207,7 @@ public class UserAccount {
 
     /**
      * Gets the password.
-     * 
+     *
      * @return the password
      */
     @Nullable
@@ -217,7 +217,7 @@ public class UserAccount {
 
     /**
      * Gets the account type.
-     * 
+     *
      * @return the account type
      */
     public AccountType getAccountType() {
@@ -226,7 +226,7 @@ public class UserAccount {
 
     /**
      * Adds the permission.
-     * 
+     *
      * @param permission
      *            the permission
      */
@@ -237,7 +237,7 @@ public class UserAccount {
 
     /**
      * Revoke permission.
-     * 
+     *
      * @param permission
      *            the permission
      */
@@ -251,7 +251,7 @@ public class UserAccount {
 
     /**
      * Gets the permissions.
-     * 
+     *
      * @return the permissions
      */
     public List<Permission> getPermissions() {
@@ -260,7 +260,7 @@ public class UserAccount {
 
     /**
      * Gets the display name.
-     * 
+     *
      * @return the display name
      */
     @Nullable
@@ -270,7 +270,7 @@ public class UserAccount {
 
     /**
      * Sets the username.
-     * 
+     *
      * @param username
      *            the username to set
      */
@@ -280,7 +280,7 @@ public class UserAccount {
 
     /**
      * Sets the password.
-     * 
+     *
      * @param password
      *            the password to set
      */
@@ -290,7 +290,7 @@ public class UserAccount {
 
     /**
      * Sets the display name.
-     * 
+     *
      * @param displayName
      *            the displayName to set
      */
@@ -300,7 +300,7 @@ public class UserAccount {
 
     /**
      * Gets the email.
-     * 
+     *
      * @return the email
      */
     public String getEmail() {
@@ -309,7 +309,7 @@ public class UserAccount {
 
     /**
      * Gets the optimistic locking version.
-     * 
+     *
      * @return the optimistic locking version
      */
     public Integer getOptimisticLockingVersion() {
@@ -318,7 +318,7 @@ public class UserAccount {
 
     /**
      * Sets the optimistic locking version.
-     * 
+     *
      * @param version
      *            the new optimistic locking version
      */
@@ -328,7 +328,7 @@ public class UserAccount {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override
@@ -343,7 +343,7 @@ public class UserAccount {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
@@ -357,7 +357,7 @@ public class UserAccount {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -367,7 +367,7 @@ public class UserAccount {
 
     /**
      * Removes the vote.
-     * 
+     *
      * @param vote
      *            the vote
      */
@@ -378,7 +378,7 @@ public class UserAccount {
 
     /**
      * Gets the votes.
-     * 
+     *
      * @return the votes
      */
     public List<Vote> getVotes() {
@@ -388,7 +388,7 @@ public class UserAccount {
 
     /**
      * Adds the vote.
-     * 
+     *
      * @param vote
      *            the vote
      */

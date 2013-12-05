@@ -11,7 +11,7 @@ public class VotingException extends AseException {
 
     /**
      * Instantiates a new voting exception.
-     * 
+     *
      * @param message
      *            the message
      */

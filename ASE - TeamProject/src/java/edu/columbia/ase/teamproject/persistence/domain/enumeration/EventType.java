@@ -40,7 +40,7 @@ public enum EventType {
 
     /**
      * Instantiates a new event type.
-     * 
+     *
      * @param eventType
      *            the event type
      */
@@ -51,7 +51,7 @@ public enum EventType {
 
     /**
      * Gets the event type.
-     * 
+     *
      * @return the event type
      */
     public String getEventType() {
@@ -60,7 +60,7 @@ public enum EventType {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Enum#toString()
      */
     @Override
@@ -70,7 +70,7 @@ public enum EventType {
 
     /**
      * From string.
-     * 
+     *
      * @param eventType
      *            the event type
      * @return the event type

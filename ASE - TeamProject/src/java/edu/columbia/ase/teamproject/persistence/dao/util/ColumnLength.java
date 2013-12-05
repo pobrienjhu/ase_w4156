@@ -15,7 +15,7 @@ public @interface ColumnLength {
 
     /**
      * Value.
-     * 
+     *
      * @return the int
      */
     public int value() default -1;

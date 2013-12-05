@@ -11,7 +11,7 @@ public class ValidationException extends AseException {
 
     /**
      * Instantiates a new validation exception.
-     * 
+     *
      * @param message
      *            the message
      */

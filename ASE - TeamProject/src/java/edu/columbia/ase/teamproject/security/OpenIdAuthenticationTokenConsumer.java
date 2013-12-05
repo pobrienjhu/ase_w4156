@@ -43,7 +43,7 @@ public class OpenIdAuthenticationTokenConsumer implements
 
     /**
      * Instantiates a new open id authentication token consumer.
-     * 
+     *
      * @param userAccountDao
      *            the user account dao
      */
@@ -54,7 +54,7 @@ public class OpenIdAuthenticationTokenConsumer implements
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.springframework.security.core.userdetails.
      * AuthenticationUserDetailsService
      * #loadUserDetails(org.springframework.security.core.Authentication)
@@ -75,9 +75,9 @@ public class OpenIdAuthenticationTokenConsumer implements
             /*
              * Double-check idiom for lazy initialization of instance fields
              * (works in this case too!)
-             * 
+             *
              * see Effective Java Joshua Bloch Item #71
-             * 
+             *
              * First we check if the number of users is 0. If that is not the
              * case we don't consider this any further.
              */

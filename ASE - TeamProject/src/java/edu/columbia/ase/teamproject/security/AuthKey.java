@@ -25,7 +25,7 @@ public class AuthKey {
 
     /**
      * Instantiates a new auth key.
-     * 
+     *
      * @param id
      *            the id
      * @param mac
@@ -41,7 +41,7 @@ public class AuthKey {
      */
     /**
      * Instantiates a new auth key.
-     * 
+     *
      * @param apiKey
      *            the api key
      */
@@ -57,7 +57,7 @@ public class AuthKey {
 
     /**
      * Auth key for id and secret.
-     * 
+     *
      * @param id
      *            the id
      * @param secret
@@ -73,7 +73,7 @@ public class AuthKey {
 
     /**
      * Gets the api key.
-     * 
+     *
      * @return the api key
      */
     public String getApiKey() {
@@ -86,7 +86,7 @@ public class AuthKey {
 
     /**
      * Compute mac.
-     * 
+     *
      * @param id
      *            the id
      * @param secret
@@ -114,7 +114,7 @@ public class AuthKey {
 
     /**
      * Gets the id.
-     * 
+     *
      * @return the id
      */
     public Long getId() {
@@ -123,7 +123,7 @@ public class AuthKey {
 
     /**
      * Checks if is auth key valid.
-     * 
+     *
      * @param secret
      *            the secret
      * @return true, if is auth key valid

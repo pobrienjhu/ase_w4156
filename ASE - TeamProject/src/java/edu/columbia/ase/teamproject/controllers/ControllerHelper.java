@@ -33,7 +33,7 @@ public class ControllerHelper {
 
     /**
      * Creates the base model.
-     * 
+     *
      * @param session
      *            the current HttpSession
      * @return a map containing values for the keys "_csrf" and "_admin" to be

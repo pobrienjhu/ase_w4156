@@ -15,7 +15,7 @@ public interface EventDao extends GenericDao<Event, Long> {
 
     /**
      * Gets the all active public events.
-     * 
+     *
      * @param currentTime
      *            the current time
      * @return the all active public events
@@ -24,7 +24,7 @@ public interface EventDao extends GenericDao<Event, Long> {
 
     /**
      * Gets the all active private events for user id.
-     * 
+     *
      * @param currentTime
      *            the current time
      * @param userId
@@ -35,7 +35,7 @@ public interface EventDao extends GenericDao<Event, Long> {
 
     /**
      * Gets the all completed public events.
-     * 
+     *
      * @param currentTime
      *            the current time
      * @return the all completed public events
@@ -44,7 +44,7 @@ public interface EventDao extends GenericDao<Event, Long> {
 
     /**
      * Gets the all completed private events for user id.
-     * 
+     *
      * @param currentTime
      *            the current time
      * @param userId
@@ -55,7 +55,7 @@ public interface EventDao extends GenericDao<Event, Long> {
 
     /**
      * Gets the all active admin events for user id.
-     * 
+     *
      * @param currentTime
      *            the current time
      * @param userId
@@ -66,7 +66,7 @@ public interface EventDao extends GenericDao<Event, Long> {
 
     /**
      * Gets the all completed admin events for user id.
-     * 
+     *
      * @param currentTime
      *            the current time
      * @param userId
@@ -77,7 +77,7 @@ public interface EventDao extends GenericDao<Event, Long> {
 
     /**
      * Gets the all future admin events for user id.
-     * 
+     *
      * @param currentTime
      *            the current time
      * @param userId

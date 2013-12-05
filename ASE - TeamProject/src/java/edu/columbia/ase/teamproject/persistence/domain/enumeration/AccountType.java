@@ -40,7 +40,7 @@ public enum AccountType {
 
     /**
      * Instantiates a new account type.
-     * 
+     *
      * @param accountType
      *            the account type
      */
@@ -51,7 +51,7 @@ public enum AccountType {
 
     /**
      * Gets the account type.
-     * 
+     *
      * @return the accountType
      */
     public String getAccountType() {
@@ -60,7 +60,7 @@ public enum AccountType {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Enum#toString()
      */
     @Override
@@ -70,7 +70,7 @@ public enum AccountType {
 
     /**
      * From string.
-     * 
+     *
      * @param accountType
      *            the account type
      * @return the account type

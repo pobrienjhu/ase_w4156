@@ -13,7 +13,7 @@ public class Main {
 
     /**
      * The main method.
-     * 
+     *
      * @param args
      *            the arguments
      * @throws Exception

@@ -26,7 +26,7 @@ public class HomePageController {
 
     /**
      * Handles HTTP GET requests.
-     * 
+     *
      * @param session
      *            the session
      * @return the model and view

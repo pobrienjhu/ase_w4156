@@ -119,7 +119,7 @@ public class Event {
 
     /**
      * Instantiates a new event.
-     * 
+     *
      * @param userEmails
      *            the user emails
      * @param admin
@@ -159,7 +159,7 @@ public class Event {
 
     /**
      * Instantiates a new event.
-     * 
+     *
      * @param userEmails
      *            the user emails
      * @param admin
@@ -183,7 +183,7 @@ public class Event {
 
     /**
      * Adds the admin user.
-     * 
+     *
      * @param userAccount
      *            the user account
      */
@@ -194,7 +194,7 @@ public class Event {
 
     /**
      * Adds the all admin user.
-     * 
+     *
      * @param userAccounts
      *            the user accounts
      */
@@ -205,7 +205,7 @@ public class Event {
 
     /**
      * Adds the event user.
-     * 
+     *
      * @param userAccount
      *            the user account
      */
@@ -216,7 +216,7 @@ public class Event {
 
     /**
      * Adds the all event user.
-     * 
+     *
      * @param userAccounts
      *            the user accounts
      */
@@ -227,7 +227,7 @@ public class Event {
 
     /**
      * Adds the vote category.
-     * 
+     *
      * @param category
      *            the category
      */
@@ -239,7 +239,7 @@ public class Event {
 
     /**
      * Gets the event type.
-     * 
+     *
      * @return the event type
      */
     public EventType getEventType() {
@@ -248,7 +248,7 @@ public class Event {
 
     /**
      * Sets the event type.
-     * 
+     *
      * @param eventType
      *            the new event type
      */
@@ -259,7 +259,7 @@ public class Event {
 
     /**
      * Gets the vote categories.
-     * 
+     *
      * @return the vote categories
      */
     public List<VoteCategory> getVoteCategories() {
@@ -268,7 +268,7 @@ public class Event {
 
     /**
      * Sets the vote categories.
-     * 
+     *
      * @param voteCategories
      *            the new vote categories
      */
@@ -279,7 +279,7 @@ public class Event {
 
     /**
      * Gets the optimistic locking version.
-     * 
+     *
      * @return the optimistic locking version
      */
     public Integer getOptimisticLockingVersion() {
@@ -288,7 +288,7 @@ public class Event {
 
     /**
      * Sets the optimistic locking version.
-     * 
+     *
      * @param version
      *            the new optimistic locking version
      */
@@ -298,7 +298,7 @@ public class Event {
 
     /**
      * Gets the event users.
-     * 
+     *
      * @return the eventUsers
      */
     public List<UserAccount> getEventUsers() {
@@ -307,7 +307,7 @@ public class Event {
 
     /**
      * Gets the admin users.
-     * 
+     *
      * @return the adminUsers
      */
     public List<UserAccount> getAdminUsers() {
@@ -316,7 +316,7 @@ public class Event {
 
     /**
      * Gets the id.
-     * 
+     *
      * @return the id, or null if no ID set (e.g. this event hasn't been
      *         persisted).
      */
@@ -327,7 +327,7 @@ public class Event {
 
     /**
      * Sets the id.
-     * 
+     *
      * @param id
      *            the id to set
      */
@@ -337,7 +337,7 @@ public class Event {
 
     /**
      * Gets the name.
-     * 
+     *
      * @return the name
      */
     public String getName() {
@@ -346,7 +346,7 @@ public class Event {
 
     /**
      * Sets the name.
-     * 
+     *
      * @param name
      *            the name to set
      */
@@ -356,7 +356,7 @@ public class Event {
 
     /**
      * Gets the description.
-     * 
+     *
      * @return the description
      */
     public String getDescription() {
@@ -365,7 +365,7 @@ public class Event {
 
     /**
      * Sets the description.
-     * 
+     *
      * @param description
      *            the description to set
      */
@@ -375,7 +375,7 @@ public class Event {
 
     /**
      * Gets the start time.
-     * 
+     *
      * @return the start time
      */
     public DateTime getStartTime() {
@@ -384,7 +384,7 @@ public class Event {
 
     /**
      * Sets the start time.
-     * 
+     *
      * @param startTime
      *            the new start time
      */
@@ -394,7 +394,7 @@ public class Event {
 
     /**
      * Gets the end time.
-     * 
+     *
      * @return the end time
      */
     public DateTime getEndTime() {
@@ -403,7 +403,7 @@ public class Event {
 
     /**
      * Sets the end time.
-     * 
+     *
      * @param endTime
      *            the new end time
      */
@@ -413,7 +413,7 @@ public class Event {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override
@@ -433,7 +433,7 @@ public class Event {
      */
     /**
      * Translate event users.
-     * 
+     *
      * @param eventUsers
      *            the event users
      * @return the list
@@ -451,7 +451,7 @@ public class Event {
 
     /**
      * Gets the user emails.
-     * 
+     *
      * @return the user emails
      */
     public List<String> getUserEmails() {
@@ -460,7 +460,7 @@ public class Event {
 
     /**
      * Sets the user emails.
-     * 
+     *
      * @param userEmails
      *            the new user emails
      */

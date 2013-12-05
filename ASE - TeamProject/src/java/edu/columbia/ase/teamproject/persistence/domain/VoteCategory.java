@@ -80,7 +80,7 @@ public class VoteCategory {
 
     /**
      * Instantiates a new vote category.
-     * 
+     *
      * @param event
      *            the event
      * @param categoryName
@@ -95,7 +95,7 @@ public class VoteCategory {
 
     /**
      * Instantiates a new vote category.
-     * 
+     *
      * @param categoryName
      *            the category name
      * @param description
@@ -111,7 +111,7 @@ public class VoteCategory {
 
     /**
      * Adds the voting option.
-     * 
+     *
      * @param voteOption
      *            the vote option
      */
@@ -122,7 +122,7 @@ public class VoteCategory {
 
     /**
      * Gets the id.
-     * 
+     *
      * @return the id
      */
     public Long getId() {
@@ -131,7 +131,7 @@ public class VoteCategory {
 
     /**
      * Sets the id.
-     * 
+     *
      * @param id
      *            the id to set
      */
@@ -141,7 +141,7 @@ public class VoteCategory {
 
     /**
      * Gets the event.
-     * 
+     *
      * @return the event
      */
     public Event getEvent() {
@@ -150,7 +150,7 @@ public class VoteCategory {
 
     /**
      * Sets the event.
-     * 
+     *
      * @param event
      *            the event to set
      */
@@ -160,7 +160,7 @@ public class VoteCategory {
 
     /**
      * Gets the category name.
-     * 
+     *
      * @return the categoryName
      */
     public String getCategoryName() {
@@ -169,7 +169,7 @@ public class VoteCategory {
 
     /**
      * Sets the category name.
-     * 
+     *
      * @param categoryName
      *            the categoryName to set
      */
@@ -180,7 +180,7 @@ public class VoteCategory {
 
     /**
      * Gets the description.
-     * 
+     *
      * @return the description
      */
     public String getDescription() {
@@ -189,7 +189,7 @@ public class VoteCategory {
 
     /**
      * Sets the description.
-     * 
+     *
      * @param description
      *            the description to set
      */
@@ -200,7 +200,7 @@ public class VoteCategory {
 
     /**
      * Gets the optimistic locking version.
-     * 
+     *
      * @return the optimistic locking version
      */
     public Integer getOptimisticLockingVersion() {
@@ -209,7 +209,7 @@ public class VoteCategory {
 
     /**
      * Sets the optimistic locking version.
-     * 
+     *
      * @param version
      *            the new optimistic locking version
      */
@@ -219,7 +219,7 @@ public class VoteCategory {
 
     /**
      * Gets the vote options.
-     * 
+     *
      * @return the vote options
      */
     public List<VoteOption> getVoteOptions() {
@@ -228,7 +228,7 @@ public class VoteCategory {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override

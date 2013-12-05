@@ -71,7 +71,7 @@ public final class VoteController {
 
     /**
      * Handles HTTP GET requests.
-     * 
+     *
      * @param session
      *            the session
      * @param request
@@ -125,7 +125,7 @@ public final class VoteController {
 
     /**
      * Handles HTTP POST requests
-     * 
+     *
      * @param session
      *            the session
      * @param request

@@ -33,7 +33,7 @@ import edu.columbia.ase.teamproject.services.exceptions.ValidationException;
 // TODO: Auto-generated Javadoc
 /**
  * The Class EventService.
- * 
+ *
  * @author aiman
  */
 public class EventService {
@@ -68,12 +68,12 @@ public class EventService {
      * associated with in the Event. If the VoteOption does not have an ID, it
      * verifies that the object it refers to is the same as the VoteCategory
      * that it was associated with.
-     * 
+     *
      * These checks are necessary to ensure that if an event is deserialized
      * where a malicious user tampered with the data, they cannot overwrite a
      * record in the database not associated with the event that has been
      * provided.
-     * 
+     *
      * @param e
      *            the e
      */
@@ -120,7 +120,7 @@ public class EventService {
 
     /**
      * Trusted user data from user list.
-     * 
+     *
      * @param accounts
      *            the accounts
      * @return the list
@@ -151,14 +151,14 @@ public class EventService {
      * Certain fields in an Event should be immutable from the client. These
      * fields are: a) UserAccount (do not permit users to propagate changes to
      * others) b) Votes (do not permit users to overwrite the actual votes)
-     * 
+     *
      * If the event ID is non-null, this retrieves those immutable fields from
      * the database and replaces the copy in the provided event with the known
      * trusted data.
-     * 
+     *
      * In order to update those fields, specific service layer APIs should be
      * used instead of modifying the event directly and re-persisting it.
-     * 
+     *
      * @param e
      *            the e
      */
@@ -177,7 +177,7 @@ public class EventService {
 
     /**
      * User can update event.
-     * 
+     *
      * @param user
      *            the user
      * @param eventId
@@ -198,7 +198,7 @@ public class EventService {
 
     /**
      * User can update event.
-     * 
+     *
      * @param user
      *            the user
      * @param event
@@ -223,7 +223,7 @@ public class EventService {
      */
     /**
      * Gets the all active public events.
-     * 
+     *
      * @param currentTime
      *            the current time
      * @return the all active public events
@@ -244,7 +244,7 @@ public class EventService {
      */
     /**
      * Gets the all completed public events.
-     * 
+     *
      * @param currentTime
      *            the current time
      * @return the all completed public events
@@ -265,7 +265,7 @@ public class EventService {
      */
     /**
      * Gets the all active private events for user id.
-     * 
+     *
      * @param currentTime
      *            the current time
      * @param userId
@@ -288,7 +288,7 @@ public class EventService {
      */
     /**
      * Gets the all active admin events for user id.
-     * 
+     *
      * @param currentTime
      *            the current time
      * @param userId
@@ -311,7 +311,7 @@ public class EventService {
      */
     /**
      * Gets the all completed admin events for user id.
-     * 
+     *
      * @param currentTime
      *            the current time
      * @param userId
@@ -334,7 +334,7 @@ public class EventService {
      */
     /**
      * Gets the all completed private events for user id.
-     * 
+     *
      * @param currentTime
      *            the current time
      * @param userId
@@ -357,7 +357,7 @@ public class EventService {
      */
     /**
      * Gets the all future admin events for user id.
-     * 
+     *
      * @param currentTime
      *            the current time
      * @param userId
@@ -376,7 +376,7 @@ public class EventService {
 
     /**
      * Creates the event.
-     * 
+     *
      * @param requestor
      *            the requestor
      * @param name
@@ -431,7 +431,7 @@ public class EventService {
 
     /**
      * Adds the user to event.
-     * 
+     *
      * @param requestor
      *            the requestor
      * @param id
@@ -466,7 +466,7 @@ public class EventService {
 
     /**
      * Removes the user from event.
-     * 
+     *
      * @param requestor
      *            the requestor
      * @param id
@@ -500,7 +500,7 @@ public class EventService {
 
     /**
      * Update event.
-     * 
+     *
      * @param requestor
      *            the requestor
      * @param id
@@ -554,7 +554,7 @@ public class EventService {
 
     /**
      * Lookup event.
-     * 
+     *
      * @param requestor
      *            the requestor
      * @param id

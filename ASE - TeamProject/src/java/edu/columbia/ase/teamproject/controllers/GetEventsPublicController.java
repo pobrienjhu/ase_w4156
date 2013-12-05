@@ -44,7 +44,7 @@ public class GetEventsPublicController {
 
     /**
      * Handles HTTP GET requests.
-     * 
+     *
      * @param session
      *            the session
      * @param request

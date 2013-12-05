@@ -80,7 +80,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 
         /**
          * Instantiates a new event property.
-         * 
+         *
          * @param propertyName
          *            the property name
          */
@@ -91,7 +91,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.lang.Enum#toString()
          */
         @Override
@@ -101,7 +101,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 
         /**
          * From string.
-         * 
+         *
          * @param propertyName
          *            the property name
          * @return the event property
@@ -172,7 +172,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 
         /**
          * Builds the.
-         * 
+         *
          * @return the event
          */
         public Event build() {
@@ -208,7 +208,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 
         /**
          * Sets the event type.
-         * 
+         *
          * @param eventType
          *            the event type
          * @return the event builder
@@ -222,7 +222,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 
         /**
          * Sets the id.
-         * 
+         *
          * @param id
          *            the id
          * @return the event builder
@@ -236,7 +236,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 
         /**
          * Sets the name.
-         * 
+         *
          * @param name
          *            the name
          * @return the event builder
@@ -250,7 +250,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 
         /**
          * Sets the description.
-         * 
+         *
          * @param description
          *            the description
          * @return the event builder
@@ -264,7 +264,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 
         /**
          * Sets the event start.
-         * 
+         *
          * @param eventStart
          *            the event start
          * @return the event builder
@@ -278,7 +278,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 
         /**
          * Sets the event end.
-         * 
+         *
          * @param eventEnd
          *            the event end
          * @return the event builder
@@ -292,7 +292,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 
         /**
          * Sets the event users.
-         * 
+         *
          * @param eventUsers
          *            the event users
          * @return the event builder
@@ -306,7 +306,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 
         /**
          * Sets the user emails.
-         * 
+         *
          * @param userEmails
          *            the user emails
          * @return the event builder
@@ -320,7 +320,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 
         /**
          * Sets the vote categories.
-         * 
+         *
          * @param voteCategories
          *            the vote categories
          * @return the event builder
@@ -367,7 +367,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 
         /**
          * Instantiates a new vote category property.
-         * 
+         *
          * @param propertyName
          *            the property name
          */
@@ -378,7 +378,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.lang.Enum#toString()
          */
         @Override
@@ -388,7 +388,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 
         /**
          * From string.
-         * 
+         *
          * @param propertyName
          *            the property name
          * @return the vote category property
@@ -435,7 +435,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 
         /**
          * Builds the.
-         * 
+         *
          * @return the vote category
          */
         public VoteCategory build() {
@@ -459,7 +459,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 
         /**
          * Sets the id.
-         * 
+         *
          * @param id
          *            the id
          * @return the vote category builder
@@ -473,7 +473,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 
         /**
          * Sets the event id.
-         * 
+         *
          * @param eventId
          *            the event id
          * @return the vote category builder
@@ -488,7 +488,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 
         /**
          * Sets the category name.
-         * 
+         *
          * @param categoryName
          *            the category name
          * @return the vote category builder
@@ -502,7 +502,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 
         /**
          * Sets the description.
-         * 
+         *
          * @param description
          *            the description
          * @return the vote category builder
@@ -516,7 +516,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 
         /**
          * Sets the vote options.
-         * 
+         *
          * @param voteOptions
          *            the vote options
          * @return the vote category builder
@@ -532,7 +532,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 
     /**
      * Write vote category.
-     * 
+     *
      * @param out
      *            the out
      * @param value
@@ -590,7 +590,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 
         /**
          * Instantiates a new vote option property.
-         * 
+         *
          * @param propertyName
          *            the property name
          */
@@ -601,7 +601,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.lang.Enum#toString()
          */
         @Override
@@ -611,7 +611,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 
         /**
          * From string.
-         * 
+         *
          * @param propertyName
          *            the property name
          * @return the vote option property
@@ -652,7 +652,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 
         /**
          * Builds the.
-         * 
+         *
          * @return the vote option
          */
         public VoteOption build() {
@@ -674,7 +674,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 
         /**
          * Sets the id.
-         * 
+         *
          * @param id
          *            the id
          * @return the vote option builder
@@ -688,7 +688,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 
         /**
          * Sets the vote category id.
-         * 
+         *
          * @param voteCategoryId
          *            the vote category id
          * @return the vote option builder
@@ -702,7 +702,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 
         /**
          * Sets the option name.
-         * 
+         *
          * @param optionName
          *            the option name
          * @return the vote option builder
@@ -716,7 +716,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 
         /**
          * Sets the votes.
-         * 
+         *
          * @param votes
          *            the votes
          * @return the vote option builder
@@ -732,7 +732,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 
     /**
      * Write vote option.
-     * 
+     *
      * @param out
      *            the out
      * @param value
@@ -754,7 +754,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.google.gson.TypeAdapter#write(com.google.gson.stream.JsonWriter,
      * java.lang.Object)
      */
@@ -795,7 +795,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 
     /**
      * Read vote options.
-     * 
+     *
      * @param in
      *            the in
      * @return the list
@@ -835,7 +835,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 
     /**
      * Read vote categories.
-     * 
+     *
      * @param in
      *            the in
      * @return the list
@@ -877,7 +877,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.google.gson.TypeAdapter#read(com.google.gson.stream.JsonReader)
      */
     @Override

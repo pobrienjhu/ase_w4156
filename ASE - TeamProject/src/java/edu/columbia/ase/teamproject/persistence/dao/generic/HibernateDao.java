@@ -20,7 +20,7 @@ import edu.columbia.ase.teamproject.persistence.dao.util.InputValidatorTruncator
 // TODO: Auto-generated Javadoc
 /**
  * Basic DAO operations dependent with Hibernate's specific classes.
- * 
+ *
  * @param <E>
  *            the element type
  * @param <K>
@@ -64,7 +64,7 @@ public class HibernateDao<E, K extends Serializable> implements GenericDao<E, K>
 
     /**
      * Sets the session factory.
-     * 
+     *
      * @param sessionFactory
      *            the new session factory
      */
@@ -75,7 +75,7 @@ public class HibernateDao<E, K extends Serializable> implements GenericDao<E, K>
 
     /**
      * Current session.
-     * 
+     *
      * @return the session
      */
     protected Session currentSession() {
@@ -84,7 +84,7 @@ public class HibernateDao<E, K extends Serializable> implements GenericDao<E, K>
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * edu.columbia.ase.teamproject.persistence.dao.generic.GenericDao#add(java
      * .lang.Object)
@@ -99,7 +99,7 @@ public class HibernateDao<E, K extends Serializable> implements GenericDao<E, K>
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * edu.columbia.ase.teamproject.persistence.dao.generic.GenericDao#update
      * (java.lang.Object)
@@ -113,7 +113,7 @@ public class HibernateDao<E, K extends Serializable> implements GenericDao<E, K>
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * edu.columbia.ase.teamproject.persistence.dao.generic.GenericDao#remove
      * (java.lang.Object)
@@ -126,7 +126,7 @@ public class HibernateDao<E, K extends Serializable> implements GenericDao<E, K>
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * edu.columbia.ase.teamproject.persistence.dao.generic.GenericDao#find(
      * java.lang.Object)
@@ -139,7 +139,7 @@ public class HibernateDao<E, K extends Serializable> implements GenericDao<E, K>
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * edu.columbia.ase.teamproject.persistence.dao.generic.GenericDao#list()
      */
@@ -151,7 +151,7 @@ public class HibernateDao<E, K extends Serializable> implements GenericDao<E, K>
 
     /**
      * Truncate free text fields.
-     * 
+     *
      * @param e
      *            the e
      * @return the e
@@ -167,7 +167,7 @@ public class HibernateDao<E, K extends Serializable> implements GenericDao<E, K>
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * edu.columbia.ase.teamproject.persistence.dao.generic.GenericDao#flush()
      */

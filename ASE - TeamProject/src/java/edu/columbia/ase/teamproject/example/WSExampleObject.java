@@ -26,7 +26,7 @@ public class WSExampleObject {
 
     /**
      * Instantiates a new wS example object.
-     * 
+     *
      * @param message
      *            the message
      */
@@ -37,7 +37,7 @@ public class WSExampleObject {
 
     /**
      * Gets the message.
-     * 
+     *
      * @return the message
      */
     @XmlAttribute(name = "message")
@@ -47,7 +47,7 @@ public class WSExampleObject {
 
     /**
      * Sets the message.
-     * 
+     *
      * @param message
      *            the new message
      */

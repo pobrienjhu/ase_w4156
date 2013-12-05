@@ -5,7 +5,7 @@ import java.util.List;
 // TODO: Auto-generated Javadoc
 /**
  * The Interface GenericDao.
- * 
+ *
  * @param <E>
  *            the element type
  * @param <K>
@@ -15,7 +15,7 @@ public interface GenericDao<E, K> {
 
     /**
      * Adds the.
-     * 
+     *
      * @param entity
      *            the entity
      * @return the e
@@ -24,7 +24,7 @@ public interface GenericDao<E, K> {
 
     /**
      * Update.
-     * 
+     *
      * @param entity
      *            the entity
      * @return the e
@@ -33,7 +33,7 @@ public interface GenericDao<E, K> {
 
     /**
      * Removes the.
-     * 
+     *
      * @param entity
      *            the entity
      */
@@ -41,7 +41,7 @@ public interface GenericDao<E, K> {
 
     /**
      * Find.
-     * 
+     *
      * @param key
      *            the key
      * @return the e
@@ -50,7 +50,7 @@ public interface GenericDao<E, K> {
 
     /**
      * List.
-     * 
+     *
      * @return the list
      */
     List<E> list();

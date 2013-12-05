@@ -32,7 +32,7 @@ public class UserAccountDaoImpl extends HibernateDao<UserAccount, Long> implemen
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see edu.columbia.ase.teamproject.persistence.dao.UserAccountDao#
      * findAccountByNameAndType(java.lang.String,
      * edu.columbia.ase.teamproject.persistence.domain.enumeration.AccountType)
@@ -51,7 +51,7 @@ public class UserAccountDaoImpl extends HibernateDao<UserAccount, Long> implemen
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see edu.columbia.ase.teamproject.persistence.dao.UserAccountDao#
      * findAccountByUserDetails
      * (org.springframework.security.core.userdetails.UserDetails)
@@ -74,7 +74,7 @@ public class UserAccountDaoImpl extends HibernateDao<UserAccount, Long> implemen
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see edu.columbia.ase.teamproject.persistence.dao.UserAccountDao#
      * findAccountByEmail(java.lang.String)
      */
@@ -96,7 +96,7 @@ public class UserAccountDaoImpl extends HibernateDao<UserAccount, Long> implemen
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * edu.columbia.ase.teamproject.persistence.dao.UserAccountDao#getNumberOfUsers
      * ()
@@ -112,7 +112,7 @@ public class UserAccountDaoImpl extends HibernateDao<UserAccount, Long> implemen
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * edu.columbia.ase.teamproject.persistence.dao.generic.HibernateDao#list()
      */

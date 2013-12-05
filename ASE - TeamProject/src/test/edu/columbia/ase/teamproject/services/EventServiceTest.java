@@ -42,7 +42,7 @@ import edu.columbia.ase.teamproject.services.exceptions.ValidationException;
 
 /**
  * @author aiman
- * 
+ *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:applicationContext.xml")
@@ -83,7 +83,7 @@ public class EventServiceTest extends AbstractTransactionalJUnit4SpringContextTe
     /**
      * Test method for
      * {@link EventService#createEvent(UserDetails, String, String, EventType)}.
-     * 
+     *
      * @throws ValidationException
      */
     @Test

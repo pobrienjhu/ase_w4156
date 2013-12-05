@@ -43,7 +43,7 @@ public enum Permission {
     /**
      * Create a new permission level with the specified {@code roleName}, which
      * must not be empty and may not contain a comma.
-     * 
+     *
      * @param permissionName
      *            the permission name
      */
@@ -55,7 +55,7 @@ public enum Permission {
 
     /**
      * Gets the permission name.
-     * 
+     *
      * @return the permission name
      */
     public String getPermissionName() {
@@ -64,7 +64,7 @@ public enum Permission {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Enum#toString()
      */
     @Override
@@ -74,7 +74,7 @@ public enum Permission {
 
     /**
      * From string.
-     * 
+     *
      * @param permission
      *            the permission
      * @return the permission
