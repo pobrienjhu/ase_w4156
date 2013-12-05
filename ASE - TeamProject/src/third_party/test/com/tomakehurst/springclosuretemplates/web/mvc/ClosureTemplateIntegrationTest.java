@@ -60,8 +60,10 @@ public class ClosureTemplateIntegrationTest {
     }
 
     @Test
-    public void shouldBuildWorkingViewWhenConfiguredCorrectlyWithNoTemplateCaching() throws Exception {
-        View view = noCacheClosureTemplateViewResolver.resolveViewName("com.tomakehurst.helloName", Locale.UK);
+    public void shouldBuildWorkingViewWhenConfiguredCorrectlyWithNoTemplateCaching()
+            throws Exception {
+        View view = noCacheClosureTemplateViewResolver.resolveViewName("com.tomakehurst.helloName",
+                Locale.UK);
         String content = render(view);
 
         assertThat(content, containsString("Hello Tom"));
@@ -69,7 +71,8 @@ public class ClosureTemplateIntegrationTest {
 
     @Test
     public void shouldBuildWorkingViewWhenConfiguredCorrectlyWithTemplateCaching() throws Exception {
-        View view = cachingClosureTemplateViewResolver.resolveViewName("com.tomakehurst.helloName", Locale.UK);
+        View view = cachingClosureTemplateViewResolver.resolveViewName("com.tomakehurst.helloName",
+                Locale.UK);
 
         String content = render(view);
         assertThat(content, containsString("Hello Tom"));
@@ -77,7 +80,8 @@ public class ClosureTemplateIntegrationTest {
 
     @Test
     public void shouldBuildWorkingSubFolderViewWhenConfiguredAsRecursive() throws Exception {
-        View view = cachingClosureTemplateViewResolver.resolveViewName("com.tomakehurst.subdir.helloName2", Locale.UK);
+        View view = cachingClosureTemplateViewResolver.resolveViewName(
+                "com.tomakehurst.subdir.helloName2", Locale.UK);
 
         String content = render(view);
         assertThat(content, containsString("Hello Tom"));
@@ -85,33 +89,39 @@ public class ClosureTemplateIntegrationTest {
 
     @Test(expected = SoyTofuException.class)
     public void shouldThrowExceptionIfTemplateDoesntExist() throws Exception {
-        View view = cachingClosureTemplateViewResolver.resolveViewName("com.tomakehurst.doesntexist", Locale.UK);
+        View view = cachingClosureTemplateViewResolver.resolveViewName(
+                "com.tomakehurst.doesntexist", Locale.UK);
         view.render(model, request, response);
     }
 
     @Test
     public void shouldReloadTemplateOnEachInvocationIfNoCaching() throws Exception {
-        String initialTemplate = getTemplateContent("example-one.soy").replace("helloName", "myNameIs");
+        String initialTemplate = getTemplateContent("example-one.soy").replace("helloName",
+                "myNameIs");
         writeNewTemplateFile("tmp-example.soy", initialTemplate);
 
-        View view = noCacheClosureTemplateViewResolver.resolveViewName("com.tomakehurst.myNameIs", Locale.UK);
+        View view = noCacheClosureTemplateViewResolver.resolveViewName("com.tomakehurst.myNameIs",
+                Locale.UK);
         model.put("name", "Jimmy");
         String content = render(view);
         assertThat(content, is("Hello Jimmy!"));
 
         String newTemplate = initialTemplate.replace("Hello {$name}", "My name is {$name}");
         writeNewTemplateFile("tmp-example.soy", newTemplate);
-        view = noCacheClosureTemplateViewResolver.resolveViewName("com.tomakehurst.myNameIs", Locale.UK);
+        view = noCacheClosureTemplateViewResolver.resolveViewName("com.tomakehurst.myNameIs",
+                Locale.UK);
         content = render(view);
         assertThat(content, is("My name is Jimmy!"));
     }
 
     @Test(expected = SoyTofuException.class)
     public void shouldThrowExceptionIfNewTemplateLoadAttemptedWhenCaching() throws Exception {
-        String initialTemplate = getTemplateContent("example-one.soy").replace("helloName", "myNameIs");
+        String initialTemplate = getTemplateContent("example-one.soy").replace("helloName",
+                "myNameIs");
         writeNewTemplateFile("tmp-example-2.soy", initialTemplate);
 
-        View view = cachingClosureTemplateViewResolver.resolveViewName("com.tomakehurst.myNameIs", Locale.UK);
+        View view = cachingClosureTemplateViewResolver.resolveViewName("com.tomakehurst.myNameIs",
+                Locale.UK);
         model.put("name", "Jimmy");
         render(view);
     }
@@ -119,7 +129,8 @@ public class ClosureTemplateIntegrationTest {
     @Test
     public void shouldNotRecompileJsOnEachInvocationIfNotInDevMode() throws Exception {
         config.setDevMode(false);
-        String initialTemplate = getTemplateContent("example-one.soy").replace("helloName", "myNameIs");
+        String initialTemplate = getTemplateContent("example-one.soy").replace("helloName",
+                "myNameIs");
         writeNewTemplateFile("tmp-js-example.soy", initialTemplate);
         String initialJs = jsController.getJsForTemplateFile("tmp-js-example").getBody();
 
@@ -133,7 +144,8 @@ public class ClosureTemplateIntegrationTest {
     @Test
     public void shouldRecompileJsOnEachInvocationIfInDevMode() throws Exception {
         config.setDevMode(true);
-        String initialTemplate = getTemplateContent("example-one.soy").replace("helloName", "myNameIs");
+        String initialTemplate = getTemplateContent("example-one.soy").replace("helloName",
+                "myNameIs");
         writeNewTemplateFile("tmp-js-example.soy", initialTemplate);
         String initialJs = jsController.getJsForTemplateFile("tmp-js-example").getBody();
 

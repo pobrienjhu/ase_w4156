@@ -30,7 +30,8 @@ public class AuthKeyAuthenticationProvider implements AuthenticationProvider {
     UserAccountDao userDao;
 
     /** The Constant logger. */
-    private static final Logger logger = LoggerFactory.getLogger(AuthKeyAuthenticationProvider.class);
+    private static final Logger logger = LoggerFactory
+            .getLogger(AuthKeyAuthenticationProvider.class);
 
     /*
      * (non-Javadoc)
@@ -39,7 +40,8 @@ public class AuthKeyAuthenticationProvider implements AuthenticationProvider {
      * authenticate(org.springframework.security.core.Authentication)
      */
     @Override
-    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+    public Authentication authenticate(Authentication authentication)
+            throws AuthenticationException {
         UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) authentication;
 
         String username = token.getName();
@@ -58,7 +60,8 @@ public class AuthKeyAuthenticationProvider implements AuthenticationProvider {
         logger.info("Successful API login for user " + authKey.getId());
         UserAccount apiUser = userDao.find(authKey.getId());
 
-        Collection<GrantedAuthority> authorities = AuthorityUtils.commaSeparatedStringToAuthorityList(Joiner.on(",").join(apiUser.getPermissions()));
+        Collection<GrantedAuthority> authorities = AuthorityUtils
+                .commaSeparatedStringToAuthorityList(Joiner.on(",").join(apiUser.getPermissions()));
         User user = new User(apiUser.getUsername(), "[PROTECTED]", authorities);
 
         return new UsernamePasswordAuthenticationToken(user, null, authorities);

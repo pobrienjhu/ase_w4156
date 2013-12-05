@@ -48,7 +48,8 @@ public class ListEventController {
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView doGet(HttpSession session) {
 
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal();
 
         UserAccount user = userAccountDao.findAccountByUserDetails(userDetails);
 

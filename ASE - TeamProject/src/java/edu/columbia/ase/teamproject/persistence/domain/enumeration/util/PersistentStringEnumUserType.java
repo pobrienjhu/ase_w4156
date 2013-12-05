@@ -38,7 +38,8 @@ public abstract class PersistentStringEnumUserType<E> implements UserType {
     public abstract Object fromString(String fromValue);
 
     /** The Constant logger. */
-    private static final Logger logger = LoggerFactory.getLogger(PersistentStringEnumUserType.class);
+    private static final Logger logger = LoggerFactory
+            .getLogger(PersistentStringEnumUserType.class);
 
     /** The Constant SQL_TYPES. */
     private static final int[] SQL_TYPES = { Types.VARCHAR };
@@ -60,7 +61,8 @@ public abstract class PersistentStringEnumUserType<E> implements UserType {
      * java.lang.Object)
      */
     @Override
-    public Object nullSafeGet(ResultSet resultSet, String[] names, SessionImplementor session, Object owner) throws HibernateException, SQLException {
+    public Object nullSafeGet(ResultSet resultSet, String[] names, SessionImplementor session,
+            Object owner) throws HibernateException, SQLException {
 
         String name = resultSet.getString(names[0]);
 
@@ -75,7 +77,8 @@ public abstract class PersistentStringEnumUserType<E> implements UserType {
         Object returnedObject = fromString(name);
 
         if (returnedObject == null) {
-            throw new IllegalStateException("Unable to find value (" + name + ") for Enum (" + returnedClass().getSimpleName() + ")");
+            throw new IllegalStateException("Unable to find value (" + name + ") for Enum ("
+                    + returnedClass().getSimpleName() + ")");
         }
 
         return returnedObject;
@@ -90,8 +93,8 @@ public abstract class PersistentStringEnumUserType<E> implements UserType {
      */
     @SuppressWarnings("rawtypes")
     @Override
-    public void nullSafeSet(PreparedStatement preparedStatement, Object value, int index, SessionImplementor session) throws HibernateException,
-            SQLException {
+    public void nullSafeSet(PreparedStatement preparedStatement, Object value, int index,
+            SessionImplementor session) throws HibernateException, SQLException {
 
         if (null == value) {
             preparedStatement.setNull(index, Types.VARCHAR);

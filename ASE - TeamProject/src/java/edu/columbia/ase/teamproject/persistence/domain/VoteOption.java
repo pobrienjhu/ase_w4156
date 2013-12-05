@@ -53,7 +53,8 @@ public class VoteOption {
     private String optionName;
 
     /** The votes. */
-    @OneToMany(/* cascade = {CascadeType.ALL} */cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE }, orphanRemoval = true, mappedBy = "voteOption")
+    @OneToMany(/* cascade = {CascadeType.ALL} */cascade = { CascadeType.PERSIST, CascadeType.MERGE,
+            CascadeType.REMOVE }, orphanRemoval = true, mappedBy = "voteOption")
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Vote> votes;
 
@@ -221,7 +222,8 @@ public class VoteOption {
     @Override
     public String toString() {
 
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).append("id", id).append("optionName", optionName)
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).append("id", id)
+                .append("optionName", optionName)
                 .append("category", voteCategory.getCategoryName()).toString();
     }
 

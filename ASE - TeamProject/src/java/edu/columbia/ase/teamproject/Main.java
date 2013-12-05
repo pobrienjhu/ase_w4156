@@ -27,7 +27,8 @@ public class Main {
         webAppContext.setConfigurations(new Configuration[] { new WebXmlConfiguration() });
 
         // database gui
-        org.hsqldb.util.DatabaseManagerSwing.main(new String[] { "--url", "jdbc:hsqldb:mem:dataSource", "--noexit" });
+        org.hsqldb.util.DatabaseManagerSwing.main(new String[] { "--url",
+                "jdbc:hsqldb:mem:dataSource", "--noexit" });
 
         Server server = new Server(8080);
         server.setHandler(webAppContext);

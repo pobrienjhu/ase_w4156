@@ -33,7 +33,8 @@ public class NavigationMenuEntry implements Map<String, String> {
     private final String text;
 
     /** The Constant NAVIGATION_MENU_KEYS. */
-    public static final Set<String> NAVIGATION_MENU_KEYS = ImmutableSet.<String> of("uri", "id", "text");
+    public static final Set<String> NAVIGATION_MENU_KEYS = ImmutableSet.<String> of("uri", "id",
+            "text");
 
     /**
      * Create an entry in the navigation menu list. This should be added to an
@@ -99,7 +100,8 @@ public class NavigationMenuEntry implements Map<String, String> {
     @SuppressWarnings("unchecked")
     @Override
     public Set<Map.Entry<String, String>> entrySet() {
-        return Sets.newHashSet(Maps.immutableEntry("uri", uri), Maps.immutableEntry("id", id), Maps.immutableEntry("text", text));
+        return Sets.newHashSet(Maps.immutableEntry("uri", uri), Maps.immutableEntry("id", id),
+                Maps.immutableEntry("text", text));
     }
 
     /*

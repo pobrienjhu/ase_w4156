@@ -62,13 +62,15 @@ public class GetEventController {
      */
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
-    public String doGet(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+    public String doGet(HttpSession session, HttpServletRequest request,
+            HttpServletResponse response) {
         Gson gson = gsonProvider.provideGson();
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal();
         UserAccount user = userAccountDao.findAccountByUserDetails(userDetails);
         Event event = eventService.lookupEvent(user, Long.valueOf(request.getParameter("eventId")));
         if (event != null) {

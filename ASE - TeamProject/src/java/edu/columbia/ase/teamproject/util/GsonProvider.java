@@ -13,7 +13,8 @@ import edu.columbia.ase.teamproject.persistence.domain.json.EventTypeAdapter;
 public class GsonProvider {
 
     /** The Constant gson. */
-    private static final Gson gson = new GsonBuilder().registerTypeAdapter(Event.class, new EventTypeAdapter()).create();
+    private static final Gson gson = new GsonBuilder().registerTypeAdapter(Event.class,
+            new EventTypeAdapter()).create();
 
     /**
      * Provide gson.

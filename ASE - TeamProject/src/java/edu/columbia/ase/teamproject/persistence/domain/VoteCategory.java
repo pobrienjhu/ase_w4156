@@ -234,8 +234,9 @@ public class VoteCategory {
     @Override
     public String toString() {
 
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).append("id", id).append("categoryName", categoryName)
-                .append("event", event.getName()).append("description", description).append("voteOptions", Joiner.on("\n").join(voteOptions))
-                .toString();
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).append("id", id)
+                .append("categoryName", categoryName).append("event", event.getName())
+                .append("description", description)
+                .append("voteOptions", Joiner.on("\n").join(voteOptions)).toString();
     }
 }

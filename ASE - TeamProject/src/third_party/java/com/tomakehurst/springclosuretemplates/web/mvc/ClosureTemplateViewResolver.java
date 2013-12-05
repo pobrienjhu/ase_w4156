@@ -43,10 +43,12 @@ public class ClosureTemplateViewResolver extends AbstractTemplateViewResolver {
             if (baseDirectory.isDirectory()) {
                 templateFiles = findSoyFiles(baseDirectory, closureTemplateConfig.isRecursive());
             } else {
-                throw new IllegalArgumentException("Soy template base directory '" + templatesLocation + "' is not a directory");
+                throw new IllegalArgumentException("Soy template base directory '"
+                        + templatesLocation + "' is not a directory");
             }
         } catch (IOException e) {
-            throw new IllegalArgumentException("Soy template base directory '" + templatesLocation + "' does not exist", e);
+            throw new IllegalArgumentException("Soy template base directory '" + templatesLocation
+                    + "' does not exist", e);
         }
 
         SoyFileSet.Builder fileSetBuilder = new SoyFileSet.Builder();

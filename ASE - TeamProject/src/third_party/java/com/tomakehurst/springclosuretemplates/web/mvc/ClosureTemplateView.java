@@ -15,7 +15,8 @@ public class ClosureTemplateView extends AbstractTemplateView {
     private String templateName;
 
     @Override
-    protected void renderMergedTemplateModel(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected void renderMergedTemplateModel(Map<String, Object> model, HttpServletRequest request,
+            HttpServletResponse response) throws Exception {
 
         String rendition = compiledTemplates.render(templateName, model, null);
         response.getWriter().write(rendition);

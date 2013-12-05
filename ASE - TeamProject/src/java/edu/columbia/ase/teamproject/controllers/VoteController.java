@@ -84,7 +84,8 @@ public final class VoteController {
 
         Map<String, Object> model = ControllerHelper.createBaseModel(session);
 
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal();
         UserAccount user = userAccountDao.findAccountByUserDetails(userDetails);
 
         Event event = eventService.lookupEvent(user, Long.valueOf(request.getParameter("event")));
@@ -109,9 +110,11 @@ public final class VoteController {
 
             for (VoteCategory v : event.getVoteCategories()) {
 
-                NavigationMenuSection voteCatSection = new NavigationMenuSection(v.getCategoryName() + " - " + v.getDescription());
+                NavigationMenuSection voteCatSection = new NavigationMenuSection(
+                        v.getCategoryName() + " - " + v.getDescription());
                 for (VoteOption vo : v.getVoteOptions()) {
-                    voteCatSection.addEntry(new NavigationMenuEntry(v.getCategoryName(), vo.getId().toString(), vo.getOptionName()));
+                    voteCatSection.addEntry(new NavigationMenuEntry(v.getCategoryName(), vo.getId()
+                            .toString(), vo.getOptionName()));
                 }
                 nms.add(voteCatSection);
             }
@@ -135,10 +138,12 @@ public final class VoteController {
      */
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    public String doPost(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public String doPost(HttpSession session, HttpServletRequest request,
+            HttpServletResponse response) throws Exception {
         logger.info("POST /app/voteEvent.do");
 
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal();
         UserAccount user = userAccountDao.findAccountByUserDetails(userDetails);
 
         StringTokenizer st = new StringTokenizer(IOUtils.toString(request.getInputStream()));

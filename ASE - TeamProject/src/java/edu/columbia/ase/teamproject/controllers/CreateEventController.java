@@ -87,7 +87,8 @@ public final class CreateEventController {
      */
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    public String doPost(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException, ValidationException {
+    public String doPost(HttpSession session, HttpServletRequest request,
+            HttpServletResponse response) throws IOException, ValidationException {
         Gson gson = gsonProvider.provideGson();
 
         response.setContentType("application/json");
@@ -105,12 +106,14 @@ public final class CreateEventController {
             // to an existing event (permission checks, etc).
         }
 
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal();
         UserAccount user = userAccountDao.findAccountByUserDetails(userDetails);
 
         logger.info("Event Categories size:" + event.getVoteCategories().size());
 
-        Event createdEvent = eventService.createEvent(user, event.getName(), event.getDescription(), event.getEventType(), event.getStartTime(),
+        Event createdEvent = eventService.createEvent(user, event.getName(),
+                event.getDescription(), event.getEventType(), event.getStartTime(),
                 event.getEndTime(), event.getVoteCategories(), event.getUserEmails());
 
         return gson.toJson(createdEvent, Event.class);

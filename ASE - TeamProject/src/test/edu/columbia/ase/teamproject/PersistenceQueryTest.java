@@ -59,13 +59,16 @@ public class PersistenceQueryTest extends AbstractTransactionalJUnit4SpringConte
          * Add users
          */
 
-        UserAccount user1 = new UserAccount(AccountType.LOCAL, "user1", "User1 Account", "password", "user1@example.com",
+        UserAccount user1 = new UserAccount(AccountType.LOCAL, "user1", "User1 Account",
+                "password", "user1@example.com",
                 Arrays.asList(new Permission[] { Permission.USER }));
 
-        UserAccount user2 = new UserAccount(AccountType.LOCAL, "user2", "User2 Account", "password", "user2@example.com",
+        UserAccount user2 = new UserAccount(AccountType.LOCAL, "user2", "User2 Account",
+                "password", "user2@example.com",
                 Arrays.asList(new Permission[] { Permission.USER }));
 
-        UserAccount admin = new UserAccount(AccountType.LOCAL, "admin", "Admin Account", "password", "admin@example.com",
+        UserAccount admin = new UserAccount(AccountType.LOCAL, "admin", "Admin Account",
+                "password", "admin@example.com",
                 Arrays.asList(new Permission[] { Permission.USER }));
 
         user1 = userAccountDao.add(user1);
@@ -75,29 +78,32 @@ public class PersistenceQueryTest extends AbstractTransactionalJUnit4SpringConte
         /*
          * Add Events
          */
-        Event event1 = new Event(null, admin, "Event Name 1", "Event Description", EventType.PUBLIC, DateTime.now(), DateTime.now().plus(
-                Duration.standardDays(1)));
+        Event event1 = new Event(null, admin, "Event Name 1", "Event Description",
+                EventType.PUBLIC, DateTime.now(), DateTime.now().plus(Duration.standardDays(1)));
 
-        Event event2 = new Event(null, admin, "Event Name 2", "Event Description", EventType.PUBLIC, DateTime.now(), DateTime.now().plus(
-                Duration.standardDays(1)));
+        Event event2 = new Event(null, admin, "Event Name 2", "Event Description",
+                EventType.PUBLIC, DateTime.now(), DateTime.now().plus(Duration.standardDays(1)));
 
-        Event event3 = new Event(null, admin, "Event Name 3", "Event Description", EventType.PUBLIC, DateTime.now(), DateTime.now().plus(
-                Duration.standardDays(1)));
+        Event event3 = new Event(null, admin, "Event Name 3", "Event Description",
+                EventType.PUBLIC, DateTime.now(), DateTime.now().plus(Duration.standardDays(1)));
 
-        Event event4 = new Event(null, admin, "Event Name 4", "Event Description", EventType.PRIVATE, DateTime.now(), DateTime.now().plus(
-                Duration.standardDays(1)));
+        Event event4 = new Event(null, admin, "Event Name 4", "Event Description",
+                EventType.PRIVATE, DateTime.now(), DateTime.now().plus(Duration.standardDays(1)));
 
         event4.addEventUser(user1);
         event4.addEventUser(user2);
 
-        Event event5 = new Event(null, admin, "Event Name 5", "Event Description", EventType.PUBLIC, DateTime.now().plus(Duration.standardHours(1)),
-                DateTime.now().plus(Duration.standardDays(1)));
+        Event event5 = new Event(null, admin, "Event Name 5", "Event Description",
+                EventType.PUBLIC, DateTime.now().plus(Duration.standardHours(1)), DateTime.now()
+                        .plus(Duration.standardDays(1)));
 
-        Event event6 = new Event(null, admin, "Event Name 6", "Event Description", EventType.PRIVATE, DateTime.now().minus(Duration.standardDays(2)),
-                DateTime.now().minus(Duration.standardDays(1)));
+        Event event6 = new Event(null, admin, "Event Name 6", "Event Description",
+                EventType.PRIVATE, DateTime.now().minus(Duration.standardDays(2)), DateTime.now()
+                        .minus(Duration.standardDays(1)));
 
-        Event event7 = new Event(null, admin, "Event Name 7", "Event Description", EventType.PUBLIC, DateTime.now().minus(Duration.standardDays(2)),
-                DateTime.now().minus(Duration.standardDays(1)));
+        Event event7 = new Event(null, admin, "Event Name 7", "Event Description",
+                EventType.PUBLIC, DateTime.now().minus(Duration.standardDays(2)), DateTime.now()
+                        .minus(Duration.standardDays(1)));
 
         event6.addEventUser(user1);
         event6.addEventUser(user2);
@@ -188,7 +194,8 @@ public class PersistenceQueryTest extends AbstractTransactionalJUnit4SpringConte
 
         for (UserAccount userAccount : userList) {
 
-            Collection<Event> eventList = eventDao.getAllActivePrivateEventsForUserId(new DateTime(), userAccount.getId());
+            Collection<Event> eventList = eventDao.getAllActivePrivateEventsForUserId(
+                    new DateTime(), userAccount.getId());
 
             System.out.println("Looking for list of all events in the db...");
 
@@ -213,7 +220,8 @@ public class PersistenceQueryTest extends AbstractTransactionalJUnit4SpringConte
 
         for (UserAccount userAccount : userList) {
 
-            Collection<Event> eventList = eventDao.getAllActiveAdminEventsForUserId(new DateTime(), userAccount.getId());
+            Collection<Event> eventList = eventDao.getAllActiveAdminEventsForUserId(new DateTime(),
+                    userAccount.getId());
 
             System.out.println("Looking for list of all events in the db...");
 
@@ -239,7 +247,8 @@ public class PersistenceQueryTest extends AbstractTransactionalJUnit4SpringConte
 
         for (UserAccount userAccount : userList) {
 
-            Collection<Event> eventList = eventDao.getAllCompletedAdminEventsForUserId(new DateTime(), userAccount.getId());
+            Collection<Event> eventList = eventDao.getAllCompletedAdminEventsForUserId(
+                    new DateTime(), userAccount.getId());
 
             System.out.println("Looking for list of all events in the db...");
 
@@ -264,7 +273,8 @@ public class PersistenceQueryTest extends AbstractTransactionalJUnit4SpringConte
 
         for (UserAccount userAccount : userList) {
 
-            Collection<Event> eventList = eventDao.getAllFutureAdminEventsForUserId(new DateTime(), userAccount.getId());
+            Collection<Event> eventList = eventDao.getAllFutureAdminEventsForUserId(new DateTime(),
+                    userAccount.getId());
 
             System.out.println("Looking for list of all events in the db...");
 
@@ -289,7 +299,8 @@ public class PersistenceQueryTest extends AbstractTransactionalJUnit4SpringConte
 
         for (UserAccount userAccount : userList) {
 
-            Collection<Event> eventList = eventDao.getAllCompletedPrivateEventsForUserId(new DateTime(), userAccount.getId());
+            Collection<Event> eventList = eventDao.getAllCompletedPrivateEventsForUserId(
+                    new DateTime(), userAccount.getId());
 
             System.out.println("Looking for list of all events in the db...");
 

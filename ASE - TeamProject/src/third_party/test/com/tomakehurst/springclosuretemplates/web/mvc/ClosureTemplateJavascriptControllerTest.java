@@ -22,7 +22,8 @@ public class ClosureTemplateJavascriptControllerTest {
     @Before
     public void init() {
         config = new ClosureTemplateConfigurer();
-        config.setTemplatesLocation(new FileSystemResource("src/test/resources/test-closure-templates"));
+        config.setTemplatesLocation(new FileSystemResource(
+                "src/test/resources/test-closure-templates"));
         controller = new ClosureTemplateJavascriptController(config);
     }
 

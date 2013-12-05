@@ -28,7 +28,10 @@ public class EventDaoImpl extends HibernateDao<Event, Long> implements EventDao 
     @Override
     public Collection<Event> getAllActivePublicEvents(DateTime currentTime) {
 
-        return currentSession().createQuery("From Event e " + "Where e.eventType = :et " + "and :ct between e.startTime and e.endTime  ")
+        return currentSession()
+                .createQuery(
+                        "From Event e " + "Where e.eventType = :et "
+                                + "and :ct between e.startTime and e.endTime  ")
                 .setParameter("et", EventType.PUBLIC).setParameter("ct", currentTime).list();
     }
 
@@ -45,9 +48,11 @@ public class EventDaoImpl extends HibernateDao<Event, Long> implements EventDao 
 
         return currentSession()
                 .createQuery(
-                        "Select e " + "From Event e " + "inner join e.eventUsers eventUsers " + "Where e.eventType = :et "
-                                + "and eventUsers.id = :uId " + "and :ct between e.startTime and e.endTime ").setParameter("uId", userId)
-                .setParameter("et", EventType.PRIVATE).setParameter("ct", currentTime).list();
+                        "Select e " + "From Event e " + "inner join e.eventUsers eventUsers "
+                                + "Where e.eventType = :et " + "and eventUsers.id = :uId "
+                                + "and :ct between e.startTime and e.endTime ")
+                .setParameter("uId", userId).setParameter("et", EventType.PRIVATE)
+                .setParameter("ct", currentTime).list();
 
     }
 
@@ -63,8 +68,10 @@ public class EventDaoImpl extends HibernateDao<Event, Long> implements EventDao 
 
         return currentSession()
                 .createQuery(
-                        "Select e " + "From Event e " + "inner join e.adminUsers adminUsers " + "Where adminUsers.id = :uId "
-                                + "and :ct between e.startTime and e.endTime ").setParameter("uId", userId).setParameter("ct", currentTime).list();
+                        "Select e " + "From Event e " + "inner join e.adminUsers adminUsers "
+                                + "Where adminUsers.id = :uId "
+                                + "and :ct between e.startTime and e.endTime ")
+                .setParameter("uId", userId).setParameter("ct", currentTime).list();
 
     }
 
@@ -77,7 +84,8 @@ public class EventDaoImpl extends HibernateDao<Event, Long> implements EventDao 
     @SuppressWarnings("unchecked")
     @Override
     public Collection<Event> getAllCompletedPublicEvents(DateTime currentTime) {
-        return currentSession().createQuery("From Event e " + "Where e.eventType = :et " + "and :ct > e.endTime  ")
+        return currentSession()
+                .createQuery("From Event e " + "Where e.eventType = :et " + "and :ct > e.endTime  ")
                 .setParameter("et", EventType.PUBLIC).setParameter("ct", currentTime).list();
     }
 
@@ -93,8 +101,9 @@ public class EventDaoImpl extends HibernateDao<Event, Long> implements EventDao 
     public Collection<Event> getAllCompletedPrivateEventsForUserId(DateTime currentTime, Long userId) {
         return currentSession()
                 .createQuery(
-                        "Select e " + "From Event e " + "inner join e.eventUsers eventUsers " + "Where e.eventType = :et "
-                                + "and eventUsers.id = :uId " + "and :ct > e.endTime ").setParameter("uId", userId)
+                        "Select e " + "From Event e " + "inner join e.eventUsers eventUsers "
+                                + "Where e.eventType = :et " + "and eventUsers.id = :uId "
+                                + "and :ct > e.endTime ").setParameter("uId", userId)
                 .setParameter("et", EventType.PRIVATE).setParameter("ct", currentTime).list();
     }
 
@@ -110,8 +119,9 @@ public class EventDaoImpl extends HibernateDao<Event, Long> implements EventDao 
     public Collection<Event> getAllCompletedAdminEventsForUserId(DateTime currentTime, Long userId) {
         return currentSession()
                 .createQuery(
-                        "Select e " + "From Event e " + "inner join e.adminUsers adminUsers " + "Where adminUsers.id = :uId "
-                                + "and :ct > e.endTime ").setParameter("uId", userId).setParameter("ct", currentTime).list();
+                        "Select e " + "From Event e " + "inner join e.adminUsers adminUsers "
+                                + "Where adminUsers.id = :uId " + "and :ct > e.endTime ")
+                .setParameter("uId", userId).setParameter("ct", currentTime).list();
     }
 
     /*
@@ -125,8 +135,9 @@ public class EventDaoImpl extends HibernateDao<Event, Long> implements EventDao 
     public Collection<Event> getAllFutureAdminEventsForUserId(DateTime currentTime, Long userId) {
         return currentSession()
                 .createQuery(
-                        "Select e " + "From Event e " + "inner join e.adminUsers adminUsers " + "Where adminUsers.id = :uId "
-                                + "and :ct < e.startTime ").setParameter("uId", userId).setParameter("ct", currentTime).list();
+                        "Select e " + "From Event e " + "inner join e.adminUsers adminUsers "
+                                + "Where adminUsers.id = :uId " + "and :ct < e.startTime ")
+                .setParameter("uId", userId).setParameter("ct", currentTime).list();
     }
 
 }

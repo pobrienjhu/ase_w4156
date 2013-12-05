@@ -27,7 +27,8 @@ public class ClosureTemplateViewTest {
     @Before
     public void init() throws Exception {
         view = new ClosureTemplateView();
-        sfs = (new SoyFileSet.Builder()).add(new ClassPathResource("test-closure-templates/example-one.soy").getFile()).build();
+        sfs = (new SoyFileSet.Builder()).add(
+                new ClassPathResource("test-closure-templates/example-one.soy").getFile()).build();
         SoyTofu compiledTemplates = sfs.compileToJavaObj();
         view.setCompiledTemplates(compiledTemplates);
 

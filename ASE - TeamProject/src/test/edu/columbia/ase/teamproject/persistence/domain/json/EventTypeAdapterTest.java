@@ -41,13 +41,15 @@ public class EventTypeAdapterTest {
 
     @Test
     public void testSerializeAndDeserializeEvent() {
-        UserAccount admin = new UserAccount(AccountType.OPENID, "http://localhost", "displayName", null, "user@example.com",
-                new ArrayList<Permission>());
+        UserAccount admin = new UserAccount(AccountType.OPENID, "http://localhost", "displayName",
+                null, "user@example.com", new ArrayList<Permission>());
         DateTime now = DateTime.now();
-        Event event = new Event(null, admin, "eventName", "eventDescription", EventType.PRIVATE, now, now.plus(Duration.standardDays(1)));
+        Event event = new Event(null, admin, "eventName", "eventDescription", EventType.PRIVATE,
+                now, now.plus(Duration.standardDays(1)));
         event.setId(123L);
 
-        String json = gson.toJson(event).replace("[],", "[],\"userEmails\":[\"user@example.com\"],");
+        String json = gson.toJson(event)
+                .replace("[],", "[],\"userEmails\":[\"user@example.com\"],");
         System.out.println(json);
         Event deserialized = gson.fromJson(json, Event.class);
         System.out.println(deserialized);
@@ -65,13 +67,15 @@ public class EventTypeAdapterTest {
 
     @Test
     public void testSerializeAndDeserializeVoteCategories() {
-        UserAccount admin = new UserAccount(AccountType.OPENID, "http://localhost", "displayName", null, "user@example.com",
-                new ArrayList<Permission>());
+        UserAccount admin = new UserAccount(AccountType.OPENID, "http://localhost", "displayName",
+                null, "user@example.com", new ArrayList<Permission>());
         DateTime now = DateTime.now();
-        Event event = new Event(null, admin, "eventName", "eventDescription", EventType.PRIVATE, now, now.plus(Duration.standardDays(1)));
+        Event event = new Event(null, admin, "eventName", "eventDescription", EventType.PRIVATE,
+                now, now.plus(Duration.standardDays(1)));
         event.setId(123L);
 
-        VoteCategory firstCategory = new VoteCategory(event, "First Category", "First Category Description");
+        VoteCategory firstCategory = new VoteCategory(event, "First Category",
+                "First Category Description");
         firstCategory.setId(456L);
         VoteOption firstCategoryFirstOption = new VoteOption(firstCategory, "Option 1-1");
         firstCategoryFirstOption.setId(4561L);
@@ -83,7 +87,8 @@ public class EventTypeAdapterTest {
         firstCategory.addVotingOption(firstCategorySecondOption);
         firstCategory.addVotingOption(firstCategoryThirdOption);
 
-        VoteCategory secondCategory = new VoteCategory(event, "Second Category", "First Category Description");
+        VoteCategory secondCategory = new VoteCategory(event, "Second Category",
+                "First Category Description");
         secondCategory.setId(789L);
         VoteOption secondCategoryFirstOption = new VoteOption(firstCategory, "Option 2-1");
         secondCategoryFirstOption.setId(7891L);
@@ -100,14 +105,19 @@ public class EventTypeAdapterTest {
 
         assertEquals(Long.valueOf(456L), deserialized.getVoteCategories().get(0).getId());
         assertEquals(3, deserialized.getVoteCategories().get(0).getVoteOptions().size());
-        assertEquals(Long.valueOf(4561L), deserialized.getVoteCategories().get(0).getVoteOptions().get(0).getId());
-        assertEquals(Long.valueOf(4562L), deserialized.getVoteCategories().get(0).getVoteOptions().get(1).getId());
-        assertEquals(Long.valueOf(4563L), deserialized.getVoteCategories().get(0).getVoteOptions().get(2).getId());
+        assertEquals(Long.valueOf(4561L), deserialized.getVoteCategories().get(0).getVoteOptions()
+                .get(0).getId());
+        assertEquals(Long.valueOf(4562L), deserialized.getVoteCategories().get(0).getVoteOptions()
+                .get(1).getId());
+        assertEquals(Long.valueOf(4563L), deserialized.getVoteCategories().get(0).getVoteOptions()
+                .get(2).getId());
 
         assertEquals(Long.valueOf(789L), deserialized.getVoteCategories().get(1).getId());
         assertEquals(2, deserialized.getVoteCategories().get(1).getVoteOptions().size());
-        assertEquals(Long.valueOf(7891L), deserialized.getVoteCategories().get(1).getVoteOptions().get(0).getId());
-        assertEquals(Long.valueOf(7892L), deserialized.getVoteCategories().get(1).getVoteOptions().get(1).getId());
+        assertEquals(Long.valueOf(7891L), deserialized.getVoteCategories().get(1).getVoteOptions()
+                .get(0).getId());
+        assertEquals(Long.valueOf(7892L), deserialized.getVoteCategories().get(1).getVoteOptions()
+                .get(1).getId());
 
     }
 }

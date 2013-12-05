@@ -72,7 +72,8 @@ public class EventValidationHelper {
             validationException.addMessage("End date must be supplied.");
         }
 
-        if (event.getStartTime() != null && event.getEndTime() != null && (!event.getStartTime().isBefore(event.getEndTime()))) {
+        if (event.getStartTime() != null && event.getEndTime() != null
+                && (!event.getStartTime().isBefore(event.getEndTime()))) {
             validationException.addMessage("Start date must be before end date.");
         }
 

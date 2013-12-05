@@ -53,7 +53,8 @@ public class InputValidatorTruncator {
     private void handleFieldsForClass(Object object, Class<?> aClass) throws Exception {
 
         if (object == null || aClass == null) {
-            logger.error(" (" + (object != null ? object.toString() : "null") + ",class=" + (aClass != null ? aClass.getSimpleName() : "null") + ") "
+            logger.error(" (" + (object != null ? object.toString() : "null") + ",class="
+                    + (aClass != null ? aClass.getSimpleName() : "null") + ") "
                     + "Error with parameters");
             return;
         }
@@ -91,8 +92,8 @@ public class InputValidatorTruncator {
     private void handleSubObject(Object object, Field field) throws Exception {
 
         if (object == null || field == null) {
-            logger.error(" (" + (object != null ? object.toString() : "null") + ",field=" + (field != null ? field.getName() : "null") + ") "
-                    + "Error with parameters");
+            logger.error(" (" + (object != null ? object.toString() : "null") + ",field="
+                    + (field != null ? field.getName() : "null") + ") " + "Error with parameters");
             return;
         }
         Object obj;
@@ -101,12 +102,13 @@ public class InputValidatorTruncator {
             if (obj != null) {
                 handleFieldsForClass(obj, obj.getClass());
             } else {
-                logger.warn(" (" + (object != null ? object.toString() : "null") + ",field=" + (field != null ? field.getName() : "null") + ") "
-                        + "SubObject " + field.getName() + " was fetched as null");
+                logger.warn(" (" + (object != null ? object.toString() : "null") + ",field="
+                        + (field != null ? field.getName() : "null") + ") " + "SubObject "
+                        + field.getName() + " was fetched as null");
             }
         } catch (Exception e) {
-            logger.error(" (" + (object != null ? object.toString() : "null") + ",field=" + (field != null ? field.getName() : "null") + ") "
-                    + "Exception caught");
+            logger.error(" (" + (object != null ? object.toString() : "null") + ",field="
+                    + (field != null ? field.getName() : "null") + ") " + "Exception caught");
             throw new Exception("Problem truncating field(" + field.getName() + ")", e);
         }
     }
@@ -222,8 +224,8 @@ public class InputValidatorTruncator {
      * @throws IllegalAccessException
      *             the illegal access exception
      */
-    private void truncateValue(Object object, Field field, String value, int allowedLength) throws InvocationTargetException, NoSuchMethodException,
-            IllegalAccessException {
+    private void truncateValue(Object object, Field field, String value, int allowedLength)
+            throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
         String fieldName = field.getName();
         // logger.info("The value of the field [" + fieldName +
         // "] before check is [" + value + "]");

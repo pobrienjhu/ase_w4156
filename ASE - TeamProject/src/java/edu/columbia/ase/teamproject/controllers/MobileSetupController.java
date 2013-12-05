@@ -45,7 +45,8 @@ public class MobileSetupController {
         logger.info("GET /app/mobileSetup.do");
         Map<String, Object> model = ControllerHelper.createBaseModel(session);
 
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal();
         UserAccount user = userAccountDao.findAccountByUserDetails(userDetails);
 
         // TODO(pames): don't hard code the secret.

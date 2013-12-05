@@ -137,8 +137,9 @@ public class Event {
      * @param voteCategories
      *            the vote categories
      */
-    public Event(@Nullable List<String> userEmails, @Nullable UserAccount admin, String name, String description, EventType eventType,
-            DateTime eventStart, DateTime eventEnd, List<VoteCategory> voteCategories) {
+    public Event(@Nullable List<String> userEmails, @Nullable UserAccount admin, String name,
+            String description, EventType eventType, DateTime eventStart, DateTime eventEnd,
+            List<VoteCategory> voteCategories) {
         this();
         Preconditions.checkArgument(name.length() < MAX_NAME_LENGTH);
         Preconditions.checkArgument(description.length() < MAX_DESCRIPTION_LENGTH);
@@ -174,9 +175,10 @@ public class Event {
      * @param eventEnd
      *            the event end
      */
-    public Event(@Nullable List<String> userEmails, @Nullable UserAccount admin, String name, String description, EventType eventType,
-            DateTime eventStart, DateTime eventEnd) {
-        this(userEmails, admin, name, description, eventType, eventStart, eventEnd, Collections.<VoteCategory> emptyList());
+    public Event(@Nullable List<String> userEmails, @Nullable UserAccount admin, String name,
+            String description, EventType eventType, DateTime eventStart, DateTime eventEnd) {
+        this(userEmails, admin, name, description, eventType, eventStart, eventEnd, Collections
+                .<VoteCategory> emptyList());
     }
 
     /**
@@ -417,8 +419,10 @@ public class Event {
     @Override
     public String toString() {
 
-        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("id", id).append("name", name).append("description", description)
-                .append("startTime", startTime).append("endTime", endTime).append("eventType", eventType)
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("id", id)
+                .append("name", name).append("description", description)
+                .append("startTime", startTime).append("endTime", endTime)
+                .append("eventType", eventType)
                 .append("eventUsers", Joiner.on("\n").join(translateEventUsers(eventUsers)))
                 .append("adminUsers", Joiner.on("\n").join(translateEventUsers(adminUsers)))
                 .append("voteCategories", Joiner.on("\n").join(voteCategories)).toString();
@@ -438,7 +442,8 @@ public class Event {
         List<String> stringList = new ArrayList<String>();
 
         for (UserAccount userAccount : eventUsers) {
-            stringList.add(new StringBuilder().append("User: ").append(userAccount.getDisplayName()).toString());
+            stringList.add(new StringBuilder().append("User: ")
+                    .append(userAccount.getDisplayName()).toString());
         }
 
         return stringList;

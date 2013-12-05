@@ -188,7 +188,8 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
             }
             // TODO(pames): ensure that the admin information is serialized.
             logger.warn("Building an event without any admin info");
-            Event event = new Event(userEmails, null, name, description, eventType, eventStart, eventEnd);
+            Event event = new Event(userEmails, null, name, description, eventType, eventStart,
+                    eventEnd);
             if (idSet) {
                 event.setId(id);
             }

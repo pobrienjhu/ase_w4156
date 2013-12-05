@@ -55,12 +55,14 @@ public class GetEventsPublicController {
      */
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
-    public String doGet(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+    public String doGet(HttpSession session, HttpServletRequest request,
+            HttpServletResponse response) {
 
         try {
             Gson gson = gsonProvider.provideGson();
 
-            String eventType = StringUtils.defaultIfEmpty(request.getParameter("eventType"), "active");
+            String eventType = StringUtils.defaultIfEmpty(request.getParameter("eventType"),
+                    "active");
 
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");

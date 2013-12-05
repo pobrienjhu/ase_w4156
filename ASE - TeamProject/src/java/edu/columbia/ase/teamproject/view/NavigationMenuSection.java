@@ -24,7 +24,8 @@ public class NavigationMenuSection implements Map<String, Object> {
     private List<Object> entries;
 
     /** The Constant NAVIGATION_SECTION_KEYS. */
-    public static final Set<String> NAVIGATION_SECTION_KEYS = ImmutableSet.<String> of("sectionName", "entries");
+    public static final Set<String> NAVIGATION_SECTION_KEYS = ImmutableSet.<String> of(
+            "sectionName", "entries");
 
     /**
      * Instantiates a new navigation menu section.
@@ -187,7 +188,8 @@ public class NavigationMenuSection implements Map<String, Object> {
     @SuppressWarnings("unchecked")
     @Override
     public Set<java.util.Map.Entry<String, Object>> entrySet() {
-        Map.Entry<String, Object> sectionEntry = Maps.immutableEntry("sectionName", (Object) sectionName);
+        Map.Entry<String, Object> sectionEntry = Maps.immutableEntry("sectionName",
+                (Object) sectionName);
         Map.Entry<String, Object> linkListEntry = Maps.immutableEntry("entries", (Object) entries);
         return Sets.newHashSet(sectionEntry, linkListEntry);
     }

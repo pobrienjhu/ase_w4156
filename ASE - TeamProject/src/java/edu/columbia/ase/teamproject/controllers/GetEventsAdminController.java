@@ -63,28 +63,34 @@ public class GetEventsAdminController {
      */
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
-    public String doGet(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+    public String doGet(HttpSession session, HttpServletRequest request,
+            HttpServletResponse response) {
 
         try {
             Gson gson = gsonProvider.provideGson();
 
-            String eventType = StringUtils.defaultIfEmpty(request.getParameter("eventType"), "active");
+            String eventType = StringUtils.defaultIfEmpty(request.getParameter("eventType"),
+                    "active");
 
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
 
             Collection<Event> events = new ArrayList<Event>();
 
-            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
+                    .getAuthentication().getPrincipal();
 
             UserAccount user = userAccountDao.findAccountByUserDetails(userDetails);
 
             if (StringUtils.equalsIgnoreCase(eventType, "active")) {
-                events = eventService.getAllActiveAdminEventsForUserId(new DateTime(), user.getId());
+                events = eventService
+                        .getAllActiveAdminEventsForUserId(new DateTime(), user.getId());
             } else if (StringUtils.equalsIgnoreCase(eventType, "future")) {
-                events = eventService.getAllFutureAdminEventsForUserId(new DateTime(), user.getId());
+                events = eventService
+                        .getAllFutureAdminEventsForUserId(new DateTime(), user.getId());
             } else if (StringUtils.equalsIgnoreCase(eventType, "completed")) {
-                events = eventService.getAllCompletedAdminEventsForUserId(new DateTime(), user.getId());
+                events = eventService.getAllCompletedAdminEventsForUserId(new DateTime(),
+                        user.getId());
             }
 
             if (events != null) {

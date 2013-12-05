@@ -112,7 +112,8 @@ public class VoteService {
 
         for (Vote v2 : user.getVotes()) {
 
-            if (v2.getVoteOption().getVoteCategory().getId() == voteOption.getVoteCategory().getId()) {
+            if (v2.getVoteOption().getVoteCategory().getId() == voteOption.getVoteCategory()
+                    .getId()) {
 
                 v2.getVoteOption().removeVote(v2);
                 user.removeVote(v2);
@@ -150,7 +151,8 @@ public class VoteService {
 
             NavigationMenuSection voteCatSection = new NavigationMenuSection(v.getDescription());
             for (VoteOption vo : v.getVoteOptions()) {
-                voteCatSection.addEntry(new NavigationMenuEntry(v.getCategoryName(), Integer.toString(vo.getVotes().size()), vo.getOptionName()));
+                voteCatSection.addEntry(new NavigationMenuEntry(v.getCategoryName(), Integer
+                        .toString(vo.getVotes().size()), vo.getOptionName()));
             }
             nms.add(voteCatSection);
         }

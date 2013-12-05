@@ -213,7 +213,8 @@ public class EventService {
         }
 
         return event.getStartTime().isAfter(DateTime.now())
-                && (event.getAdminUsers().contains(user) || user.getPermissions().contains(Permission.ADMIN));
+                && (event.getAdminUsers().contains(user) || user.getPermissions().contains(
+                        Permission.ADMIN));
     }
 
     /*
@@ -231,7 +232,8 @@ public class EventService {
         try {
             return eventDao.getAllActivePublicEvents(currentTime);
         } catch (Exception e) {
-            logger.error("Unable to retrieve active public events. Root Cause (" + e.getLocalizedMessage() + ")");
+            logger.error("Unable to retrieve active public events. Root Cause ("
+                    + e.getLocalizedMessage() + ")");
         }
         return new ArrayList<Event>();
     }
@@ -251,7 +253,8 @@ public class EventService {
         try {
             return eventDao.getAllCompletedPublicEvents(currentTime);
         } catch (Exception e) {
-            logger.error("Unable to retrieve completed public events. Root Cause (" + e.getLocalizedMessage() + ")");
+            logger.error("Unable to retrieve completed public events. Root Cause ("
+                    + e.getLocalizedMessage() + ")");
         }
         return new ArrayList<Event>();
     }
@@ -273,7 +276,8 @@ public class EventService {
         try {
             return eventDao.getAllActivePrivateEventsForUserId(currentTime, userId);
         } catch (Exception e) {
-            logger.error("Unable to retrieve private events for userId (" + userId + "). Root Cause (" + e.getLocalizedMessage() + ")");
+            logger.error("Unable to retrieve private events for userId (" + userId
+                    + "). Root Cause (" + e.getLocalizedMessage() + ")");
         }
         return new ArrayList<Event>();
     }
@@ -295,7 +299,8 @@ public class EventService {
         try {
             return eventDao.getAllActiveAdminEventsForUserId(currentTime, userId);
         } catch (Exception e) {
-            logger.error("Unable to retrieve active admin events for userId (" + userId + "). Root Cause (" + e.getLocalizedMessage() + ")");
+            logger.error("Unable to retrieve active admin events for userId (" + userId
+                    + "). Root Cause (" + e.getLocalizedMessage() + ")");
         }
         return new ArrayList<Event>();
     }
@@ -317,7 +322,8 @@ public class EventService {
         try {
             return eventDao.getAllCompletedAdminEventsForUserId(currentTime, userId);
         } catch (Exception e) {
-            logger.error("Unable to retrieve completed admin events for userId (" + userId + "). Root Cause (" + e.getLocalizedMessage() + ")");
+            logger.error("Unable to retrieve completed admin events for userId (" + userId
+                    + "). Root Cause (" + e.getLocalizedMessage() + ")");
         }
         return new ArrayList<Event>();
     }
@@ -339,7 +345,8 @@ public class EventService {
         try {
             return eventDao.getAllCompletedPrivateEventsForUserId(currentTime, userId);
         } catch (Exception e) {
-            logger.error("Unable to retrieve completed private eventsfor userId (" + userId + "). Root Cause (" + e.getLocalizedMessage() + ")");
+            logger.error("Unable to retrieve completed private eventsfor userId (" + userId
+                    + "). Root Cause (" + e.getLocalizedMessage() + ")");
         }
         return new ArrayList<Event>();
     }
@@ -361,7 +368,8 @@ public class EventService {
         try {
             return eventDao.getAllFutureAdminEventsForUserId(currentTime, userId);
         } catch (Exception e) {
-            logger.error("Unable to retrieve future admin events for userId (" + userId + "). Root Cause (" + e.getLocalizedMessage() + ")");
+            logger.error("Unable to retrieve future admin events for userId (" + userId
+                    + "). Root Cause (" + e.getLocalizedMessage() + ")");
         }
         return new ArrayList<Event>();
     }
@@ -389,8 +397,9 @@ public class EventService {
      * @throws ValidationException
      *             the validation exception
      */
-    public Event createEvent(UserAccount requestor, String name, String description, EventType eventType, DateTime start, DateTime end,
-            List<VoteCategory> voteCategories, List<String> userEmails) throws ValidationException {
+    public Event createEvent(UserAccount requestor, String name, String description,
+            EventType eventType, DateTime start, DateTime end, List<VoteCategory> voteCategories,
+            List<String> userEmails) throws ValidationException {
         Preconditions.checkNotNull(requestor);
         logger.info("Creating event " + name);
 
@@ -503,7 +512,8 @@ public class EventService {
      *             the validation exception
      */
     @Transactional
-    public Event updateEvent(UserAccount requestor, Long id, Event newData) throws ValidationException {
+    public Event updateEvent(UserAccount requestor, Long id, Event newData)
+            throws ValidationException {
         Preconditions.checkNotNull(requestor);
         Preconditions.checkNotNull(id);
         Preconditions.checkNotNull(newData);
@@ -565,7 +575,8 @@ public class EventService {
             return event;
         case PRIVATE:
             // TODO(pames): add tests for this
-            if (event.getAdminUsers().contains(requestor) || event.getEventUsers().contains(requestor)) {
+            if (event.getAdminUsers().contains(requestor)
+                    || event.getEventUsers().contains(requestor)) {
                 return event;
             }
         }

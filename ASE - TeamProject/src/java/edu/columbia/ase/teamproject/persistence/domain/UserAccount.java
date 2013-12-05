@@ -144,13 +144,15 @@ public class UserAccount {
      * @param permissions
      *            the permissions
      */
-    public UserAccount(AccountType type, String username, @Nullable String displayName, @Nullable String password, String email,
-            List<Permission> permissions) {
+    public UserAccount(AccountType type, String username, @Nullable String displayName,
+            @Nullable String password, String email, List<Permission> permissions) {
         this();
         Preconditions.checkArgument(!username.isEmpty());
         Preconditions.checkArgument(username.length() < MAX_USERNAME_LENGTH);
-        Preconditions.checkArgument(displayName == null || (displayName != null && displayName.length() < MAX_DISPLAY_NAME_LENGTH));
-        Preconditions.checkArgument(password == null || (password != null && password.length() < MAX_PASSWORD_LENGTH));
+        Preconditions.checkArgument(displayName == null
+                || (displayName != null && displayName.length() < MAX_DISPLAY_NAME_LENGTH));
+        Preconditions.checkArgument(password == null
+                || (password != null && password.length() < MAX_PASSWORD_LENGTH));
         Preconditions.checkArgument(!email.isEmpty());
         this.accountType = Preconditions.checkNotNull(type);
         Preconditions.checkNotNull(permissions);
@@ -332,9 +334,11 @@ public class UserAccount {
     @Override
     public String toString() {
 
-        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("id", id).append("displayName", displayName)
-                .append("username", username).append("accountType", accountType).append("permissions", permissions)
-                .append("adminEvents", Joiner.on("\n").join(adminEvents)).append("userEvents", Joiner.on("\n").join(userEvents)).toString();
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("id", id)
+                .append("displayName", displayName).append("username", username)
+                .append("accountType", accountType).append("permissions", permissions)
+                .append("adminEvents", Joiner.on("\n").join(adminEvents))
+                .append("userEvents", Joiner.on("\n").join(userEvents)).toString();
     }
 
     /*

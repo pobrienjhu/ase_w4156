@@ -70,7 +70,8 @@ public class AdminController {
      * @return the model and view
      */
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView doPost(HttpSession session, @RequestParam String action, @RequestParam String email) {
+    public ModelAndView doPost(HttpSession session, @RequestParam String action,
+            @RequestParam String email) {
         Preconditions.checkArgument(VALID_ACTIONS.contains(action));
         Preconditions.checkArgument(!email.isEmpty());
 
@@ -84,14 +85,16 @@ public class AdminController {
                 if (user.getPermissions().contains(Permission.ADMIN)) {
                     model.put("message", "User already has admin privileges.");
                 } else {
-                    model.put("message", "Permission granted!  Please have the user log out " + "/ back in for the change to take effect.");
+                    model.put("message", "Permission granted!  Please have the user log out "
+                            + "/ back in for the change to take effect.");
                     user.addPermission(Permission.ADMIN);
                 }
             } else {
                 if (!user.getPermissions().contains(Permission.ADMIN)) {
                     model.put("message", "User does not have admin privileges.");
                 } else {
-                    model.put("message", "Permission revoked!  Please have the user log out " + "/ back in for the change to take effect.");
+                    model.put("message", "Permission revoked!  Please have the user log out "
+                            + "/ back in for the change to take effect.");
                     user.revokePermission(Permission.ADMIN);
                 }
             }

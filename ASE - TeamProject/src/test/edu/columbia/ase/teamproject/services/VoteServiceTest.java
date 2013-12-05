@@ -81,15 +81,17 @@ public class VoteServiceTest extends AbstractTransactionalJUnit4SpringContextTes
 
     @Before
     public void setUp() throws ValidationException {
-        UserAccount user = new UserAccount(AccountType.LOCAL, "user", "displayName", "password", "user@example.com",
-                Arrays.asList(new Permission[] { Permission.USER }));
+        UserAccount user = new UserAccount(AccountType.LOCAL, "user", "displayName", "password",
+                "user@example.com", Arrays.asList(new Permission[] { Permission.USER }));
         voter = userAccountDao.add(user);
 
-        firstEvent = eventService.createEvent(voter, "FirstEvent Name", "Event Description", EventType.PUBLIC, DateTime.now(),
-                DateTime.now().plus(Duration.standardDays(1)), createBogusCategories(), new ArrayList<String>());
+        firstEvent = eventService.createEvent(voter, "FirstEvent Name", "Event Description",
+                EventType.PUBLIC, DateTime.now(), DateTime.now().plus(Duration.standardDays(1)),
+                createBogusCategories(), new ArrayList<String>());
 
-        secondEvent = eventService.createEvent(voter, "FirstEvent Name", "Event Description", EventType.PUBLIC, DateTime.now(),
-                DateTime.now().plus(Duration.standardDays(1)), createBogusCategories(), new ArrayList<String>());
+        secondEvent = eventService.createEvent(voter, "FirstEvent Name", "Event Description",
+                EventType.PUBLIC, DateTime.now(), DateTime.now().plus(Duration.standardDays(1)),
+                createBogusCategories(), new ArrayList<String>());
     }
 
     @Test
@@ -147,8 +149,10 @@ public class VoteServiceTest extends AbstractTransactionalJUnit4SpringContextTes
 
         // eventDao.update(firstEvent);
 
-        VoteOption vo1o1 = voteOptionDao.find(firstEvent.getVoteCategories().get(0).getVoteOptions().get(0).getId());
-        VoteOption vo2o1 = voteOptionDao.find(firstEvent.getVoteCategories().get(1).getVoteOptions().get(1).getId());
+        VoteOption vo1o1 = voteOptionDao.find(firstEvent.getVoteCategories().get(0)
+                .getVoteOptions().get(0).getId());
+        VoteOption vo2o1 = voteOptionDao.find(firstEvent.getVoteCategories().get(1)
+                .getVoteOptions().get(1).getId());
 
         assertTrue(vo1o1.getVotes().size() == 1);
         assertTrue(vo2o1.getVotes().size() == 1);
@@ -162,8 +166,10 @@ public class VoteServiceTest extends AbstractTransactionalJUnit4SpringContextTes
         voteService.addVotes(firstEvent, voteList, voter);
         // eventDao.update(firstEvent);
 
-        VoteOption vo1o1 = voteOptionDao.find(firstEvent.getVoteCategories().get(0).getVoteOptions().get(0).getId());
-        VoteOption vo2o1 = voteOptionDao.find(firstEvent.getVoteCategories().get(1).getVoteOptions().get(0).getId());
+        VoteOption vo1o1 = voteOptionDao.find(firstEvent.getVoteCategories().get(0)
+                .getVoteOptions().get(0).getId());
+        VoteOption vo2o1 = voteOptionDao.find(firstEvent.getVoteCategories().get(1)
+                .getVoteOptions().get(0).getId());
 
         assertTrue(vo1o1.getVotes().size() == 1);
         assertTrue(vo2o1.getVotes().size() == 1);
@@ -175,10 +181,14 @@ public class VoteServiceTest extends AbstractTransactionalJUnit4SpringContextTes
 
         voteService.addVotes(firstEvent, voteList, voter);
 
-        vo1o1 = voteOptionDao.find(firstEvent.getVoteCategories().get(0).getVoteOptions().get(0).getId());
-        vo2o1 = voteOptionDao.find(firstEvent.getVoteCategories().get(1).getVoteOptions().get(0).getId());
-        VoteOption vo1o2 = voteOptionDao.find(firstEvent.getVoteCategories().get(0).getVoteOptions().get(1).getId());
-        VoteOption vo2o2 = voteOptionDao.find(firstEvent.getVoteCategories().get(1).getVoteOptions().get(1).getId());
+        vo1o1 = voteOptionDao.find(firstEvent.getVoteCategories().get(0).getVoteOptions().get(0)
+                .getId());
+        vo2o1 = voteOptionDao.find(firstEvent.getVoteCategories().get(1).getVoteOptions().get(0)
+                .getId());
+        VoteOption vo1o2 = voteOptionDao.find(firstEvent.getVoteCategories().get(0)
+                .getVoteOptions().get(1).getId());
+        VoteOption vo2o2 = voteOptionDao.find(firstEvent.getVoteCategories().get(1)
+                .getVoteOptions().get(1).getId());
 
         assertTrue(vo1o1.getVotes().size() == 0);
         assertTrue(vo2o1.getVotes().size() == 0);

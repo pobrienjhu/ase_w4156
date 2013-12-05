@@ -79,7 +79,8 @@ public class ClosureTemplateJavascriptController {
     private File getTemplateFileAndAssertExistence(String templateFileName) {
         File templateFile;
         try {
-            templateFile = new File(config.getTemplatesLocation().getFile(), templateFileName + ".soy");
+            templateFile = new File(config.getTemplatesLocation().getFile(), templateFileName
+                    + ".soy");
         } catch (IOException ioe) {
             throw notFound(templateFileName);
         }

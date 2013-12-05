@@ -13,10 +13,12 @@ import com.google.common.collect.ImmutableList;
 public class CsrfRequestMatcher implements RequestMatcher {
 
     /** The Constant CSRF_UNPROTECTED_METHODS. */
-    private static final ImmutableList<String> CSRF_UNPROTECTED_METHODS = ImmutableList.<String> of("GET", "HEAD");
+    private static final ImmutableList<String> CSRF_UNPROTECTED_METHODS = ImmutableList
+            .<String> of("GET", "HEAD");
 
     /** The Constant CSRF_UNPROTECTED_URLS. */
-    private static final ImmutableList<String> CSRF_UNPROTECTED_URLS = ImmutableList.<String> of("/logout", "/apilogin.do");
+    private static final ImmutableList<String> CSRF_UNPROTECTED_URLS = ImmutableList.<String> of(
+            "/logout", "/apilogin.do");
 
     /*
      * (non-Javadoc)

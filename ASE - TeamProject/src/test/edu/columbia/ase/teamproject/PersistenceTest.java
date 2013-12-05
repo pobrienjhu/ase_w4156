@@ -76,13 +76,16 @@ public class PersistenceTest extends AbstractTransactionalJUnit4SpringContextTes
          * Add users
          */
 
-        UserAccount user1 = new UserAccount(AccountType.LOCAL, "user1", "User1 Account", "password", "user1@example.com",
+        UserAccount user1 = new UserAccount(AccountType.LOCAL, "user1", "User1 Account",
+                "password", "user1@example.com",
                 Arrays.asList(new Permission[] { Permission.USER }));
 
-        UserAccount user2 = new UserAccount(AccountType.LOCAL, "user2", "User2 Account", "password", "user2@example.com",
+        UserAccount user2 = new UserAccount(AccountType.LOCAL, "user2", "User2 Account",
+                "password", "user2@example.com",
                 Arrays.asList(new Permission[] { Permission.USER }));
 
-        UserAccount admin = new UserAccount(AccountType.LOCAL, "admin", "Admin Account", "password", "user3@example.com",
+        UserAccount admin = new UserAccount(AccountType.LOCAL, "admin", "Admin Account",
+                "password", "user3@example.com",
                 Arrays.asList(new Permission[] { Permission.USER }));
 
         user1 = userAccountDao.add(user1);
@@ -93,8 +96,8 @@ public class PersistenceTest extends AbstractTransactionalJUnit4SpringContextTes
         /*
          * Add Events
          */
-        Event event = new Event(null, admin, "Event Name", "Event Description", EventType.PUBLIC, DateTime.now(), DateTime.now().plus(
-                Duration.standardDays(1)));
+        Event event = new Event(null, admin, "Event Name", "Event Description", EventType.PUBLIC,
+                DateTime.now(), DateTime.now().plus(Duration.standardDays(1)));
 
         event.addEventUser(user1);
         event.addEventUser(user2);
@@ -172,8 +175,8 @@ public class PersistenceTest extends AbstractTransactionalJUnit4SpringContextTes
         // Is personsDao ready for operations
         List<Permission> permissions = new ArrayList<Permission>();
         permissions.add(Permission.ADMIN);
-        UserAccount patrick = new UserAccount(AccountType.LOCAL, "patrick.obrien.8474@gmail.com", "Patrick OBrien", "password",
-                "patrick.obrien.8474@gmail.com", permissions);
+        UserAccount patrick = new UserAccount(AccountType.LOCAL, "patrick.obrien.8474@gmail.com",
+                "Patrick OBrien", "password", "patrick.obrien.8474@gmail.com", permissions);
 
         userAccountDao.add(patrick);
 
@@ -210,8 +213,8 @@ public class PersistenceTest extends AbstractTransactionalJUnit4SpringContextTes
 
         System.out.println(admin);
 
-        Event event = new Event(null, admin, "Write Test Event", "Testing description", EventType.PUBLIC, DateTime.now(), DateTime.now().plus(
-                Duration.standardDays(1)));
+        Event event = new Event(null, admin, "Write Test Event", "Testing description",
+                EventType.PUBLIC, DateTime.now(), DateTime.now().plus(Duration.standardDays(1)));
 
         System.out.println(event);
 
@@ -256,7 +259,8 @@ public class PersistenceTest extends AbstractTransactionalJUnit4SpringContextTes
 
             NavigationMenuSection voteCatSection = new NavigationMenuSection(v.getDescription());
             for (VoteOption vo : v.getVoteOptions()) {
-                voteCatSection.addEntry(new NavigationMenuEntry(v.getCategoryName(), Integer.toString(vo.getVotes().size()), vo.getOptionName()));
+                voteCatSection.addEntry(new NavigationMenuEntry(v.getCategoryName(), Integer
+                        .toString(vo.getVotes().size()), vo.getOptionName()));
             }
             nms.add(voteCatSection);
         }
@@ -272,7 +276,8 @@ public class PersistenceTest extends AbstractTransactionalJUnit4SpringContextTes
         UserAccount user = userAccountDao.find(userId);
         System.out.println(userId);
 
-        VoteOption vo = voteOptionDao.find(e.getVoteCategories().get(0).getVoteOptions().get(0).getId());
+        VoteOption vo = voteOptionDao.find(e.getVoteCategories().get(0).getVoteOptions().get(0)
+                .getId());
         System.out.println(vo.getVoteCategory().getEvent().getId());
 
         Vote v = new Vote(vo, user);

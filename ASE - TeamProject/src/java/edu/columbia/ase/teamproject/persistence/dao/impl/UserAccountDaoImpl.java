@@ -42,7 +42,8 @@ public class UserAccountDaoImpl extends HibernateDao<UserAccount, Long> implemen
         Preconditions.checkNotNull(username);
         Preconditions.checkNotNull(type);
 
-        Criteria criteria = currentSession().createCriteria(daoType).add(Restrictions.eq("username", username))
+        Criteria criteria = currentSession().createCriteria(daoType)
+                .add(Restrictions.eq("username", username))
                 .add(Restrictions.eq("accountType", type));
 
         return (UserAccount) criteria.uniqueResult();
@@ -86,7 +87,8 @@ public class UserAccountDaoImpl extends HibernateDao<UserAccount, Long> implemen
             return null;
         }
 
-        Criteria criteria = currentSession().createCriteria(daoType).add(Restrictions.eq("email", email))
+        Criteria criteria = currentSession().createCriteria(daoType)
+                .add(Restrictions.eq("email", email))
                 .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 
         return (UserAccount) criteria.uniqueResult();
@@ -101,7 +103,8 @@ public class UserAccountDaoImpl extends HibernateDao<UserAccount, Long> implemen
      */
     @Override
     public long getNumberOfUsers() {
-        Criteria criteria = currentSession().createCriteria(daoType).setProjection(Projections.rowCount());
+        Criteria criteria = currentSession().createCriteria(daoType).setProjection(
+                Projections.rowCount());
 
         Number count = (Number) criteria.uniqueResult();
         return count.longValue();
@@ -116,7 +119,8 @@ public class UserAccountDaoImpl extends HibernateDao<UserAccount, Long> implemen
     @SuppressWarnings("unchecked")
     @Override
     public List<UserAccount> list() {
-        return currentSession().createCriteria(UserAccount.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+        return currentSession().createCriteria(UserAccount.class)
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
     }
 
 }

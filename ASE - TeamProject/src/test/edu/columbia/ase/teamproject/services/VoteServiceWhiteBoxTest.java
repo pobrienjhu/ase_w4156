@@ -69,13 +69,16 @@ public class VoteServiceWhiteBoxTest extends AbstractTransactionalJUnit4SpringCo
          * Add users
          */
 
-        UserAccount user1 = new UserAccount(AccountType.LOCAL, "user1", "User1 Account", "password", "user1@example.com",
+        UserAccount user1 = new UserAccount(AccountType.LOCAL, "user1", "User1 Account",
+                "password", "user1@example.com",
                 Arrays.asList(new Permission[] { Permission.USER }));
 
-        UserAccount user2 = new UserAccount(AccountType.LOCAL, "user2", "User2 Account", "password", "user2@example.com",
+        UserAccount user2 = new UserAccount(AccountType.LOCAL, "user2", "User2 Account",
+                "password", "user2@example.com",
                 Arrays.asList(new Permission[] { Permission.USER }));
 
-        UserAccount admin = new UserAccount(AccountType.LOCAL, "admin", "Admin Account", "password", "user3@example.com",
+        UserAccount admin = new UserAccount(AccountType.LOCAL, "admin", "Admin Account",
+                "password", "user3@example.com",
                 Arrays.asList(new Permission[] { Permission.USER }));
 
         user1 = userAccountDao.add(user1);
@@ -86,8 +89,8 @@ public class VoteServiceWhiteBoxTest extends AbstractTransactionalJUnit4SpringCo
         /*
          * Add Events
          */
-        Event event = new Event(null, admin, "Event Name", "Event Description", EventType.PUBLIC, DateTime.now(), DateTime.now().plus(
-                Duration.standardDays(1)));
+        Event event = new Event(null, admin, "Event Name", "Event Description", EventType.PUBLIC,
+                DateTime.now(), DateTime.now().plus(Duration.standardDays(1)));
 
         event.addEventUser(user1);
         event.addEventUser(user2);

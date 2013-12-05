@@ -28,10 +28,12 @@ import edu.columbia.ase.teamproject.persistence.domain.enumeration.AccountType;
  * The Class OpenIdAuthenticationTokenConsumer.
  */
 @Transactional
-public class OpenIdAuthenticationTokenConsumer implements AuthenticationUserDetailsService<OpenIDAuthenticationToken> {
+public class OpenIdAuthenticationTokenConsumer implements
+        AuthenticationUserDetailsService<OpenIDAuthenticationToken> {
 
     /** The Constant logger. */
-    private static final Logger logger = LoggerFactory.getLogger(OpenIdAuthenticationTokenConsumer.class);
+    private static final Logger logger = LoggerFactory
+            .getLogger(OpenIdAuthenticationTokenConsumer.class);
 
     /** The Constant lock. */
     private static final Object lock = new Object();
@@ -58,12 +60,15 @@ public class OpenIdAuthenticationTokenConsumer implements AuthenticationUserDeta
      * #loadUserDetails(org.springframework.security.core.Authentication)
      */
     @Override
-    public UserDetails loadUserDetails(OpenIDAuthenticationToken token) throws UsernameNotFoundException {
+    public UserDetails loadUserDetails(OpenIDAuthenticationToken token)
+            throws UsernameNotFoundException {
         Preconditions.checkArgument(token.getStatus().equals(OpenIDAuthenticationStatus.SUCCESS));
-        UserAccount account = userAccountDao.findAccountByNameAndType(token.getIdentityUrl(), AccountType.OPENID);
+        UserAccount account = userAccountDao.findAccountByNameAndType(token.getIdentityUrl(),
+                AccountType.OPENID);
 
         if (account == null) {
-            ImmutableList.Builder<Permission> permissionBuilder = ImmutableList.<Permission> builder();
+            ImmutableList.Builder<Permission> permissionBuilder = ImmutableList
+                    .<Permission> builder();
             permissionBuilder.add(Permission.USER);
             permissionBuilder.add(Permission.OPENID);
 
@@ -103,9 +108,11 @@ public class OpenIdAuthenticationTokenConsumer implements AuthenticationUserDeta
             for (OpenIDAttribute attribute : attributes) {
                 if (attribute.getName().equals("email") && !attribute.getValues().isEmpty()) {
                     email = attribute.getValues().get(0);
-                } else if (attribute.getName().equals("firstName") && !attribute.getValues().isEmpty()) {
+                } else if (attribute.getName().equals("firstName")
+                        && !attribute.getValues().isEmpty()) {
                     firstName = attribute.getValues().get(0);
-                } else if (attribute.getName().equals("lastName") && !attribute.getValues().isEmpty()) {
+                } else if (attribute.getName().equals("lastName")
+                        && !attribute.getValues().isEmpty()) {
                     lastName = attribute.getValues().get(0);
                 }
 
@@ -116,13 +123,15 @@ public class OpenIdAuthenticationTokenConsumer implements AuthenticationUserDeta
             }
 
             logger.info("Creating new account for " + token.getIdentityUrl());
-            account = new UserAccount(AccountType.OPENID, token.getIdentityUrl(), displayName, null, email, permissionBuilder.build());
+            account = new UserAccount(AccountType.OPENID, token.getIdentityUrl(), displayName,
+                    null, email, permissionBuilder.build());
 
             userAccountDao.add(account);
         }
 
-        return new User(account.getUsername(), "[PROTECTED]", AuthorityUtils.commaSeparatedStringToAuthorityList(Joiner.on(",").join(
-                account.getPermissions())));
+        return new User(account.getUsername(), "[PROTECTED]",
+                AuthorityUtils.commaSeparatedStringToAuthorityList(Joiner.on(",").join(
+                        account.getPermissions())));
     }
 
 }

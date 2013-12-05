@@ -24,10 +24,12 @@ import edu.columbia.ase.teamproject.view.NavigationMenuSection;
 public class ControllerHelper {
 
     /** The Constant ADMIN_AUTHORITY. */
-    private static final GrantedAuthority ADMIN_AUTHORITY = AuthorityUtils.createAuthorityList(Permission.ADMIN.toString()).get(0);
+    private static final GrantedAuthority ADMIN_AUTHORITY = AuthorityUtils.createAuthorityList(
+            Permission.ADMIN.toString()).get(0);
 
     /** The Constant ANONYMOUS_AUTHORITY. */
-    private static final GrantedAuthority ANONYMOUS_AUTHORITY = AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS").get(0);
+    private static final GrantedAuthority ANONYMOUS_AUTHORITY = AuthorityUtils.createAuthorityList(
+            "ROLE_ANONYMOUS").get(0);
 
     /**
      * Creates the base model.
@@ -52,7 +54,8 @@ public class ControllerHelper {
             model.put("_admin", true);
         }
 
-        if (authentication != null && authentication.isAuthenticated() && !authentication.getAuthorities().contains(ANONYMOUS_AUTHORITY)) {
+        if (authentication != null && authentication.isAuthenticated()
+                && !authentication.getAuthorities().contains(ANONYMOUS_AUTHORITY)) {
             model.put("_authenticated", true);
         }
 

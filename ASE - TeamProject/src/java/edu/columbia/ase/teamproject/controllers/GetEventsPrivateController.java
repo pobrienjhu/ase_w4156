@@ -63,25 +63,30 @@ public class GetEventsPrivateController {
      */
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
-    public String doGet(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+    public String doGet(HttpSession session, HttpServletRequest request,
+            HttpServletResponse response) {
 
         try {
             Gson gson = gsonProvider.provideGson();
 
-            String eventType = StringUtils.defaultIfEmpty(request.getParameter("eventType"), "active");
+            String eventType = StringUtils.defaultIfEmpty(request.getParameter("eventType"),
+                    "active");
 
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
 
             Collection<Event> events = new ArrayList<Event>();
 
-            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
+                    .getAuthentication().getPrincipal();
             UserAccount user = userAccountDao.findAccountByUserDetails(userDetails);
 
             if (StringUtils.equalsIgnoreCase(eventType, "active")) {
-                events = eventService.getAllActivePrivateEventsForUserId(new DateTime(), user.getId());
+                events = eventService.getAllActivePrivateEventsForUserId(new DateTime(),
+                        user.getId());
             } else if (StringUtils.equalsIgnoreCase(eventType, "completed")) {
-                events = eventService.getAllCompletedPrivateEventsForUserId(new DateTime(), user.getId());
+                events = eventService.getAllCompletedPrivateEventsForUserId(new DateTime(),
+                        user.getId());
             }
 
             if (events != null) {
