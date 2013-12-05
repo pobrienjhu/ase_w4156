@@ -26,6 +26,7 @@ public abstract class PersistentStringEnumUserType<E> implements UserType {
      *
      * @see org.hibernate.usertype.UserType#returnedClass()
      */
+    @Override
     public abstract Class<E> returnedClass();
 
     /**
@@ -49,6 +50,7 @@ public abstract class PersistentStringEnumUserType<E> implements UserType {
      *
      * @see org.hibernate.usertype.UserType#sqlTypes()
      */
+    @Override
     public int[] sqlTypes() {
         return SQL_TYPES;
     }
@@ -61,10 +63,11 @@ public abstract class PersistentStringEnumUserType<E> implements UserType {
      * java.lang.Object)
      */
     @Override
-    public Object nullSafeGet(ResultSet resultSet, String[] names, SessionImplementor session,
-            Object owner) throws HibernateException, SQLException {
+    public Object nullSafeGet(final ResultSet resultSet, final String[] names,
+            final SessionImplementor session, final Object owner) throws HibernateException,
+            SQLException {
 
-        String name = resultSet.getString(names[0]);
+        final String name = resultSet.getString(names[0]);
 
         if (resultSet.wasNull()) {
             /*
@@ -74,7 +77,7 @@ public abstract class PersistentStringEnumUserType<E> implements UserType {
             return null;
         }
 
-        Object returnedObject = fromString(name);
+        final Object returnedObject = fromString(name);
 
         if (returnedObject == null) {
             throw new IllegalStateException("Unable to find value (" + name + ") for Enum ("
@@ -93,8 +96,9 @@ public abstract class PersistentStringEnumUserType<E> implements UserType {
      */
     @SuppressWarnings("rawtypes")
     @Override
-    public void nullSafeSet(PreparedStatement preparedStatement, Object value, int index,
-            SessionImplementor session) throws HibernateException, SQLException {
+    public void nullSafeSet(final PreparedStatement preparedStatement, final Object value,
+            final int index, final SessionImplementor session) throws HibernateException,
+            SQLException {
 
         if (null == value) {
             preparedStatement.setNull(index, Types.VARCHAR);
@@ -110,7 +114,7 @@ public abstract class PersistentStringEnumUserType<E> implements UserType {
      * @see org.hibernate.usertype.UserType#deepCopy(java.lang.Object)
      */
     @Override
-    public Object deepCopy(Object value) throws HibernateException {
+    public Object deepCopy(final Object value) throws HibernateException {
         return value;
     }
 
@@ -131,7 +135,7 @@ public abstract class PersistentStringEnumUserType<E> implements UserType {
      * java.lang.Object)
      */
     @Override
-    public Object assemble(Serializable cached, Object owner) throws HibernateException {
+    public Object assemble(final Serializable cached, final Object owner) throws HibernateException {
         return cached;
     }
 
@@ -141,7 +145,7 @@ public abstract class PersistentStringEnumUserType<E> implements UserType {
      * @see org.hibernate.usertype.UserType#disassemble(java.lang.Object)
      */
     @Override
-    public Serializable disassemble(Object value) throws HibernateException {
+    public Serializable disassemble(final Object value) throws HibernateException {
         return (Serializable) value;
     }
 
@@ -152,7 +156,8 @@ public abstract class PersistentStringEnumUserType<E> implements UserType {
      * java.lang.Object, java.lang.Object)
      */
     @Override
-    public Object replace(Object original, Object target, Object owner) throws HibernateException {
+    public Object replace(final Object original, final Object target, final Object owner)
+            throws HibernateException {
         return original;
     }
 
@@ -161,7 +166,8 @@ public abstract class PersistentStringEnumUserType<E> implements UserType {
      *
      * @see org.hibernate.usertype.UserType#hashCode(java.lang.Object)
      */
-    public int hashCode(Object x) throws HibernateException {
+    @Override
+    public int hashCode(final Object x) throws HibernateException {
         return x.hashCode();
     }
 
@@ -172,7 +178,7 @@ public abstract class PersistentStringEnumUserType<E> implements UserType {
      * java.lang.Object)
      */
     @Override
-    public boolean equals(Object x, Object y) throws HibernateException {
+    public boolean equals(final Object x, final Object y) throws HibernateException {
         if (x == y)
             return true;
         if (null == x || null == y)

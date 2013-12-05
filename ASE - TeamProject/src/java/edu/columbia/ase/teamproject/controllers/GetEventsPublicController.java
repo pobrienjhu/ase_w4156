@@ -55,13 +55,13 @@ public class GetEventsPublicController {
      */
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
-    public String doGet(HttpSession session, HttpServletRequest request,
-            HttpServletResponse response) {
+    public String doGet(final HttpSession session, final HttpServletRequest request,
+            final HttpServletResponse response) {
 
         try {
-            Gson gson = gsonProvider.provideGson();
+            final Gson gson = gsonProvider.provideGson();
 
-            String eventType = StringUtils.defaultIfEmpty(request.getParameter("eventType"),
+            final String eventType = StringUtils.defaultIfEmpty(request.getParameter("eventType"),
                     "active");
 
             response.setContentType("application/json");
@@ -78,7 +78,7 @@ public class GetEventsPublicController {
             if (events != null) {
                 return gson.toJson(events);
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             logger.error("Unable to find public event list. Root Cause (" + e.getMessage() + ")");
         }
 

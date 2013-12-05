@@ -21,7 +21,7 @@ public class NavigationMenuSection implements Map<String, Object> {
     private final String sectionName;
 
     /** The entries. */
-    private List<Object> entries;
+    private final List<Object> entries;
 
     /** The Constant NAVIGATION_SECTION_KEYS. */
     public static final Set<String> NAVIGATION_SECTION_KEYS = ImmutableSet.<String> of(
@@ -33,7 +33,7 @@ public class NavigationMenuSection implements Map<String, Object> {
      * @param sectionName
      *            the name of the section
      */
-    public NavigationMenuSection(String sectionName) {
+    public NavigationMenuSection(final String sectionName) {
         Preconditions.checkArgument(!sectionName.isEmpty());
         this.sectionName = sectionName;
         this.entries = Lists.newArrayList();
@@ -54,7 +54,7 @@ public class NavigationMenuSection implements Map<String, Object> {
      * @param entry
      *            the entry to add to this section
      */
-    public void addEntry(NavigationMenuEntry entry) {
+    public void addEntry(final NavigationMenuEntry entry) {
         Preconditions.checkNotNull(entry);
         this.entries.add(entry);
     }
@@ -75,7 +75,7 @@ public class NavigationMenuSection implements Map<String, Object> {
      * @see java.util.Map#containsKey(java.lang.Object)
      */
     @Override
-    public boolean containsKey(Object key) {
+    public boolean containsKey(final Object key) {
         throw new UnsupportedOperationException();
     }
 
@@ -85,7 +85,7 @@ public class NavigationMenuSection implements Map<String, Object> {
      * @see java.util.Map#containsValue(java.lang.Object)
      */
     @Override
-    public boolean containsValue(Object value) {
+    public boolean containsValue(final Object value) {
         throw new UnsupportedOperationException();
     }
 
@@ -95,7 +95,7 @@ public class NavigationMenuSection implements Map<String, Object> {
      * @see java.util.Map#put(java.lang.Object, java.lang.Object)
      */
     @Override
-    public Object put(String key, Object value) {
+    public Object put(final String key, final Object value) {
         throw new UnsupportedOperationException();
     }
 
@@ -105,7 +105,7 @@ public class NavigationMenuSection implements Map<String, Object> {
      * @see java.util.Map#putAll(java.util.Map)
      */
     @Override
-    public void putAll(Map<? extends String, ? extends Object> m) {
+    public void putAll(final Map<? extends String, ? extends Object> m) {
         throw new UnsupportedOperationException();
     }
 
@@ -125,7 +125,7 @@ public class NavigationMenuSection implements Map<String, Object> {
      * @see java.util.Map#remove(java.lang.Object)
      */
     @Override
-    public Map<String, String> remove(Object key) {
+    public Map<String, String> remove(final Object key) {
         throw new UnsupportedOperationException();
     }
 
@@ -135,12 +135,12 @@ public class NavigationMenuSection implements Map<String, Object> {
      * @see java.util.Map#get(java.lang.Object)
      */
     @Override
-    public Object get(Object keyObject) {
+    public Object get(final Object keyObject) {
         if (!NAVIGATION_SECTION_KEYS.contains(keyObject)) {
             return null;
         }
 
-        String key = (String) keyObject;
+        final String key = (String) keyObject;
         if (key.equals("sectionName")) {
             return sectionName;
         } else if (key.equals("entries")) {
@@ -188,9 +188,10 @@ public class NavigationMenuSection implements Map<String, Object> {
     @SuppressWarnings("unchecked")
     @Override
     public Set<java.util.Map.Entry<String, Object>> entrySet() {
-        Map.Entry<String, Object> sectionEntry = Maps.immutableEntry("sectionName",
+        final Map.Entry<String, Object> sectionEntry = Maps.immutableEntry("sectionName",
                 (Object) sectionName);
-        Map.Entry<String, Object> linkListEntry = Maps.immutableEntry("entries", (Object) entries);
+        final Map.Entry<String, Object> linkListEntry = Maps.immutableEntry("entries",
+                (Object) entries);
         return Sets.newHashSet(sectionEntry, linkListEntry);
     }
 }

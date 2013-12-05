@@ -50,14 +50,14 @@ public class VoteService {
      */
     @VisibleForTesting
     @Transactional
-    void verifyVotes(Event event, List<Long> voteList) throws Exception {
+    void verifyVotes(final Event event, final List<Long> voteList) throws Exception {
         if (event.getVoteCategories().size() != voteList.size() || event.getEndTime().isBeforeNow())
             throw new Exception("Invalid voting!");
         // making sure user votes in each category
         boolean found = false;
-        for (VoteCategory vc : event.getVoteCategories()) {
+        for (final VoteCategory vc : event.getVoteCategories()) {
             found = false;
-            for (VoteOption vo : vc.getVoteOptions()) {
+            for (final VoteOption vo : vc.getVoteOptions()) {
                 if (voteList.contains(vo.getId())) {
                     found = true;
                 }
@@ -82,7 +82,8 @@ public class VoteService {
      *             the exception
      */
     @Transactional
-    public void addVotes(Event event, List<Long> voteList, UserAccount user) throws Exception {
+    public void addVotes(final Event event, final List<Long> voteList, final UserAccount user)
+            throws Exception {
         verifyVotes(event, voteList);
 
         for (int i = 0; i < voteList.size(); i++) {
@@ -102,15 +103,15 @@ public class VoteService {
      */
     @VisibleForTesting
     @Transactional
-    void addVote(long id, UserAccount user) throws Exception {
+    void addVote(final long id, final UserAccount user) throws Exception {
 
-        VoteOption voteOption = voteOptionDao.find(id);
+        final VoteOption voteOption = voteOptionDao.find(id);
 
         if (voteOption == null) {
             throw new Exception("Invalid vote option id (" + id + ")");
         }
 
-        for (Vote v2 : user.getVotes()) {
+        for (final Vote v2 : user.getVotes()) {
 
             if (v2.getVoteOption().getVoteCategory().getId() == voteOption.getVoteCategory()
                     .getId()) {
@@ -144,19 +145,20 @@ public class VoteService {
      *            the event
      * @return the results
      */
-    public String getResults(Event event) {
+    public String getResults(final Event event) {
 
-        List<NavigationMenuSection> nms = new ArrayList<NavigationMenuSection>();
-        for (VoteCategory v : event.getVoteCategories()) {
+        final List<NavigationMenuSection> nms = new ArrayList<NavigationMenuSection>();
+        for (final VoteCategory v : event.getVoteCategories()) {
 
-            NavigationMenuSection voteCatSection = new NavigationMenuSection(v.getDescription());
-            for (VoteOption vo : v.getVoteOptions()) {
+            final NavigationMenuSection voteCatSection = new NavigationMenuSection(
+                    v.getDescription());
+            for (final VoteOption vo : v.getVoteOptions()) {
                 voteCatSection.addEntry(new NavigationMenuEntry(v.getCategoryName(), Integer
                         .toString(vo.getVotes().size()), vo.getOptionName()));
             }
             nms.add(voteCatSection);
         }
-        Gson gson = gsonProvider.provideGson();
+        final Gson gson = gsonProvider.provideGson();
         return (gson.toJson(nms));
 
     }

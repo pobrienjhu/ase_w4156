@@ -31,7 +31,7 @@ public class AuthKey {
      * @param mac
      *            the mac
      */
-    private AuthKey(Long id, byte[] mac) {
+    private AuthKey(final Long id, final byte[] mac) {
         this.id = Preconditions.checkNotNull(id);
         this.providedMac = mac;
     }
@@ -45,9 +45,9 @@ public class AuthKey {
      * @param apiKey
      *            the api key
      */
-    public AuthKey(String apiKey) {
-        String decoded = new String(BaseEncoding.base64().decode(apiKey));
-        String[] parts = decoded.split(":", 2);
+    public AuthKey(final String apiKey) {
+        final String decoded = new String(BaseEncoding.base64().decode(apiKey));
+        final String[] parts = decoded.split(":", 2);
         if (parts.length != 2) {
             throw new IllegalArgumentException();
         }
@@ -64,7 +64,7 @@ public class AuthKey {
      *            the secret
      * @return the auth key
      */
-    public static AuthKey authKeyForIdAndSecret(Long id, String secret) {
+    public static AuthKey authKeyForIdAndSecret(final Long id, final String secret) {
         Preconditions.checkNotNull(id);
         Preconditions.checkArgument(!secret.isEmpty());
 
@@ -77,7 +77,7 @@ public class AuthKey {
      * @return the api key
      */
     public String getApiKey() {
-        StringBuilder sb = new StringBuilder(128);
+        final StringBuilder sb = new StringBuilder(128);
         sb.append(id.toString());
         sb.append(':');
         sb.append(BaseEncoding.base64().encode(providedMac));
@@ -93,20 +93,20 @@ public class AuthKey {
      *            the secret
      * @return the byte[]
      */
-    private static byte[] computeMac(Long id, String secret) {
+    private static byte[] computeMac(final Long id, final String secret) {
         Preconditions.checkNotNull(id);
         Preconditions.checkArgument(!secret.isEmpty());
-        ByteBuffer buffer = ByteBuffer.allocate(8);
+        final ByteBuffer buffer = ByteBuffer.allocate(8);
         buffer.putLong(id);
         try {
-            Mac mac = Mac.getInstance("HmacSHA256");
-            SecretKeySpec secretKey = new SecretKeySpec(secret.getBytes(), "HmacSHA256");
+            final Mac mac = Mac.getInstance("HmacSHA256");
+            final SecretKeySpec secretKey = new SecretKeySpec(secret.getBytes(), "HmacSHA256");
             mac.init(secretKey);
             mac.update(buffer.array());
             return mac.doFinal();
-        } catch (NoSuchAlgorithmException e) {
+        } catch (final NoSuchAlgorithmException e) {
             Throwables.propagate(e);
-        } catch (InvalidKeyException e) {
+        } catch (final InvalidKeyException e) {
             Throwables.propagate(e);
         }
         return null;
@@ -128,8 +128,8 @@ public class AuthKey {
      *            the secret
      * @return true, if is auth key valid
      */
-    public boolean isAuthKeyValid(String secret) {
-        byte[] expectedMac = computeMac(id, secret);
+    public boolean isAuthKeyValid(final String secret) {
+        final byte[] expectedMac = computeMac(id, secret);
         if (expectedMac.length != providedMac.length) {
             return false;
         }

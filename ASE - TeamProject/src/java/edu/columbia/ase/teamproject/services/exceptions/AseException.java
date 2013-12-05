@@ -13,7 +13,7 @@ public class AseException extends Exception {
     private static final long serialVersionUID = -3014083307092488968L;
 
     /** The error messages. */
-    private Collection<String> errorMessages;
+    private final Collection<String> errorMessages;
 
     /**
      * Instantiates a new ase exception.
@@ -29,7 +29,7 @@ public class AseException extends Exception {
      * @param message
      *            the message
      */
-    public AseException(String message) {
+    public AseException(final String message) {
         this();
         addMessage(message);
     }
@@ -49,7 +49,7 @@ public class AseException extends Exception {
      * @param message
      *            the message
      */
-    public void addMessage(String message) {
+    public void addMessage(final String message) {
         errorMessages.add(message);
     }
 
@@ -59,7 +59,7 @@ public class AseException extends Exception {
      * @param messages
      *            the messages
      */
-    public void addAllMessages(Collection<String> messages) {
+    public void addAllMessages(final Collection<String> messages) {
         errorMessages.addAll(messages);
     }
 

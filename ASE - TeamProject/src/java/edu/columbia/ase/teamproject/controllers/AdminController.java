@@ -47,10 +47,10 @@ public class AdminController {
      * @return the model and view
      */
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView doGet(HttpSession session) {
+    public ModelAndView doGet(final HttpSession session) {
         logger.info("GET /admin/index.do");
 
-        Map<String, Object> model = ControllerHelper.createBaseModel(session);
+        final Map<String, Object> model = ControllerHelper.createBaseModel(session);
 
         model.put("title", "Administration");
         model.put("admin", true);
@@ -70,16 +70,16 @@ public class AdminController {
      * @return the model and view
      */
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView doPost(HttpSession session, @RequestParam String action,
-            @RequestParam String email) {
+    public ModelAndView doPost(final HttpSession session, @RequestParam final String action,
+            @RequestParam final String email) {
         Preconditions.checkArgument(VALID_ACTIONS.contains(action));
         Preconditions.checkArgument(!email.isEmpty());
 
-        Map<String, Object> model = ControllerHelper.createBaseModel(session);
+        final Map<String, Object> model = ControllerHelper.createBaseModel(session);
         model.put("title", "Administration");
         model.put("admin", true);
 
-        UserAccount user = userDao.findAccountByEmail(email);
+        final UserAccount user = userDao.findAccountByEmail(email);
         if (user != null) {
             if (action.equals("grant")) {
                 if (user.getPermissions().contains(Permission.ADMIN)) {

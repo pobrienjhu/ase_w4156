@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 public class WSExample {
 
     /** The log. */
-    private Logger log = LoggerFactory.getLogger(WSExample.class);
+    private final Logger log = LoggerFactory.getLogger(WSExample.class);
 
     /**
      * Hello world.
@@ -29,7 +29,7 @@ public class WSExample {
      */
     @WebMethod(operationName = "helloWorld")
     public @WebResult(name = "returnString")
-    String helloWorld(@WebParam(name = "inputString") String inputString) {
+    String helloWorld(@WebParam(name = "inputString") final String inputString) {
         log.info("input is |" + inputString + "|");
         return "Hello World. Your input was |" + inputString + "|";
     }
@@ -43,7 +43,7 @@ public class WSExample {
      */
     @WebMethod(operationName = "helloWorldObject")
     public @WebResult(name = "returnObject")
-    WSExampleObject helloWorldObject(@WebParam(name = "inputString") String inputString) {
+    WSExampleObject helloWorldObject(@WebParam(name = "inputString") final String inputString) {
         log.info("input is |" + inputString + "|");
         return new WSExampleObject("Hello World. Your input was |" + inputString + "|");
     }

@@ -32,7 +32,7 @@ public enum EventType {
 
     static {
         final Map<String, EventType> tempMap = new HashMap<String, EventType>();
-        for (EventType eventType : values()) {
+        for (final EventType eventType : values()) {
             tempMap.put(eventType.getEventType(), eventType);
         }
         stringToEnum = ImmutableMap.copyOf(tempMap);
@@ -44,7 +44,7 @@ public enum EventType {
      * @param eventType
      *            the event type
      */
-    private EventType(String eventType) {
+    private EventType(final String eventType) {
         Preconditions.checkArgument(eventType.length() < MAX_EVENT_TYPE_LENGTH);
         this.eventType = eventType;
     }
@@ -75,7 +75,7 @@ public enum EventType {
      *            the event type
      * @return the event type
      */
-    public static EventType fromString(String eventType) {
+    public static EventType fromString(final String eventType) {
         return stringToEnum.get(eventType);
     }
 

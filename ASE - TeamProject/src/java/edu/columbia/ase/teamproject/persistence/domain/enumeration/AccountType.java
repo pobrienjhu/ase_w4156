@@ -32,7 +32,7 @@ public enum AccountType {
 
     static {
         final Map<String, AccountType> tempMap = new HashMap<String, AccountType>();
-        for (AccountType accountType : values()) {
+        for (final AccountType accountType : values()) {
             tempMap.put(accountType.getAccountType(), accountType);
         }
         stringToEnum = ImmutableMap.copyOf(tempMap);
@@ -44,7 +44,7 @@ public enum AccountType {
      * @param accountType
      *            the account type
      */
-    private AccountType(String accountType) {
+    private AccountType(final String accountType) {
         Preconditions.checkArgument(accountType.length() < MAX_ACCOUNT_TYPE_LENGTH);
         this.accountType = accountType;
     }
@@ -75,7 +75,7 @@ public enum AccountType {
      *            the account type
      * @return the account type
      */
-    public static AccountType fromString(String accountType) {
+    public static AccountType fromString(final String accountType) {
         return stringToEnum.get(accountType);
     }
 

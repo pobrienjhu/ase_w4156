@@ -26,7 +26,7 @@ public class EventDaoImpl extends HibernateDao<Event, Long> implements EventDao 
      */
     @SuppressWarnings("unchecked")
     @Override
-    public Collection<Event> getAllActivePublicEvents(DateTime currentTime) {
+    public Collection<Event> getAllActivePublicEvents(final DateTime currentTime) {
 
         return currentSession()
                 .createQuery(
@@ -44,7 +44,8 @@ public class EventDaoImpl extends HibernateDao<Event, Long> implements EventDao 
      */
     @SuppressWarnings("unchecked")
     @Override
-    public Collection<Event> getAllActivePrivateEventsForUserId(DateTime currentTime, Long userId) {
+    public Collection<Event> getAllActivePrivateEventsForUserId(final DateTime currentTime,
+            final Long userId) {
 
         return currentSession()
                 .createQuery(
@@ -64,7 +65,8 @@ public class EventDaoImpl extends HibernateDao<Event, Long> implements EventDao 
      */
     @SuppressWarnings("unchecked")
     @Override
-    public Collection<Event> getAllActiveAdminEventsForUserId(DateTime currentTime, Long userId) {
+    public Collection<Event> getAllActiveAdminEventsForUserId(final DateTime currentTime,
+            final Long userId) {
 
         return currentSession()
                 .createQuery(
@@ -83,7 +85,7 @@ public class EventDaoImpl extends HibernateDao<Event, Long> implements EventDao 
      */
     @SuppressWarnings("unchecked")
     @Override
-    public Collection<Event> getAllCompletedPublicEvents(DateTime currentTime) {
+    public Collection<Event> getAllCompletedPublicEvents(final DateTime currentTime) {
         return currentSession()
                 .createQuery("From Event e " + "Where e.eventType = :et " + "and :ct > e.endTime  ")
                 .setParameter("et", EventType.PUBLIC).setParameter("ct", currentTime).list();
@@ -98,7 +100,8 @@ public class EventDaoImpl extends HibernateDao<Event, Long> implements EventDao 
      */
     @SuppressWarnings("unchecked")
     @Override
-    public Collection<Event> getAllCompletedPrivateEventsForUserId(DateTime currentTime, Long userId) {
+    public Collection<Event> getAllCompletedPrivateEventsForUserId(final DateTime currentTime,
+            final Long userId) {
         return currentSession()
                 .createQuery(
                         "Select e " + "From Event e " + "inner join e.eventUsers eventUsers "
@@ -116,7 +119,8 @@ public class EventDaoImpl extends HibernateDao<Event, Long> implements EventDao 
      */
     @SuppressWarnings("unchecked")
     @Override
-    public Collection<Event> getAllCompletedAdminEventsForUserId(DateTime currentTime, Long userId) {
+    public Collection<Event> getAllCompletedAdminEventsForUserId(final DateTime currentTime,
+            final Long userId) {
         return currentSession()
                 .createQuery(
                         "Select e " + "From Event e " + "inner join e.adminUsers adminUsers "
@@ -132,7 +136,8 @@ public class EventDaoImpl extends HibernateDao<Event, Long> implements EventDao 
      */
     @SuppressWarnings("unchecked")
     @Override
-    public Collection<Event> getAllFutureAdminEventsForUserId(DateTime currentTime, Long userId) {
+    public Collection<Event> getAllFutureAdminEventsForUserId(final DateTime currentTime,
+            final Long userId) {
         return currentSession()
                 .createQuery(
                         "Select e " + "From Event e " + "inner join e.adminUsers adminUsers "

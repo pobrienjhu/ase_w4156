@@ -32,10 +32,10 @@ public class HomePageController {
      * @return the model and view
      */
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView doGet(HttpSession session) {
+    public ModelAndView doGet(final HttpSession session) {
         logger.info("GET /index.do");
 
-        Map<String, Object> model = ControllerHelper.createBaseModel(session);
+        final Map<String, Object> model = ControllerHelper.createBaseModel(session);
         model.put("title", "Home");
 
         return new ModelAndView("soy:edu.columbia.ase.index", model);

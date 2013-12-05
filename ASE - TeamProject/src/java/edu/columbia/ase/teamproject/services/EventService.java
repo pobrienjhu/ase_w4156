@@ -78,20 +78,20 @@ public class EventService {
      *            the e
      */
     @VisibleForTesting
-    void validateEvent(Event e) {
+    void validateEvent(final Event e) {
         Preconditions.checkNotNull(e);
         // TODO(pames): when an 'updateEvent' or equivalent is written, be sure
         // that the 'id' field is set appropriately or else eventId will be
         // null, and so all the nested checks will fail.
-        Long eventId = e.getId();
+        final Long eventId = e.getId();
 
-        for (VoteCategory voteCategory : e.getVoteCategories()) {
-            Long categoryId = voteCategory.getId();
+        for (final VoteCategory voteCategory : e.getVoteCategories()) {
+            final Long categoryId = voteCategory.getId();
 
             // If the VoteCategory has an ID, it must be persisted, which in
             // turn implies that the associated Event must be persisted.
             if (categoryId != null) {
-                VoteCategory dbCategory = voteCategoryDao.find(categoryId);
+                final VoteCategory dbCategory = voteCategoryDao.find(categoryId);
                 if (!dbCategory.getEvent().getId().equals(eventId)) {
                     throw new IllegalStateException("existing voteCategory / event mismatch");
                 }
@@ -101,10 +101,10 @@ public class EventService {
                 }
             }
 
-            for (VoteOption voteOption : voteCategory.getVoteOptions()) {
-                Long optionId = voteOption.getId();
+            for (final VoteOption voteOption : voteCategory.getVoteOptions()) {
+                final Long optionId = voteOption.getId();
                 if (optionId != null) {
-                    VoteOption dbOption = voteOptionDao.find(optionId);
+                    final VoteOption dbOption = voteOptionDao.find(optionId);
                     if (!dbOption.getVoteCategory().getId().equals(voteCategory.getId())) {
                         throw new IllegalStateException("existing option / category mismatch");
                     }
@@ -125,19 +125,19 @@ public class EventService {
      *            the accounts
      * @return the list
      */
-    private List<UserAccount> trustedUserDataFromUserList(List<UserAccount> accounts) {
+    private List<UserAccount> trustedUserDataFromUserList(final List<UserAccount> accounts) {
         Preconditions.checkNotNull(accounts);
-        List<Long> userIds = Lists.newArrayList();
-        List<UserAccount> userData = Lists.newArrayList();
+        final List<Long> userIds = Lists.newArrayList();
+        final List<UserAccount> userData = Lists.newArrayList();
 
-        for (UserAccount user : accounts) {
+        for (final UserAccount user : accounts) {
             if (user.getId() != null) {
                 userIds.add(user.getId());
             }
         }
 
-        for (Long id : userIds) {
-            UserAccount user = userDao.find(id);
+        for (final Long id : userIds) {
+            final UserAccount user = userDao.find(id);
             if (user != null) {
                 userData.add(user);
             } else {
@@ -162,11 +162,11 @@ public class EventService {
      * @param e
      *            the e
      */
-    private void replaceImmutableClientFieldsWithTrustedData(Event e) {
+    private void replaceImmutableClientFieldsWithTrustedData(final Event e) {
         Preconditions.checkNotNull(e);
 
-        List<UserAccount> trustedUserData = trustedUserDataFromUserList(e.getEventUsers());
-        List<UserAccount> trustedAdminData = trustedUserDataFromUserList(e.getAdminUsers());
+        final List<UserAccount> trustedUserData = trustedUserDataFromUserList(e.getEventUsers());
+        final List<UserAccount> trustedAdminData = trustedUserDataFromUserList(e.getAdminUsers());
         e.getEventUsers().clear();
         e.addAllEventUser(trustedUserData);
         e.getAdminUsers().clear();
@@ -185,14 +185,14 @@ public class EventService {
      * @return true, if successful
      */
     @VisibleForTesting
-    boolean userCanUpdateEvent(UserAccount user, Long eventId) {
+    boolean userCanUpdateEvent(final UserAccount user, final Long eventId) {
         Preconditions.checkNotNull(user);
         // No event ID provided means auto-create a new one.
         if (eventId == null) {
             return true;
         }
 
-        Event event = eventDao.find(eventId);
+        final Event event = eventDao.find(eventId);
         return userCanUpdateEvent(user, event);
     }
 
@@ -205,7 +205,7 @@ public class EventService {
      *            the event
      * @return true, if successful
      */
-    private boolean userCanUpdateEvent(UserAccount user, Event event) {
+    private boolean userCanUpdateEvent(final UserAccount user, final Event event) {
         if (event == null) {
             // XXX: is this OK? It allows someone to specify an arbitrary
             // event id.
@@ -228,10 +228,10 @@ public class EventService {
      *            the current time
      * @return the all active public events
      */
-    public Collection<Event> getAllActivePublicEvents(DateTime currentTime) {
+    public Collection<Event> getAllActivePublicEvents(final DateTime currentTime) {
         try {
             return eventDao.getAllActivePublicEvents(currentTime);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             logger.error("Unable to retrieve active public events. Root Cause ("
                     + e.getLocalizedMessage() + ")");
         }
@@ -249,10 +249,10 @@ public class EventService {
      *            the current time
      * @return the all completed public events
      */
-    public Collection<Event> getAllCompletedPublicEvents(DateTime currentTime) {
+    public Collection<Event> getAllCompletedPublicEvents(final DateTime currentTime) {
         try {
             return eventDao.getAllCompletedPublicEvents(currentTime);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             logger.error("Unable to retrieve completed public events. Root Cause ("
                     + e.getLocalizedMessage() + ")");
         }
@@ -272,10 +272,11 @@ public class EventService {
      *            the user id
      * @return the all active private events for user id
      */
-    public Collection<Event> getAllActivePrivateEventsForUserId(DateTime currentTime, Long userId) {
+    public Collection<Event> getAllActivePrivateEventsForUserId(final DateTime currentTime,
+            final Long userId) {
         try {
             return eventDao.getAllActivePrivateEventsForUserId(currentTime, userId);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             logger.error("Unable to retrieve private events for userId (" + userId
                     + "). Root Cause (" + e.getLocalizedMessage() + ")");
         }
@@ -295,10 +296,11 @@ public class EventService {
      *            the user id
      * @return the all active admin events for user id
      */
-    public Collection<Event> getAllActiveAdminEventsForUserId(DateTime currentTime, Long userId) {
+    public Collection<Event> getAllActiveAdminEventsForUserId(final DateTime currentTime,
+            final Long userId) {
         try {
             return eventDao.getAllActiveAdminEventsForUserId(currentTime, userId);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             logger.error("Unable to retrieve active admin events for userId (" + userId
                     + "). Root Cause (" + e.getLocalizedMessage() + ")");
         }
@@ -318,10 +320,11 @@ public class EventService {
      *            the user id
      * @return the all completed admin events for user id
      */
-    public Collection<Event> getAllCompletedAdminEventsForUserId(DateTime currentTime, Long userId) {
+    public Collection<Event> getAllCompletedAdminEventsForUserId(final DateTime currentTime,
+            final Long userId) {
         try {
             return eventDao.getAllCompletedAdminEventsForUserId(currentTime, userId);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             logger.error("Unable to retrieve completed admin events for userId (" + userId
                     + "). Root Cause (" + e.getLocalizedMessage() + ")");
         }
@@ -341,10 +344,11 @@ public class EventService {
      *            the user id
      * @return the all completed private events for user id
      */
-    public Collection<Event> getAllCompletedPrivateEventsForUserId(DateTime currentTime, Long userId) {
+    public Collection<Event> getAllCompletedPrivateEventsForUserId(final DateTime currentTime,
+            final Long userId) {
         try {
             return eventDao.getAllCompletedPrivateEventsForUserId(currentTime, userId);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             logger.error("Unable to retrieve completed private eventsfor userId (" + userId
                     + "). Root Cause (" + e.getLocalizedMessage() + ")");
         }
@@ -364,10 +368,11 @@ public class EventService {
      *            the user id
      * @return the all future admin events for user id
      */
-    public Collection<Event> getAllFutureAdminEventsForUserId(DateTime currentTime, Long userId) {
+    public Collection<Event> getAllFutureAdminEventsForUserId(final DateTime currentTime,
+            final Long userId) {
         try {
             return eventDao.getAllFutureAdminEventsForUserId(currentTime, userId);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             logger.error("Unable to retrieve future admin events for userId (" + userId
                     + "). Root Cause (" + e.getLocalizedMessage() + ")");
         }
@@ -397,26 +402,27 @@ public class EventService {
      * @throws ValidationException
      *             the validation exception
      */
-    public Event createEvent(UserAccount requestor, String name, String description,
-            EventType eventType, DateTime start, DateTime end, List<VoteCategory> voteCategories,
-            List<String> userEmails) throws ValidationException {
+    public Event createEvent(final UserAccount requestor, final String name,
+            final String description, final EventType eventType, final DateTime start,
+            final DateTime end, final List<VoteCategory> voteCategories,
+            final List<String> userEmails) throws ValidationException {
         Preconditions.checkNotNull(requestor);
         logger.info("Creating event " + name);
 
-        Event event = new Event(null, requestor, name, description, eventType, start, end);
-        for (VoteCategory v : voteCategories) {
+        final Event event = new Event(null, requestor, name, description, eventType, start, end);
+        for (final VoteCategory v : voteCategories) {
             v.setEvent(event);
         }
         event.setVoteCategories(voteCategories);
 
         if (eventType == EventType.PRIVATE) {
             // remove duplicates
-            HashSet<String> hs = new HashSet<String>();
+            final HashSet<String> hs = new HashSet<String>();
             hs.addAll(userEmails);
             hs.remove(requestor.getEmail());
 
-            for (String email : hs) {
-                UserAccount ua = userDao.findAccountByEmail(email);
+            for (final String email : hs) {
+                final UserAccount ua = userDao.findAccountByEmail(email);
                 if (ua != null) {
                     event.addEventUser(ua);
                 }
@@ -440,8 +446,8 @@ public class EventService {
      *            the victim
      */
     @Transactional
-    public void addUserToEvent(UserAccount requestor, Long id, UserAccount victim) {
-        Event event = eventDao.find(id);
+    public void addUserToEvent(final UserAccount requestor, final Long id, final UserAccount victim) {
+        final Event event = eventDao.find(id);
 
         if (event == null || victim == null) {
             logger.info("Attempt to operate on non-existent event " + id);
@@ -475,8 +481,9 @@ public class EventService {
      *            the victim
      */
     @Transactional
-    public void removeUserFromEvent(UserAccount requestor, Long id, UserAccount victim) {
-        Event event = eventDao.find(id);
+    public void removeUserFromEvent(final UserAccount requestor, final Long id,
+            final UserAccount victim) {
+        final Event event = eventDao.find(id);
         if (event == null || victim == null) {
             logger.info("Attempt to operate on non-existent event " + id);
             return;
@@ -491,7 +498,7 @@ public class EventService {
             return;
         }
 
-        int idx = event.getEventUsers().indexOf(victim);
+        final int idx = event.getEventUsers().indexOf(victim);
         if (idx != -1) {
             event.getEventUsers().remove(victim);
         }
@@ -512,14 +519,14 @@ public class EventService {
      *             the validation exception
      */
     @Transactional
-    public Event updateEvent(UserAccount requestor, Long id, Event newData)
+    public Event updateEvent(final UserAccount requestor, final Long id, final Event newData)
             throws ValidationException {
         Preconditions.checkNotNull(requestor);
         Preconditions.checkNotNull(id);
         Preconditions.checkNotNull(newData);
 
         logger.info("Updating event " + id);
-        Event existing = eventDao.find(id);
+        final Event existing = eventDao.find(id);
         if (!userCanUpdateEvent(requestor, existing)) {
             logger.info("user " + requestor.getId() + " cannot update event " + id);
             // XXX: throw exception?
@@ -546,7 +553,7 @@ public class EventService {
         existing.addAllEventUser(newData.getEventUsers());
 
         existing.getVoteCategories().clear();
-        for (VoteCategory category : newData.getVoteCategories()) {
+        for (final VoteCategory category : newData.getVoteCategories()) {
             existing.addVoteCategory(category);
         }
         return eventDao.add(existing);
@@ -561,11 +568,11 @@ public class EventService {
      *            the id
      * @return the event
      */
-    public Event lookupEvent(UserAccount requestor, Long id) {
+    public Event lookupEvent(final UserAccount requestor, final Long id) {
         Preconditions.checkNotNull(requestor);
         Preconditions.checkNotNull(id);
 
-        Event event = eventDao.find(id);
+        final Event event = eventDao.find(id);
         if (event == null) {
             return null;
         }

@@ -3,6 +3,7 @@ package edu.columbia.ase.teamproject.persistence.dao.impl;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -38,11 +39,11 @@ public class UserAccountDaoImpl extends HibernateDao<UserAccount, Long> implemen
      * edu.columbia.ase.teamproject.persistence.domain.enumeration.AccountType)
      */
     @Override
-    public UserAccount findAccountByNameAndType(String username, AccountType type) {
+    public UserAccount findAccountByNameAndType(final String username, final AccountType type) {
         Preconditions.checkNotNull(username);
         Preconditions.checkNotNull(type);
 
-        Criteria criteria = currentSession().createCriteria(daoType)
+        final Criteria criteria = currentSession().createCriteria(daoType)
                 .add(Restrictions.eq("username", username))
                 .add(Restrictions.eq("accountType", type));
 
@@ -57,10 +58,10 @@ public class UserAccountDaoImpl extends HibernateDao<UserAccount, Long> implemen
      * (org.springframework.security.core.userdetails.UserDetails)
      */
     @Override
-    public UserAccount findAccountByUserDetails(UserDetails userDetails) {
+    public UserAccount findAccountByUserDetails(final UserDetails userDetails) {
         Preconditions.checkNotNull(userDetails);
         AccountType type = null;
-        for (GrantedAuthority authority : userDetails.getAuthorities()) {
+        for (final GrantedAuthority authority : userDetails.getAuthorities()) {
             if (Permission.OPENID.toString().equals(authority.getAuthority())) {
                 type = AccountType.OPENID;
                 break;
@@ -79,17 +80,17 @@ public class UserAccountDaoImpl extends HibernateDao<UserAccount, Long> implemen
      * findAccountByEmail(java.lang.String)
      */
     @Override
-    public UserAccount findAccountByEmail(String email) {
+    public UserAccount findAccountByEmail(final String email) {
         try {
             Preconditions.checkArgument(!email.isEmpty());
-        } catch (Exception e) {
+        } catch (final Exception e) {
             logger.warn("findAccountByEmail exception", e);
             return null;
         }
 
-        Criteria criteria = currentSession().createCriteria(daoType)
+        final Criteria criteria = currentSession().createCriteria(daoType)
                 .add(Restrictions.eq("email", email))
-                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+                .setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
 
         return (UserAccount) criteria.uniqueResult();
     }
@@ -103,10 +104,10 @@ public class UserAccountDaoImpl extends HibernateDao<UserAccount, Long> implemen
      */
     @Override
     public long getNumberOfUsers() {
-        Criteria criteria = currentSession().createCriteria(daoType).setProjection(
+        final Criteria criteria = currentSession().createCriteria(daoType).setProjection(
                 Projections.rowCount());
 
-        Number count = (Number) criteria.uniqueResult();
+        final Number count = (Number) criteria.uniqueResult();
         return count.longValue();
     }
 
@@ -120,7 +121,7 @@ public class UserAccountDaoImpl extends HibernateDao<UserAccount, Long> implemen
     @Override
     public List<UserAccount> list() {
         return currentSession().createCriteria(UserAccount.class)
-                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+                .setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
     }
 
 }

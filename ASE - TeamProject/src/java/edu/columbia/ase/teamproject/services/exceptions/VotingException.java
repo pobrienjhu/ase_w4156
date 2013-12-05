@@ -15,7 +15,7 @@ public class VotingException extends AseException {
      * @param message
      *            the message
      */
-    public VotingException(String message) {
+    public VotingException(final String message) {
         super(message);
     }
 

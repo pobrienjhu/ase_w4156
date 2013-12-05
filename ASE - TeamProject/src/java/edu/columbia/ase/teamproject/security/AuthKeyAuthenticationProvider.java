@@ -40,17 +40,17 @@ public class AuthKeyAuthenticationProvider implements AuthenticationProvider {
      * authenticate(org.springframework.security.core.Authentication)
      */
     @Override
-    public Authentication authenticate(Authentication authentication)
+    public Authentication authenticate(final Authentication authentication)
             throws AuthenticationException {
-        UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) authentication;
+        final UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) authentication;
 
-        String username = token.getName();
+        final String username = token.getName();
         if (!username.equals("api")) {
             throw new BadCredentialsException("username must be api");
         }
 
-        String credentials = (String) token.getCredentials();
-        AuthKey authKey = new AuthKey(credentials);
+        final String credentials = (String) token.getCredentials();
+        final AuthKey authKey = new AuthKey(credentials);
 
         // TODO(pames): don't hard code this value.
         if (!authKey.isAuthKeyValid("secret")) {
@@ -58,11 +58,11 @@ public class AuthKeyAuthenticationProvider implements AuthenticationProvider {
         }
 
         logger.info("Successful API login for user " + authKey.getId());
-        UserAccount apiUser = userDao.find(authKey.getId());
+        final UserAccount apiUser = userDao.find(authKey.getId());
 
-        Collection<GrantedAuthority> authorities = AuthorityUtils
+        final Collection<GrantedAuthority> authorities = AuthorityUtils
                 .commaSeparatedStringToAuthorityList(Joiner.on(",").join(apiUser.getPermissions()));
-        User user = new User(apiUser.getUsername(), "[PROTECTED]", authorities);
+        final User user = new User(apiUser.getUsername(), "[PROTECTED]", authorities);
 
         return new UsernamePasswordAuthenticationToken(user, null, authorities);
     }
@@ -75,7 +75,7 @@ public class AuthKeyAuthenticationProvider implements AuthenticationProvider {
      * (java.lang.Class)
      */
     @Override
-    public boolean supports(Class<?> authentication) {
+    public boolean supports(final Class<?> authentication) {
         return authentication.equals(UsernamePasswordAuthenticationToken.class);
     }
 

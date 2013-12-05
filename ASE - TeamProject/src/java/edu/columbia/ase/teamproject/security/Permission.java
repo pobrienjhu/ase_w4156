@@ -34,7 +34,7 @@ public enum Permission {
 
     static {
         final Map<String, Permission> tempMap = new HashMap<String, Permission>();
-        for (Permission permission : values()) {
+        for (final Permission permission : values()) {
             tempMap.put(permission.getPermissionName(), permission);
         }
         stringToEnum = ImmutableMap.copyOf(tempMap);
@@ -47,7 +47,7 @@ public enum Permission {
      * @param permissionName
      *            the permission name
      */
-    private Permission(String permissionName) {
+    private Permission(final String permissionName) {
         Preconditions.checkArgument(permissionName.length() != 0);
         Preconditions.checkArgument(!permissionName.contains(","));
         this.permissionName = permissionName;
@@ -79,7 +79,7 @@ public enum Permission {
      *            the permission
      * @return the permission
      */
-    public static Permission fromString(String permission) {
+    public static Permission fromString(final String permission) {
         return stringToEnum.get(permission);
     }
 

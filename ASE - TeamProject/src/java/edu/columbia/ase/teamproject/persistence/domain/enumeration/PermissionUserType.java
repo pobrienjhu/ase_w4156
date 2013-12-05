@@ -26,7 +26,8 @@ public class PermissionUserType extends PersistentStringEnumUserType<Permission>
      * @see edu.columbia.ase.teamproject.persistence.domain.enumeration.util.
      * PersistentStringEnumUserType#fromString(java.lang.String)
      */
-    public Object fromString(String permission) {
+    @Override
+    public Object fromString(final String permission) {
         return Permission.fromString(permission);
     }
 

@@ -79,7 +79,7 @@ public class VoteOption {
      * @param optionName
      *            the option name
      */
-    public VoteOption(VoteCategory voteCategory, String optionName) {
+    public VoteOption(final VoteCategory voteCategory, final String optionName) {
         this(optionName);
         this.voteCategory = Preconditions.checkNotNull(voteCategory);
     }
@@ -90,7 +90,7 @@ public class VoteOption {
      * @param optionName
      *            the option name
      */
-    public VoteOption(String optionName) {
+    public VoteOption(final String optionName) {
         this();
         Preconditions.checkArgument(optionName.length() < MAX_NAME_LENGTH);
         this.optionName = optionName;
@@ -111,7 +111,7 @@ public class VoteOption {
      * @param votes
      *            the votes to set
      */
-    public void setVotes(List<Vote> votes) {
+    public void setVotes(final List<Vote> votes) {
         this.votes = votes;
     }
 
@@ -121,7 +121,7 @@ public class VoteOption {
      * @param vote
      *            the vote
      */
-    public void addVote(Vote vote) {
+    public void addVote(final Vote vote) {
         Preconditions.checkNotNull(vote);
         votes.add(vote);
     }
@@ -132,7 +132,7 @@ public class VoteOption {
      * @param vote
      *            the vote
      */
-    public void removeVote(Vote vote) {
+    public void removeVote(final Vote vote) {
         Preconditions.checkNotNull(vote);
         votes.remove(vote);
     }
@@ -152,7 +152,7 @@ public class VoteOption {
      * @param id
      *            the id to set
      */
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -171,7 +171,7 @@ public class VoteOption {
      * @param voteCategory
      *            the voteCategory to set
      */
-    public void setVoteCategory(VoteCategory voteCategory) {
+    public void setVoteCategory(final VoteCategory voteCategory) {
         this.voteCategory = Preconditions.checkNotNull(voteCategory);
     }
 
@@ -190,7 +190,7 @@ public class VoteOption {
      * @param optionName
      *            the optionName to set
      */
-    public void setOptionName(String optionName) {
+    public void setOptionName(final String optionName) {
         Preconditions.checkArgument(optionName.length() < MAX_NAME_LENGTH);
         this.optionName = optionName;
     }
@@ -210,7 +210,7 @@ public class VoteOption {
      * @param version
      *            the new optimistic locking version
      */
-    public void setOptimisticLockingVersion(Integer version) {
+    public void setOptimisticLockingVersion(final Integer version) {
         this.optimisticLockingVersion = version;
     }
 

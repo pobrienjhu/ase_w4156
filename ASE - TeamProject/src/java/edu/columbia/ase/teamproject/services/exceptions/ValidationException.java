@@ -15,7 +15,7 @@ public class ValidationException extends AseException {
      * @param message
      *            the message
      */
-    public ValidationException(String message) {
+    public ValidationException(final String message) {
         super(message);
     }
 

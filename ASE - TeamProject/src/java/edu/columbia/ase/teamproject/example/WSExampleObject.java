@@ -30,7 +30,7 @@ public class WSExampleObject {
      * @param message
      *            the message
      */
-    public WSExampleObject(String message) {
+    public WSExampleObject(final String message) {
         super();
         this.message = message;
     }
@@ -51,7 +51,7 @@ public class WSExampleObject {
      * @param message
      *            the new message
      */
-    public void setMessage(String message) {
+    public void setMessage(final String message) {
         this.message = message;
     }
 

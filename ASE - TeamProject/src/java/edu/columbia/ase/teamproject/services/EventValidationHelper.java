@@ -21,12 +21,12 @@ public class EventValidationHelper {
      * @throws ValidationException
      *             the validation exception
      */
-    public static void validateEventUpdate(Event event) throws ValidationException {
-        ValidationException validationException = new ValidationException();
+    public static void validateEventUpdate(final Event event) throws ValidationException {
+        final ValidationException validationException = new ValidationException();
 
         try {
             validateEventCreation(event);
-        } catch (ValidationException e) {
+        } catch (final ValidationException e) {
             validationException.addAllMessages(e.getErrorMessages());
         }
 
@@ -48,13 +48,13 @@ public class EventValidationHelper {
      * @throws ValidationException
      *             the validation exception
      */
-    public static void validateEventCreation(Event event) throws ValidationException {
+    public static void validateEventCreation(final Event event) throws ValidationException {
 
         if (event == null) {
             return;
         }
 
-        ValidationException validationException = new ValidationException();
+        final ValidationException validationException = new ValidationException();
 
         if (StringUtils.isEmpty(StringUtils.trimToEmpty(event.getName()))) {
             validationException.addMessage("Event must have a name.");
@@ -81,10 +81,10 @@ public class EventValidationHelper {
             validationException.addMessage("At least one voting category must be supplied.");
         } else {
 
-            for (VoteCategory category : event.getVoteCategories()) {
+            for (final VoteCategory category : event.getVoteCategories()) {
                 try {
                     validateVoteCategory(category);
-                } catch (ValidationException e) {
+                } catch (final ValidationException e) {
                     validationException.addAllMessages(e.getErrorMessages());
                 }
             }
@@ -105,9 +105,9 @@ public class EventValidationHelper {
      * @throws ValidationException
      *             the validation exception
      */
-    public static void validateVoteCategory(VoteCategory category) throws ValidationException {
+    public static void validateVoteCategory(final VoteCategory category) throws ValidationException {
 
-        ValidationException validationException = new ValidationException();
+        final ValidationException validationException = new ValidationException();
 
         if (category == null) {
             return;

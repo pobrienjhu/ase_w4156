@@ -34,15 +34,16 @@ public class LoginController {
      * @return the model and view
      */
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView doGet(HttpSession session) {
+    public ModelAndView doGet(final HttpSession session) {
         logger.info("GET /login.do");
 
-        Map<String, Object> model = ControllerHelper.createBaseModel(session);
+        final Map<String, Object> model = ControllerHelper.createBaseModel(session);
         model.put("title", "Login");
 
         @SuppressWarnings("unchecked")
-        List<NavigationMenuSection> navMenu = (List<NavigationMenuSection>) model.get("_menu");
-        NavigationMenuSection openIdProviders = new NavigationMenuSection("OpenId Providers");
+        final List<NavigationMenuSection> navMenu = (List<NavigationMenuSection>) model
+                .get("_menu");
+        final NavigationMenuSection openIdProviders = new NavigationMenuSection("OpenId Providers");
         openIdProviders.addEntry(new NavigationMenuEntry(null, "openid_google", "Google"));
         openIdProviders.addEntry(new NavigationMenuEntry(null, "openid_yahoo", "Yahoo!"));
         navMenu.add(openIdProviders);

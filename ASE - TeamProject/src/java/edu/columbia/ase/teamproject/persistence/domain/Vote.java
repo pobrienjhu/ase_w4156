@@ -83,7 +83,7 @@ public class Vote {
      * @param userAccount
      *            the user account
      */
-    public Vote(VoteOption voteOption, UserAccount userAccount) {
+    public Vote(final VoteOption voteOption, final UserAccount userAccount) {
         this(voteOption, userAccount, new LocalDateTime());
     }
 
@@ -97,7 +97,8 @@ public class Vote {
      * @param voteTime
      *            the vote time
      */
-    public Vote(VoteOption voteOption, UserAccount userAccount, LocalDateTime voteTime) {
+    public Vote(final VoteOption voteOption, final UserAccount userAccount,
+            final LocalDateTime voteTime) {
         this();
         this.voteOption = voteOption;
         this.userAccount = userAccount;
@@ -120,7 +121,7 @@ public class Vote {
      * @param id
      *            the id to set
      */
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -139,7 +140,7 @@ public class Vote {
      * @param voteOption
      *            the voteOption to set
      */
-    public void setVoteOption(VoteOption voteOption) {
+    public void setVoteOption(final VoteOption voteOption) {
         this.voteOption = voteOption;
     }
 
@@ -158,7 +159,7 @@ public class Vote {
      * @param userAccount
      *            the userAccount to set
      */
-    public void setUserAccount(UserAccount userAccount) {
+    public void setUserAccount(final UserAccount userAccount) {
         this.userAccount = userAccount;
     }
 
@@ -177,7 +178,7 @@ public class Vote {
      * @param voteTime
      *            the new vote time
      */
-    public void setVoteTime(LocalDateTime voteTime) {
+    public void setVoteTime(final LocalDateTime voteTime) {
         this.voteTime = voteTime;
     }
 
@@ -196,7 +197,7 @@ public class Vote {
      * @param id
      *            the VoteCategoryId to set
      */
-    public void setVoteCategoryId(Long id) {
+    public void setVoteCategoryId(final Long id) {
         this.voteCategoryId = id;
     }
 
@@ -215,7 +216,7 @@ public class Vote {
      * @param optimisticLockingVersion
      *            the new optimistic locking version
      */
-    public void setOptimisticLockingVersion(Integer optimisticLockingVersion) {
+    public void setOptimisticLockingVersion(final Integer optimisticLockingVersion) {
         this.optimisticLockingVersion = optimisticLockingVersion;
     }
 

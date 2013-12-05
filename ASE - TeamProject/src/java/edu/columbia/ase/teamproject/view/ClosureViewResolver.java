@@ -23,7 +23,7 @@ public class ClosureViewResolver extends ClosureTemplateViewResolver {
      * .lang.String, java.util.Locale)
      */
     @Override
-    protected View loadView(String viewName, Locale locale) throws Exception {
+    protected View loadView(final String viewName, final Locale locale) throws Exception {
         if (!viewName.startsWith(VIEW_PREFIX)) {
             return null;
         }

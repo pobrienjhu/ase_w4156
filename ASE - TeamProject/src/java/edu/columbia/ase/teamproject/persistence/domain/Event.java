@@ -88,13 +88,13 @@ public class Event {
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "User_Event", joinColumns = { @JoinColumn(name = "eventId") }, inverseJoinColumns = { @JoinColumn(name = "userId") })
-    private List<UserAccount> eventUsers;
+    private final List<UserAccount> eventUsers;
 
     /** The admin users. */
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "Admin_Event", joinColumns = { @JoinColumn(name = "eventId") }, inverseJoinColumns = { @JoinColumn(name = "userId") })
-    private List<UserAccount> adminUsers;
+    private final List<UserAccount> adminUsers;
 
     /** The vote categories. */
     @OneToMany(cascade = { CascadeType.ALL }, orphanRemoval = true, mappedBy = "event")
@@ -137,9 +137,10 @@ public class Event {
      * @param voteCategories
      *            the vote categories
      */
-    public Event(@Nullable List<String> userEmails, @Nullable UserAccount admin, String name,
-            String description, EventType eventType, DateTime eventStart, DateTime eventEnd,
-            List<VoteCategory> voteCategories) {
+    public Event(@Nullable final List<String> userEmails, @Nullable final UserAccount admin,
+            final String name, final String description, final EventType eventType,
+            final DateTime eventStart, final DateTime eventEnd,
+            final List<VoteCategory> voteCategories) {
         this();
         Preconditions.checkArgument(name.length() < MAX_NAME_LENGTH);
         Preconditions.checkArgument(description.length() < MAX_DESCRIPTION_LENGTH);
@@ -151,7 +152,7 @@ public class Event {
         this.endTime = Preconditions.checkNotNull(eventEnd);
         this.name = name;
         this.description = description;
-        for (VoteCategory category : voteCategories) {
+        for (final VoteCategory category : voteCategories) {
             addVoteCategory(category);
         }
         this.userEmails = userEmails;
@@ -175,8 +176,9 @@ public class Event {
      * @param eventEnd
      *            the event end
      */
-    public Event(@Nullable List<String> userEmails, @Nullable UserAccount admin, String name,
-            String description, EventType eventType, DateTime eventStart, DateTime eventEnd) {
+    public Event(@Nullable final List<String> userEmails, @Nullable final UserAccount admin,
+            final String name, final String description, final EventType eventType,
+            final DateTime eventStart, final DateTime eventEnd) {
         this(userEmails, admin, name, description, eventType, eventStart, eventEnd, Collections
                 .<VoteCategory> emptyList());
     }
@@ -187,7 +189,7 @@ public class Event {
      * @param userAccount
      *            the user account
      */
-    public void addAdminUser(UserAccount userAccount) {
+    public void addAdminUser(final UserAccount userAccount) {
         Preconditions.checkNotNull(userAccount);
         adminUsers.add(userAccount);
     }
@@ -198,7 +200,7 @@ public class Event {
      * @param userAccounts
      *            the user accounts
      */
-    public void addAllAdminUser(Collection<UserAccount> userAccounts) {
+    public void addAllAdminUser(final Collection<UserAccount> userAccounts) {
         Preconditions.checkNotNull(userAccounts);
         adminUsers.addAll(userAccounts);
     }
@@ -209,7 +211,7 @@ public class Event {
      * @param userAccount
      *            the user account
      */
-    public void addEventUser(UserAccount userAccount) {
+    public void addEventUser(final UserAccount userAccount) {
         Preconditions.checkNotNull(userAccount);
         eventUsers.add(userAccount);
     }
@@ -220,7 +222,7 @@ public class Event {
      * @param userAccounts
      *            the user accounts
      */
-    public void addAllEventUser(Collection<UserAccount> userAccounts) {
+    public void addAllEventUser(final Collection<UserAccount> userAccounts) {
         Preconditions.checkNotNull(userAccounts);
         eventUsers.addAll(userAccounts);
     }
@@ -231,7 +233,7 @@ public class Event {
      * @param category
      *            the category
      */
-    public void addVoteCategory(VoteCategory category) {
+    public void addVoteCategory(final VoteCategory category) {
         Preconditions.checkNotNull(category);
         voteCategories.add(category);
         category.setEvent(this);
@@ -252,7 +254,7 @@ public class Event {
      * @param eventType
      *            the new event type
      */
-    public void setEventType(EventType eventType) {
+    public void setEventType(final EventType eventType) {
         Preconditions.checkNotNull(eventType);
         this.eventType = eventType;
     }
@@ -272,7 +274,7 @@ public class Event {
      * @param voteCategories
      *            the new vote categories
      */
-    public void setVoteCategories(List<VoteCategory> voteCategories) {
+    public void setVoteCategories(final List<VoteCategory> voteCategories) {
         Preconditions.checkNotNull(voteCategories);
         this.voteCategories = voteCategories;
     }
@@ -292,7 +294,7 @@ public class Event {
      * @param version
      *            the new optimistic locking version
      */
-    public void setOptimisticLockingVersion(Integer version) {
+    public void setOptimisticLockingVersion(final Integer version) {
         this.optimisticLockingVersion = version;
     }
 
@@ -331,7 +333,7 @@ public class Event {
      * @param id
      *            the id to set
      */
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -350,7 +352,7 @@ public class Event {
      * @param name
      *            the name to set
      */
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -369,7 +371,7 @@ public class Event {
      * @param description
      *            the description to set
      */
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 
@@ -388,7 +390,7 @@ public class Event {
      * @param startTime
      *            the new start time
      */
-    public void setStartTime(DateTime startTime) {
+    public void setStartTime(final DateTime startTime) {
         this.startTime = startTime;
     }
 
@@ -407,7 +409,7 @@ public class Event {
      * @param endTime
      *            the new end time
      */
-    public void setEndTime(DateTime endTime) {
+    public void setEndTime(final DateTime endTime) {
         this.endTime = endTime;
     }
 
@@ -438,10 +440,10 @@ public class Event {
      *            the event users
      * @return the list
      */
-    private List<String> translateEventUsers(List<UserAccount> eventUsers) {
-        List<String> stringList = new ArrayList<String>();
+    private List<String> translateEventUsers(final List<UserAccount> eventUsers) {
+        final List<String> stringList = new ArrayList<String>();
 
-        for (UserAccount userAccount : eventUsers) {
+        for (final UserAccount userAccount : eventUsers) {
             stringList.add(new StringBuilder().append("User: ")
                     .append(userAccount.getDisplayName()).toString());
         }
@@ -464,7 +466,7 @@ public class Event {
      * @param userEmails
      *            the new user emails
      */
-    public void setUserEmails(List<String> userEmails) {
+    public void setUserEmails(final List<String> userEmails) {
         this.userEmails = userEmails;
     }
 

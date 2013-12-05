@@ -51,8 +51,9 @@ public class HibernateDao<E, K extends Serializable> implements GenericDao<E, K>
         // getClass().getGenericSuperclass())
         // .getActualTypeArguments()[0];
 
-        ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
-        Type type = genericSuperclass.getActualTypeArguments()[0];
+        final ParameterizedType genericSuperclass = (ParameterizedType) getClass()
+                .getGenericSuperclass();
+        final Type type = genericSuperclass.getActualTypeArguments()[0];
 
         if (type instanceof Class) {
             this.daoType = (Class<E>) type;
@@ -69,7 +70,7 @@ public class HibernateDao<E, K extends Serializable> implements GenericDao<E, K>
      *            the new session factory
      */
     @Autowired
-    public void setSessionFactory(SessionFactory sessionFactory) {
+    public void setSessionFactory(final SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
@@ -133,7 +134,7 @@ public class HibernateDao<E, K extends Serializable> implements GenericDao<E, K>
      */
     @SuppressWarnings("unchecked")
     @Override
-    public E find(K key) {
+    public E find(final K key) {
         return (E) currentSession().get(daoType, key);
     }
 
@@ -159,7 +160,7 @@ public class HibernateDao<E, K extends Serializable> implements GenericDao<E, K>
     private E truncateFreeTextFields(E e) {
         try {
             e = inputValidatorTruncator.truncate(e);
-        } catch (Exception ex) {
+        } catch (final Exception ex) {
             logger.error("Problem truncating entity [" + e + "]", ex);
         }
         return e;
@@ -171,6 +172,7 @@ public class HibernateDao<E, K extends Serializable> implements GenericDao<E, K>
      * @see
      * edu.columbia.ase.teamproject.persistence.dao.generic.GenericDao#flush()
      */
+    @Override
     public void flush() {
         currentSession().flush();
     }

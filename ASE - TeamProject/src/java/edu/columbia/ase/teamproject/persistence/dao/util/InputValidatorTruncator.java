@@ -31,7 +31,7 @@ public class InputValidatorTruncator {
      * @throws Exception
      *             the exception
      */
-    public <T> T truncate(T object) throws Exception {
+    public <T> T truncate(final T object) throws Exception {
         Class<?> aClass = object.getClass();
         while (aClass != null) {
             handleFieldsForClass(object, aClass);
@@ -50,7 +50,7 @@ public class InputValidatorTruncator {
      * @throws Exception
      *             the exception
      */
-    private void handleFieldsForClass(Object object, Class<?> aClass) throws Exception {
+    private void handleFieldsForClass(final Object object, final Class<?> aClass) throws Exception {
 
         if (object == null || aClass == null) {
             logger.error(" (" + (object != null ? object.toString() : "null") + ",class="
@@ -59,16 +59,16 @@ public class InputValidatorTruncator {
             return;
         }
 
-        Field[] declaredFields = aClass.getDeclaredFields();
+        final Field[] declaredFields = aClass.getDeclaredFields();
 
-        for (Field field : declaredFields) {
-            boolean isStringField = field.getType().equals(String.class);
+        for (final Field field : declaredFields) {
+            final boolean isStringField = field.getType().equals(String.class);
             if (isStringField) {
                 handleStringField(object, field);
                 continue;
             }
 
-            boolean truncateFields = field.isAnnotationPresent(TruncateFields.class);
+            final boolean truncateFields = field.isAnnotationPresent(TruncateFields.class);
             if (truncateFields) {
                 handleTruncateFields(object, field);
             }
@@ -89,7 +89,7 @@ public class InputValidatorTruncator {
      *             the exception
      */
     @SuppressWarnings("unused")
-    private void handleSubObject(Object object, Field field) throws Exception {
+    private void handleSubObject(final Object object, final Field field) throws Exception {
 
         if (object == null || field == null) {
             logger.error(" (" + (object != null ? object.toString() : "null") + ",field="
@@ -106,7 +106,7 @@ public class InputValidatorTruncator {
                         + (field != null ? field.getName() : "null") + ") " + "SubObject "
                         + field.getName() + " was fetched as null");
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             logger.error(" (" + (object != null ? object.toString() : "null") + ",field="
                     + (field != null ? field.getName() : "null") + ") " + "Exception caught");
             throw new Exception("Problem truncating field(" + field.getName() + ")", e);
@@ -123,10 +123,10 @@ public class InputValidatorTruncator {
      * @throws Exception
      *             the exception
      */
-    private void handleTruncateFields(Object object, Field field) throws Exception {
-        String fieldName = field.getName();
+    private void handleTruncateFields(final Object object, final Field field) throws Exception {
+        final String fieldName = field.getName();
         try {
-            Object fieldValue = PropertyUtils.getProperty(object, fieldName);
+            final Object fieldValue = PropertyUtils.getProperty(object, fieldName);
             if (fieldValue == null) {
                 return;
             }
@@ -141,7 +141,7 @@ public class InputValidatorTruncator {
                         "TruncateFields annotation is only supported for Collections, Maps, and Dictionaries and their subclasses. Field ["
                                 + fieldName + "] is a :" + field.getType());
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
 
             throw new Exception("Problem truncating field(" + fieldName + ")", e);
         }
@@ -156,9 +156,9 @@ public class InputValidatorTruncator {
      * @throws Exception
      *             the exception
      */
-    private void truncateAllEntities(Enumeration entities) throws Exception {
+    private void truncateAllEntities(final Enumeration entities) throws Exception {
         while (entities.hasMoreElements()) {
-            Object entity = entities.nextElement();
+            final Object entity = entities.nextElement();
             truncate(entity);
         }
     }
@@ -171,8 +171,8 @@ public class InputValidatorTruncator {
      * @throws Exception
      *             the exception
      */
-    private void truncateAllEntities(Collection entities) throws Exception {
-        for (Object entity : entities) {
+    private void truncateAllEntities(final Collection entities) throws Exception {
+        for (final Object entity : entities) {
             truncate(entity);
         }
     }
@@ -187,20 +187,21 @@ public class InputValidatorTruncator {
      * @throws Exception
      *             the exception
      */
-    private void handleStringField(Object object, Field field) throws Exception {
-        ColumnLength column = field.getAnnotation(ColumnLength.class);
+    private void handleStringField(final Object object, final Field field) throws Exception {
+        final ColumnLength column = field.getAnnotation(ColumnLength.class);
         if (column != null) {
-            String fieldName = field.getName();
+            final String fieldName = field.getName();
             try {
-                String value = (String) PropertyUtils.getProperty(object, fieldName);
+                final String value = (String) PropertyUtils.getProperty(object, fieldName);
                 if (value != null) {
-                    int allowedLength = column.value();
-                    boolean valueIsTooLong = allowedLength > 0 && value.length() > allowedLength;
+                    final int allowedLength = column.value();
+                    final boolean valueIsTooLong = allowedLength > 0
+                            && value.length() > allowedLength;
                     if (valueIsTooLong) {
                         truncateValue(object, field, value, allowedLength);
                     }
                 }
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 throw new Exception("Problem truncating field (" + fieldName + ")", e);
             }
         }
@@ -224,9 +225,10 @@ public class InputValidatorTruncator {
      * @throws IllegalAccessException
      *             the illegal access exception
      */
-    private void truncateValue(Object object, Field field, String value, int allowedLength)
-            throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
-        String fieldName = field.getName();
+    private void truncateValue(final Object object, final Field field, String value,
+            final int allowedLength) throws InvocationTargetException, NoSuchMethodException,
+            IllegalAccessException {
+        final String fieldName = field.getName();
         // logger.info("The value of the field [" + fieldName +
         // "] before check is [" + value + "]");
         value = value.substring(0, allowedLength);

@@ -21,7 +21,7 @@ public class DummyAuthenticationProvider implements AuthenticationProvider {
      * authenticate(org.springframework.security.core.Authentication)
      */
     @Override
-    public Authentication authenticate(Authentication authentication) {
+    public Authentication authenticate(final Authentication authentication) {
         logger.info("Ignoring attempted authentication: {0}", authentication);
         return null;
     }
@@ -34,7 +34,7 @@ public class DummyAuthenticationProvider implements AuthenticationProvider {
      * (java.lang.Class)
      */
     @Override
-    public boolean supports(Class<?> authentication) {
+    public boolean supports(final Class<?> authentication) {
         logger.info("Claiming not to support {0}", authentication);
         return false;
     }

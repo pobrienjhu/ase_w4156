@@ -59,10 +59,10 @@ public final class CreateEventController {
      * @return the model and view
      */
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView doGet(HttpSession session) {
+    public ModelAndView doGet(final HttpSession session) {
         logger.info("GET /app/createEvent.do");
 
-        Map<String, Object> model = ControllerHelper.createBaseModel(session);
+        final Map<String, Object> model = ControllerHelper.createBaseModel(session);
 
         model.put("title", "Create Event");
         model.put("test", "test");
@@ -87,32 +87,32 @@ public final class CreateEventController {
      */
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    public String doPost(HttpSession session, HttpServletRequest request,
-            HttpServletResponse response) throws IOException, ValidationException {
-        Gson gson = gsonProvider.provideGson();
+    public String doPost(final HttpSession session, final HttpServletRequest request,
+            final HttpServletResponse response) throws IOException, ValidationException {
+        final Gson gson = gsonProvider.provideGson();
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
         // Deserialize request
-        String jsonBody = IOUtils.toString(request.getInputStream());
+        final String jsonBody = IOUtils.toString(request.getInputStream());
         logger.info("POST /app/createEvent.do " + jsonBody);
 
         // Parse request body
-        Event event = gson.fromJson(jsonBody, Event.class);
+        final Event event = gson.fromJson(jsonBody, Event.class);
 
         if (event.getId() != null) {
             // TODO(pames/anajjar): handle event updating, as this is referring
             // to an existing event (permission checks, etc).
         }
 
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal();
-        UserAccount user = userAccountDao.findAccountByUserDetails(userDetails);
+        final UserAccount user = userAccountDao.findAccountByUserDetails(userDetails);
 
         logger.info("Event Categories size:" + event.getVoteCategories().size());
 
-        Event createdEvent = eventService.createEvent(user, event.getName(),
+        final Event createdEvent = eventService.createEvent(user, event.getName(),
                 event.getDescription(), event.getEventType(), event.getStartTime(),
                 event.getEndTime(), event.getVoteCategories(), event.getUserEmails());
 

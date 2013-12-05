@@ -41,16 +41,16 @@ public class MobileSetupController {
      * @return the model and view
      */
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView doGet(HttpSession session) {
+    public ModelAndView doGet(final HttpSession session) {
         logger.info("GET /app/mobileSetup.do");
-        Map<String, Object> model = ControllerHelper.createBaseModel(session);
+        final Map<String, Object> model = ControllerHelper.createBaseModel(session);
 
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal();
-        UserAccount user = userAccountDao.findAccountByUserDetails(userDetails);
+        final UserAccount user = userAccountDao.findAccountByUserDetails(userDetails);
 
         // TODO(pames): don't hard code the secret.
-        AuthKey apiKey = AuthKey.authKeyForIdAndSecret(user.getId(), "secret");
+        final AuthKey apiKey = AuthKey.authKeyForIdAndSecret(user.getId(), "secret");
         model.put("apiKey", apiKey.getApiKey());
 
         model.put("title", "Mobile App Setup");

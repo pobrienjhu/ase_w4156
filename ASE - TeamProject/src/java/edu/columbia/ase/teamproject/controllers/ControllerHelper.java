@@ -39,17 +39,17 @@ public class ControllerHelper {
      * @return a map containing values for the keys "_csrf" and "_admin" to be
      *         used by common template code.
      */
-    public static Map<String, Object> createBaseModel(HttpSession session) {
-        Map<String, Object> model = Maps.newHashMap();
+    public static Map<String, Object> createBaseModel(final HttpSession session) {
+        final Map<String, Object> model = Maps.newHashMap();
 
-        CsrfToken token = (CsrfToken) session.getAttribute("_csrf");
+        final CsrfToken token = (CsrfToken) session.getAttribute("_csrf");
         if (token != null) {
             model.put("_csrf", token.getToken());
             model.put("_csrfParameterName", token.getParameterName());
         }
 
-        SecurityContext context = SecurityContextHolder.getContext();
-        Authentication authentication = context.getAuthentication();
+        final SecurityContext context = SecurityContextHolder.getContext();
+        final Authentication authentication = context.getAuthentication();
         if (authentication != null && authentication.getAuthorities().contains(ADMIN_AUTHORITY)) {
             model.put("_admin", true);
         }

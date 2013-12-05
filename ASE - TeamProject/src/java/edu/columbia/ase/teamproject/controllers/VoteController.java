@@ -79,16 +79,17 @@ public final class VoteController {
      * @return the model and view
      */
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView doGet(HttpSession session, HttpServletRequest request) {
+    public ModelAndView doGet(final HttpSession session, final HttpServletRequest request) {
         logger.info("GET /app/voteEvent.do");
 
-        Map<String, Object> model = ControllerHelper.createBaseModel(session);
+        final Map<String, Object> model = ControllerHelper.createBaseModel(session);
 
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal();
-        UserAccount user = userAccountDao.findAccountByUserDetails(userDetails);
+        final UserAccount user = userAccountDao.findAccountByUserDetails(userDetails);
 
-        Event event = eventService.lookupEvent(user, Long.valueOf(request.getParameter("event")));
+        final Event event = eventService.lookupEvent(user,
+                Long.valueOf(request.getParameter("event")));
 
         model.put("_eventName", event.getName());
         model.put("_eventTitle", event.getDescription());
@@ -106,13 +107,14 @@ public final class VoteController {
             model.put("title", "Event Voting");
 
             @SuppressWarnings("unchecked")
-            List<NavigationMenuSection> nms = (List<NavigationMenuSection>) model.get("_vote");
+            final List<NavigationMenuSection> nms = (List<NavigationMenuSection>) model
+                    .get("_vote");
 
-            for (VoteCategory v : event.getVoteCategories()) {
+            for (final VoteCategory v : event.getVoteCategories()) {
 
-                NavigationMenuSection voteCatSection = new NavigationMenuSection(
+                final NavigationMenuSection voteCatSection = new NavigationMenuSection(
                         v.getCategoryName() + " - " + v.getDescription());
-                for (VoteOption vo : v.getVoteOptions()) {
+                for (final VoteOption vo : v.getVoteOptions()) {
                     voteCatSection.addEntry(new NavigationMenuEntry(v.getCategoryName(), vo.getId()
                             .toString(), vo.getOptionName()));
                 }
@@ -138,18 +140,18 @@ public final class VoteController {
      */
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    public String doPost(HttpSession session, HttpServletRequest request,
-            HttpServletResponse response) throws Exception {
+    public String doPost(final HttpSession session, final HttpServletRequest request,
+            final HttpServletResponse response) throws Exception {
         logger.info("POST /app/voteEvent.do");
 
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal();
-        UserAccount user = userAccountDao.findAccountByUserDetails(userDetails);
+        final UserAccount user = userAccountDao.findAccountByUserDetails(userDetails);
 
-        StringTokenizer st = new StringTokenizer(IOUtils.toString(request.getInputStream()));
-        List<Long> voteList = new ArrayList<Long>();
+        final StringTokenizer st = new StringTokenizer(IOUtils.toString(request.getInputStream()));
+        final List<Long> voteList = new ArrayList<Long>();
 
-        Event event = eventService.lookupEvent(user, Long.parseLong(st.nextToken()));
+        final Event event = eventService.lookupEvent(user, Long.parseLong(st.nextToken()));
         if (event == null || event.getEndTime().isBeforeNow()) {
             throw new Exception("Invalid Event!");
         }
@@ -160,7 +162,7 @@ public final class VoteController {
 
         try {
             voteService.addVotes(event, voteList, user);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             logger.error("Unable to add vote. Root Cause (" + e + ")");
             return "Unable to add votes!";
         }

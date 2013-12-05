@@ -64,7 +64,7 @@ public class VoteCategory {
     /** The vote options. */
     @OneToMany(cascade = { CascadeType.ALL }, orphanRemoval = true, mappedBy = "voteCategory")
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<VoteOption> voteOptions;
+    private final List<VoteOption> voteOptions;
 
     /** The optimistic locking version. */
     @Version
@@ -88,7 +88,7 @@ public class VoteCategory {
      * @param description
      *            the description
      */
-    public VoteCategory(Event event, String categoryName, String description) {
+    public VoteCategory(final Event event, final String categoryName, final String description) {
         this(categoryName, description);
         this.event = Preconditions.checkNotNull(event);
     }
@@ -101,7 +101,7 @@ public class VoteCategory {
      * @param description
      *            the description
      */
-    public VoteCategory(String categoryName, String description) {
+    public VoteCategory(final String categoryName, final String description) {
         this();
         Preconditions.checkArgument(categoryName.length() < MAX_NAME_LENGTH);
         Preconditions.checkArgument(description.length() < MAX_DESCRIPTION_LENGTH);
@@ -115,7 +115,7 @@ public class VoteCategory {
      * @param voteOption
      *            the vote option
      */
-    public void addVotingOption(VoteOption voteOption) {
+    public void addVotingOption(final VoteOption voteOption) {
         voteOptions.add(voteOption);
         voteOption.setVoteCategory(this);
     }
@@ -135,7 +135,7 @@ public class VoteCategory {
      * @param id
      *            the id to set
      */
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -154,7 +154,7 @@ public class VoteCategory {
      * @param event
      *            the event to set
      */
-    public void setEvent(Event event) {
+    public void setEvent(final Event event) {
         this.event = Preconditions.checkNotNull(event);
     }
 
@@ -173,7 +173,7 @@ public class VoteCategory {
      * @param categoryName
      *            the categoryName to set
      */
-    public void setCategoryName(String categoryName) {
+    public void setCategoryName(final String categoryName) {
         Preconditions.checkArgument(categoryName.length() < MAX_NAME_LENGTH);
         this.categoryName = categoryName;
     }
@@ -193,7 +193,7 @@ public class VoteCategory {
      * @param description
      *            the description to set
      */
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         Preconditions.checkArgument(description.length() < MAX_DESCRIPTION_LENGTH);
         this.description = description;
     }
@@ -213,7 +213,7 @@ public class VoteCategory {
      * @param version
      *            the new optimistic locking version
      */
-    public void setOptimisticLockingVersion(Integer version) {
+    public void setOptimisticLockingVersion(final Integer version) {
         this.optimisticLockingVersion = version;
     }
 

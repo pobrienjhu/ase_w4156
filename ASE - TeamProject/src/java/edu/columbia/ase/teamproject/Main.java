@@ -19,8 +19,8 @@ public class Main {
      * @throws Exception
      *             the exception
      */
-    public static void main(String[] args) throws Exception {
-        WebAppContext webAppContext = new WebAppContext();
+    public static void main(final String[] args) throws Exception {
+        final WebAppContext webAppContext = new WebAppContext();
         webAppContext.setResourceBase("src/main/webapp");
         webAppContext.setInitParameter("org.eclipse.jetty.servlet.Default.dirAllowed", "false");
         webAppContext.setContextPath("/");
@@ -30,7 +30,7 @@ public class Main {
         org.hsqldb.util.DatabaseManagerSwing.main(new String[] { "--url",
                 "jdbc:hsqldb:mem:dataSource", "--noexit" });
 
-        Server server = new Server(8080);
+        final Server server = new Server(8080);
         server.setHandler(webAppContext);
         server.start();
         server.join();

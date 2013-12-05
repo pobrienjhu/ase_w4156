@@ -101,18 +101,18 @@ public class UserAccount {
     @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "Admin_Event", joinColumns = { @JoinColumn(name = "userId") }, inverseJoinColumns = { @JoinColumn(name = "eventId") })
-    private List<Event> adminEvents;
+    private final List<Event> adminEvents;
 
     /** The user events. */
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "User_Event", joinColumns = { @JoinColumn(name = "userId") }, inverseJoinColumns = { @JoinColumn(name = "eventId") })
-    private List<Event> userEvents;
+    private final List<Event> userEvents;
 
     /** The votes. */
     @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE }, orphanRemoval = true, mappedBy = "userAccount")
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Vote> votes;
+    private final List<Vote> votes;
 
     /** The optimistic locking version. */
     @Version
@@ -144,8 +144,9 @@ public class UserAccount {
      * @param permissions
      *            the permissions
      */
-    public UserAccount(AccountType type, String username, @Nullable String displayName,
-            @Nullable String password, String email, List<Permission> permissions) {
+    public UserAccount(final AccountType type, final String username,
+            @Nullable final String displayName, @Nullable final String password,
+            final String email, final List<Permission> permissions) {
         this();
         Preconditions.checkArgument(!username.isEmpty());
         Preconditions.checkArgument(username.length() < MAX_USERNAME_LENGTH);
@@ -180,7 +181,7 @@ public class UserAccount {
      * @param id
      *            the id to set
      */
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -190,7 +191,7 @@ public class UserAccount {
      * @param event
      *            the event
      */
-    public void addAdminEvent(Event event) {
+    public void addAdminEvent(final Event event) {
         Preconditions.checkNotNull(event);
         adminEvents.add(event);
     }
@@ -230,7 +231,7 @@ public class UserAccount {
      * @param permission
      *            the permission
      */
-    public void addPermission(Permission permission) {
+    public void addPermission(final Permission permission) {
         Preconditions.checkState(!permissions.contains(permission));
         permissions.add(permission);
     }
@@ -241,8 +242,8 @@ public class UserAccount {
      * @param permission
      *            the permission
      */
-    public void revokePermission(Permission permission) {
-        int idx = permissions.indexOf(permission);
+    public void revokePermission(final Permission permission) {
+        final int idx = permissions.indexOf(permission);
         if (idx == -1) {
             throw new IllegalArgumentException();
         }
@@ -274,7 +275,7 @@ public class UserAccount {
      * @param username
      *            the username to set
      */
-    public void setUsername(String username) {
+    public void setUsername(final String username) {
         this.username = username;
     }
 
@@ -284,7 +285,7 @@ public class UserAccount {
      * @param password
      *            the password to set
      */
-    public void setPassword(@Nullable String password) {
+    public void setPassword(@Nullable final String password) {
         this.password = password;
     }
 
@@ -294,7 +295,7 @@ public class UserAccount {
      * @param displayName
      *            the displayName to set
      */
-    public void setDisplayName(@Nullable String displayName) {
+    public void setDisplayName(@Nullable final String displayName) {
         this.displayName = displayName;
     }
 
@@ -322,7 +323,7 @@ public class UserAccount {
      * @param version
      *            the new optimistic locking version
      */
-    public void setOptimisticLockingVersion(Integer version) {
+    public void setOptimisticLockingVersion(final Integer version) {
         this.optimisticLockingVersion = version;
     }
 
@@ -347,9 +348,9 @@ public class UserAccount {
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (obj instanceof UserAccount) {
-            UserAccount rhs = (UserAccount) obj;
+            final UserAccount rhs = (UserAccount) obj;
             return rhs.getAccountType().equals(accountType) && rhs.getUsername().equals(username);
         }
         return false;
@@ -371,7 +372,7 @@ public class UserAccount {
      * @param vote
      *            the vote
      */
-    public void removeVote(Vote vote) {
+    public void removeVote(final Vote vote) {
         Preconditions.checkNotNull(vote);
         votes.remove(vote);
     }
@@ -392,7 +393,7 @@ public class UserAccount {
      * @param vote
      *            the vote
      */
-    public void addVote(Vote vote) {
+    public void addVote(final Vote vote) {
         votes.add(vote);
     }
 

@@ -47,7 +47,8 @@ public class NavigationMenuEntry implements Map<String, String> {
      * @param text
      *            the text to wrap in the anchor tag.
      */
-    public NavigationMenuEntry(@Nullable String uri, @Nullable String id, String text) {
+    public NavigationMenuEntry(@Nullable final String uri, @Nullable final String id,
+            final String text) {
         Preconditions.checkArgument(text.length() != 0);
         if (uri == null) {
             this.uri = "#";
@@ -78,7 +79,7 @@ public class NavigationMenuEntry implements Map<String, String> {
      * @see java.util.Map#containsKey(java.lang.Object)
      */
     @Override
-    public boolean containsKey(Object key) {
+    public boolean containsKey(final Object key) {
         return NAVIGATION_MENU_KEYS.contains(key);
     }
 
@@ -88,7 +89,7 @@ public class NavigationMenuEntry implements Map<String, String> {
      * @see java.util.Map#containsValue(java.lang.Object)
      */
     @Override
-    public boolean containsValue(Object value) {
+    public boolean containsValue(final Object value) {
         throw new UnsupportedOperationException();
     }
 
@@ -110,12 +111,12 @@ public class NavigationMenuEntry implements Map<String, String> {
      * @see java.util.Map#get(java.lang.Object)
      */
     @Override
-    public String get(Object keyObject) {
+    public String get(final Object keyObject) {
         if (!NAVIGATION_MENU_KEYS.contains(keyObject)) {
             return null;
         }
 
-        String key = (String) keyObject;
+        final String key = (String) keyObject;
         if (key.equals("uri")) {
             return uri;
         } else if (key.equals("id")) {
@@ -152,7 +153,7 @@ public class NavigationMenuEntry implements Map<String, String> {
      * @see java.util.Map#put(java.lang.Object, java.lang.Object)
      */
     @Override
-    public String put(String arg0, String arg1) {
+    public String put(final String arg0, final String arg1) {
         throw new UnsupportedOperationException();
     }
 
@@ -162,7 +163,7 @@ public class NavigationMenuEntry implements Map<String, String> {
      * @see java.util.Map#putAll(java.util.Map)
      */
     @Override
-    public void putAll(Map<? extends String, ? extends String> arg0) {
+    public void putAll(final Map<? extends String, ? extends String> arg0) {
         throw new UnsupportedOperationException();
     }
 
@@ -172,7 +173,7 @@ public class NavigationMenuEntry implements Map<String, String> {
      * @see java.util.Map#remove(java.lang.Object)
      */
     @Override
-    public String remove(Object key) {
+    public String remove(final Object key) {
         throw new UnsupportedOperationException();
     }
 

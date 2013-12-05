@@ -48,7 +48,7 @@ public class OpenIdAuthenticationTokenConsumer implements
      *            the user account dao
      */
     @Autowired
-    public OpenIdAuthenticationTokenConsumer(UserAccountDao userAccountDao) {
+    public OpenIdAuthenticationTokenConsumer(final UserAccountDao userAccountDao) {
         this.userAccountDao = Preconditions.checkNotNull(userAccountDao);
     }
 
@@ -60,14 +60,14 @@ public class OpenIdAuthenticationTokenConsumer implements
      * #loadUserDetails(org.springframework.security.core.Authentication)
      */
     @Override
-    public UserDetails loadUserDetails(OpenIDAuthenticationToken token)
+    public UserDetails loadUserDetails(final OpenIDAuthenticationToken token)
             throws UsernameNotFoundException {
         Preconditions.checkArgument(token.getStatus().equals(OpenIDAuthenticationStatus.SUCCESS));
         UserAccount account = userAccountDao.findAccountByNameAndType(token.getIdentityUrl(),
                 AccountType.OPENID);
 
         if (account == null) {
-            ImmutableList.Builder<Permission> permissionBuilder = ImmutableList
+            final ImmutableList.Builder<Permission> permissionBuilder = ImmutableList
                     .<Permission> builder();
             permissionBuilder.add(Permission.USER);
             permissionBuilder.add(Permission.OPENID);
@@ -104,8 +104,8 @@ public class OpenIdAuthenticationTokenConsumer implements
             String displayName = null;
             String firstName = null;
             String lastName = null;
-            List<OpenIDAttribute> attributes = token.getAttributes();
-            for (OpenIDAttribute attribute : attributes) {
+            final List<OpenIDAttribute> attributes = token.getAttributes();
+            for (final OpenIDAttribute attribute : attributes) {
                 if (attribute.getName().equals("email") && !attribute.getValues().isEmpty()) {
                     email = attribute.getValues().get(0);
                 } else if (attribute.getName().equals("firstName")

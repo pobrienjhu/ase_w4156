@@ -46,16 +46,17 @@ public class ListEventController {
      * @return the model and view
      */
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView doGet(HttpSession session) {
+    public ModelAndView doGet(final HttpSession session) {
 
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal();
 
-        UserAccount user = userAccountDao.findAccountByUserDetails(userDetails);
+        final UserAccount user = userAccountDao.findAccountByUserDetails(userDetails);
 
-        Map<String, Object> model = ControllerHelper.createBaseModel(session);
+        final Map<String, Object> model = ControllerHelper.createBaseModel(session);
 
-        String displayName = StringUtils.defaultIfEmpty(user.getDisplayName(), user.getEmail());
+        final String displayName = StringUtils.defaultIfEmpty(user.getDisplayName(),
+                user.getEmail());
 
         model.put("userName", displayName);
         model.put("title", "Event List");

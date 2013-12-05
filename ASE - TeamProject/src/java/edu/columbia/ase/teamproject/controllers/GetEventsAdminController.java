@@ -63,13 +63,13 @@ public class GetEventsAdminController {
      */
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
-    public String doGet(HttpSession session, HttpServletRequest request,
-            HttpServletResponse response) {
+    public String doGet(final HttpSession session, final HttpServletRequest request,
+            final HttpServletResponse response) {
 
         try {
-            Gson gson = gsonProvider.provideGson();
+            final Gson gson = gsonProvider.provideGson();
 
-            String eventType = StringUtils.defaultIfEmpty(request.getParameter("eventType"),
+            final String eventType = StringUtils.defaultIfEmpty(request.getParameter("eventType"),
                     "active");
 
             response.setContentType("application/json");
@@ -77,10 +77,10 @@ public class GetEventsAdminController {
 
             Collection<Event> events = new ArrayList<Event>();
 
-            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
+            final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
                     .getAuthentication().getPrincipal();
 
-            UserAccount user = userAccountDao.findAccountByUserDetails(userDetails);
+            final UserAccount user = userAccountDao.findAccountByUserDetails(userDetails);
 
             if (StringUtils.equalsIgnoreCase(eventType, "active")) {
                 events = eventService
@@ -96,7 +96,7 @@ public class GetEventsAdminController {
             if (events != null) {
                 return gson.toJson(events);
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             logger.error("Unable to find public event list. Root Cause (" + e.getMessage() + ")");
         }
 

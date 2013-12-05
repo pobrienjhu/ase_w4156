@@ -28,9 +28,9 @@ public class CsrfRequestMatcher implements RequestMatcher {
      * .http.HttpServletRequest)
      */
     @Override
-    public boolean matches(HttpServletRequest request) {
-        String method = request.getMethod().toUpperCase();
-        String path = request.getServletPath().toLowerCase();
+    public boolean matches(final HttpServletRequest request) {
+        final String method = request.getMethod().toUpperCase();
+        final String path = request.getServletPath().toLowerCase();
 
         if (CSRF_UNPROTECTED_METHODS.contains(method) || CSRF_UNPROTECTED_URLS.contains(path)) {
             return false;
