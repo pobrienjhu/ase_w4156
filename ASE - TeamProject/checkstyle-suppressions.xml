@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE suppressions PUBLIC
+    "-//Puppy Crawl//DTD Suppressions 1.1//EN"
+    "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
+
+
+<suppressions>
+    <suppress checks="." files=".*\.class"/>
+    <suppress checks="." files=".*\.html"/>
+    <suppress checks="." files=".*\.sql"/>
+    <suppress checks="." files=".*\.css"/>
+    <suppress checks="." files=".*\.png"/>
+    <suppress checks="." files=".*\.jpg"/>
+    <suppress checks="." files=".*\.gif"/>
+    <suppress checks="." files=".*\.js"/>
+    <suppress checks="." files=".*\.soy"/>
+    <suppress checks="." files=".*\.DS_Store"/>
+    <suppress checks="." files=".*\.xml"/>
+	<suppress checks="." files=".*\/test\/*"/>    
+	<suppress checks="." files=".*\/third_party\/*"/>
+ </suppressions>
