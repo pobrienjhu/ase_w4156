@@ -11,10 +11,23 @@ import org.apache.commons.beanutils.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class InputValidatorTruncator.
+ */
 public class InputValidatorTruncator {
 	
+    /** The Constant logger. */
     private static final Logger logger = LoggerFactory.getLogger(InputValidatorTruncator.class);
 
+    /**
+     * Truncate.
+     *
+     * @param <T> the generic type
+     * @param object the object
+     * @return the t
+     * @throws Exception the exception
+     */
     public <T> T truncate(T object) throws Exception {
         Class<?> aClass = object.getClass();
         while (aClass != null) {
@@ -24,6 +37,13 @@ public class InputValidatorTruncator {
         return object;
     }
 
+    /**
+     * Handle fields for class.
+     *
+     * @param object the object
+     * @param aClass the a class
+     * @throws Exception the exception
+     */
     private void handleFieldsForClass(Object object, Class<?> aClass) throws Exception {
 
     	if (object == null || aClass == null) {
@@ -50,7 +70,14 @@ public class InputValidatorTruncator {
     /*
      * Used if using inheritance in the domain objects
      */
-	@SuppressWarnings("unused")
+	/**
+     * Handle sub object.
+     *
+     * @param object the object
+     * @param field the field
+     * @throws Exception the exception
+     */
+    @SuppressWarnings("unused")
 	private void handleSubObject(Object object, Field field) throws Exception {
 
     	if (object == null || field == null) {
@@ -73,6 +100,13 @@ public class InputValidatorTruncator {
 		}
 	}
 
+    /**
+     * Handle truncate fields.
+     *
+     * @param object the object
+     * @param field the field
+     * @throws Exception the exception
+     */
     private void handleTruncateFields(Object object, Field field) throws Exception {
         String fieldName = field.getName();
         try {
@@ -100,6 +134,12 @@ public class InputValidatorTruncator {
 
     }
 
+    /**
+     * Truncate all entities.
+     *
+     * @param entities the entities
+     * @throws Exception the exception
+     */
     private void truncateAllEntities(Enumeration entities) throws Exception {
         while (entities.hasMoreElements()) {
             Object entity = entities.nextElement();
@@ -107,12 +147,25 @@ public class InputValidatorTruncator {
         }
     }
 
+    /**
+     * Truncate all entities.
+     *
+     * @param entities the entities
+     * @throws Exception the exception
+     */
     private void truncateAllEntities(Collection entities) throws Exception {
         for (Object entity : entities) {
             truncate(entity);
         }
     }
 
+    /**
+     * Handle string field.
+     *
+     * @param object the object
+     * @param field the field
+     * @throws Exception the exception
+     */
     private void handleStringField(Object object, Field field) throws Exception {
         ColumnLength column = field.getAnnotation(ColumnLength.class);
         if (column != null) {
@@ -133,6 +186,17 @@ public class InputValidatorTruncator {
         }
     }
 
+    /**
+     * Truncate value.
+     *
+     * @param object the object
+     * @param field the field
+     * @param value the value
+     * @param allowedLength the allowed length
+     * @throws InvocationTargetException the invocation target exception
+     * @throws NoSuchMethodException the no such method exception
+     * @throws IllegalAccessException the illegal access exception
+     */
     private void truncateValue(Object object, Field field, String value, int allowedLength) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
         String fieldName = field.getName();
         //logger.info("The value of the field [" + fieldName + "] before check is [" + value + "]");

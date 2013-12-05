@@ -27,9 +27,14 @@ import edu.columbia.ase.teamproject.persistence.domain.VoteOption;
 import edu.columbia.ase.teamproject.persistence.domain.enumeration.EventType;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class EventTypeAdapter.
+ */
 public class EventTypeAdapter extends TypeAdapter<Event> {
 	
 	
+	/** The Constant logger. */
 	private static final Logger logger =
 			LoggerFactory.getLogger(EventTypeAdapter.class);
 	
@@ -37,17 +42,39 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 
 
 
+	/**
+	 * The Enum EventProperty.
+	 */
 	private static enum EventProperty {
+		
+		/** The property id. */
 		PROPERTY_ID("id"),
+		
+		/** The property name. */
 		PROPERTY_NAME("name"),
+		
+		/** The property description. */
 		PROPERTY_DESCRIPTION("description"),
+		
+		/** The property event users. */
 		PROPERTY_EVENT_USERS("eventUsers"),
+		
+		/** The property user emails. */
 		PROPERTY_USER_EMAILS("userEmails"),
+		
+		/** The property vote categories. */
 		PROPERTY_VOTE_CATEGORIES("voteCategories"),
+		
+		/** The property event type. */
 		PROPERTY_EVENT_TYPE("eventType"),
+		
+		/** The property event start. */
 		PROPERTY_EVENT_START("eventStart"),
+		
+		/** The property event end. */
 		PROPERTY_EVENT_END("eventEnd");
 
+		/** The Constant propertyMap. */
 		private static final Map<String, EventProperty> propertyMap;
 		static {
 			propertyMap =
@@ -57,42 +84,102 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 			}
 		}
 
+		/** The property name. */
 		private final String propertyName; 
+		
+		/**
+		 * Instantiates a new event property.
+		 *
+		 * @param propertyName the property name
+		 */
 		EventProperty(String propertyName) {
 			Preconditions.checkArgument(!propertyName.isEmpty());
 			this.propertyName = propertyName;
 		}
 
+		/* (non-Javadoc)
+		 * @see java.lang.Enum#toString()
+		 */
 		@Override
 		public String toString() {
 			return propertyName;
 		}
 
+		/**
+		 * From string.
+		 *
+		 * @param propertyName the property name
+		 * @return the event property
+		 */
 		public static EventProperty fromString(String propertyName) {
 			return propertyMap.get(propertyName);
 		}
 	}
 
+	/**
+	 * The Class EventBuilder.
+	 */
 	private class EventBuilder {
+		
+		/** The id set. */
 		private boolean idSet;
+		
+		/** The id. */
 		private Long id;
+		
+		/** The name set. */
 		private boolean nameSet;
+		
+		/** The name. */
 		private String name;
+		
+		/** The description set. */
 		private boolean descriptionSet;
+		
+		/** The description. */
 		private String description;
+		
+		/** The event users set. */
 		private boolean eventUsersSet;
+		
+		/** The event users. */
 		private List<UserAccount> eventUsers;
+		
+		/** The user emails set. */
 		private boolean userEmailsSet;
+		
+		/** The user emails. */
 		private List<String> userEmails;
+		
+		/** The vote categories set. */
 		private boolean voteCategoriesSet;
+		
+		/** The vote categories. */
 		private List<VoteCategory> voteCategories;
+		
+		/** The event type. */
 		private EventType eventType;
+		
+		/** The event type set. */
 		private boolean eventTypeSet;
+		
+		/** The event start. */
 		private DateTime eventStart;
+		
+		/** The event start set. */
 		private boolean eventStartSet;
+		
+		/** The event end. */
 		private DateTime eventEnd;
+		
+		/** The event end set. */
 		private boolean eventEndSet;
 
+		/**
+		 * Builds the.
+		 *
+		 * @return the event
+		 */
 		public Event build() {
 			Preconditions.checkState(nameSet);
 			Preconditions.checkState(descriptionSet);
@@ -124,6 +211,12 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 			return event;
 		}
 
+		/**
+		 * Sets the event type.
+		 *
+		 * @param eventType the event type
+		 * @return the event builder
+		 */
 		public EventBuilder setEventType(EventType eventType) {
 			Preconditions.checkState(!eventTypeSet);
 			this.eventType = Preconditions.checkNotNull(eventType);
@@ -131,6 +224,12 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 			return this;
 		}
 		
+		/**
+		 * Sets the id.
+		 *
+		 * @param id the id
+		 * @return the event builder
+		 */
 		public EventBuilder setId(Long id) {
 			Preconditions.checkState(!idSet);
 			this.id = Preconditions.checkNotNull(id);
@@ -138,6 +237,12 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 			return this;
 		}
 
+		/**
+		 * Sets the name.
+		 *
+		 * @param name the name
+		 * @return the event builder
+		 */
 		public EventBuilder setName(String name) {
 			Preconditions.checkState(!nameSet);
 			this.name = name;
@@ -145,6 +250,12 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 			return this;
 		}
 
+		/**
+		 * Sets the description.
+		 *
+		 * @param description the description
+		 * @return the event builder
+		 */
 		public EventBuilder setDescription(String description) {
 			Preconditions.checkState(!descriptionSet);
 			this.description = description;
@@ -152,6 +263,12 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 			return this;
 		}
 
+		/**
+		 * Sets the event start.
+		 *
+		 * @param eventStart the event start
+		 * @return the event builder
+		 */
 		public EventBuilder setEventStart(DateTime eventStart) {
 			Preconditions.checkState(!eventStartSet);
 			this.eventStart = eventStart;
@@ -159,6 +276,12 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 			return this;
 		}
 
+		/**
+		 * Sets the event end.
+		 *
+		 * @param eventEnd the event end
+		 * @return the event builder
+		 */
 		public EventBuilder setEventEnd(DateTime eventEnd) {
 			Preconditions.checkState(!eventEndSet);
 			this.eventEnd = eventEnd;
@@ -167,6 +290,12 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 		}
 
 
+		/**
+		 * Sets the event users.
+		 *
+		 * @param eventUsers the event users
+		 * @return the event builder
+		 */
 		public EventBuilder setEventUsers(List<UserAccount> eventUsers) {
 			Preconditions.checkState(!eventUsersSet);
 			this.eventUsers = eventUsers;
@@ -174,6 +303,12 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 			return this;
 		}
 		
+		/**
+		 * Sets the user emails.
+		 *
+		 * @param userEmails the user emails
+		 * @return the event builder
+		 */
 		public EventBuilder setUserEmails(List<String> userEmails) {
 			Preconditions.checkState(!userEmailsSet);
 			this.userEmails = userEmails;
@@ -181,6 +316,12 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 			return this;
 		}
 
+		/**
+		 * Sets the vote categories.
+		 *
+		 * @param voteCategories the vote categories
+		 * @return the event builder
+		 */
 		public EventBuilder setVoteCategories(List<VoteCategory> voteCategories) {
 			Preconditions.checkState(!voteCategoriesSet);
 			this.voteCategories = voteCategories;
@@ -189,13 +330,27 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 		}
 	}
 
+	/**
+	 * The Enum VoteCategoryProperty.
+	 */
 	private static enum VoteCategoryProperty {
+		
+		/** The property id. */
 		PROPERTY_ID("id"),
+		
+		/** The property event id. */
 		PROPERTY_EVENT_ID("eventId"),
+		
+		/** The property category name. */
 		PROPERTY_CATEGORY_NAME("categoryName"),
+		
+		/** The property description. */
 		PROPERTY_DESCRIPTION("description"),
+		
+		/** The property vote options. */
 		PROPERTY_VOTE_OPTIONS("voteOptions");
 
+		/** The Constant propertyMap. */
 		private static final Map<String, VoteCategoryProperty> propertyMap;
 		static {
 			propertyMap =
@@ -205,34 +360,78 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 			}
 		}
 
+		/** The property name. */
 		private final String propertyName; 
+		
+		/**
+		 * Instantiates a new vote category property.
+		 *
+		 * @param propertyName the property name
+		 */
 		VoteCategoryProperty(String propertyName) {
 			Preconditions.checkArgument(!propertyName.isEmpty());
 			this.propertyName = propertyName;
 		}
 
+		/* (non-Javadoc)
+		 * @see java.lang.Enum#toString()
+		 */
 		@Override
 		public String toString() {
 			return propertyName;
 		}
 
+		/**
+		 * From string.
+		 *
+		 * @param propertyName the property name
+		 * @return the vote category property
+		 */
 		public static VoteCategoryProperty fromString(String propertyName) {
 			return propertyMap.get(propertyName);
 		}
 	}
 
+	/**
+	 * The Class VoteCategoryBuilder.
+	 */
 	private class VoteCategoryBuilder {
+		
+		/** The id. */
 		private Long id;
+		
+		/** The id set. */
 		private boolean idSet;
+		
+		/** The event id. */
 		private Long eventId;
+		
+		/** The event id set. */
 		private boolean eventIdSet;
+		
+		/** The category name. */
 		private String categoryName;
+		
+		/** The category name set. */
 		private boolean categoryNameSet;
+		
+		/** The description. */
 		private String description;
+		
+		/** The description set. */
 		private boolean descriptionSet;
+		
+		/** The vote options. */
 		private List<VoteOption> voteOptions;
+		
+		/** The vote options set. */
 		private boolean voteOptionsSet;
 
+		/**
+		 * Builds the.
+		 *
+		 * @return the vote category
+		 */
 		public VoteCategory build() {
 			// TODO(pames): similar logic to the VoteOption builder applies here
 			// as to whether this field should be required.
@@ -252,6 +451,12 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 			return category;
 		}
 
+		/**
+		 * Sets the id.
+		 *
+		 * @param id the id
+		 * @return the vote category builder
+		 */
 		public VoteCategoryBuilder setId(Long id) {
 			Preconditions.checkState(!idSet);
 			this.id = Preconditions.checkNotNull(id);
@@ -259,6 +464,12 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 			return this;
 		}
 
+		/**
+		 * Sets the event id.
+		 *
+		 * @param eventId the event id
+		 * @return the vote category builder
+		 */
 		public VoteCategoryBuilder setEventId(Long eventId) {
 			// Currently, we don't use this.  Perhaps it should not be required.
 			Preconditions.checkState(!eventIdSet);
@@ -267,6 +478,12 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 			return this;
 		}
 
+		/**
+		 * Sets the category name.
+		 *
+		 * @param categoryName the category name
+		 * @return the vote category builder
+		 */
 		public VoteCategoryBuilder setCategoryName(String categoryName) {
 			Preconditions.checkState(!categoryNameSet);
 			this.categoryName = categoryName;
@@ -274,6 +491,12 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 			return this;
 		}
 
+		/**
+		 * Sets the description.
+		 *
+		 * @param description the description
+		 * @return the vote category builder
+		 */
 		public VoteCategoryBuilder setDescription(String description) {
 			Preconditions.checkState(!descriptionSet);
 			this.description = description;
@@ -281,6 +504,12 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 			return this;
 		}
 
+		/**
+		 * Sets the vote options.
+		 *
+		 * @param voteOptions the vote options
+		 * @return the vote category builder
+		 */
 		public VoteCategoryBuilder setVoteOptions(List<VoteOption> voteOptions) {
 			Preconditions.checkState(!voteOptionsSet);
 			Preconditions.checkNotNull(voteOptions);
@@ -290,6 +519,13 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 		}
 	}
 
+	/**
+	 * Write vote category.
+	 *
+	 * @param out the out
+	 * @param value the value
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	private void writeVoteCategory(JsonWriter out, VoteCategory value) 
 			throws IOException {
 		out.beginObject();
@@ -310,12 +546,24 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 		out.endObject();
 	}
 
+	/**
+	 * The Enum VoteOptionProperty.
+	 */
 	private static enum VoteOptionProperty {
+		
+		/** The property id. */
 		PROPERTY_ID("id"),
+		
+		/** The property category id. */
 		PROPERTY_CATEGORY_ID("voteCategoryId"),
+		
+		/** The property option name. */
 		PROPERTY_OPTION_NAME("optionName"),
+		
+		/** The property votes. */
 		PROPERTY_VOTES("votes");
 
+		/** The Constant propertyMap. */
 		private static final Map<String, VoteOptionProperty> propertyMap;
 		static {
 			propertyMap =
@@ -325,32 +573,72 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 			}
 		}
 
+		/** The property name. */
 		private final String propertyName; 
+		
+		/**
+		 * Instantiates a new vote option property.
+		 *
+		 * @param propertyName the property name
+		 */
 		VoteOptionProperty(String propertyName) {
 			Preconditions.checkArgument(!propertyName.isEmpty());
 			this.propertyName = propertyName;
 		}
 
+		/* (non-Javadoc)
+		 * @see java.lang.Enum#toString()
+		 */
 		@Override
 		public String toString() {
 			return propertyName;
 		}
 
+		/**
+		 * From string.
+		 *
+		 * @param propertyName the property name
+		 * @return the vote option property
+		 */
 		public static VoteOptionProperty fromString(String propertyName) {
 			return propertyMap.get(propertyName);
 		}
 	}
 
+	/**
+	 * The Class VoteOptionBuilder.
+	 */
 	private class VoteOptionBuilder {
+		
+		/** The id set. */
 		private boolean idSet;
+		
+		/** The id. */
 		private Long id;
+		
+		/** The vote category id set. */
 		private boolean voteCategoryIdSet;
+		
+		/** The vote category id. */
 		private Long voteCategoryId;
+		
+		/** The option name. */
 		private String optionName;
+		
+		/** The option name set. */
 		private boolean optionNameSet;
+		
+		/** The votes. */
 		private List<Vote> votes;
+		
+		/** The votes set. */
 		private boolean votesSet;
 
+		/**
+		 * Builds the.
+		 *
+		 * @return the vote option
+		 */
 		public VoteOption build() {
 			// TODO(pames): is this necessary?  what if we are deserializing
 			// something constructed by the client for the first time?
@@ -368,6 +656,12 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 			return option;
 		}
 
+		/**
+		 * Sets the id.
+		 *
+		 * @param id the id
+		 * @return the vote option builder
+		 */
 		public VoteOptionBuilder setId(Long id) {
 			Preconditions.checkState(!idSet);
 			this.id = Preconditions.checkNotNull(id);
@@ -375,6 +669,12 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 			return this;
 		}
 
+		/**
+		 * Sets the vote category id.
+		 *
+		 * @param voteCategoryId the vote category id
+		 * @return the vote option builder
+		 */
 		public VoteOptionBuilder setVoteCategoryId(Long voteCategoryId) {
 			Preconditions.checkState(!voteCategoryIdSet);
 			this.voteCategoryId = Preconditions.checkNotNull(voteCategoryId);
@@ -382,6 +682,12 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 			return this;
 		}
 
+		/**
+		 * Sets the option name.
+		 *
+		 * @param optionName the option name
+		 * @return the vote option builder
+		 */
 		public VoteOptionBuilder setOptionName(String optionName) {
 			Preconditions.checkState(!optionNameSet);
 			this.optionName = optionName;
@@ -389,6 +695,12 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 			return this;
 		}
 
+		/**
+		 * Sets the votes.
+		 *
+		 * @param votes the votes
+		 * @return the vote option builder
+		 */
 		public VoteOptionBuilder setVotes(List<Vote> votes) {
 			Preconditions.checkState(!votesSet);
 			this.votes = votes;
@@ -398,6 +710,13 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 
 	}
 
+	/**
+	 * Write vote option.
+	 *
+	 * @param out the out
+	 * @param value the value
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	private void writeVoteOption(JsonWriter out, VoteOption value)
 			throws IOException {
 		out.beginObject();
@@ -411,6 +730,9 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 		out.endObject();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.google.gson.TypeAdapter#write(com.google.gson.stream.JsonWriter, java.lang.Object)
+	 */
 	@Override
 	public void write(JsonWriter out, Event value) throws IOException {
 		out.beginObject();
@@ -445,6 +767,13 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 		out.endObject();
 	}
  
+	/**
+	 * Read vote options.
+	 *
+	 * @param in the in
+	 * @return the list
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	private List<VoteOption> readVoteOptions(JsonReader in) throws IOException {
 		List<VoteOption> options = Lists.newArrayList();
 		in.beginArray();
@@ -476,6 +805,13 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 		return options;
 	}
 
+	/**
+	 * Read vote categories.
+	 *
+	 * @param in the in
+	 * @return the list
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	private List<VoteCategory> readVoteCategories(JsonReader in) throws IOException {
 		List<VoteCategory> categories = Lists.newArrayList();
 		in.beginArray();
@@ -509,6 +845,9 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
 		return categories;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.google.gson.TypeAdapter#read(com.google.gson.stream.JsonReader)
+	 */
 	@Override
 	public Event read(JsonReader in) throws IOException {
 		

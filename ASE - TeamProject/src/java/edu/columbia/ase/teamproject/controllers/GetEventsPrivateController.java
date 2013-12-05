@@ -27,22 +27,38 @@ import edu.columbia.ase.teamproject.persistence.domain.UserAccount;
 import edu.columbia.ase.teamproject.services.EventService;
 import edu.columbia.ase.teamproject.util.GsonProvider;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GetEventsPrivateController.
+ */
 @Controller
 @RequestMapping("/app/getEventsPrivate.do")
 public class GetEventsPrivateController {
 	
+	/** The event service. */
 	@Autowired
 	EventService eventService;
 	
+	/** The user account dao. */
 	@Autowired
 	private UserAccountDao userAccountDao;
 	
+	/** The gson provider. */
 	@Autowired
 	GsonProvider gsonProvider;
 
+	/** The Constant logger. */
 	private static final Logger logger = LoggerFactory
 			.getLogger(GetEventsPrivateController.class);
 
+	/**
+	 * Handles HTTP GET requests.
+	 *
+	 * @param session the session
+	 * @param request the request
+	 * @param response the response
+	 * @return the string
+	 */
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
 	public String doGet(HttpSession session, HttpServletRequest request, HttpServletResponse response) {

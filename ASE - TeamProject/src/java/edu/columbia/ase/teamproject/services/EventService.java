@@ -30,23 +30,31 @@ import edu.columbia.ase.teamproject.persistence.domain.enumeration.EventType;
 import edu.columbia.ase.teamproject.security.Permission;
 import edu.columbia.ase.teamproject.services.exceptions.ValidationException;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author aiman
+ * The Class EventService.
  *
+ * @author aiman
  */
 public class EventService {
+	
+	/** The Constant logger. */
 	private static final Logger logger =
 			LoggerFactory.getLogger(EventService.class);
 
+	/** The user dao. */
 	@Autowired
 	UserAccountDao userDao;
 	
+	/** The event dao. */
 	@Autowired
 	EventDao eventDao;
 
+	/** The vote category dao. */
 	@Autowired
 	VoteCategoryDao voteCategoryDao;
 
+	/** The vote option dao. */
 	@Autowired
 	VoteOptionDao voteOptionDao;
 
@@ -54,19 +62,21 @@ public class EventService {
 	 * This method sanity checks the object graph of an event.  The sanity
 	 * checks are:
 	 * 1) For every VoteCategory, if it has an ID, that the event associated
-	 *    with the version in the database matches the ID of the event that was
-	 *    provided.  If the VoteCategory does not have an ID, it verifies that
-	 *    the object it refers to is the same as the provided event.
+	 * with the version in the database matches the ID of the event that was
+	 * provided.  If the VoteCategory does not have an ID, it verifies that
+	 * the object it refers to is the same as the provided event.
 	 * 2) For every VoteOption, if it has an ID, the VoteCategory associated
-	 *    with the version in the database matches the ID of the VoteCategory
-	 *    that it was associated with in the Event.  If the VoteOption does not
-	 *    have an ID, it verifies that the object it refers to is the same as
-	 *    the VoteCategory that it was associated with.
-	 *
+	 * with the version in the database matches the ID of the VoteCategory
+	 * that it was associated with in the Event.  If the VoteOption does not
+	 * have an ID, it verifies that the object it refers to is the same as
+	 * the VoteCategory that it was associated with.
+	 * 
 	 * These checks are necessary to ensure that if an event is deserialized
 	 * where a malicious user tampered with the data, they cannot overwrite
 	 * a record in the database not associated with the event that has been
-	 * provided. 
+	 * provided.
+	 *
+	 * @param e the e
 	 */
 	@VisibleForTesting
 	void validateEvent(Event e) {
@@ -109,6 +119,12 @@ public class EventService {
 
 	}
 
+	/**
+	 * Trusted user data from user list.
+	 *
+	 * @param accounts the accounts
+	 * @return the list
+	 */
 	private List<UserAccount> trustedUserDataFromUserList(List<UserAccount> accounts) {
 		Preconditions.checkNotNull(accounts);
 		List<Long> userIds = Lists.newArrayList();
@@ -131,18 +147,20 @@ public class EventService {
 		return userData;
 	}
 
-	/** 
+	/**
 	 * Certain fields in an Event should be immutable from the client.  These
 	 * fields are:
-	 *   a) UserAccount (do not permit users to propagate changes to others)
-	 *   b) Votes (do not permit users to overwrite the actual votes)
+	 * a) UserAccount (do not permit users to propagate changes to others)
+	 * b) Votes (do not permit users to overwrite the actual votes)
 	 * 
 	 * If the event ID is non-null, this retrieves those immutable fields from
 	 * the database and replaces the copy in the provided event with the
 	 * known trusted data.
-	 *
+	 * 
 	 * In order to update those fields, specific service layer APIs should be
 	 * used instead of modifying the event directly and re-persisting it.
+	 *
+	 * @param e the e
 	 */
 	private void replaceImmutableClientFieldsWithTrustedData(Event e) {
 		Preconditions.checkNotNull(e);
@@ -159,6 +177,13 @@ public class EventService {
 		// TODO(pames): retrieve / protect the Vote data.
 	}
 
+	/**
+	 * User can update event.
+	 *
+	 * @param user the user
+	 * @param eventId the event id
+	 * @return true, if successful
+	 */
 	@VisibleForTesting
 	boolean userCanUpdateEvent(UserAccount user, Long eventId) {
 		Preconditions.checkNotNull(user);
@@ -171,6 +196,13 @@ public class EventService {
 		return userCanUpdateEvent(user, event);
 	}
 
+	/**
+	 * User can update event.
+	 *
+	 * @param user the user
+	 * @param event the event
+	 * @return true, if successful
+	 */
 	private boolean userCanUpdateEvent(UserAccount user, Event event) {
 		if (event == null) {
 			// XXX: is this OK?  It allows someone to specify an arbitrary
@@ -187,6 +219,12 @@ public class EventService {
 	 * try to retrieve all the public events. 
 	 * If there is an exception, log it and return and empty ArrayList
 	 */
+	/**
+	 * Gets the all active public events.
+	 *
+	 * @param currentTime the current time
+	 * @return the all active public events
+	 */
 	public Collection<Event> getAllActivePublicEvents(DateTime currentTime){
 		try {
 			return eventDao.getAllActivePublicEvents(currentTime);
@@ -199,6 +237,12 @@ public class EventService {
 	/*
 	 * try to retrieve all the public events. 
 	 * If there is an exception, log it and return and empty ArrayList
+	 */
+	/**
+	 * Gets the all completed public events.
+	 *
+	 * @param currentTime the current time
+	 * @return the all completed public events
 	 */
 	public Collection<Event> getAllCompletedPublicEvents(DateTime currentTime){
 		try {
@@ -214,6 +258,13 @@ public class EventService {
 	 * try to retrieve all the requested events. 
 	 * If there is an exception, log it and return and empty ArrayList
 	 */
+	/**
+	 * Gets the all active private events for user id.
+	 *
+	 * @param currentTime the current time
+	 * @param userId the user id
+	 * @return the all active private events for user id
+	 */
 	public Collection<Event> getAllActivePrivateEventsForUserId(DateTime currentTime, Long userId){
 		try {
 			return eventDao.getAllActivePrivateEventsForUserId(currentTime, userId);
@@ -226,6 +277,13 @@ public class EventService {
 	/*
 	 * try to retrieve all the requested events. 
 	 * If there is an exception, log it and return and empty ArrayList
+	 */
+	/**
+	 * Gets the all active admin events for user id.
+	 *
+	 * @param currentTime the current time
+	 * @param userId the user id
+	 * @return the all active admin events for user id
 	 */
 	public Collection<Event> getAllActiveAdminEventsForUserId(DateTime currentTime, Long userId){
 		try {
@@ -242,6 +300,13 @@ public class EventService {
 	 * try to retrieve all the requested events. 
 	 * If there is an exception, log it and return and empty ArrayList
 	 */
+	/**
+	 * Gets the all completed admin events for user id.
+	 *
+	 * @param currentTime the current time
+	 * @param userId the user id
+	 * @return the all completed admin events for user id
+	 */
 	public Collection<Event> getAllCompletedAdminEventsForUserId(DateTime currentTime, Long userId){
 		try {
 			return eventDao.getAllCompletedAdminEventsForUserId(currentTime, userId);
@@ -254,6 +319,13 @@ public class EventService {
 	/*
 	 * try to retrieve all the requested events. 
 	 * If there is an exception, log it and return and empty ArrayList
+	 */
+	/**
+	 * Gets the all completed private events for user id.
+	 *
+	 * @param currentTime the current time
+	 * @param userId the user id
+	 * @return the all completed private events for user id
 	 */
 	public Collection<Event> getAllCompletedPrivateEventsForUserId(DateTime currentTime, Long userId){
 		try {
@@ -269,6 +341,13 @@ public class EventService {
 	 * try to retrieve all the requested events. 
 	 * If there is an exception, log it and return and empty ArrayList
 	 */
+	/**
+	 * Gets the all future admin events for user id.
+	 *
+	 * @param currentTime the current time
+	 * @param userId the user id
+	 * @return the all future admin events for user id
+	 */
 	public Collection<Event> getAllFutureAdminEventsForUserId(DateTime currentTime, Long userId){
 		try {
 			return eventDao.getAllFutureAdminEventsForUserId(currentTime, userId);
@@ -278,6 +357,20 @@ public class EventService {
 		return new ArrayList<Event>();
 	}
 	
+	/**
+	 * Creates the event.
+	 *
+	 * @param requestor the requestor
+	 * @param name the name
+	 * @param description the description
+	 * @param eventType the event type
+	 * @param start the start
+	 * @param end the end
+	 * @param voteCategories the vote categories
+	 * @param userEmails the user emails
+	 * @return the event
+	 * @throws ValidationException the validation exception
+	 */
 	public Event createEvent(UserAccount requestor, String name, String description, EventType eventType,DateTime start, DateTime end, List<VoteCategory> voteCategories,List<String> userEmails) throws ValidationException
 	{
 		Preconditions.checkNotNull(requestor);
@@ -310,6 +403,13 @@ public class EventService {
 		return eventDao.add(event);
 	}
 
+	/**
+	 * Adds the user to event.
+	 *
+	 * @param requestor the requestor
+	 * @param id the id
+	 * @param victim the victim
+	 */
 	@Transactional
 	public void addUserToEvent(UserAccount requestor, Long id,
 			UserAccount victim) {
@@ -336,6 +436,13 @@ public class EventService {
 		eventDao.add(event);
 	}
 
+	/**
+	 * Removes the user from event.
+	 *
+	 * @param requestor the requestor
+	 * @param id the id
+	 * @param victim the victim
+	 */
 	@Transactional
 	public void removeUserFromEvent(UserAccount requestor, Long id,
 			UserAccount victim) {
@@ -362,6 +469,15 @@ public class EventService {
 	}
 
 
+	/**
+	 * Update event.
+	 *
+	 * @param requestor the requestor
+	 * @param id the id
+	 * @param newData the new data
+	 * @return the event
+	 * @throws ValidationException the validation exception
+	 */
 	@Transactional
 	public Event updateEvent(UserAccount requestor, Long id, Event newData) throws ValidationException {
 		Preconditions.checkNotNull(requestor);
@@ -402,6 +518,13 @@ public class EventService {
 		return eventDao.add(existing);
 	}
 
+	/**
+	 * Lookup event.
+	 *
+	 * @param requestor the requestor
+	 * @param id the id
+	 * @return the event
+	 */
 	public Event lookupEvent(UserAccount requestor, Long id) {
 		Preconditions.checkNotNull(requestor);
 		Preconditions.checkNotNull(id);

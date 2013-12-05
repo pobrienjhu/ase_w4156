@@ -19,14 +19,23 @@ import com.google.common.base.Joiner;
 import edu.columbia.ase.teamproject.persistence.dao.UserAccountDao;
 import edu.columbia.ase.teamproject.persistence.domain.UserAccount;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AuthKeyAuthenticationProvider.
+ */
 public class AuthKeyAuthenticationProvider implements AuthenticationProvider {
 
+	/** The user dao. */
 	@Autowired
 	UserAccountDao userDao;
 
+	/** The Constant logger. */
 	private static final Logger logger =
 			LoggerFactory.getLogger(AuthKeyAuthenticationProvider.class);
 
+	/* (non-Javadoc)
+	 * @see org.springframework.security.authentication.AuthenticationProvider#authenticate(org.springframework.security.core.Authentication)
+	 */
 	@Override
 	public Authentication authenticate(Authentication authentication)
 			throws AuthenticationException {
@@ -57,6 +66,9 @@ public class AuthKeyAuthenticationProvider implements AuthenticationProvider {
 		return new UsernamePasswordAuthenticationToken(user, null, authorities);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.springframework.security.authentication.AuthenticationProvider#supports(java.lang.Class)
+	 */
 	@Override
 	public boolean supports(Class<?> authentication) {
 		return authentication.equals(UsernamePasswordAuthenticationToken.class);

@@ -20,13 +20,21 @@ import edu.columbia.ase.teamproject.persistence.domain.UserAccount;
 import edu.columbia.ase.teamproject.persistence.domain.enumeration.AccountType;
 import edu.columbia.ase.teamproject.security.Permission;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class UserAccountDaoImpl.
+ */
 @Transactional(propagation = Propagation.REQUIRED)
 public class UserAccountDaoImpl extends HibernateDao<UserAccount, Long>
 	implements UserAccountDao {
 
+	/** The Constant logger. */
 	private static final Logger logger =
 			LoggerFactory.getLogger(UserAccountDaoImpl.class);
 
+	/* (non-Javadoc)
+	 * @see edu.columbia.ase.teamproject.persistence.dao.UserAccountDao#findAccountByNameAndType(java.lang.String, edu.columbia.ase.teamproject.persistence.domain.enumeration.AccountType)
+	 */
 	@Override
 	public UserAccount findAccountByNameAndType(String username,
 			AccountType type) {
@@ -40,6 +48,9 @@ public class UserAccountDaoImpl extends HibernateDao<UserAccount, Long>
 		return (UserAccount) criteria.uniqueResult();
 	}
 
+	/* (non-Javadoc)
+	 * @see edu.columbia.ase.teamproject.persistence.dao.UserAccountDao#findAccountByUserDetails(org.springframework.security.core.userdetails.UserDetails)
+	 */
 	@Override
 	public UserAccount findAccountByUserDetails(UserDetails userDetails) {
 		Preconditions.checkNotNull(userDetails);
@@ -57,6 +68,9 @@ public class UserAccountDaoImpl extends HibernateDao<UserAccount, Long>
 		return findAccountByNameAndType(userDetails.getUsername(), type);
 	}
 
+	/* (non-Javadoc)
+	 * @see edu.columbia.ase.teamproject.persistence.dao.UserAccountDao#findAccountByEmail(java.lang.String)
+	 */
 	@Override
 	public UserAccount findAccountByEmail(String email) {
 		try{
@@ -70,6 +84,9 @@ public class UserAccountDaoImpl extends HibernateDao<UserAccount, Long>
 		return (UserAccount) criteria.uniqueResult();
 	}
 
+	/* (non-Javadoc)
+	 * @see edu.columbia.ase.teamproject.persistence.dao.UserAccountDao#getNumberOfUsers()
+	 */
 	@Override
 	public long getNumberOfUsers() {
 		Criteria criteria = currentSession().createCriteria(daoType)
@@ -79,6 +96,9 @@ public class UserAccountDaoImpl extends HibernateDao<UserAccount, Long>
 		return count.longValue();
 	}
 	
+    /* (non-Javadoc)
+     * @see edu.columbia.ase.teamproject.persistence.dao.generic.HibernateDao#list()
+     */
     @SuppressWarnings("unchecked")
 	@Override
     public List<UserAccount> list() {

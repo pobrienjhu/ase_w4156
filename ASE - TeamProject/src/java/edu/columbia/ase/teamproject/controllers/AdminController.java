@@ -21,19 +21,32 @@ import edu.columbia.ase.teamproject.persistence.dao.UserAccountDao;
 import edu.columbia.ase.teamproject.persistence.domain.UserAccount;
 import edu.columbia.ase.teamproject.security.Permission;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AdminController.
+ */
 @Controller
 @RequestMapping("/admin/index.do")
 public class AdminController {
 
+	/** The user dao. */
 	@Autowired
 	UserAccountDao userDao;
 
+	/** The Constant logger. */
 	private static final Logger logger =
 			LoggerFactory.getLogger(AdminController.class);
 
+	/** The Constant VALID_ACTIONS. */
 	private static final List<String> VALID_ACTIONS =
 			ImmutableList.<String>of("grant", "revoke");
 	
+	/**
+	 * Handles HTTP GET requests.
+	 *
+	 * @param session the session
+	 * @return the model and view
+	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public ModelAndView doGet(HttpSession session) {
 		logger.info("GET /admin/index.do");
@@ -47,6 +60,14 @@ public class AdminController {
 		return new ModelAndView("soy:edu.columbia.ase.admin", model);
 	}
 
+	/**
+* Handles HTTP POST requests
+	 *
+	 * @param session the session
+	 * @param action the action
+	 * @param email the email
+	 * @return the model and view
+	 */
 	@RequestMapping(method=RequestMethod.POST)
 	public ModelAndView doPost(HttpSession session, @RequestParam String action,
 			@RequestParam String email) {

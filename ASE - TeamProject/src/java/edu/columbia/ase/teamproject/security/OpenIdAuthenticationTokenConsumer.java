@@ -23,22 +23,37 @@ import edu.columbia.ase.teamproject.persistence.dao.UserAccountDao;
 import edu.columbia.ase.teamproject.persistence.domain.UserAccount;
 import edu.columbia.ase.teamproject.persistence.domain.enumeration.AccountType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class OpenIdAuthenticationTokenConsumer.
+ */
 @Transactional
 public class OpenIdAuthenticationTokenConsumer implements
 	AuthenticationUserDetailsService<OpenIDAuthenticationToken> {
 
+	/** The Constant logger. */
 	private static final Logger logger =
 			LoggerFactory.getLogger(OpenIdAuthenticationTokenConsumer.class);
 	
+	/** The Constant lock. */
 	private static final Object lock = new Object();
 	
+	/** The user account dao. */
 	private final UserAccountDao userAccountDao;
 
+	/**
+	 * Instantiates a new open id authentication token consumer.
+	 *
+	 * @param userAccountDao the user account dao
+	 */
 	@Autowired
 	public OpenIdAuthenticationTokenConsumer(UserAccountDao userAccountDao) {
 		this.userAccountDao = Preconditions.checkNotNull(userAccountDao);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.springframework.security.core.userdetails.AuthenticationUserDetailsService#loadUserDetails(org.springframework.security.core.Authentication)
+	 */
 	@Override
 	public UserDetails loadUserDetails(OpenIDAuthenticationToken token)
 			throws UsernameNotFoundException {

@@ -7,13 +7,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AuthCheckController.
+ */
 @Controller
 @RequestMapping("/app/authCheck.do")
 public class AuthCheckController {
 
+	/** The Constant logger. */
 	private static final Logger logger =
 			LoggerFactory.getLogger(AuthCheckController.class);
 
+	/**
+	 * Handles HTTP GET requests.
+	 *
+	 * @return the string
+	 */
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
 	public String doGet() {

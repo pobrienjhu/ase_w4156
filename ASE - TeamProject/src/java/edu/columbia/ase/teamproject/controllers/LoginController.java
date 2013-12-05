@@ -15,13 +15,24 @@ import org.springframework.web.servlet.ModelAndView;
 import edu.columbia.ase.teamproject.view.NavigationMenuEntry;
 import edu.columbia.ase.teamproject.view.NavigationMenuSection;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class LoginController.
+ */
 @Controller
 @RequestMapping("/login.do")
 public class LoginController {
 
+	/** The Constant logger. */
 	private static final Logger logger =
 			LoggerFactory.getLogger(LoginController.class);
 
+	/**
+	 * Handles HTTP GET requests.
+	 *
+	 * @param session the session
+	 * @return the model and view
+	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView doGet(HttpSession session) {
 		logger.info("GET /login.do");

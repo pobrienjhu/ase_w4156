@@ -17,18 +17,27 @@ import com.google.common.collect.Maps;
 import edu.columbia.ase.teamproject.security.Permission;
 import edu.columbia.ase.teamproject.view.NavigationMenuSection;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ControllerHelper.
+ */
 public class ControllerHelper {
 
+	/** The Constant ADMIN_AUTHORITY. */
 	private static final GrantedAuthority ADMIN_AUTHORITY =
 			AuthorityUtils.createAuthorityList(Permission.ADMIN.toString())
 			.get(0);
+	
+	/** The Constant ANONYMOUS_AUTHORITY. */
 	private static final GrantedAuthority ANONYMOUS_AUTHORITY =
 			AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS").get(0);
 
-	/** 
+	/**
+	 * Creates the base model.
+	 *
 	 * @param session the current HttpSession
 	 * @return a map containing values for the keys "_csrf" and "_admin" to be
-	 *     used by common template code.
+	 * used by common template code.
 	 */
 	public static Map<String, Object> createBaseModel(HttpSession session) {
 		Map<String, Object> model = Maps.newHashMap();

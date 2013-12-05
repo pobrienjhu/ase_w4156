@@ -20,16 +20,28 @@ import edu.columbia.ase.teamproject.persistence.dao.UserAccountDao;
 import edu.columbia.ase.teamproject.persistence.domain.UserAccount;
 import edu.columbia.ase.teamproject.security.AuthKey;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MobileSetupController.
+ */
 @Controller
 @RequestMapping("/app/mobileSetup.do")
 public class MobileSetupController {
 
+	/** The user account dao. */
 	@Autowired
 	UserAccountDao userAccountDao;
 
+	/** The Constant logger. */
 	private static final Logger logger =
 			LoggerFactory.getLogger(MobileSetupController.class);
 
+	/**
+	 * Handles HTTP GET requests.
+	 *
+	 * @param session the session
+	 * @return the model and view
+	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView doGet(HttpSession session) {
 		logger.info("GET /app/mobileSetup.do");

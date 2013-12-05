@@ -16,43 +16,69 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDateTime;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Vote.
+ */
 @Entity
 @Table(name = "Vote")
 public class Vote {
 	
+	/** The id. */
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "Id", nullable=false)
 	private Long id;
 	
+	/** The vote time. */
 	@Column(name="voteTime")
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
 	private LocalDateTime voteTime;
 	
+	/** The vote option. */
 	@ManyToOne(targetEntity = VoteOption.class)/* (cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}) /*(cascade={CascadeType.ALL})*/
     @JoinColumn(name="voteOptionId")
 	private VoteOption voteOption;
 	
+	/** The user account. */
 	@ManyToOne (targetEntity = UserAccount.class)/*(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})*/ /*(cascade={CascadeType.ALL})*/
     @JoinColumn(name="userId")
 	private UserAccount userAccount;
 
+    /** The optimistic locking version. */
     @Version
     @Column(name="version")
     private Integer optimisticLockingVersion;
     
+	/** The vote category id. */
 	@Column(name="voteCategoryId")
 	private Long voteCategoryId;
 	
 	
+	/**
+	 * Instantiates a new vote.
+	 */
 	public Vote() {
 		super();
 	}
 
+	/**
+	 * Instantiates a new vote.
+	 *
+	 * @param voteOption the vote option
+	 * @param userAccount the user account
+	 */
 	public Vote(VoteOption voteOption, UserAccount userAccount) {
 		this(voteOption, userAccount, new LocalDateTime());
 	}
 	
+	/**
+	 * Instantiates a new vote.
+	 *
+	 * @param voteOption the vote option
+	 * @param userAccount the user account
+	 * @param voteTime the vote time
+	 */
 	public Vote(VoteOption voteOption, UserAccount userAccount, LocalDateTime voteTime) {
 		this();
 		this.voteOption = voteOption;
@@ -62,6 +88,8 @@ public class Vote {
 	}
 
 	/**
+	 * Gets the id.
+	 *
 	 * @return the id
 	 */
 	public Long getId() {
@@ -69,6 +97,8 @@ public class Vote {
 	}
 
 	/**
+	 * Sets the id.
+	 *
 	 * @param id the id to set
 	 */
 	public void setId(Long id) {
@@ -76,6 +106,8 @@ public class Vote {
 	}
 
 	/**
+	 * Gets the vote option.
+	 *
 	 * @return the voteOption
 	 */
 	public VoteOption getVoteOption() {
@@ -83,6 +115,8 @@ public class Vote {
 	}
 
 	/**
+	 * Sets the vote option.
+	 *
 	 * @param voteOption the voteOption to set
 	 */
 	public void setVoteOption(VoteOption voteOption) {
@@ -90,6 +124,8 @@ public class Vote {
 	}
 
 	/**
+	 * Gets the user account.
+	 *
 	 * @return the userAccount
 	 */
 	public UserAccount getUserAccount() {
@@ -97,6 +133,8 @@ public class Vote {
 	}
 
 	/**
+	 * Sets the user account.
+	 *
 	 * @param userAccount the userAccount to set
 	 */
 	public void setUserAccount(UserAccount userAccount) {
@@ -104,15 +142,27 @@ public class Vote {
 	}
 
 	
+	/**
+	 * Gets the vote time.
+	 *
+	 * @return the vote time
+	 */
 	public LocalDateTime getVoteTime() {
 		return voteTime;
 	}
 
+	/**
+	 * Sets the vote time.
+	 *
+	 * @param voteTime the new vote time
+	 */
 	public void setVoteTime(LocalDateTime voteTime) {
 		this.voteTime = voteTime;
 	}
 	
 	/**
+	 * Gets the vote category id.
+	 *
 	 * @return the VoteCategoryId
 	 */
 	public Long getVoteCategoryId() {
@@ -120,20 +170,35 @@ public class Vote {
 	}
 
 	/**
+	 * Sets the vote category id.
+	 *
 	 * @param id the VoteCategoryId to set
 	 */
 	public void setVoteCategoryId(Long id) {
 		this.voteCategoryId = id;
 	}
 	
+	/**
+	 * Gets the optimistic locking version.
+	 *
+	 * @return the optimistic locking version
+	 */
 	public Integer getOptimisticLockingVersion() {
 		return optimisticLockingVersion;
 	}
 
+	/**
+	 * Sets the optimistic locking version.
+	 *
+	 * @param optimisticLockingVersion the new optimistic locking version
+	 */
 	public void setOptimisticLockingVersion(Integer optimisticLockingVersion) {
 		this.optimisticLockingVersion = optimisticLockingVersion;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		

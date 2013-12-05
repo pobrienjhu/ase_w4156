@@ -19,19 +19,32 @@ import edu.columbia.ase.teamproject.persistence.dao.UserAccountDao;
 import edu.columbia.ase.teamproject.persistence.domain.UserAccount;
 import edu.columbia.ase.teamproject.services.EventService;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ListEventController.
+ */
 @Controller
 @RequestMapping("/app/listEvent.do")
 public class ListEventController {
 	
+	/** The event service. */
 	@Autowired
 	EventService eventService;
 
+	/** The user account dao. */
 	@Autowired
 	private UserAccountDao userAccountDao;
 
+	/** The Constant logger. */
 	private static final Logger logger = LoggerFactory
 			.getLogger(ListEventController.class);
 
+	/**
+	 * Handles HTTP GET requests.
+	 *
+	 * @param session the session
+	 * @return the model and view
+	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public ModelAndView doGet(HttpSession session) {
 

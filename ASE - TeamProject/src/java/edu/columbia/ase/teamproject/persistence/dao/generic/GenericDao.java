@@ -2,18 +2,56 @@ package edu.columbia.ase.teamproject.persistence.dao.generic;
 
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface GenericDao.
+ *
+ * @param <E> the element type
+ * @param <K> the key type
+ */
 public interface GenericDao<E, K> {
 
-	 E add(E entity);
+	 /**
+ 	 * Adds the.
+ 	 *
+ 	 * @param entity the entity
+ 	 * @return the e
+ 	 */
+ 	E add(E entity);
 	 
-	 E update(E entity);
+	 /**
+ 	 * Update.
+ 	 *
+ 	 * @param entity the entity
+ 	 * @return the e
+ 	 */
+ 	E update(E entity);
 	 
-	 void remove(E entity);
+	 /**
+ 	 * Removes the.
+ 	 *
+ 	 * @param entity the entity
+ 	 */
+ 	void remove(E entity);
 	 
-	 E find(K key);
+	 /**
+ 	 * Find.
+ 	 *
+ 	 * @param key the key
+ 	 * @return the e
+ 	 */
+ 	E find(K key);
 	 
-	 List<E> list();
+	 /**
+ 	 * List.
+ 	 *
+ 	 * @return the list
+ 	 */
+ 	List<E> list();
 	 
-	 void flush();
+	 /**
+ 	 * Flush.
+ 	 */
+ 	void flush();
  
 }

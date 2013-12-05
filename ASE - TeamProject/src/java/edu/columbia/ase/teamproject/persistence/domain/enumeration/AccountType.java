@@ -6,6 +6,10 @@ import java.util.Map;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Enum AccountType.
+ */
 public enum AccountType {
 
 	/**
@@ -17,10 +21,13 @@ public enum AccountType {
 	 */
 	OPENID("OPENID");
 
+	/** The Constant MAX_ACCOUNT_TYPE_LENGTH. */
 	public static final int MAX_ACCOUNT_TYPE_LENGTH = 64;
 
+	/** The account type. */
 	private final String accountType;	
 	
+	/** The Constant stringToEnum. */
 	private static final Map<String, AccountType> stringToEnum;
 	
 	static {
@@ -32,6 +39,11 @@ public enum AccountType {
 		stringToEnum = ImmutableMap.copyOf(tempMap);
 	}
 	
+	/**
+	 * Instantiates a new account type.
+	 *
+	 * @param accountType the account type
+	 */
 	private AccountType(String accountType) {
 		Preconditions.checkArgument(
 				accountType.length() < MAX_ACCOUNT_TYPE_LENGTH);
@@ -39,17 +51,28 @@ public enum AccountType {
 	}
 
 	/**
+	 * Gets the account type.
+	 *
 	 * @return the accountType
 	 */
 	public String getAccountType() {
 		return accountType;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Enum#toString()
+	 */
 	@Override
 	public String toString() {
 		return accountType;
 	}
 	
+	/**
+	 * From string.
+	 *
+	 * @param accountType the account type
+	 * @return the account type
+	 */
 	public static AccountType fromString( String accountType ){
 		return stringToEnum.get(accountType);
 	}

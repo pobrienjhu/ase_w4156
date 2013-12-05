@@ -39,32 +39,50 @@ import edu.columbia.ase.teamproject.util.GsonProvider;
 import edu.columbia.ase.teamproject.view.NavigationMenuEntry;
 import edu.columbia.ase.teamproject.view.NavigationMenuSection;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class VoteController.
+ */
 @Controller
 @RequestMapping("/app/voteEvent.do")
 public final class VoteController {
 
+	/** The event service. */
 	@Autowired
 	EventService eventService;
 	
+	/** The vote service. */
 	@Autowired
 	VoteService voteService;
 
+	/** The gson provider. */
 	@Autowired
 	GsonProvider gsonProvider;
 	
+	/** The user account dao. */
 	@Autowired
 	private UserAccountDao userAccountDao;
 	
+	/** The vote dao. */
 	@Autowired
 	private VoteDao voteDao;
 	
+	/** The vote option dao. */
 	@Autowired
 	private VoteOptionDao voteOptionDao;
 
 
+	/** The Constant logger. */
 	private static final Logger logger = LoggerFactory
 			.getLogger(VoteController.class);
 
+	/**
+	 * Handles HTTP GET requests.
+	 *
+	 * @param session the session
+	 * @param request the request
+	 * @return the model and view
+	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView doGet(HttpSession session, HttpServletRequest request) {
 		logger.info("GET /app/voteEvent.do");
@@ -120,6 +138,15 @@ public final class VoteController {
 		}
 	}
 	
+	/**
+* Handles HTTP POST requests
+	 *
+	 * @param session the session
+	 * @param request the request
+	 * @param response the response
+	 * @return the string
+	 * @throws Exception the exception
+	 */
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseBody
 	public String doPost(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws Exception 

@@ -30,22 +30,36 @@ import edu.columbia.ase.teamproject.services.EventService;
 import edu.columbia.ase.teamproject.services.exceptions.ValidationException;
 import edu.columbia.ase.teamproject.util.GsonProvider;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CreateEventController.
+ */
 @Controller
 @RequestMapping("/app/createEvent.do")
 public final class CreateEventController {
 
+	/** The event service. */
 	@Autowired
 	EventService eventService;
 
+	/** The user account dao. */
 	@Autowired
 	private UserAccountDao userAccountDao;
 
+	/** The gson provider. */
 	@Autowired
 	GsonProvider gsonProvider;
 
+	/** The Constant logger. */
 	private static final Logger logger = LoggerFactory
 			.getLogger(CreateEventController.class);
 
+	/**
+	 * Handles HTTP GET requests.
+	 *
+	 * @param session the session
+	 * @return the model and view
+	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView doGet(HttpSession session) {
 		logger.info("GET /app/createEvent.do");
@@ -58,6 +72,16 @@ public final class CreateEventController {
 		return new ModelAndView("soy:edu.columbia.ase.event.createEvent", model);
 	}
 
+	/**
+* Handles HTTP POST requests
+	 *
+	 * @param session the session
+	 * @param request the request
+	 * @param response the response
+	 * @return the string
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ValidationException the validation exception
+	 */
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseBody
 	public String doPost(HttpSession session, HttpServletRequest request, HttpServletResponse response)

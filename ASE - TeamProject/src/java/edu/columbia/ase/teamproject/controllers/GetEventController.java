@@ -22,18 +22,27 @@ import edu.columbia.ase.teamproject.persistence.domain.UserAccount;
 import edu.columbia.ase.teamproject.services.EventService;
 import edu.columbia.ase.teamproject.util.GsonProvider;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GetEventController.
+ */
 @Controller
 @RequestMapping("/app/getEvent.do")
 public class GetEventController {
+	
+	/** The event service. */
 	@Autowired
 	EventService eventService;
 
+	/** The user account dao. */
 	@Autowired
 	private UserAccountDao userAccountDao;
 
+	/** The gson provider. */
 	@Autowired
 	GsonProvider gsonProvider;
 
+	/** The Constant logger. */
 	private static final Logger logger = LoggerFactory
 			.getLogger(GetEventController.class);
 
@@ -41,6 +50,14 @@ public class GetEventController {
 	// variants -- one that returns JSON, and one that returns an
 	// HTML page that shows the event information.  For now we
 	// just return the JSON.
+	/**
+	 * Handles HTTP GET requests.
+	 *
+	 * @param session the session
+	 * @param request the request
+	 * @param response the response
+	 * @return the string
+	 */
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
 	public String doGet(HttpSession session, HttpServletRequest request, HttpServletResponse response) {

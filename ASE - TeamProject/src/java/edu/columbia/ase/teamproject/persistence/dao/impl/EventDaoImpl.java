@@ -11,9 +11,16 @@ import edu.columbia.ase.teamproject.persistence.dao.generic.HibernateDao;
 import edu.columbia.ase.teamproject.persistence.domain.Event;
 import edu.columbia.ase.teamproject.persistence.domain.enumeration.EventType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class EventDaoImpl.
+ */
 @Transactional(propagation = Propagation.REQUIRED)
 public class EventDaoImpl extends HibernateDao<Event, Long> implements EventDao {
 
+	/* (non-Javadoc)
+	 * @see edu.columbia.ase.teamproject.persistence.dao.EventDao#getAllActivePublicEvents(org.joda.time.DateTime)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<Event> getAllActivePublicEvents(DateTime currentTime){
@@ -26,6 +33,9 @@ public class EventDaoImpl extends HibernateDao<Event, Long> implements EventDao 
 				.setParameter("ct", currentTime ).list();				
 	}
 
+	/* (non-Javadoc)
+	 * @see edu.columbia.ase.teamproject.persistence.dao.EventDao#getAllActivePrivateEventsForUserId(org.joda.time.DateTime, java.lang.Long)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<Event> getAllActivePrivateEventsForUserId(DateTime currentTime,
@@ -44,6 +54,9 @@ public class EventDaoImpl extends HibernateDao<Event, Long> implements EventDao 
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.columbia.ase.teamproject.persistence.dao.EventDao#getAllActiveAdminEventsForUserId(org.joda.time.DateTime, java.lang.Long)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<Event> getAllActiveAdminEventsForUserId(DateTime currentTime,
@@ -60,6 +73,9 @@ public class EventDaoImpl extends HibernateDao<Event, Long> implements EventDao 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see edu.columbia.ase.teamproject.persistence.dao.EventDao#getAllCompletedPublicEvents(org.joda.time.DateTime)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<Event> getAllCompletedPublicEvents(DateTime currentTime) {
@@ -71,6 +87,9 @@ public class EventDaoImpl extends HibernateDao<Event, Long> implements EventDao 
 				.setParameter("ct", currentTime ).list();
 	}
 
+	/* (non-Javadoc)
+	 * @see edu.columbia.ase.teamproject.persistence.dao.EventDao#getAllCompletedPrivateEventsForUserId(org.joda.time.DateTime, java.lang.Long)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<Event> getAllCompletedPrivateEventsForUserId(
@@ -87,6 +106,9 @@ public class EventDaoImpl extends HibernateDao<Event, Long> implements EventDao 
 				.setParameter("ct", currentTime ).list();	
 	}
 
+	/* (non-Javadoc)
+	 * @see edu.columbia.ase.teamproject.persistence.dao.EventDao#getAllCompletedAdminEventsForUserId(org.joda.time.DateTime, java.lang.Long)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<Event> getAllCompletedAdminEventsForUserId(
@@ -101,6 +123,9 @@ public class EventDaoImpl extends HibernateDao<Event, Long> implements EventDao 
 				.setParameter("ct", currentTime ).list();
 	}
 
+	/* (non-Javadoc)
+	 * @see edu.columbia.ase.teamproject.persistence.dao.EventDao#getAllFutureAdminEventsForUserId(org.joda.time.DateTime, java.lang.Long)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<Event> getAllFutureAdminEventsForUserId(

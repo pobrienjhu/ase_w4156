@@ -20,17 +20,31 @@ import edu.columbia.ase.teamproject.util.GsonProvider;
 import edu.columbia.ase.teamproject.view.NavigationMenuEntry;
 import edu.columbia.ase.teamproject.view.NavigationMenuSection;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class VoteService.
+ */
 public class VoteService {
 	
+	/** The vote option dao. */
 	@Autowired
 	VoteOptionDao voteOptionDao;
 	
+	/** The vote dao. */
 	@Autowired
 	VoteDao voteDao;
 	
+	/** The gson provider. */
 	@Autowired
 	GsonProvider gsonProvider;
 
+	/**
+	 * Verify votes.
+	 *
+	 * @param event the event
+	 * @param voteList the vote list
+	 * @throws Exception the exception
+	 */
 	@VisibleForTesting
 	@Transactional
 	void verifyVotes(Event event,List<Long>voteList) throws Exception
@@ -53,6 +67,14 @@ public class VoteService {
 	
 	}
 	
+	/**
+	 * Adds the votes.
+	 *
+	 * @param event the event
+	 * @param voteList the vote list
+	 * @param user the user
+	 * @throws Exception the exception
+	 */
 	@Transactional
 	public void addVotes(Event event, List<Long>voteList, UserAccount user) throws Exception{
 		verifyVotes(event, voteList);
@@ -62,6 +84,13 @@ public class VoteService {
 		 }
 	}
 
+	/**
+	 * Adds the vote.
+	 *
+	 * @param id the id
+	 * @param user the user
+	 * @throws Exception the exception
+	 */
 	@VisibleForTesting
 	@Transactional
 	void addVote(long id,UserAccount user) throws Exception
@@ -102,6 +131,12 @@ public class VoteService {
 			
 	}
 	
+	/**
+	 * Gets the results.
+	 *
+	 * @param event the event
+	 * @return the results
+	 */
 	public String getResults(Event event)
 	{
 				

@@ -8,9 +8,19 @@ import edu.columbia.ase.teamproject.persistence.domain.Event;
 import edu.columbia.ase.teamproject.persistence.domain.VoteCategory;
 import edu.columbia.ase.teamproject.services.exceptions.ValidationException;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class EventValidationHelper.
+ */
 public class EventValidationHelper {
 
 	
+	/**
+	 * Validate event update.
+	 *
+	 * @param event the event
+	 * @throws ValidationException the validation exception
+	 */
 	public static void validateEventUpdate(Event event) throws ValidationException
 	{
 		ValidationException validationException = new ValidationException();
@@ -31,6 +41,12 @@ public class EventValidationHelper {
 		
 	}
 	
+	/**
+	 * Validate event creation.
+	 *
+	 * @param event the event
+	 * @throws ValidationException the validation exception
+	 */
 	public static void validateEventCreation(Event event) throws ValidationException
 	{
 		
@@ -79,6 +95,12 @@ public class EventValidationHelper {
 		
 	}
 	
+	/**
+	 * Validate vote category.
+	 *
+	 * @param category the category
+	 * @throws ValidationException the validation exception
+	 */
 	public static void validateVoteCategory(VoteCategory category) throws ValidationException {
 		
 		ValidationException validationException = new ValidationException();

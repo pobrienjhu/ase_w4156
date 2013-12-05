@@ -37,41 +37,59 @@ import edu.columbia.ase.teamproject.persistence.dao.util.ColumnLength;
 import edu.columbia.ase.teamproject.persistence.domain.enumeration.AccountType;
 import edu.columbia.ase.teamproject.security.Permission;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class UserAccount.
+ */
 @Entity
 @Table(name = "UserAccount")
 public class UserAccount {
 
 	// See constraints in schema.sql.
+	/** The Constant MAX_USERNAME_LENGTH. */
 	public static final int MAX_USERNAME_LENGTH = 256;
+	
+	/** The Constant MAX_PASSWORD_LENGTH. */
 	public static final int MAX_PASSWORD_LENGTH = 256;
+	
+	/** The Constant MAX_DISPLAY_NAME_LENGTH. */
 	public static final int MAX_DISPLAY_NAME_LENGTH = 64;
+	
+	/** The Constant MAX_EMAIL_LENGTH. */
 	public static final int MAX_EMAIL_LENGTH = 128;
 
+	/** The id. */
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "Id", nullable=false)
 	private Long id;
 
+	/** The account type. */
 	@Column(name="accountType", nullable=false)
 	@Enumerated(EnumType.STRING)
 	private AccountType accountType;
 
+	/** The username. */
 	@Column(name="username", nullable=false)
 	@ColumnLength(value = MAX_USERNAME_LENGTH)
 	private String username;
 
+	/** The password. */
 	@Column(name="password")
 	@ColumnLength(value = MAX_PASSWORD_LENGTH)
 	private String password;
 
+	/** The display name. */
 	@Column(name="displayName")
 	@ColumnLength(value = MAX_DISPLAY_NAME_LENGTH)
 	private String displayName;
 
+	/** The email. */
 	@Column(name="email", nullable=false)
 	@ColumnLength(value = MAX_EMAIL_LENGTH)
 	private String email;
 	
+	/** The permissions. */
 	@ElementCollection(fetch=FetchType.EAGER)
 	@Enumerated(EnumType.STRING)
 	@CollectionTable( 
@@ -82,6 +100,7 @@ public class UserAccount {
 	@Type(type="edu.columbia.ase.teamproject.persistence.domain.enumeration.PermissionUserType")
 	private List<Permission> permissions;
 
+	/** The admin events. */
 	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinTable(name="Admin_Event",
@@ -89,6 +108,7 @@ public class UserAccount {
 		inverseJoinColumns={@JoinColumn(name="eventId")})
 	private List<Event> adminEvents;
 	
+	/** The user events. */
 	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinTable(name="User_Event",
@@ -98,21 +118,36 @@ public class UserAccount {
 	
 	
 	
+	/** The votes. */
 	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, orphanRemoval=true, mappedBy="userAccount")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Vote> votes;
 	
 	
+    /** The optimistic locking version. */
     @Version
     private Integer optimisticLockingVersion;
 	
 	// A no-arg constructor is required for Hibernate.
+	/**
+	 * Instantiates a new user account.
+	 */
 	private UserAccount() {
 		userEvents = new ArrayList<Event>();
 		adminEvents = new ArrayList<Event>();
 		votes = new ArrayList<Vote>();
 	}
 
+	/**
+	 * Instantiates a new user account.
+	 *
+	 * @param type the type
+	 * @param username the username
+	 * @param displayName the display name
+	 * @param password the password
+	 * @param email the email
+	 * @param permissions the permissions
+	 */
 	public UserAccount(AccountType type, String username,
 			@Nullable String displayName, @Nullable String password,
 			String email, List<Permission> permissions) {
@@ -138,6 +173,8 @@ public class UserAccount {
 	}
 
 	/**
+	 * Gets the id.
+	 *
 	 * @return the id
 	 */
 	public Long getId() {
@@ -145,36 +182,68 @@ public class UserAccount {
 	}
 
 	/**
+	 * Sets the id.
+	 *
 	 * @param id the id to set
 	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
 
+	/**
+	 * Adds the admin event.
+	 *
+	 * @param event the event
+	 */
 	public void addAdminEvent(Event event){
 		Preconditions.checkNotNull(event);
 		adminEvents.add(event);
 	}
 	
+	/**
+	 * Gets the username.
+	 *
+	 * @return the username
+	 */
 	@Nullable
 	public String getUsername() {
 		return username;
 	}
 
+	/**
+	 * Gets the password.
+	 *
+	 * @return the password
+	 */
 	@Nullable
 	public String getPassword() {
 		return password;
 	}
 
+	/**
+	 * Gets the account type.
+	 *
+	 * @return the account type
+	 */
 	public AccountType getAccountType() {
 		return accountType;
 	}
 
+	/**
+	 * Adds the permission.
+	 *
+	 * @param permission the permission
+	 */
 	public void addPermission(Permission permission) {
 		Preconditions.checkState(!permissions.contains(permission));
 		permissions.add(permission);
 	}
 
+	/**
+	 * Revoke permission.
+	 *
+	 * @param permission the permission
+	 */
 	public void revokePermission(Permission permission) {
 		int idx = permissions.indexOf(permission);
 		if (idx == -1) {
@@ -183,16 +252,28 @@ public class UserAccount {
 		permissions.remove(idx);
 	}
 
+	/**
+	 * Gets the permissions.
+	 *
+	 * @return the permissions
+	 */
 	public List<Permission> getPermissions() {
 		return Lists.newArrayList(permissions.iterator());
 	}
 
+	/**
+	 * Gets the display name.
+	 *
+	 * @return the display name
+	 */
 	@Nullable
 	public String getDisplayName() {
 		return displayName;
 	}
 
 	/**
+	 * Sets the username.
+	 *
 	 * @param username the username to set
 	 */
 	public void setUsername(String username) {
@@ -200,6 +281,8 @@ public class UserAccount {
 	}
 
 	/**
+	 * Sets the password.
+	 *
 	 * @param password the password to set
 	 */
 	public void setPassword(@Nullable String password) {
@@ -207,25 +290,45 @@ public class UserAccount {
 	}
 
 	/**
+	 * Sets the display name.
+	 *
 	 * @param displayName the displayName to set
 	 */
 	public void setDisplayName(@Nullable String displayName) {
 		this.displayName = displayName;
 	}
 
+	/**
+	 * Gets the email.
+	 *
+	 * @return the email
+	 */
 	public String getEmail() {
 		return email;
 	}
 
+	/**
+	 * Gets the optimistic locking version.
+	 *
+	 * @return the optimistic locking version
+	 */
 	public Integer getOptimisticLockingVersion() {
 		return optimisticLockingVersion;
 	}
 
 
+	/**
+	 * Sets the optimistic locking version.
+	 *
+	 * @param version the new optimistic locking version
+	 */
 	public void setOptimisticLockingVersion(Integer version) {
 		this.optimisticLockingVersion = version;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		
@@ -240,6 +343,9 @@ public class UserAccount {
 				.toString();		
 	}	
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof UserAccount) {
@@ -250,22 +356,40 @@ public class UserAccount {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		return Objects.hashCode(username, accountType);
 	}
 	
+	/**
+	 * Removes the vote.
+	 *
+	 * @param vote the vote
+	 */
 	public void removeVote(Vote vote){
 		Preconditions.checkNotNull(vote);
 		votes.remove(vote);
 	}
 	
+	/**
+	 * Gets the votes.
+	 *
+	 * @return the votes
+	 */
 	public List<Vote> getVotes()
 	{
 		return votes;
 	
 	}
 
+	/**
+	 * Adds the vote.
+	 *
+	 * @param vote the vote
+	 */
 	public void addVote(Vote vote){
 		votes.add(vote);
 	}
