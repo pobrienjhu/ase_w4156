@@ -37,6 +37,10 @@ public class VoteService {
     /** The gson provider. */
     @Autowired
     GsonProvider gsonProvider;
+    
+    /** The event service. */
+    @Autowired
+    EventService eventService;
 
     /**
      * Verify votes.
@@ -82,9 +86,13 @@ public class VoteService {
      *             the exception
      */
     @Transactional
-    public void addVotes(final Event event, final List<Long> voteList, final UserAccount user)
+    public void addVotes(Event event, final List<Long> voteList, final UserAccount user)
             throws Exception {
-        verifyVotes(event, voteList);
+    	event = eventService.lookupEvent(user,event.getId());
+    	if(event == null)
+    		throw new Exception("Invalid event for user");
+        
+    	verifyVotes(event, voteList);
 
         for (int i = 0; i < voteList.size(); i++) {
             addVote(voteList.get(i), user);

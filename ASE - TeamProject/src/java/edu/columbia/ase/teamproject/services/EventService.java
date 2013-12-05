@@ -581,10 +581,10 @@ public class EventService {
         case PUBLIC:
             return event;
         case PRIVATE:
-            // TODO(pames): add tests for this
+           
             if (event.getAdminUsers().contains(requestor)
                     || event.getEventUsers().contains(requestor)) {
-                return event;
+            	return event;
             }
         }
         return null;
