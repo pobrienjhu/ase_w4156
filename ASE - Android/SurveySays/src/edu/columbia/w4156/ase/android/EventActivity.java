@@ -181,7 +181,11 @@ public class EventActivity extends Activity implements VoteCategoriesReceiver {
 			return session;
 		}
 
-		public CastVoteArgs(String baseUrl, Session session,
+		public Map<Long, Long> getVoteCategoryToSelection() {
+			return voteCategoryToSelection;
+		}
+
+		public CastVoteArgs(String baseUrl, Session session, Long eventId,
 				Map<Long, Long> voteCategoryToSelection) {
 			this.uri = URI.create(baseUrl + "/app/voteEvent.do");
 			this.session = session;
@@ -193,6 +197,8 @@ public class EventActivity extends Activity implements VoteCategoriesReceiver {
 
 		private String buildVoteString(Map<Long, Long> map) {
 			StringBuilder sb = new StringBuilder();
+			sb.append(eventId);
+			sb.append(" ");
 			for (Map.Entry<Long, Long> entry : map.entrySet()) {
 				sb.append(entry.getValue());
 				sb.append(" ");
@@ -212,7 +218,7 @@ public class EventActivity extends Activity implements VoteCategoriesReceiver {
 			boolean succeeded = false;
 			try {
 				HttpEntity entity =
-						new StringEntity(buildVoteString(voteCategoryToSelection));
+						new StringEntity(buildVoteString(args.getVoteCategoryToSelection()));
 				post.setEntity(entity);
 				HttpResponse response = client.execute(post);
 				if (response.getStatusLine().getStatusCode() == 200) {
@@ -242,7 +248,7 @@ public class EventActivity extends Activity implements VoteCategoriesReceiver {
 		}
 		CastVoteArgs args = new CastVoteArgs(
 				sharedPreferences.getString("serverUrl", null),
-				session, voteCategoryToSelection);
+				session, eventId, voteCategoryToSelection);
 		CastVoteTask task = new CastVoteTask();
 		task.execute(args);
 	}
