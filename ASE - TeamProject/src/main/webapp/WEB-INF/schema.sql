@@ -7,7 +7,8 @@ displayName varchar(64),
 email varchar(128) NOT NULL,
 accountType varchar(64) NOT NULL,
 PRIMARY KEY (Id),
-CONSTRAINT uc_Email UNIQUE(email)
+CONSTRAINT uc_Email UNIQUE(email),
+CONSTRAINT uc_Username UNIQUE(username)
 );
  
 CREATE TABLE IF NOT EXISTS Permission
